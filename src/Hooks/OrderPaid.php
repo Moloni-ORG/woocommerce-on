@@ -71,7 +71,7 @@ class OrderPaid
                 // Translators: %1$s is the order name.
                 $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
-                $message .= strip_tags($e->getMessage());
+                $message .= wp_strip_all_tags($e->getMessage());
 
                 Notice::addmessagecustom(htmlentities($e->getError()));
 
@@ -131,7 +131,7 @@ class OrderPaid
                 // Translators: %1$s is the order name.
                 $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
-                $message .= strip_tags($e->getMessage());
+                $message .= wp_strip_all_tags($e->getMessage());
 
                 Notice::addmessagecustom(htmlentities($e->getError()));
 

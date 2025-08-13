@@ -86,7 +86,7 @@ class Ajax
             // Translators: %1$s is the order name.
             $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
             $message .= ' </br>';
-            $message .= strip_tags($e->getMessage());
+            $message .= wp_strip_all_tags($e->getMessage());
 
             Context::logger()->error($message, [
                     'tag' => 'ajax:document:create:error',

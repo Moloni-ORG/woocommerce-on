@@ -86,11 +86,11 @@ class ProductView
         ?>
         <div>
             <p>
-                <b><?= __("Reference: ", 'moloni-on') ?></b> <?= $this->moloniProduct['reference'] ?><br>
-                <b><?= __("Price: ", 'moloni-on') ?></b> <?= $this->moloniProduct['price'] ?>€<br>
+                <b><?php echo __("Reference: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['reference'] ?><br>
+                <b><?php echo __("Price: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['price'] ?>€<br>
 
                 <?php if ((int)$this->moloniProduct['hasStock'] === Boolean::YES) : ?>
-                    <b><?= __("Stock: ", 'moloni-on') ?></b> <?= $this->moloniProduct['stock'] ?>
+                    <b><?php echo __("Stock: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['stock'] ?>
                 <?php endif; ?>
 
                 <?php
@@ -108,8 +108,8 @@ class ProductView
                 <a type="button"
                    class="button button-primary"
                    target="_BLANK"
-                   href="<?= Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId'] ?>"
-                > <?= __("See product", 'moloni-on') ?> </a>
+                   href="<?php echo Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId'] ?>"
+                > <?php echo __("See product", 'moloni-on') ?> </a>
             <?php endif; ?>
         </div>
         <?php

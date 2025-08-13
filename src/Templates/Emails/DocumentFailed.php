@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title><?= __('Moloni document error', 'moloni-on') ?></title>
-    <meta name="description" content="<?= __('Document Error Email Template.', 'moloni-on') ?>">
+    <title><?php echo __('Moloni document error', 'moloni-on') ?></title>
+    <meta name="description" content="<?php echo __('Document Error Email Template.', 'moloni-on') ?>">
     <style type="text/css">
         a:hover {
             text-decoration: underline !important;
@@ -30,8 +30,8 @@ if (!defined('ABSPATH')) {
                 </tr>
                 <tr>
                     <td style="text-align:center;">
-                        <a href="<?= $url ?? '' ?>" title="logo" target="_blank">
-                            <img width="200px" src="<?= $image ?? '' ?>" title="logo"
+                        <a href="<?php echo $url ?? '' ?>" title="logo" target="_blank">
+                            <img width="200px" src="<?php echo $image ?? '' ?>" title="logo"
                                  alt="logo">
                         </a>
                     </td>
@@ -49,18 +49,18 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:28px;font-family:'Rubik',sans-serif;">
-                                        <?= __('Moloni document error', 'moloni-on') ?>
+                                        <?php echo __('Moloni document error', 'moloni-on') ?>
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('An error occurred creating an Moloni document.', 'moloni-on') ?>
+                                        <?php echo __('An error occurred creating an Moloni document.', 'moloni-on') ?>
                                     </p>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('Please check plugin logs for more information.', 'moloni-on') ?>
+                                        <?php echo __('Please check plugin logs for more information.', 'moloni-on') ?>
                                     </p>
                                     <br>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= $extra ?? '' ?>
+                                        <?php echo $extra ?? '' ?>
                                     </p>
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@ if (!defined('ABSPATH')) {
     <tr>
         <td style="text-align:center;">
             <p style="font-size:14px; color:#fff; line-height:18px; margin:0 0 0;">
-                &copy; <strong><?= $year ?? '' ?> Moloni</strong>
+                &copy; <strong><?php echo $year ?? '' ?> Moloni</strong>
             </p>
         </td>
     </tr>

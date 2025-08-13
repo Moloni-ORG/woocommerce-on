@@ -625,8 +625,8 @@ class Documents
      */
     public function setDates(): Documents
     {
-        $this->date = date('Y-m-d H:i:s');
-        $this->expirationDate = date('Y-m-d H:i:s');
+        $this->date = gmdate('Y-m-d H:i:s');
+        $this->expirationDate = gmdate('Y-m-d H:i:s');
 
         return $this;
     }
@@ -964,7 +964,7 @@ class Documents
             if ((int)$paymentMethod->payment_method_id > 0) {
                 $this->payments[] = [
                     'paymentMethodId' => (int)$paymentMethod->payment_method_id,
-                    'date' => date('Y-m-d H:i:s'),
+                    'date' => gmdate('Y-m-d H:i:s'),
                     'paymentMethodName' => $paymentMethodName,
                     'value' => ((float)$this->order->get_total() - (float)$this->order->get_total_refunded())
                 ];
@@ -1019,7 +1019,7 @@ class Documents
         }
 
         $this->deliveryMethodId = $deliveryMethod->delivery_method_id;
-        $this->deliveryLoadDate = date('Y-m-d H:i:s');
+        $this->deliveryLoadDate = gmdate('Y-m-d H:i:s');
 
         $loadSetting = defined('LOAD_ADDRESS') ? (int)LOAD_ADDRESS : 0;
 

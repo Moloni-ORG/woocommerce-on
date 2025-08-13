@@ -4,14 +4,14 @@
  *   Plugin Name:  Moloni DEV
  *   Description:  Development plugin for Moloni Spain and MoloniOn.
  *   Version:      0.0.01
- *   Tested up to: 6.8.1
+ *   Tested up to: 6.8.0
  *   WC tested up to: 9.8.5
  *
  *   Author:       Moloni
  *   Author URI:   https://moloni.pt
  *   License:      GPL2
  *   License URI:  https://www.gnu.org/licenses/gpl-2.0.html
- *   Text Domain:  moloni_on
+ *   Text Domain:  moloni-on
  *   Domain Path:  /languages
  */
 

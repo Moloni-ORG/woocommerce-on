@@ -8,15 +8,15 @@ $row = $row ?? [];
 ?>
 
 <tr class="product__row"
-    data-wc-id="<?= $row['wc_product_id'] ?? 0 ?>"
-    data-moloni-id="<?= $row['moloni_product_id'] ?? 0 ?>"
+    data-wc-id="<?php echo $row['wc_product_id'] ?? 0 ?>"
+    data-moloni-id="<?php echo $row['moloni_product_id'] ?? 0 ?>"
 >
     <td class="product__row-name">
-        <?= !empty($row['moloni_product_array']['parent']) ? ' 	&rdsh; ' : '' ?>
-        <?= $row['moloni_product_array']['name'] ?? '---' ?>
+        <?php echo !empty($row['moloni_product_array']['parent']) ? ' 	&rdsh; ' : '' ?>
+        <?php echo $row['moloni_product_array']['name'] ?? '---' ?>
     </td>
     <td class="product__row-reference">
-        <?= $row['moloni_product_array']['reference'] ?? '---' ?>
+        <?php echo $row['moloni_product_array']['reference'] ?? '---' ?>
     </td>
     <td>
         <?php
@@ -46,22 +46,22 @@ $row = $row ?? [];
         <?php if (!empty($row['wc_product_link']) || !empty($row['moloni_product_link'])) : ?>
             <div class="dropdown">
                 <button type="button" class="dropdown--manager button button-primary">
-                    <?= __('Open', 'moloni-on') ?> &#8628;
+                    <?php echo __('Open', 'moloni-on') ?> &#8628;
                 </button>
                 <div class="dropdown__content">
                     <ul>
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
-                                <a target="_blank" href="<?= $row['moloni_product_link'] ?>">
-                                    <?= __('Open in Moloni', 'moloni-on') ?>
+                                <a target="_blank" href="<?php echo $row['moloni_product_link'] ?>">
+                                    <?php echo __('Open in Moloni', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>
 
                         <?php if (!empty($row['wc_product_link'])) : ?>
                             <li>
-                                <a target="_blank" href="<?= $row['wc_product_link'] ?>">
-                                    <?= __('Open in WooCommerce', 'moloni-on') ?>
+                                <a target="_blank" href="<?php echo $row['wc_product_link'] ?>">
+                                    <?php echo __('Open in WooCommerce', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -72,12 +72,12 @@ $row = $row ?? [];
     </td>
     <td class="text-center">
         <input type="checkbox" class="checkbox_create_product m-0-important"
-            <?= empty($row['tool_show_create_button']) ? 'disabled' : '' ?>
+            <?php echo empty($row['tool_show_create_button']) ? 'disabled' : '' ?>
         >
     </td>
     <td class="text-center">
         <input type="checkbox" class="checkbox_update_stock_product m-0-important"
-            <?= empty($row['tool_show_update_stock_button']) ? 'disabled' : '' ?>
+            <?php echo empty($row['tool_show_update_stock_button']) ? 'disabled' : '' ?>
         >
     </td>
 </tr>

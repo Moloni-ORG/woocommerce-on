@@ -17,35 +17,35 @@ if (!defined('ABSPATH')) {
 
 <section id="moloni" class="moloni">
     <div class="header">
-        <img src="<?= Context::getImagesPath() ?>logo.svg" width='300px' alt="Moloni">
+        <img src="<?php echo Context::getImagesPath() ?>logo.svg" width='300px' alt="Moloni">
     </div>
 
     <?php settings_errors(); ?>
 
     <nav class="nav-tab-wrapper woo-nav-tab-wrapper">
-        <a href="<?= esc_url(Context::getAdminUrl()) ?>"
-           class="nav-tab <?= ($this->activeTab === '') ? 'nav-tab-active' : '' ?>">
-            <?= __('Orders', 'moloni-on') ?>
+        <a href="<?php echo esc_url(Context::getAdminUrl()) ?>"
+           class="nav-tab <?php echo ($this->activeTab === '') ? 'nav-tab-active' : '' ?>">
+            <?php echo __('Orders', 'moloni-on') ?>
         </a>
 
-        <a href="<?= esc_url(Context::getAdminUrl('tab=settings')) ?>"
-           class="nav-tab <?= ($this->activeTab === 'settings') ? 'nav-tab-active' : '' ?>">
-            <?= __('Settings', 'moloni-on') ?>
+        <a href="<?php echo esc_url(Context::getAdminUrl('tab=settings')) ?>"
+           class="nav-tab <?php echo ($this->activeTab === 'settings') ? 'nav-tab-active' : '' ?>">
+            <?php echo __('Settings', 'moloni-on') ?>
         </a>
 
-        <a href="<?= esc_url(Context::getAdminUrl('tab=automation')) ?>"
-           class="nav-tab <?= ($this->activeTab === 'automation') ? 'nav-tab-active' : '' ?>">
-            <?= __('Automation', 'moloni-on') ?>
+        <a href="<?php echo esc_url(Context::getAdminUrl('tab=automation')) ?>"
+           class="nav-tab <?php echo ($this->activeTab === 'automation') ? 'nav-tab-active' : '' ?>">
+            <?php echo __('Automation', 'moloni-on') ?>
         </a>
 
-        <a href="<?= esc_url(Context::getAdminUrl('tab=logs')) ?>"
-           class="nav-tab <?= $this->activeTab === 'logs' ? 'nav-tab-active' : '' ?>">
-            <?= __('Logs', 'moloni-on') ?>
+        <a href="<?php echo esc_url(Context::getAdminUrl('tab=logs')) ?>"
+           class="nav-tab <?php echo $this->activeTab === 'logs' ? 'nav-tab-active' : '' ?>">
+            <?php echo __('Logs', 'moloni-on') ?>
         </a>
 
-        <a href="<?= esc_url(Context::getAdminUrl('tab=tools')) ?>"
-           class="nav-tab <?= (in_array($this->activeTab, ['tools', 'wcProductsList', 'moloniProductsList'])) ? 'nav-tab-active' : '' ?>">
-            <?= __('Tools', 'moloni-on') ?>
+        <a href="<?php echo esc_url(Context::getAdminUrl('tab=tools')) ?>"
+           class="nav-tab <?php echo (in_array($this->activeTab, ['tools', 'wcProductsList', 'moloniProductsList'])) ? 'nav-tab-active' : '' ?>">
+            <?php echo __('Tools', 'moloni-on') ?>
         </a>
     </nav>
 

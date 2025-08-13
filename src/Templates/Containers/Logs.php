@@ -14,22 +14,22 @@ $logsContext = [];
 ?>
 
 <div class="wrap">
-    <h3><?= __('Here you can check all plugin logs', 'moloni-on') ?></h3>
+    <h3><?php echo __('Here you can check all plugin logs', 'moloni-on') ?></h3>
 
     <div class="tablenav top">
         <div class="tablenav-pages">
-            <?= Logs::getPagination() ?>
+            <?php echo Logs::getPagination() ?>
         </div>
     </div>
 
-    <form method="post" action='<?= Context::getAdminUrl("tab=logs") ?>'>
+    <form method="post" action='<?php echo Context::getAdminUrl("tab=logs") ?>'>
         <table class='wp-list-table widefat striped posts'>
             <thead>
             <tr>
-                <th><a><?= __('Date', 'moloni-on') ?></a></th>
-                <th><a><?= __('Level', 'moloni-on') ?></a></th>
-                <th><a><?= __('Message', 'moloni-on') ?></a></th>
-                <th><a><?= __('Context', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Date', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Level', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Message', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Context', 'moloni-on') ?></a></th>
             </tr>
             <tr>
                 <th>
@@ -37,7 +37,7 @@ $logsContext = [];
                         type="date"
                         class="inputOut ml-0"
                         name="filter_date"
-                        value="<?= esc_html($_GET['filter_date'] ?? $_POST['filter_date'] ?? '') ?>"
+                        value="<?php echo esc_html($_GET['filter_date'] ?? $_POST['filter_date'] ?? '') ?>"
                     >
                 </th>
                 <th>
@@ -46,16 +46,16 @@ $logsContext = [];
                     <select name="filter_level">
                         <?php $filterLevel = esc_html($_GET['filter_level'] ?? $_POST['filter_level'] ?? '') ?>
 
-                        <option value='' selected><?=
+                        <option value='' selected><?php echo
                             __('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($options as $option) : ?>
                             <option
-                                value='<?= $option['value'] ?>'
-                                <?= $filterLevel === $option['value'] ? 'selected' : '' ?>
+                                value='<?php echo $option['value'] ?>'
+                                <?php echo $filterLevel === $option['value'] ? 'selected' : '' ?>
                             >
-                            <?= $option['label'] ?>
+                            <?php echo $option['label'] ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -65,12 +65,12 @@ $logsContext = [];
                         type="text"
                         class="inputOut ml-0"
                         name="filter_message"
-                        value="<?= esc_html($_GET['filter_message'] ?? $_POST['filter_message'] ?? '') ?>"
+                        value="<?php echo esc_html($_GET['filter_message'] ?? $_POST['filter_message'] ?? '') ?>"
                     >
                 </th>
                 <th>
                     <button type="submit" name="submit" id="submit" class="button button-primary">
-                        <?= __('Search', 'moloni-on') ?>
+                        <?php echo __('Search', 'moloni-on') ?>
                     </button>
                 </th>
             </tr>
@@ -80,26 +80,26 @@ $logsContext = [];
                 <?php foreach ($logs as $log) : ?>
                     <tr>
                         <td>
-                            <?= date("d-m-Y H:i:s", strtotime($log['created_at'])) ?>
+                            <?php echo gmdate("d-m-Y H:i:s", strtotime($log['created_at'])) ?>
                         </td>
                         <td>
                             <?php
                             $logLevel = $log['log_level'] ?? '';
                             ?>
 
-                            <div class="chip <?= LogLevel::getClass($logLevel) ?>">
-                                <?= LogLevel::getTranslation($logLevel) ?>
+                            <div class="chip <?php echo LogLevel::getClass($logLevel) ?>">
+                                <?php echo LogLevel::getTranslation($logLevel) ?>
                             </div>
                         </td>
                         <td>
-                            <?= $log['message'] ?>
+                            <?php echo $log['message'] ?>
                         </td>
                         <td>
                             <?php $logContext = htmlspecialchars($log['context']) ?>
 
                             <button type="button" class="button action"
-                                    onclick="Moloni.Logs.openContextDialog(<?= $logContext ?>)">
-                                <?= __("See", 'moloni-on') ?>
+                                    onclick="Moloni.Logs.openContextDialog(<?php echo $logContext ?>)">
+                                <?php echo __("See", 'moloni-on') ?>
                             </button>
                         </td>
                     </tr>
@@ -107,17 +107,17 @@ $logsContext = [];
             <?php else : ?>
                 <tr>
                     <td colspan="4">
-                        <?= __('No records found!', 'moloni-on') ?>
+                        <?php echo __('No records found!', 'moloni-on') ?>
                     </td>
                 </tr>
             <?php endif; ?>
 
             <tfoot>
             <tr>
-                <th><a><?= __('Date', 'moloni-on') ?></a></th>
-                <th><a><?= __('Level', 'moloni-on') ?></a></th>
-                <th><a><?= __('Message', 'moloni-on') ?></a></th>
-                <th><a><?= __('Context', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Date', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Level', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Message', 'moloni-on') ?></a></th>
+                <th><a><?php echo __('Context', 'moloni-on') ?></a></th>
             </tr>
             </tfoot>
         </table>
@@ -125,13 +125,13 @@ $logsContext = [];
 
     <div class="tablenav bottom">
         <div class="alignleft actions">
-            <a class="button button-primary" href='<?= Context::getAdminUrl('tab=logs&action=remLogs') ?>'>
-                <?= __('Delete records older than 1 week', 'moloni-on') ?>
+            <a class="button button-primary" href='<?php echo Context::getAdminUrl('tab=logs&action=remLogs') ?>'>
+                <?php echo __('Delete records older than 1 week', 'moloni-on') ?>
             </a>
         </div>
 
         <div class="tablenav-pages">
-            <?= Logs::getPagination() ?>
+            <?php echo Logs::getPagination() ?>
         </div>
     </div>
 </div>

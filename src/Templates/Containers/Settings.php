@@ -39,7 +39,7 @@ try {
 }
 ?>
 
-<form method='POST' action='<?= Context::getAdminUrl(("tab=settings")) ?>' id='formOpcoes'>
+<form method='POST' action='<?php echo Context::getAdminUrl(("tab=settings")) ?>' id='formOpcoes'>
     <input type='hidden' value='saveSettings' name='action'>
     <div>
         <!-- Documents -->
@@ -60,7 +60,7 @@ try {
                             id="company_slug"
                             name="opt[company_slug]"
                             type="text"
-                            value="<?= $company['slug'] ?>"
+                            value="<?php echo $company['slug'] ?>"
                             readonly
                             style="width: 330px;"
                     >
@@ -85,8 +85,8 @@ try {
                         ?>
 
                         <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
-                            <option value='<?= $id ?>' <?= ($documentType === $id ? 'selected' : '') ?>>
-                                <?= $name ?>
+                            <option value='<?php echo $id ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
+                                <?php echo $name ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -113,10 +113,10 @@ try {
                         }
                         ?>
 
-                        <option value='0' <?= ($documentStatus === DocumentStatus::DRAFT ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($documentStatus === DocumentStatus::DRAFT ? 'selected' : '') ?>>
                             <?php esc_html_e('Draft', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= ($documentStatus === DocumentStatus::CLOSED ? 'selected' : '') ?>>
+                        <option value='1' <?php echo ($documentStatus === DocumentStatus::CLOSED ? 'selected' : '') ?>>
                             <?php esc_html_e('Closed', 'moloni-on') ?>
                         </option>
                     </select>
@@ -144,10 +144,10 @@ try {
                     ?>
 
                     <select id="create_bill_of_lading" name='opt[create_bill_of_lading]' class='inputOut'>
-                        <option value='0' <?= ($createBillOfLading === 0 ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($createBillOfLading === 0 ? 'selected' : '') ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= ($createBillOfLading === 1 ? 'selected' : '') ?>>
+                        <option value='1' <?php echo ($createBillOfLading === 1 ? 'selected' : '') ?>>
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
@@ -174,8 +174,8 @@ try {
                             $isSelected = $selectedDocumentSetId === $documentSet['documentSetId'] ? 'selected' : '';
                             ?>
 
-                            <option value='<?= $documentSet['documentSetId'] ?>' <?= $isSelected ?>>
-                                <?= $documentSet['name'] ?>
+                            <option value='<?php echo $documentSet['documentSetId'] ?>' <?php echo $isSelected ?>>
+                                <?php echo $documentSet['name'] ?>
                             </option>
 
                         <?php endforeach; ?>
@@ -197,10 +197,10 @@ try {
                     <select id="shipping_info" name='opt[shipping_info]' class='inputOut'>
                         <?php $shippingInfo = defined('SHIPPING_INFO') ? (int)SHIPPING_INFO : 0; ?>
 
-                        <option value='0' <?= $shippingInfo === Boolean::NO ? 'selected' : '' ?>>
+                        <option value='0' <?php echo $shippingInfo === Boolean::NO ? 'selected' : '' ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= $shippingInfo === Boolean::YES ? 'selected' : '' ?>>
+                        <option value='1' <?php echo $shippingInfo === Boolean::YES ? 'selected' : '' ?>>
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
@@ -221,10 +221,10 @@ try {
                     <select id="load_address" name='opt[load_address]' class='inputOut'>
                         <?php $activeLoadAddress = defined('LOAD_ADDRESS') ? (int)LOAD_ADDRESS : 0; ?>
 
-                        <option value='0' <?= ($activeLoadAddress === 0 ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($activeLoadAddress === 0 ? 'selected' : '') ?>>
                             <?php esc_html_e('Company address', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= ($activeLoadAddress === 1 ? 'selected' : '') ?>>
+                        <option value='1' <?php echo ($activeLoadAddress === 1 ? 'selected' : '') ?>>
                             <?php esc_html_e('Custom', 'moloni-on') ?>
                         </option>
                     </select>
@@ -235,7 +235,7 @@ try {
 
                             <input name="opt[load_address_custom_address]"
                                    id="load_address_custom_address"
-                                   value="<?= $customAddress ?>"
+                                   value="<?php echo $customAddress ?>"
                                    placeholder="Morada"
                                    type="text"
                                    class="inputOut"
@@ -250,14 +250,14 @@ try {
 
                             <input name="opt[load_address_custom_code]"
                                    id="load_address_custom_code"
-                                   value="<?= $customCode ?>"
+                                   value="<?php echo $customCode ?>"
                                    placeholder="Código Postal"
                                    type="text"
                                    class="inputOut inputOut--sm"
                             >
                             <input name="opt[load_address_custom_city]"
                                    id="load_address_custom_city"
-                                   value="<?= $customCity ?>"
+                                   value="<?php echo $customCity ?>"
                                    placeholder="Localidade"
                                    type="text"
                                    class="inputOut inputOut--sm"
@@ -267,13 +267,13 @@ try {
                             <select id="load_address_custom_country" name="opt[load_address_custom_country]" class="inputOut inputOut--sm">
                                 <?php $activeCountry = defined('LOAD_ADDRESS_CUSTOM_COUNTRY') ? (int)LOAD_ADDRESS_CUSTOM_COUNTRY : 0; ?>
 
-                                <option value='0' <?= ($activeCountry === 0 ? 'selected' : '') ?>><?=
+                                <option value='0' <?php echo ($activeCountry === 0 ? 'selected' : '') ?>><?php echo
                                     __('Choose an option', 'moloni-on') ?>
                                 </option>
 
                                 <?php foreach ($countries['data']['countries']['data'] as $country) : ?>
-                                    <option value='<?= $country['countryId'] ?>' <?= $activeCountry === (int)$country['countryId'] ? 'selected' : '' ?>>
-                                        <?= $country['title'] ?>
+                                    <option value='<?php echo $country['countryId'] ?>' <?php echo $activeCountry === (int)$country['countryId'] ? 'selected' : '' ?>>
+                                        <?php echo $country['title'] ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -297,10 +297,10 @@ try {
                     <?php $emailSend = defined('EMAIL_SEND') ? (int)EMAIL_SEND : 0; ?>
 
                     <select id="email_send" name="opt[email_send]" class="inputOut">
-                        <option value="0" <?= $emailSend === Boolean::NO ? 'selected' : '' ?>>
+                        <option value="0" <?php echo $emailSend === Boolean::NO ? 'selected' : '' ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
                         </option>
-                        <option value="1" <?= $emailSend === Boolean::YES ? 'selected' : '' ?>>
+                        <option value="1" <?php echo $emailSend === Boolean::YES ? 'selected' : '' ?>>
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
@@ -322,7 +322,7 @@ try {
             <?php esc_html_e('National and intra-community sales', 'moloni-on') ?>
             <?php esc_html_e('(within the European Union)', 'moloni-on') ?>
 
-            <a style="cursor: help;" title="<?= __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
+            <a style="cursor: help;" title="<?php echo __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
                 (?)
             </a>
         </div>
@@ -334,7 +334,7 @@ try {
                 $reasonValue = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
                 ?>
                 <th>
-                    <label for="<?= $reasonName ?>">
+                    <label for="<?php echo $reasonName ?>">
                         <?php esc_html_e('Exemption reason', 'moloni-on') ?>
                     </label>
                 </th>
@@ -354,7 +354,7 @@ try {
                 ?>
 
                 <th>
-                    <label for="<?= $reasonName ?>">
+                    <label for="<?php echo $reasonName ?>">
                         <?php esc_html_e('Shipping exemption reason', 'moloni-on') ?>
                     </label>
                 </th>
@@ -374,7 +374,7 @@ try {
             <?php esc_html_e('Extra community sales', 'moloni-on') ?>
             <?php esc_html_e('(outside the European Union)', 'moloni-on') ?>
 
-            <a style="cursor: help;" title="<?= __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
+            <a style="cursor: help;" title="<?php echo __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
                 (?)
             </a>
         </div>
@@ -388,7 +388,7 @@ try {
                 ?>
 
                 <th>
-                    <label for="<?= $reasonName ?>">
+                    <label for="<?php echo $reasonName ?>">
                         <?php esc_html_e('Exemption reason', 'moloni-on') ?>
                     </label>
                 </th>
@@ -408,7 +408,7 @@ try {
                 ?>
 
                 <th>
-                    <label for="<?= $reasonName ?>">
+                    <label for="<?php echo $reasonName ?>">
                         <?php esc_html_e('Shipping exemption reason', 'moloni-on') ?>
                     </label>
                 </th>
@@ -449,8 +449,8 @@ try {
 
                         <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                             <?php foreach ($warehouses as $warehouse) : ?>
-                                <option value='<?= $warehouse['warehouseId'] ?>' <?= ($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
-                                    <?= $warehouse['name'] ?> (<?= $warehouse['number'] ?>)
+                                <option value='<?php echo $warehouse['warehouseId'] ?>' <?php echo ($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
+                                    <?php echo $warehouse['name'] ?> (<?php echo $warehouse['number'] ?>)
                                 </option>
                             <?php endforeach; ?>
                         </optgroup>
@@ -470,8 +470,8 @@ try {
 
                     <select id="measure_unit_id" name='opt[measure_unit]' class='inputOut'>
                         <?php foreach ($measurementUnits as $measurementUnit) : ?>
-                            <option value='<?= $measurementUnit['measurementUnitId'] ?>' <?= ($measureUnit === $measurementUnit['measurementUnitId'] ? 'selected' : '') ?>>
-                                <?= $measurementUnit['name'] ?>
+                            <option value='<?php echo $measurementUnit['measurementUnitId'] ?>' <?php echo ($measureUnit === $measurementUnit['measurementUnitId'] ? 'selected' : '') ?>>
+                                <?php echo $measurementUnit['name'] ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -508,17 +508,17 @@ try {
                     ?>
 
                     <select id="customer_language" name='opt[customer_language]' class='inputOut'>
-                        <option value='0' <?= ($customerLanguage === 0 ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($customerLanguage === 0 ? 'selected' : '') ?>>
                             <?php esc_html_e('Automatic', 'moloni-on') ?>
                         </option>
                         <optgroup label="<?php esc_html_e('Language', 'moloni-on') ?>">
-                            <option value='<?= Languages::PT ?>' <?= ($customerLanguage === Languages::PT ? 'selected' : '') ?>>
+                            <option value='<?php echo Languages::PT ?>' <?php echo ($customerLanguage === Languages::PT ? 'selected' : '') ?>>
                                 <?php esc_html_e('Portuguese', 'moloni-on') ?>
                             </option>
-                            <option value='<?= Languages::ES ?>' <?= ($customerLanguage === Languages::ES ? 'selected' : '') ?>>
+                            <option value='<?php echo Languages::ES ?>' <?php echo ($customerLanguage === Languages::ES ? 'selected' : '') ?>>
                                 <?php esc_html_e('Spanish', 'moloni-on') ?>
                             </option>
-                            <option value='<?= Languages::EN ?>' <?= ($customerLanguage === Languages::EN ? 'selected' : '') ?>>
+                            <option value='<?php echo Languages::EN ?>' <?php echo ($customerLanguage === Languages::EN ? 'selected' : '') ?>>
                                 <?php esc_html_e('English', 'moloni-on') ?>
                             </option>
                         </optgroup>
@@ -543,13 +543,13 @@ try {
                     <input id="client_prefix"
                            name="opt[client_prefix]"
                            type="text"
-                           value="<?= $clientPrefix ?>"
+                           value="<?php echo $clientPrefix ?>"
                            class="inputOut"
                     >
 
                     <div style="max-width: 80vw ;overflow:hidden;">
                         <a id="prefix_preview">
-                            (<?= __('Example', 'moloni-on') . ': ' . $clientPrefix ?>)
+                            (<?php echo __('Example', 'moloni-on') . ': ' . $clientPrefix ?>)
                         </a>
                     </div>
 
@@ -569,13 +569,13 @@ try {
                     <?php $clientPrefix = defined('MATURITY_DATE') ? (int)MATURITY_DATE : 0; ?>
 
                     <select id="maturity_date_id" name='opt[maturity_date]' class='inputOut'>
-                        <option value='0' <?= $clientPrefix === 0 ? 'selected' : '' ?>>
+                        <option value='0' <?php echo $clientPrefix === 0 ? 'selected' : '' ?>>
                             <?php esc_html_e('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($maturityDates as $maturityDate) : ?>
-                            <option value='<?= $maturityDate['maturityDateId'] ?>' <?= $clientPrefix === $maturityDate['maturityDateId'] ? 'selected' : '' ?>>
-                                <?= $maturityDate['name'] ?>
+                            <option value='<?php echo $maturityDate['maturityDateId'] ?>' <?php echo $clientPrefix === $maturityDate['maturityDateId'] ? 'selected' : '' ?>>
+                                <?php echo $maturityDate['name'] ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -596,13 +596,13 @@ try {
                     <?php $selectedPaymentMethod = defined('PAYMENT_METHOD') ? (int)PAYMENT_METHOD : 0; ?>
 
                     <select id="payment_method_id" name='opt[payment_method]' class='inputOut'>
-                        <option value='0' <?= $selectedPaymentMethod === 0 ? 'selected' : '' ?>>
+                        <option value='0' <?php echo $selectedPaymentMethod === 0 ? 'selected' : '' ?>>
                             <?php esc_html_e('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($paymentMethods as $paymentMethod) : ?>
-                            <option value='<?= $paymentMethod['paymentMethodId'] ?>' <?= $selectedPaymentMethod === $paymentMethod['paymentMethodId'] ? 'selected' : '' ?>>
-                                <?= $paymentMethod['name'] ?>
+                            <option value='<?php echo $paymentMethod['paymentMethodId'] ?>' <?php echo $selectedPaymentMethod === $paymentMethod['paymentMethodId'] ? 'selected' : '' ?>>
+                                <?php echo $paymentMethod['name'] ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -629,10 +629,10 @@ try {
                     ?>
 
                     <select id="vat_validate" name='opt[vat_validate]' class='inputOut'>
-                        <option value='0' <?= ($vatValidate === Boolean::NO ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($vatValidate === Boolean::NO ? 'selected' : '') ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= ($vatValidate === Boolean::YES ? 'selected' : '') ?>>
+                        <option value='1' <?php echo ($vatValidate === Boolean::YES ? 'selected' : '') ?>>
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
@@ -666,13 +666,13 @@ try {
                         }
                         ?>
 
-                        <option value='' <?= empty($vatField) ? 'selected' : '' ?>>
+                        <option value='' <?php echo empty($vatField) ? 'selected' : '' ?>>
                             <?php esc_html_e('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($customFields as $customField) : ?>
-                            <option value='<?= esc_html($customField) ?>' <?= $vatField === $customField ? 'selected' : '' ?>>
-                                <?= esc_html($customField) ?>
+                            <option value='<?php echo esc_html($customField) ?>' <?php echo $vatField === $customField ? 'selected' : '' ?>>
+                                <?php echo esc_html($customField) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -707,10 +707,10 @@ try {
                     <select id="moloni_show_download_column" name='opt[moloni_show_download_column]' class='inputOut'>
                         <?php $moloniShowDownloadColumn = defined('MOLONI_SHOW_DOWNLOAD_COLUMN') ? (int)MOLONI_SHOW_DOWNLOAD_COLUMN : Boolean::NO; ?>
 
-                        <option value='0' <?= ($moloniShowDownloadColumn === Boolean::NO ? 'selected' : '') ?>>
+                        <option value='0' <?php echo ($moloniShowDownloadColumn === Boolean::NO ? 'selected' : '') ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
                         </option>
-                        <option value='1' <?= ($moloniShowDownloadColumn === Boolean::YES ? 'selected' : '') ?>>
+                        <option value='1' <?php echo ($moloniShowDownloadColumn === Boolean::YES ? 'selected' : '') ?>>
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
@@ -745,7 +745,7 @@ try {
                     }
                     ?>
 
-                    <input value="<?= esc_html($orderCreatedAtMax) ?>"
+                    <input value="<?php echo esc_html($orderCreatedAtMax) ?>"
                            id="order_created_at_max"
                            name='opt[order_created_at_max]'
                            type="date"
@@ -769,7 +769,7 @@ try {
                     <input id="alert_email"
                            name="opt[alert_email]"
                            type="text"
-                           value="<?= (defined('ALERT_EMAIL') ? ALERT_EMAIL : '') ?>"
+                           value="<?php echo (defined('ALERT_EMAIL') ? ALERT_EMAIL : '') ?>"
                            class="inputOut"
                     >
 

@@ -43,7 +43,6 @@ class Plugin
     public function __construct()
     {
         $this->onStart();
-        $this->translations();
         $this->actions();
     }
 
@@ -63,16 +62,7 @@ class Plugin
     }
 
     /**
-     * Loads translations
-     */
-    private function translations()
-    {
-        /** Loads translations files */
-        load_plugin_textdomain('moloni-on', FALSE, MOLONI_ON_LANGUAGES_DIR);
-    }
-
-    /**
-     * Starts needed classes
+     * Starts necessary classes
      */
     private function actions()
     {
@@ -173,7 +163,7 @@ class Plugin
             // Translators: %1$s is the order name.
             $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
             $message .= ' </br>';
-            $message .= strip_tags($e->getMessage());
+            $message .= wp_strip_all_tags($e->getMessage());
 
             Context::logger()->error($message, [
                     'tag' => 'service:document:create:manual:error',

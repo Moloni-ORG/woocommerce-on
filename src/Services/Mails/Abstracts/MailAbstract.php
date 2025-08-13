@@ -49,6 +49,6 @@ class MailAbstract
 
     protected function getYear(): string
     {
-        return date("Y");
+        return gmdate("Y");
     }
 }

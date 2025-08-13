@@ -7,23 +7,23 @@ if (!defined('ABSPATH')) {
 <div>
     <div id="message" class="updated error is-dismissible">
         <p>
-            <?=
+            <?php echo
                 /** @var string $message */
                 $message ?? ''
             ?>
         </p>
 
         <a onclick="showMoloniErrors();" style="cursor: pointer;">
-            <p><?= __("Click here for more information",'moloni-on') ?></p>
+            <p><?php echo __("Click here for more information",'moloni-on') ?></p>
         </a>
 
         <div class="MoloniConsoleLogError" style="display: none;">
-            <b><?= __("Data",'moloni-on') ?>: </b>
+            <b><?php echo __("Data",'moloni-on') ?>: </b>
 
             <br>
 
             <pre>
-                <?=
+                <?php echo
                     /** @var array $data */
                     json_encode($data ?? [], JSON_PRETTY_PRINT)
                 ?>

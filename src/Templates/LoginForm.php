@@ -14,21 +14,21 @@ if (!defined('ABSPATH')) {
 
     <?php if (!empty($errorData)): ?>
         <pre style="display: none;" id="curl_error_data">
-            <?= print_r($errorData, true) ?>
+            <?php echo print_r($errorData, true) ?>
         </pre>
     <?php endif; ?>
 
     <div class="login login__wrapper">
-        <form class="login-form" method='POST' action='<?= Context::getAdminUrl() ?>'>
+        <form class="login-form" method='POST' action='<?php echo Context::getAdminUrl() ?>'>
             <div class="login__card">
                 <div class="login__image">
-                    <a href="<?= Context::configs()->get('home_page') ?>" target="_blank">
-                        <img src="<?= Context::getImagesPath() ?>logo.svg" width="186px" height="32px" alt="Logo">
+                    <a href="<?php echo Context::configs()->get('home_page') ?>" target="_blank">
+                        <img src="<?php echo Context::getImagesPath() ?>logo.svg" width="186px" height="32px" alt="Logo">
                     </a>
                 </div>
 
                 <div class="login__title">
-                    <?= __("Sign in to your account", 'moloni-on') ?> <span><?= Context::configs()->get('name') ?></span>
+                    <?php echo __("Sign in to your account", 'moloni-on') ?> <span><?php echo Context::configs()->get('name') ?></span>
                 </div>
 
                 <div class="login__error">
@@ -38,36 +38,36 @@ if (!defined('ABSPATH')) {
                                 <use xlink:href="#ic_notices_important_warning"></use>
                             </svg>
 
-                            <?= $error ?>
+                            <?php echo $error ?>
                         </div>
                     <?php endif; ?>
                 </div>
 
                 <div class="login__inputs">
-                    <div class="ml-input-text <?= isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
+                    <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='developer_id'>
-                            <?= __('Developer Id', 'moloni-on') ?>
+                            <?php echo __('Developer Id', 'moloni-on') ?>
                         </label>
                         <input id="developer_id" type='text' name='developer_id'>
                     </div>
 
-                    <div class="ml-input-text <?= isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
+                    <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='client_secret'>
-                            <?= __('Client Secret', 'moloni-on') ?>
+                            <?php echo __('Client Secret', 'moloni-on') ?>
                         </label>
                         <input id="client_secret" type='text' name='client_secret'>
                     </div>
                 </div>
 
                 <div class="login__help">
-                    <a href="<?= Context::configs()->get('landing_page') ?>" target="_blank">
-                        <?= __('Click here for more instructions', 'moloni-on') ?>
+                    <a href="<?php echo Context::configs()->get('landing_page') ?>" target="_blank">
+                        <?php echo __('Click here for more instructions', 'moloni-on') ?>
                     </a>
                 </div>
 
                 <div class="login__button">
                     <button class="ml-button ml-button--primary w-full" id="login_button" type="submit" disabled>
-                        <?= __("Login", 'moloni-on') ?>
+                        <?php echo __("Login", 'moloni-on') ?>
                     </button>
                 </div>
             </div>

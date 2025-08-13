@@ -138,7 +138,8 @@ class GetOrUpdatePropertyGroup extends VariantHelperAbstract
                 $mutation = PropertyGroups::mutationPropertyGroupUpdate(['data' => $propertyGroupForUpdate]);
             } catch (APIExeption $e) {
                 throw new HelperException(
-                    sprintf(__('Failed to update existing property group "%s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
+                    // Translators: %1$s is the property group name.
+                    sprintf(__('Failed to update existing property group "%1$s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
                     ['message' => $e->getMessage(), 'data' => $e->getData()]
                 );
             }
@@ -147,7 +148,8 @@ class GetOrUpdatePropertyGroup extends VariantHelperAbstract
 
             if (empty($updatedPropertyGroup)) {
                 throw new HelperException(
-                    sprintf(__('Failed to update existing property group "%s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
+                    // Translators: %1$s is the property group name.
+                    sprintf(__('Failed to update existing property group "%1$s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
                     ['mutation' => $mutation, 'props' => $propertyGroupForUpdate]
                 );
             }

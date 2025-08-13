@@ -93,8 +93,8 @@ class OrderView
         ?>
         <select id="moloni_document_type" style="float:right">
             <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
-                <option value='<?= $id ?>' <?= ($documentType === $id ? 'selected' : '') ?>>
-                    <?= $name ?>
+                <option value='<?php echo $id ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
+                    <?php echo $name ?>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -107,10 +107,10 @@ class OrderView
         <a type="button"
            class="button button-primary"
            target="_BLANK"
-           href="<?= Context::getAdminUrl("action=getInvoice&id=$documentId") ?>"
+           href="<?php echo Context::getAdminUrl("action=getInvoice&id=$documentId") ?>"
            style="margin-top: 10px; margin-left: 10px; float:right;"
         >
-            <?= __('See document', 'moloni-on') ?>
+            <?php echo __('See document', 'moloni-on') ?>
         </a>
 
         <?php
@@ -129,10 +129,10 @@ class OrderView
         <a type="button"
            class="button"
            target="_BLANK"
-           href="<?= Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>"
+           href="<?php echo Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>"
            style="margin-top: 10px; float:right;"
         >
-            <?= __('Generate again', 'moloni-on') ?>
+            <?php echo __('Generate again', 'moloni-on') ?>
         </a>
         <?php
     }
@@ -154,12 +154,12 @@ class OrderView
            onclick="createMoloniDocument()"
            style="margin-left: 5px; float:right;"
         >
-            <?= $text ?>
+            <?php echo $text ?>
         </a>
 
         <script>
             function createMoloniDocument() {
-                var redirectUrl = "<?= Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>";
+                var redirectUrl = "<?php echo Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>";
 
                 if (document.getElementById('moloni_document_type')) {
                     redirectUrl += '&document_type=' + document.getElementById('moloni_document_type').value;

@@ -3,7 +3,7 @@ Contributors: Moloni
 Requires Plugins: woocommerce
 Tags: Invoicing, Orders
 Stable tag: #VERSION#
-Tested up to: 6.8.1
+Tested up to: 6.8.0
 WC tested up to: 9.9.3
 
 Requires PHP: 7.2
@@ -14,9 +14,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Innovative billing software that fits your business.! Intended for professionals, micro, small and medium enterprises. No initial investment, complete and intuitive.
 
 == Description ==
-Moloni is an innovative online billing and POS software that includes access to many useful and functional tools that allow each company to manage their billing, control stocks, automate processes and issue documents quickly, simply and intuitively.
-
-Moloni is always updated with the latest features and tax changes according to the law in Spain!
+Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises.
 
 == Through the plugin it is possible to:  ==
 * Synchronize products and stocks between the two platforms

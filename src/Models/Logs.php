@@ -52,7 +52,7 @@ class Logs
 
         $query = $wpdb->prepare(
             "DELETE FROM `{$tableName}_logs` WHERE created_at < %s",
-            date('Y-m-d H:i:s', strtotime("-1 week"))
+            gmdate('Y-m-d H:i:s', strtotime("-1 week"))
         );
 
         $wpdb->query($query);

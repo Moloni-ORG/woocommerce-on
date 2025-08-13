@@ -18,21 +18,21 @@ $orders = PendingOrders::getAllAvailable();
 ?>
 
 <div class="wrap">
-    <h3><?= __('Here you can see all the orders you have to generate', 'moloni-on') ?></h3>
+    <h3><?php echo __('Here you can see all the orders you have to generate', 'moloni-on') ?></h3>
 
     <div class="tablenav top">
         <div class="alignleft actions bulkactions">
             <label for="bulk-action-selector-top" class="screen-reader-text"></label><select
                     name="action" id="bulk-action-selector-top">
-                <option value="-1"><?= __('Bulk actions', 'moloni-on') ?></option>
-                <option value="bulkGenInvoice"><?= __('Generate documents', 'moloni-on') ?></option>
-                <option value="bulkDiscardOrder"><?= __('Discard documents', 'moloni-on') ?></option>
+                <option value="-1"><?php echo __('Bulk actions', 'moloni-on') ?></option>
+                <option value="bulkGenInvoice"><?php echo __('Generate documents', 'moloni-on') ?></option>
+                <option value="bulkDiscardOrder"><?php echo __('Discard documents', 'moloni-on') ?></option>
             </select>
-            <input type="submit" id="doAction" class="button action" value="<?= __('Run', 'moloni-on') ?>">
+            <input type="submit" id="doAction" class="button action" value="<?php echo __('Run', 'moloni-on') ?>">
         </div>
 
         <div class="tablenav-pages">
-            <?= PendingOrders::getPagination() ?>
+            <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>
 
@@ -43,12 +43,12 @@ $orders = PendingOrders::getAllAvailable();
                 <label for="moloni-pending-orders-select-all" class="screen-reader-text"></label>
                 <input id="moloni-pending-orders-select-all" class="moloni-pending-orders-select-all" type="checkbox">
             </td>
-            <th><a><?= __('Order', 'moloni-on') ?></a></th>
-            <th><a><?= __('Client', 'moloni-on') ?></a></th>
-            <th><a><?= __('VAT', 'moloni-on') ?></a></th>
-            <th><a><?= __('Total', 'moloni-on') ?></a></th>
-            <th><a><?= __('Status', 'moloni-on') ?></a></th>
-            <th><a><?= __('Payment date', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Order', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Client', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('VAT', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Total', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Status', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Payment date', 'moloni-on') ?></a></th>
             <th style="width: 350px;"></th>
         </tr>
         </thead>
@@ -57,15 +57,15 @@ $orders = PendingOrders::getAllAvailable();
 
             <!-- Let's draw a list of all the available orders -->
             <?php foreach ($orders as $order) : ?>
-                <tr id="moloni-pending-order-row-<?= $order->get_id() ?>">
+                <tr id="moloni-pending-order-row-<?php echo $order->get_id() ?>">
                     <td class="">
-                        <label for="moloni-pending-order-<?= $order->get_id() ?>" class="screen-reader-text"></label>
-                        <input id="moloni-pending-order-<?= $order->get_id() ?>" type="checkbox"
-                               value="<?= $order->get_id() ?>">
+                        <label for="moloni-pending-order-<?php echo $order->get_id() ?>" class="screen-reader-text"></label>
+                        <input id="moloni-pending-order-<?php echo $order->get_id() ?>" type="checkbox"
+                               value="<?php echo $order->get_id() ?>">
                     </td>
                     <td>
                         <a target="_blank"
-                           href=<?= $order->get_edit_order_url() ?>>#<?= $order->get_order_number() ?></a>
+                           href=<?php echo $order->get_edit_order_url() ?>>#<?php echo $order->get_order_number() ?></a>
                     </td>
                     <td>
                         <?php
@@ -88,7 +88,7 @@ $orders = PendingOrders::getAllAvailable();
                         echo empty($vat) ? 'n/a' : $vat;
                         ?>
                     </td>
-                    <td><?= $order->get_total() . $order->get_currency() ?></td>
+                    <td><?php echo $order->get_total() . $order->get_currency() ?></td>
                     <td>
                         <?php
                         $availableStatus = wc_get_order_statuses();
@@ -104,17 +104,17 @@ $orders = PendingOrders::getAllAvailable();
                     <td>
                         <?php
                         if (!empty($order->get_date_paid())) {
-                            echo date('Y-m-d H:i:s', strtotime($order->get_date_paid()));
+                            echo gmdate('Y-m-d H:i:s', strtotime($order->get_date_paid()));
                         } else {
                             echo 'n/a';
                         }
                         ?>
                     </td>
                     <td class="order_status column-order_status" style="text-align: right">
-                        <form action="<?= admin_url('admin.php') ?>">
+                        <form action="<?php echo admin_url('admin.php') ?>">
                             <input type="hidden" name="page" value="molonion">
                             <input type="hidden" name="action" value="genInvoice">
-                            <input type="hidden" name="id" value="<?= $order->get_id() ?>">
+                            <input type="hidden" name="id" value="<?php echo $order->get_id() ?>">
 
                             <select name="document_type" style="margin-right: 5px; max-width: 45%;">
                                 <?php
@@ -126,8 +126,8 @@ $orders = PendingOrders::getAllAvailable();
                                 ?>
 
                                 <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
-                                    <option value='<?= $id ?>' <?= ($documentType === $id ? 'selected' : '') ?>>
-                                        <?= $name ?>
+                                    <option value='<?php echo $id ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
+                                        <?php echo $name ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -135,13 +135,13 @@ $orders = PendingOrders::getAllAvailable();
                             <input type="submit"
                                    class="wp-core-ui button-primary"
                                    style="width: 80px; text-align: center; margin-right: 5px"
-                                   value="<?= __('Create', 'moloni-on') ?>"
+                                   value="<?php echo __('Create', 'moloni-on') ?>"
                             >
 
 
                             <a class="wp-core-ui button-secondary" style="width: 80px; text-align: center"
-                               href="<?= esc_url(Context::getAdminUrl("action=remInvoice&id={$order->get_id()}")) ?>">
-                                <?= __('Discard', 'moloni-on') ?>
+                               href="<?php echo esc_url(Context::getAdminUrl("action=remInvoice&id={$order->get_id()}")) ?>">
+                                <?php echo __('Discard', 'moloni-on') ?>
                             </a>
                         </form>
                     </td>
@@ -150,7 +150,7 @@ $orders = PendingOrders::getAllAvailable();
         <?php else : ?>
             <tr>
                 <td colspan="8">
-                    <?= __('No orders to be generated were found!', 'moloni-on') ?>
+                    <?php echo __('No orders to be generated were found!', 'moloni-on') ?>
                 </td>
             </tr>
 
@@ -164,12 +164,12 @@ $orders = PendingOrders::getAllAvailable();
                        type="checkbox">
             </td>
 
-            <th><a><?= __('Order', 'moloni-on') ?></a></th>
-            <th><a><?= __('Client', 'moloni-on') ?></a></th>
-            <th><a><?= __('VAT', 'moloni-on') ?></a></th>
-            <th><a><?= __('Total', 'moloni-on') ?></a></th>
-            <th><a><?= __('Status', 'moloni-on') ?></a></th>
-            <th><a><?= __('Payment date', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Order', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Client', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('VAT', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Total', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Status', 'moloni-on') ?></a></th>
+            <th><a><?php echo __('Payment date', 'moloni-on') ?></a></th>
             <th></th>
         </tr>
         </tfoot>
@@ -177,7 +177,7 @@ $orders = PendingOrders::getAllAvailable();
 
     <div class="tablenav bottom">
         <div class="tablenav-pages">
-            <?= PendingOrders::getPagination() ?>
+            <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>
 </div>
@@ -187,15 +187,15 @@ $orders = PendingOrders::getAllAvailable();
 <script>
     jQuery(document).ready(function () {
         Moloni.OrdersBulkAction({
-            startingProcess: "<?=__('Starting process...', 'moloni-on')?>",
-            noOrdersSelected: "<?=__('No orders selected to process', 'moloni-on')?>",
-            creatingDocument: "<?=__('Creating document', 'moloni-on')?>",
-            discardingOrder: "<?=__('Discarding order', 'moloni-on')?>",
-            createdDocuments: "<?=__('Documents created:', 'moloni-on')?>",
-            documentsWithErrors: "<?=__('Documents with errors:', 'moloni-on')?>",
-            discardedOrders: "<?=__('Orders discarded:', 'moloni-on')?>",
-            ordersWithErrors: "<?=__('Orders with errors:', 'moloni-on')?>",
-            close: "<?=__('Close', 'moloni-on')?>",
+            startingProcess: "<?php echo__('Starting process...', 'moloni-on')?>",
+            noOrdersSelected: "<?php echo__('No orders selected to process', 'moloni-on')?>",
+            creatingDocument: "<?php echo__('Creating document', 'moloni-on')?>",
+            discardingOrder: "<?php echo__('Discarding order', 'moloni-on')?>",
+            createdDocuments: "<?php echo__('Documents created:', 'moloni-on')?>",
+            documentsWithErrors: "<?php echo__('Documents with errors:', 'moloni-on')?>",
+            discardedOrders: "<?php echo__('Orders discarded:', 'moloni-on')?>",
+            ordersWithErrors: "<?php echo__('Orders with errors:', 'moloni-on')?>",
+            close: "<?php echo__('Close', 'moloni-on')?>",
         });
     });
 </script>

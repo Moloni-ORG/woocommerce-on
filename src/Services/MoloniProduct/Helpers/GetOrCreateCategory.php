@@ -99,7 +99,8 @@ class GetOrCreateCategory
             $category = $mutation['data']['productCategoryCreate']['data'] ?? [];
         } catch (APIExeption $e) {
             throw new HelperException(
-                sprintf(__('Error creating category %s','moloni-on') ,$this->name),
+                // Translators: %1$s is the category name.
+                sprintf(__('Error creating category %1$s','moloni-on') ,$this->name),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -112,7 +113,8 @@ class GetOrCreateCategory
         }
 
         throw new HelperException(
-            sprintf(__('Error creating category %s','moloni-on') ,$this->name),
+            // Translators: %1$s is the category name.
+            sprintf(__('Error creating category %1$s','moloni-on') ,$this->name),
             ['mutation' => $mutation]
         );
     }

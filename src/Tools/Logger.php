@@ -19,7 +19,7 @@ class Logger extends AbstractLogger
             Context::$MOLONI_ON_COMPANY_ID ?? 0,
             $message,
             json_encode($context),
-            date('Y-m-d H:i:s')
+            gmdate('Y-m-d H:i:s')
         );
 
         $wpdb->query($query);
