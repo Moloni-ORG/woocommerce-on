@@ -322,7 +322,7 @@ try {
             <?php esc_html_e('National and intra-community sales', 'moloni-on') ?>
             <?php esc_html_e('(within the European Union)', 'moloni-on') ?>
 
-            <a style="cursor: help;" title="<?php echo __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
+            <a style="cursor: help;" title="<?php esc_html_e('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
                 (?)
             </a>
         </div>
@@ -374,7 +374,7 @@ try {
             <?php esc_html_e('Extra community sales', 'moloni-on') ?>
             <?php esc_html_e('(outside the European Union)', 'moloni-on') ?>
 
-            <a style="cursor: help;" title="<?php echo __('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
+            <a style="cursor: help;" title="<?php echo esc_html__('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
                 (?)
             </a>
         </div>
@@ -549,7 +549,7 @@ try {
 
                     <div style="max-width: 80vw ;overflow:hidden;">
                         <a id="prefix_preview">
-                            (<?php echo __('Example', 'moloni-on') . ': ' . $clientPrefix ?>)
+                            (<?php esc_html_e('Example', 'moloni-on') . ': ' . $clientPrefix ?>)
                         </a>
                     </div>
 

@@ -18,17 +18,17 @@ $orders = PendingOrders::getAllAvailable();
 ?>
 
 <div class="wrap">
-    <h3><?php echo __('Here you can see all the orders you have to generate', 'moloni-on') ?></h3>
+    <h3><?php esc_html_e('Here you can see all the orders you have to generate', 'moloni-on') ?></h3>
 
     <div class="tablenav top">
         <div class="alignleft actions bulkactions">
             <label for="bulk-action-selector-top" class="screen-reader-text"></label><select
                     name="action" id="bulk-action-selector-top">
-                <option value="-1"><?php echo __('Bulk actions', 'moloni-on') ?></option>
-                <option value="bulkGenInvoice"><?php echo __('Generate documents', 'moloni-on') ?></option>
-                <option value="bulkDiscardOrder"><?php echo __('Discard documents', 'moloni-on') ?></option>
+                <option value="-1"><?php esc_html_e('Bulk actions', 'moloni-on') ?></option>
+                <option value="bulkGenInvoice"><?php esc_html_e('Generate documents', 'moloni-on') ?></option>
+                <option value="bulkDiscardOrder"><?php esc_html_e('Discard documents', 'moloni-on') ?></option>
             </select>
-            <input type="submit" id="doAction" class="button action" value="<?php echo __('Run', 'moloni-on') ?>">
+            <input type="submit" id="doAction" class="button action" value="<?php esc_html_e('Run', 'moloni-on') ?>">
         </div>
 
         <div class="tablenav-pages">
@@ -43,12 +43,12 @@ $orders = PendingOrders::getAllAvailable();
                 <label for="moloni-pending-orders-select-all" class="screen-reader-text"></label>
                 <input id="moloni-pending-orders-select-all" class="moloni-pending-orders-select-all" type="checkbox">
             </td>
-            <th><a><?php echo __('Order', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Client', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('VAT', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Total', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Status', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Payment date', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Order', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Client', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('VAT', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Total', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Status', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Payment date', 'moloni-on') ?></a></th>
             <th style="width: 350px;"></th>
         </tr>
         </thead>
@@ -72,7 +72,7 @@ $orders = PendingOrders::getAllAvailable();
                         if (!empty($order->get_billing_first_name())) {
                             echo $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
                         } else {
-                            echo __('Unknown', 'moloni-on');
+                            esc_html_e('Unknown', 'moloni-on');
                         }
                         ?>
                     <td>
@@ -135,13 +135,13 @@ $orders = PendingOrders::getAllAvailable();
                             <input type="submit"
                                    class="wp-core-ui button-primary"
                                    style="width: 80px; text-align: center; margin-right: 5px"
-                                   value="<?php echo __('Create', 'moloni-on') ?>"
+                                   value="<?php esc_html_e('Create', 'moloni-on') ?>"
                             >
 
 
                             <a class="wp-core-ui button-secondary" style="width: 80px; text-align: center"
                                href="<?php echo esc_url(Context::getAdminUrl("action=remInvoice&id={$order->get_id()}")) ?>">
-                                <?php echo __('Discard', 'moloni-on') ?>
+                                <?php esc_html_e('Discard', 'moloni-on') ?>
                             </a>
                         </form>
                     </td>
@@ -150,7 +150,7 @@ $orders = PendingOrders::getAllAvailable();
         <?php else : ?>
             <tr>
                 <td colspan="8">
-                    <?php echo __('No orders to be generated were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No orders to be generated were found!', 'moloni-on') ?>
                 </td>
             </tr>
 
@@ -164,12 +164,12 @@ $orders = PendingOrders::getAllAvailable();
                        type="checkbox">
             </td>
 
-            <th><a><?php echo __('Order', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Client', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('VAT', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Total', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Status', 'moloni-on') ?></a></th>
-            <th><a><?php echo __('Payment date', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Order', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Client', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('VAT', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Total', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Status', 'moloni-on') ?></a></th>
+            <th><a><?php esc_html_e('Payment date', 'moloni-on') ?></a></th>
             <th></th>
         </tr>
         </tfoot>

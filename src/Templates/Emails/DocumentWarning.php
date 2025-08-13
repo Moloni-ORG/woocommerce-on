@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title><?php echo __('Moloni document warning', 'moloni-on') ?></title>
-    <meta name="description" content="<?php echo __('Document Warning Email Template.', 'moloni-on') ?>">
+    <title><?php esc_html_e('Moloni document warning', 'moloni-on') ?></title>
+    <meta name="description" content="<?php esc_html_e('Document Warning Email Template.', 'moloni-on') ?>">
     <style type="text/css">
         a:hover {
             text-decoration: underline !important;
@@ -49,14 +49,14 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:28px;font-family:'Rubik',sans-serif;">
-                                        <?php echo __('Moloni document warning', 'moloni-on') ?>
+                                        <?php esc_html_e('Moloni document warning', 'moloni-on') ?>
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php echo __('A document was created as draft because the order and document values do not match.', 'moloni-on') ?>
+                                        <?php esc_html_e('A document was created as draft because the order and document values do not match.', 'moloni-on') ?>
                                     </p>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php echo __('Please check the resulting document.', 'moloni-on') ?>
+                                        <?php esc_html_e('Please check the resulting document.', 'moloni-on') ?>
                                     </p>
                                     <br>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">

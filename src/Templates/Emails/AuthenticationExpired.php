@@ -12,8 +12,8 @@ if (!defined('ABSPATH')) {
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title><?php echo __('The Moloni authentication expired', 'moloni-on') ?></title>
-    <meta name="description" content="<?php echo __('Authentication Expired Email Template.', 'moloni-on') ?>">
+    <title><?php esc_html_e('The Moloni authentication expired', 'moloni-on') ?></title>
+    <meta name="description" content="<?php esc_html_e('Authentication Expired Email Template.', 'moloni-on') ?>">
     <style type="text/css">
         a:hover {
             text-decoration: underline !important;
@@ -52,17 +52,17 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:28px;font-family:'Rubik',sans-serif;">
-                                        <?php echo __('The Moloni authentication expired', 'moloni-on') ?>
+                                        <?php esc_html_e('The Moloni authentication expired', 'moloni-on') ?>
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php echo __("You're getting this email because there was an error getting new Moloni authentication tokens in your Wordpress plugin.", 'moloni-on') ?>
+                                        <?php esc_html_e("You're getting this email because there was an error getting new Moloni authentication tokens in your Wordpress plugin.", 'moloni-on') ?>
                                     </p>
 
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php echo __('Please access the Moloni Spain plugin from your WooCommerce store admin panel and confirm the authentication status of your account.', 'moloni-on') ?>
+                                        <?php esc_html_e('Please access the Moloni Spain plugin from your WooCommerce store admin panel and confirm the authentication status of your account.', 'moloni-on') ?>
                                     </p>
 
                                     <br>
@@ -80,7 +80,7 @@ if (!defined('ABSPATH')) {
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php echo __('If you have any questions or concerns, please contact our customer support.', 'moloni-on') ?>
+                                        <?php esc_html_e('If you have any questions or concerns, please contact our customer support.', 'moloni-on') ?>
                                     </p>
                                 </td>
                             </tr>

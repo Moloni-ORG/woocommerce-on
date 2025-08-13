@@ -66,17 +66,17 @@ class ProductView
                     $this->fetchMoloniProduct();
 
                     if (empty($this->moloniProduct)) {
-                        echo __("Product not found in Moloni", 'moloni-on');
+                        esc_html_e("Product not found in Moloni", 'moloni-on');
                         return null;
                     }
 
                     $this->showProductDetails();
                 } catch (APIExeption $e) {
-                    echo __("Error getting product", 'moloni-on');
+                    esc_html_e("Error getting product", 'moloni-on');
                     return null;
                 }
             } else {
-                echo __("Moloni login invalid", 'moloni-on');
+                esc_html_e("Moloni login invalid", 'moloni-on');
             }
         } catch (Exception $exception) {}
     }
@@ -86,11 +86,11 @@ class ProductView
         ?>
         <div>
             <p>
-                <b><?php echo __("Reference: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['reference'] ?><br>
-                <b><?php echo __("Price: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['price'] ?>€<br>
+                <b><?php esc_html_e("Reference: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['reference'] ?><br>
+                <b><?php esc_html_e("Price: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['price'] ?>€<br>
 
                 <?php if ((int)$this->moloniProduct['hasStock'] === Boolean::YES) : ?>
-                    <b><?php echo __("Stock: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['stock'] ?>
+                    <b><?php esc_html_e("Stock: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['stock'] ?>
                 <?php endif; ?>
 
                 <?php
@@ -109,7 +109,7 @@ class ProductView
                    class="button button-primary"
                    target="_BLANK"
                    href="<?php echo Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId'] ?>"
-                > <?php echo __("See product", 'moloni-on') ?> </a>
+                > <?php esc_html_e("See product", 'moloni-on') ?> </a>
             <?php endif; ?>
         </div>
         <?php

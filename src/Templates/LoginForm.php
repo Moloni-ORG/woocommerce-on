@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
                 </div>
 
                 <div class="login__title">
-                    <?php echo __("Sign in to your account", 'moloni-on') ?> <span><?php echo Context::configs()->get('name') ?></span>
+                    <?php esc_html_e("Sign in to your account", 'moloni-on') ?> <span><?php echo Context::configs()->get('name') ?></span>
                 </div>
 
                 <div class="login__error">
@@ -46,14 +46,14 @@ if (!defined('ABSPATH')) {
                 <div class="login__inputs">
                     <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='developer_id'>
-                            <?php echo __('Developer Id', 'moloni-on') ?>
+                            <?php esc_html_e('Developer Id', 'moloni-on') ?>
                         </label>
                         <input id="developer_id" type='text' name='developer_id'>
                     </div>
 
                     <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='client_secret'>
-                            <?php echo __('Client Secret', 'moloni-on') ?>
+                            <?php esc_html_e('Client Secret', 'moloni-on') ?>
                         </label>
                         <input id="client_secret" type='text' name='client_secret'>
                     </div>
@@ -61,13 +61,13 @@ if (!defined('ABSPATH')) {
 
                 <div class="login__help">
                     <a href="<?php echo Context::configs()->get('landing_page') ?>" target="_blank">
-                        <?php echo __('Click here for more instructions', 'moloni-on') ?>
+                        <?php esc_html_e('Click here for more instructions', 'moloni-on') ?>
                     </a>
                 </div>
 
                 <div class="login__button">
                     <button class="ml-button ml-button--primary w-full" id="login_button" type="submit" disabled>
-                        <?php echo __("Login", 'moloni-on') ?>
+                        <?php esc_html_e("Login", 'moloni-on') ?>
                     </button>
                 </div>
             </div>

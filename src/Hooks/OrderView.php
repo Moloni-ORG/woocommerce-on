@@ -62,13 +62,13 @@ class OrderView
             echo '<div style="display: none"><pre>' . print_r($order->get_taxes(), true) . '</pre></div>';
 
             if ($documentId > 0) {
-                echo __('The document has already been generated in Moloni' , 'moloni-on');
+                esc_html_e('The document has already been generated in Moloni' , 'moloni-on');
                 echo '<br>';
 
                 $this->seeDocument($documentId);
                 $this->getRecreateDocumentButton($order);
             } elseif ($documentId === -1) {
-                echo __('Document marked as generated.' , 'moloni-on');
+                esc_html_e('Document marked as generated.' , 'moloni-on');
                 echo '<br><br>';
 
                 $this->getDocumentTypeSelect();
@@ -82,7 +82,7 @@ class OrderView
 
             echo '<div style="clear:both"></div>';
         } else {
-            echo __('The order must be paid for in order to be generated.' , 'moloni-on');
+            esc_html_e('The order must be paid for in order to be generated.' , 'moloni-on');
         }
     }
 
@@ -110,7 +110,7 @@ class OrderView
            href="<?php echo Context::getAdminUrl("action=getInvoice&id=$documentId") ?>"
            style="margin-top: 10px; margin-left: 10px; float:right;"
         >
-            <?php echo __('See document', 'moloni-on') ?>
+            <?php esc_html_e('See document', 'moloni-on') ?>
         </a>
 
         <?php
@@ -132,7 +132,7 @@ class OrderView
            href="<?php echo Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>"
            style="margin-top: 10px; float:right;"
         >
-            <?php echo __('Generate again', 'moloni-on') ?>
+            <?php esc_html_e('Generate again', 'moloni-on') ?>
         </a>
         <?php
     }

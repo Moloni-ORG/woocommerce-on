@@ -21,11 +21,11 @@ $row = $row ?? [];
     <td>
         <?php
         if (!empty($row['moloni_product_array']['variants'])) {
-            echo __('Variable', 'moloni-on');
+            esc_html_e('Variable', 'moloni-on');
         } elseif (!empty($row['moloni_product_array']['parent'])) {
-            echo __('Variation', 'moloni-on');
+            esc_html_e('Variation', 'moloni-on');
         } else {
-            echo __('Simple', 'moloni-on');
+            esc_html_e('Simple', 'moloni-on');
         }
         ?>
     </td>
@@ -46,14 +46,14 @@ $row = $row ?? [];
         <?php if (!empty($row['wc_product_link']) || !empty($row['moloni_product_link'])) : ?>
             <div class="dropdown">
                 <button type="button" class="dropdown--manager button button-primary">
-                    <?php echo __('Open', 'moloni-on') ?> &#8628;
+                    <?php esc_html_e('Open', 'moloni-on') ?> &#8628;
                 </button>
                 <div class="dropdown__content">
                     <ul>
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?php echo $row['moloni_product_link'] ?>">
-                                    <?php echo __('Open in Moloni', 'moloni-on') ?>
+                                    <?php esc_html_e('Open in Moloni', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -61,7 +61,7 @@ $row = $row ?? [];
                         <?php if (!empty($row['wc_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?php echo $row['wc_product_link'] ?>">
-                                    <?php echo __('Open in WooCommerce', 'moloni-on') ?>
+                                    <?php esc_html_e('Open in WooCommerce', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>

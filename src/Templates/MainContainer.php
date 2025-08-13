@@ -25,27 +25,27 @@ if (!defined('ABSPATH')) {
     <nav class="nav-tab-wrapper woo-nav-tab-wrapper">
         <a href="<?php echo esc_url(Context::getAdminUrl()) ?>"
            class="nav-tab <?php echo ($this->activeTab === '') ? 'nav-tab-active' : '' ?>">
-            <?php echo __('Orders', 'moloni-on') ?>
+            <?php esc_html_e('Orders', 'moloni-on') ?>
         </a>
 
         <a href="<?php echo esc_url(Context::getAdminUrl('tab=settings')) ?>"
            class="nav-tab <?php echo ($this->activeTab === 'settings') ? 'nav-tab-active' : '' ?>">
-            <?php echo __('Settings', 'moloni-on') ?>
+            <?php esc_html_e('Settings', 'moloni-on') ?>
         </a>
 
         <a href="<?php echo esc_url(Context::getAdminUrl('tab=automation')) ?>"
            class="nav-tab <?php echo ($this->activeTab === 'automation') ? 'nav-tab-active' : '' ?>">
-            <?php echo __('Automation', 'moloni-on') ?>
+            <?php esc_html_e('Automation', 'moloni-on') ?>
         </a>
 
         <a href="<?php echo esc_url(Context::getAdminUrl('tab=logs')) ?>"
            class="nav-tab <?php echo $this->activeTab === 'logs' ? 'nav-tab-active' : '' ?>">
-            <?php echo __('Logs', 'moloni-on') ?>
+            <?php esc_html_e('Logs', 'moloni-on') ?>
         </a>
 
         <a href="<?php echo esc_url(Context::getAdminUrl('tab=tools')) ?>"
            class="nav-tab <?php echo (in_array($this->activeTab, ['tools', 'wcProductsList', 'moloniProductsList'])) ? 'nav-tab-active' : '' ?>">
-            <?php echo __('Tools', 'moloni-on') ?>
+            <?php esc_html_e('Tools', 'moloni-on') ?>
         </a>
     </nav>
 

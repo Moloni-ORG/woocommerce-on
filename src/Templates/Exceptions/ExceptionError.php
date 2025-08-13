@@ -14,11 +14,11 @@ if (!defined('ABSPATH')) {
         </p>
 
         <a onclick="showMoloniErrors();" style="cursor: pointer;">
-            <p><?php echo __("Click here for more information",'moloni-on') ?></p>
+            <p><?php esc_html_e("Click here for more information",'moloni-on') ?></p>
         </a>
 
         <div class="MoloniConsoleLogError" style="display: none;">
-            <b><?php echo __("Data",'moloni-on') ?>: </b>
+            <b><?php esc_html_e("Data",'moloni-on') ?>: </b>
 
             <br>
 

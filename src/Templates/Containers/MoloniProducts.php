@@ -34,33 +34,33 @@ $backAction = Context::getAdminUrl('tab=tools');
 ?>
 
 <h3>
-    <?php echo __('Moloni product list', 'moloni-on') ?>
+    <?php esc_html_e('Moloni product list', 'moloni-on') ?>
 </h3>
 
 <h4>
-    <?php echo __('This list will present all Moloni products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
-    <?php echo __('All actions on this page will be in the Moloni -> WooCommerce direction.', 'moloni-on') ?>
+    <?php esc_html_e('This list will present all Moloni products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
+    <?php esc_html_e('All actions on this page will be in the Moloni -> WooCommerce direction.', 'moloni-on') ?>
 </h4>
 
 <div class="notice notice-success m-0">
     <p>
-        <?php echo __('Do you want to import your entire catalogue?', 'moloni-on') ?>
+        <?php esc_html_e('Do you want to import your entire catalogue?', 'moloni-on') ?>
     </p>
 
     <p class="">
         <button id="importProductsButton" class="button button-large">
-            <?php echo __('Import all products', 'moloni-on') ?>
+            <?php esc_html_e('Import all products', 'moloni-on') ?>
         </button>
 
         <button id="importStocksButton" class="button button-large">
-            <?php echo __('Import all stock', 'moloni-on') ?>
+            <?php esc_html_e('Import all stock', 'moloni-on') ?>
         </button>
     </p>
 </div>
 
 <div class="notice notice-warning m-0 mt-4">
     <p>
-        <?php echo __('Moloni stock values based on:', 'moloni-on') ?>
+        <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
     </p>
     <p>
         <?php
@@ -94,11 +94,11 @@ $backAction = Context::getAdminUrl('tab=tools');
 
     <div class="tablenav top">
         <a href='<?php echo $backAction ?>' class="button button-large">
-            <?php echo __('Back', 'moloni-on') ?>
+            <?php esc_html_e('Back', 'moloni-on') ?>
         </a>
 
         <button type="button" class="button button-large button-primary button-start-imports" disabled>
-            <?php echo __('Run imports', 'moloni-on') ?>
+            <?php esc_html_e('Run imports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">
@@ -110,23 +110,23 @@ $backAction = Context::getAdminUrl('tab=tools');
         <thead>
         <tr>
             <th>
-                <a><?php echo __('Name', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Name', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Reference', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Reference', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Type', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Type', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Alerts', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Alerts', 'moloni-on') ?></a>
             </th>
             <th></th>
             <th class="w-12 text-center">
-                <a><?php echo __('Import produt', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Import produt', 'moloni-on') ?></a>
             </th>
             <th class="w-12 text-center">
-                <a><?php echo __('Import stock', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Import stock', 'moloni-on') ?></a>
             </th>
         </tr>
         <tr>
@@ -149,11 +149,11 @@ $backAction = Context::getAdminUrl('tab=tools');
             <th></th>
             <th class="flex flex-row gap-2">
                 <button type="button" class="search_button button button-primary">
-                    <?php echo __('Search', 'moloni-on') ?>
+                    <?php esc_html_e('Search', 'moloni-on') ?>
                 </button>
 
                 <a href='<?php echo $currentAction ?>' class="button">
-                    <?php echo __('Clear', 'moloni-on') ?>
+                    <?php esc_html_e('Clear', 'moloni-on') ?>
                 </a>
             </th>
             <th>
@@ -177,7 +177,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <?php else : ?>
             <tr class="text-center">
                 <td colspan="100%">
-                    <?php echo __('No Moloni products were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No Moloni products were found!', 'moloni-on') ?>
                 </td>
             </tr>
         <?php endif; ?>
@@ -186,23 +186,23 @@ $backAction = Context::getAdminUrl('tab=tools');
         <tfoot>
         <tr>
             <th>
-                <a><?php echo __('Name', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Name', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Reference', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Reference', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Type', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Type', 'moloni-on') ?></a>
             </th>
             <th>
-                <a><?php echo __('Alerts', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Alerts', 'moloni-on') ?></a>
             </th>
             <th></th>
             <th class="w-12 text-center">
-                <a><?php echo __('Import product', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Import product', 'moloni-on') ?></a>
             </th>
             <th class="w-12 text-center">
-                <a><?php echo __('Import stock', 'moloni-on') ?></a>
+                <a><?php esc_html_e('Import stock', 'moloni-on') ?></a>
             </th>
         </tr>
         </tfoot>
@@ -210,11 +210,11 @@ $backAction = Context::getAdminUrl('tab=tools');
 
     <div class="tablenav bottom">
         <a href='<?php echo $backAction ?>' class="button button-large">
-            <?php echo __('Back', 'moloni-on') ?>
+            <?php esc_html_e('Back', 'moloni-on') ?>
         </a>
 
         <button type="button" class="button button-large button-primary button-start-imports" disabled>
-            <?php echo __('Run imports', 'moloni-on') ?>
+            <?php esc_html_e('Run imports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">
@@ -230,14 +230,14 @@ $backAction = Context::getAdminUrl('tab=tools');
 <script>
     jQuery(document).ready(function () {
         Moloni.MoloniProducts.init({
-            'create_action': "<?php echo __('product creation processes.', 'moloni-on') ?>",
-            'update_action': "<?php echo __('product update processes.', 'moloni-on') ?>",
-            'stock_action': "<?php echo __('stock update processes.', 'moloni-on') ?>",
-            'processing_product': "<?php echo __('Processing product', 'moloni-on') ?>",
-            'successfully_processed': "<?php echo __('Successfully processed', 'moloni-on') ?>",
-            'error_in_the_process': "<?php echo __('Error in the process', 'moloni-on') ?>",
-            'click_to_see': "<?php echo __('Click to see', 'moloni-on') ?>",
-            'completed': "<?php echo __('Completed', 'moloni-on') ?>",
+            'create_action': "<?php esc_html_e('product creation processes.', 'moloni-on') ?>",
+            'update_action': "<?php esc_html_e('product update processes.', 'moloni-on') ?>",
+            'stock_action': "<?php esc_html_e('stock update processes.', 'moloni-on') ?>",
+            'processing_product': "<?php esc_html_e('Processing product', 'moloni-on') ?>",
+            'successfully_processed': "<?php esc_html_e('Successfully processed', 'moloni-on') ?>",
+            'error_in_the_process': "<?php esc_html_e('Error in the process', 'moloni-on') ?>",
+            'click_to_see': "<?php esc_html_e('Click to see', 'moloni-on') ?>",
+            'completed': "<?php esc_html_e('Completed', 'moloni-on') ?>",
         });
     });
 </script>
