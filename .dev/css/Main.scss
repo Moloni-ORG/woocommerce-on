@@ -1,0 +1,26 @@
+@use "sass:meta";
+@tailwind utilities;
+
+.moloni {
+  @apply mt-6;
+
+  &__container {
+    @apply mb-0 ml-0.5 mt-2.5 mr-5;
+  }
+}
+
+#moloni {
+  @include meta.load-css("components/Buttons");
+  @include meta.load-css("components/Chips");
+  @include meta.load-css("components/InputText");
+  @include meta.load-css("components/Alerts");
+  @include meta.load-css("components/Dropdown");
+  @include meta.load-css("Login");
+  @include meta.load-css("Companies");
+  @include meta.load-css("Products");
+  @include meta.load-css("Settings");
+  @include meta.load-css("Utilities");
+}
+
+@include meta.load-css("Legacy");
+@include meta.load-css("Logs");

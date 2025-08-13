@@ -1,0 +1,46 @@
+<?php
+
+namespace MoloniOn\API;
+
+use MoloniOn\API\Abstracts\EndpointAbstract;
+use MoloniOn\Curl;
+use MoloniOn\Exceptions\APIExeption;
+
+class Companies extends EndpointAbstract
+{
+    /**
+     * Gets all the companies that the logged-in user has access
+     *
+     * @return array return and array with all-companies Ids
+     *
+     * @throws APIExeption
+     */
+    public static function queryMe(): array
+    {
+        $action = 'me';
+
+        if (empty(self::$responseCache[$action])) {
+            $query = self::loadQuery($action);
+
+            self::$responseCache[$action] = Curl::simple($action, $query);
+        }
+
+        return self::$responseCache[$action];
+    }
+
+    /**
+     * Gets the information of the companies that the logged-in user has access
+     *
+     * @param array|null $variables
+     *
+     * @return array returns an array with the company's information
+     *
+     * @throws APIExeption
+     */
+    public static function queryCompany(?array $variables = []): array
+    {
+        $query = self::loadQuery('company');
+
+        return Curl::simple('company', $query, $variables);
+    }
+}

@@ -1,0 +1,8 @@
+.idea
+.env
+.dev/node_modules
+.platforms/**/*.css
+.platforms/**/*.css.map
+logs
+vendor
+build

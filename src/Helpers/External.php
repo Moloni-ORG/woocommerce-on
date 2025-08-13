@@ -1,0 +1,26 @@
+<?php
+
+namespace MoloniOn\Helpers;
+
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
+class External
+{
+    public static function isNewOrdersSystemEnabled(): bool
+    {
+        if (class_exists(OrderUtil::class)) {
+            return OrderUtil::custom_orders_table_usage_is_enabled();
+        }
+
+        return false;
+    }
+
+    public static function isMoloniVatPluginActive(): bool
+    {
+        if (!function_exists('is_plugin_active')) {
+            return false;
+        }
+
+        return is_plugin_active('contribuinte-checkout/contribuinte-checkout.php');
+    }
+}

@@ -1,0 +1,49 @@
+<?php
+
+use MoloniOn\Context;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+$company = $company ?? [];
+?>
+
+<div class="companies__card">
+    <div class="companies__card-content">
+        <div class="companies__card-header">
+            <div class="companies__card-accent"></div>
+            <div>
+                <?= $company["name"] ?>
+            </div>
+        </div>
+
+        <div class="companies__card-divider"></div>
+
+        <div class="companies__card-section">
+            <div class="companies__card-label">
+                <?= __("Address", 'moloni_on') ?>
+            </div>
+            <div class="companies__card-text">
+                <?= $company["address"] ?>
+            </div>
+            <div class="companies__card-text">
+                <?= $company["zipCode"] ?>
+            </div>
+        </div>
+
+        <div class="companies__card-section">
+            <div class="companies__card-label">
+                <?= __("Vat number", 'moloni_on') ?>
+            </div>
+            <div class="companies__card-text">
+                <?= $company["vat"] ?>
+            </div>
+        </div>
+    </div>
+
+    <button class="ml-button ml-button--primary w-full"
+            onclick="window.location.href = '<?= Context::getAdminUrl("companyId={$company["companyId"]}") ?>'">
+        <?= __('Choose company', 'moloni_on') ?>
+    </button>
+</div>

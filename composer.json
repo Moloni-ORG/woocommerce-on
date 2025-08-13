@@ -1,0 +1,32 @@
+{
+  "name": "moloni/woocommerce-dev",
+  "description": "Development plugin for Moloni Spain and MoloniOn",
+  "license": "GPL-2.0",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Moloni",
+      "email": "suporte@molonion.pt"
+    }
+  ],
+  "scripts": {
+    "install-dev": "composer install",
+    "install-prod": "composer install --no-dev --optimize-autoloader",
+    "build": "php builder.php"
+  },
+  "require": {
+    "php": ">=7.2",
+    "ext-curl": "*",
+    "ext-mbstring": "*",
+    "psr/log": "1.1.4",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "ext-zip": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MoloniOn\\": "src"
+    }
+  }
+}

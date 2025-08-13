@@ -1,0 +1,10 @@
+/.wordpress-org
+/.dev
+/.git
+/.github
+/docs
+.env
+.distignore
+.gitignore
+.graphqlrc.yaml
+docker-compose.yml

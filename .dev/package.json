@@ -1,0 +1,50 @@
+{
+  "name": "moloni-on-woocommerce",
+  "version": "1.0.0",
+  "description": "Plugin for WooCommerce integration with MoloniOn",
+  "main": "index.js",
+  "scripts": {
+    "build-prod": "gulp css:prod:on css:prod:es js:prod"
+  },
+  "keywords": [
+    "Moloni",
+    "MoloniOn",
+    "Wordpress",
+    "WooCommerce"
+  ],
+  "author": "Moloni",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "datatables.net": "^1.13.5",
+    "datatables.net-dt": "*",
+    "jquery-modal": "^0.9.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "gulp": "^5.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssimport": "^7.0.0",
+    "gulp-dart-sass": "^1.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^10.0.0",
+    "gulp-purgecss": "^7.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "postcss": "^8.5.4",
+    "postcss-combine-media-query": "^2.0.0",
+    "postcss-sort-media-queries": "^5.2.0",
+    "sass": "^1.89.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "browserslist": [
+    "> 0.25%",
+    "not dead"
+  ]
+}
