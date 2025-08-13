@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title><?= __('Moloni document error', 'moloni_on') ?></title>
-    <meta name="description" content="<?= __('Document Error Email Template.', 'moloni_on') ?>">
+    <title><?= __('Moloni document error', 'moloni-on') ?></title>
+    <meta name="description" content="<?= __('Document Error Email Template.', 'moloni-on') ?>">
     <style type="text/css">
         a:hover {
             text-decoration: underline !important;
@@ -49,14 +49,14 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:28px;font-family:'Rubik',sans-serif;">
-                                        <?= __('Moloni document error', 'moloni_on') ?>
+                                        <?= __('Moloni document error', 'moloni-on') ?>
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('An error occurred creating an Moloni document.', 'moloni_on') ?>
+                                        <?= __('An error occurred creating an Moloni document.', 'moloni-on') ?>
                                     </p>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('Please check plugin logs for more information.', 'moloni_on') ?>
+                                        <?= __('Please check plugin logs for more information.', 'moloni-on') ?>
                                     </p>
                                     <br>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">

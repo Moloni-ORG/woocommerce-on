@@ -88,7 +88,7 @@ class Products
 
             $this->reply();
         } catch (MoloniException $exception) {
-            $message = __('Error synchronizing products to WooCommerce.', 'moloni_on');
+            $message = __('Error synchronizing products to WooCommerce.', 'moloni-on');
             $message .= ' </br>';
             $message .= $exception->getMessage();
 
@@ -107,7 +107,7 @@ class Products
 
             $this->reply(0, $exception->getMessage());
         } catch (Exception $exception) {
-            Context::logger()->critical(__('Fatal error', 'moloni_on'), [
+            Context::logger()->critical(__('Fatal error', 'moloni-on'), [
                     'tag' => 'webhook:product:fatalerror',
                     'message' => $exception->getMessage(),
                     'extra' => [
@@ -138,7 +138,7 @@ class Products
         $wcProduct = $this->fetchWcProduct($this->moloniProduct);
 
         if (!empty($wcProduct)) {
-            throw new WebhookException(__('Product already exists', 'moloni_on'));
+            throw new WebhookException(__('Product already exists', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $this->moloniProduct['productId'])) {
@@ -186,12 +186,12 @@ class Products
         $wcProduct = $this->fetchWcProduct($this->moloniProduct);
 
         if (empty($wcProduct)) {
-            throw new WebhookException(__('Product not found', 'moloni_on'));
+            throw new WebhookException(__('Product not found', 'moloni-on'));
         }
 
         /** Both need to be the same kind */
         if ($this->moloniProductHasVariants() !== $wcProduct->is_type('variable')) {
-            throw new WebhookException(__('Product types do not match', 'moloni_on'));
+            throw new WebhookException(__('Product types do not match', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::WC_PRODUCT_SAVE, $wcProduct->get_id()) ||
@@ -248,7 +248,7 @@ class Products
         $wcProduct = $this->fetchWcProduct($this->moloniProduct);
 
         if (empty($wcProduct)) {
-            throw new WebhookException(__('Product not found', 'moloni_on'));
+            throw new WebhookException(__('Product not found', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProduct->get_id()) ||
@@ -261,7 +261,7 @@ class Products
 
         /** Both need to be the same kind */
         if ($this->moloniProductHasVariants() !== $wcProduct->is_type('variable')) {
-            throw new WebhookException(__('Product types do not match', 'moloni_on'));
+            throw new WebhookException(__('Product types do not match', 'moloni-on'));
         }
 
         if ($this->moloniProductHasVariants()) {
@@ -285,7 +285,7 @@ class Products
             }
         } else {
             if ((int)$this->moloniProduct['hasStock'] === Boolean::NO || !$wcProduct->managing_stock()) {
-                throw new WebhookException(__('Product does not manage stock', 'moloni_on'));
+                throw new WebhookException(__('Product does not manage stock', 'moloni-on'));
             }
 
             $service = new SyncProductStock($this->moloniProduct, $wcProduct);
@@ -388,23 +388,23 @@ class Products
     {
         /** Product not found */
         if (empty($this->moloniProduct)) {
-            throw new WebhookException(__('Moloni product not found', 'moloni_on'));
+            throw new WebhookException(__('Moloni product not found', 'moloni-on'));
         }
 
         /** We only want to update the main product */
         if ($this->moloniProduct['parent'] !== null) {
-            throw new WebhookException(__('Product is variant, will be skipped', 'moloni_on'));
+            throw new WebhookException(__('Product is variant, will be skipped', 'moloni-on'));
         }
 
         /** Do not sync shipping product */
         if (References::isIgnoredReference($this->moloniProduct['reference'])) {
-            throw new WebhookException(__('Product reference blacklisted', 'moloni_on'));
+            throw new WebhookException(__('Product reference blacklisted', 'moloni-on'));
         }
 
         /** Do not sync product with varianst if settings is not set */
         if ($this->moloniProductHasVariants() &&
             (!defined('SYNC_PRODUCTS_WITH_VARIANTS') || (int)SYNC_PRODUCTS_WITH_VARIANTS === Boolean::NO)) {
-            throw new WebhookException(__('Synchronization of products with variants is disabled', 'moloni_on'));
+            throw new WebhookException(__('Synchronization of products with variants is disabled', 'moloni-on'));
         }
     }
 }

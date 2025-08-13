@@ -22,7 +22,7 @@ $company = $company ?? [];
 
         <div class="companies__card-section">
             <div class="companies__card-label">
-                <?= __("Address", 'moloni_on') ?>
+                <?= __("Address", 'moloni-on') ?>
             </div>
             <div class="companies__card-text">
                 <?= $company["address"] ?>
@@ -34,7 +34,7 @@ $company = $company ?? [];
 
         <div class="companies__card-section">
             <div class="companies__card-label">
-                <?= __("Vat number", 'moloni_on') ?>
+                <?= __("Vat number", 'moloni-on') ?>
             </div>
             <div class="companies__card-text">
                 <?= $company["vat"] ?>
@@ -44,6 +44,6 @@ $company = $company ?? [];
 
     <button class="ml-button ml-button--primary w-full"
             onclick="window.location.href = '<?= Context::getAdminUrl("companyId={$company["companyId"]}") ?>'">
-        <?= __('Choose company', 'moloni_on') ?>
+        <?= __('Choose company', 'moloni-on') ?>
     </button>
 </div>

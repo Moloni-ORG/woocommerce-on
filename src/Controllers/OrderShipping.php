@@ -137,7 +137,7 @@ class OrderShipping
 
     private function setReference(): OrderShipping
     {
-        $this->reference = __('Shipping','moloni_on');
+        $this->reference = __('Shipping','moloni-on');
 
         return $this;
     }
@@ -172,7 +172,7 @@ class OrderShipping
         try {
             $query = Products::queryProducts($variables);
         } catch (APIExeption $e) {
-            throw new DocumentError(__('Error getting shipping', 'moloni_on'));
+            throw new DocumentError(__('Error getting shipping', 'moloni-on'));
         }
 
         $searchProduct = $query['data']['products']['data'] ?? [];
@@ -191,7 +191,7 @@ class OrderShipping
             $mutation = (Products::mutationProductCreate($this->mapPropsToValues(true)))['data']['productCreate']['data'] ?? [];
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error inserting shipping','moloni_on'),
+                __('Error inserting shipping','moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -206,7 +206,7 @@ class OrderShipping
         }
 
         throw new DocumentError(
-            __('Error inserting shipping','moloni_on'),
+            __('Error inserting shipping','moloni-on'),
             [
                 'mutation' => $mutation
             ]
@@ -221,7 +221,7 @@ class OrderShipping
     private function setCategory(): OrderShipping
     {
         try {
-            $this->category_id = (new GetOrCreateCategory(__('Online Store', 'moloni_on')))->get();
+            $this->category_id = (new GetOrCreateCategory(__('Online Store', 'moloni-on')))->get();
         } catch (HelperException $e) {
             throw new DocumentError($e->getMessage(), $e->getData());
         }
@@ -241,7 +241,7 @@ class OrderShipping
         if (defined('MEASURE_UNIT')) {
             $this->unit_id = (int)MEASURE_UNIT;
         } else {
-            throw new DocumentError(__('Measure unit not set!','moloni_on'));
+            throw new DocumentError(__('Measure unit not set!','moloni-on'));
         }
     }
 
@@ -307,7 +307,7 @@ class OrderShipping
             $moloniTax = Tools::getTaxFromRate((float)$taxRate, $this->fiscalZone);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching taxes', 'moloni_on'),
+                __('Error fetching taxes', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()

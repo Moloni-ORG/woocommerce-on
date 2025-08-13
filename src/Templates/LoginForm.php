@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
                 </div>
 
                 <div class="login__title">
-                    <?= __("Sign in to your account", 'moloni_on') ?> <span><?= Context::configs()->get('name') ?></span>
+                    <?= __("Sign in to your account", 'moloni-on') ?> <span><?= Context::configs()->get('name') ?></span>
                 </div>
 
                 <div class="login__error">
@@ -46,14 +46,14 @@ if (!defined('ABSPATH')) {
                 <div class="login__inputs">
                     <div class="ml-input-text <?= isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='developer_id'>
-                            <?= __('Developer Id', 'moloni_on') ?>
+                            <?= __('Developer Id', 'moloni-on') ?>
                         </label>
                         <input id="developer_id" type='text' name='developer_id'>
                     </div>
 
                     <div class="ml-input-text <?= isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='client_secret'>
-                            <?= __('Client Secret', 'moloni_on') ?>
+                            <?= __('Client Secret', 'moloni-on') ?>
                         </label>
                         <input id="client_secret" type='text' name='client_secret'>
                     </div>
@@ -61,13 +61,13 @@ if (!defined('ABSPATH')) {
 
                 <div class="login__help">
                     <a href="<?= Context::configs()->get('landing_page') ?>" target="_blank">
-                        <?= __('Click here for more instructions', 'moloni_on') ?>
+                        <?= __('Click here for more instructions', 'moloni-on') ?>
                     </a>
                 </div>
 
                 <div class="login__button">
                     <button class="ml-button ml-button--primary w-full" id="login_button" type="submit" disabled>
-                        <?= __("Login", 'moloni_on') ?>
+                        <?= __("Login", 'moloni-on') ?>
                     </button>
                 </div>
             </div>

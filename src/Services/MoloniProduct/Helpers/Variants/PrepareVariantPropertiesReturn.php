@@ -33,7 +33,7 @@ class PrepareVariantPropertiesReturn extends VariantHelperAbstract
 
                     if ($propExistsKey === false) {
                         throw new HelperException(
-                            sprintf(__('Failed to find matching property value for "%s"', 'moloni_on'), $attributesName)
+                            sprintf(__('Failed to find matching property value for "%s"', 'moloni-on'), $attributesName)
                         );
                     }
 
@@ -43,7 +43,7 @@ class PrepareVariantPropertiesReturn extends VariantHelperAbstract
 
                     if ($valueExists === false) {
                         throw new HelperException(
-                            sprintf(__('Failed to find matching property value for "%s"', 'moloni_on'), $option)
+                            sprintf(__('Failed to find matching property value for "%s"', 'moloni-on'), $option)
                         );
                     }
 

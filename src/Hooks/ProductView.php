@@ -66,17 +66,17 @@ class ProductView
                     $this->fetchMoloniProduct();
 
                     if (empty($this->moloniProduct)) {
-                        echo __("Product not found in Moloni", 'moloni_on');
+                        echo __("Product not found in Moloni", 'moloni-on');
                         return null;
                     }
 
                     $this->showProductDetails();
                 } catch (APIExeption $e) {
-                    echo __("Error getting product", 'moloni_on');
+                    echo __("Error getting product", 'moloni-on');
                     return null;
                 }
             } else {
-                echo __("Moloni login invalid", 'moloni_on');
+                echo __("Moloni login invalid", 'moloni-on');
             }
         } catch (Exception $exception) {}
     }
@@ -86,11 +86,11 @@ class ProductView
         ?>
         <div>
             <p>
-                <b><?= __("Reference: ", 'moloni_on') ?></b> <?= $this->moloniProduct['reference'] ?><br>
-                <b><?= __("Price: ", 'moloni_on') ?></b> <?= $this->moloniProduct['price'] ?>€<br>
+                <b><?= __("Reference: ", 'moloni-on') ?></b> <?= $this->moloniProduct['reference'] ?><br>
+                <b><?= __("Price: ", 'moloni-on') ?></b> <?= $this->moloniProduct['price'] ?>€<br>
 
                 <?php if ((int)$this->moloniProduct['hasStock'] === Boolean::YES) : ?>
-                    <b><?= __("Stock: ", 'moloni_on') ?></b> <?= $this->moloniProduct['stock'] ?>
+                    <b><?= __("Stock: ", 'moloni-on') ?></b> <?= $this->moloniProduct['stock'] ?>
                 <?php endif; ?>
 
                 <?php
@@ -109,7 +109,7 @@ class ProductView
                    class="button button-primary"
                    target="_BLANK"
                    href="<?= Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId'] ?>"
-                > <?= __("See product", 'moloni_on') ?> </a>
+                > <?= __("See product", 'moloni-on') ?> </a>
             <?php endif; ?>
         </div>
         <?php

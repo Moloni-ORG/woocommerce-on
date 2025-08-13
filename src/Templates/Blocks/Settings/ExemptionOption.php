@@ -12,7 +12,7 @@ $reasonValue = $reasonValue ?? '';
 <?php if (isset($company['fiscalZone']['exemption']['reasons'])) : ?>
     <select id="<?= $reasonName ?>" name='opt[<?= $reasonName ?>]' class='inputOut'>
         <option value='' <?= empty($reasonValue) ? 'selected' : '' ?>>
-            <?php esc_html_e('Choose an option', 'moloni_on') ?>
+            <?php esc_html_e('Choose an option', 'moloni-on') ?>
         </option>
 
         <?php foreach ($company['fiscalZone']['exemption']['reasons'] as $reason) : ?>

@@ -69,7 +69,7 @@ class GetMoloniProductFromOrder
         $wcProduct = wc_get_product($wcProductId);
 
         if (empty($wcProduct)) {
-            throw new HelperException(__('Order products were deleted.', 'moloni_on'));
+            throw new HelperException(__('Order products were deleted.', 'moloni-on'));
         }
 
         $moloniProduct = $this->getByReference($wcProduct);
@@ -109,7 +109,7 @@ class GetMoloniProductFromOrder
         $wcVariation = wc_get_product($wcVariationId);
 
         if (empty($wcProduct) || empty($wcVariation)) {
-            throw new HelperException(__('Order products were deleted.', 'moloni_on'));
+            throw new HelperException(__('Order products were deleted.', 'moloni-on'));
         }
 
         $moloniProduct = $this->getByReference($wcVariation);
@@ -211,7 +211,7 @@ class GetMoloniProductFromOrder
         $variant = $service->getVariant($wcVariation->get_id());
 
         if (empty($variant)) {
-            throw new HelperException(__('Could not find variant after update.', 'moloni_on'));
+            throw new HelperException(__('Could not find variant after update.', 'moloni-on'));
         }
 
         return $variant;
@@ -234,7 +234,7 @@ class GetMoloniProductFromOrder
             $byId = Products::queryProduct($variables);
         } catch (APIExeption $e) {
             throw new HelperException(
-                __('Error fetching products', 'moloni_on'),
+                __('Error fetching products', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -280,7 +280,7 @@ class GetMoloniProductFromOrder
             $query = Products::queryProducts($variables);
         } catch (APIExeption $e) {
             throw new HelperException(
-                __('Error fetching products', 'moloni_on'),
+                __('Error fetching products', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),

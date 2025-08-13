@@ -14,11 +14,11 @@ if (!defined('ABSPATH')) {
         </p>
 
         <a onclick="showMoloniErrors();" style="cursor: pointer;">
-            <p><?= __("Click here for more information",'moloni_on') ?></p>
+            <p><?= __("Click here for more information",'moloni-on') ?></p>
         </a>
 
         <div class="MoloniConsoleLogError" style="display: none;">
-            <b><?= __("Data",'moloni_on') ?>: </b>
+            <b><?= __("Data",'moloni-on') ?>: </b>
 
             <br>
 

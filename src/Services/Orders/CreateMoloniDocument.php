@@ -60,7 +60,7 @@ class CreateMoloniDocument
             $company = (Companies::queryCompany())['data']['company']['data'] ?? [];
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching company', 'moloni_on'),
+                __('Error fetching company', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -182,8 +182,8 @@ class CreateMoloniDocument
                 $forceUrl .= '&document_type=' . sanitize_text_field($this->documentType);
             }
 
-            $errorMsg = sprintf(__('The order %s document was previously generated!', 'moloni_on'), $this->order->get_order_number());
-            $errorMsg .= " <a href='" . esc_url($forceUrl) . "'>" . __('Generate again', 'moloni_on') . '</a>';
+            $errorMsg = sprintf(__('The order %s document was previously generated!', 'moloni-on'), $this->order->get_order_number());
+            $errorMsg .= " <a href='" . esc_url($forceUrl) . "'>" . __('Generate again', 'moloni-on') . '</a>';
 
             throw new DocumentError($errorMsg);
         }

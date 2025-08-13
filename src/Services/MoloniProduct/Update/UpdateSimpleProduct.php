@@ -60,7 +60,7 @@ class UpdateSimpleProduct extends MoloniProductSyncAbstract
 
     public function saveLog()
     {
-        $message = sprintf(__('Simple product updated in Moloni (%s)', 'moloni_on'), $this->moloniProduct['reference']);
+        $message = sprintf(__('Simple product updated in Moloni (%s)', 'moloni-on'), $this->moloniProduct['reference']);
 
         Context::logger()->info($message, [
             'tag' => 'service:mlproduct:simple:update',

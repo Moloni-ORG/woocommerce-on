@@ -56,12 +56,12 @@ class GetOrUpdatePropertyGroup extends VariantHelperAbstract
 
             $moloniPropertyGroup = $query['data']['propertyGroup']['data'] ?? [];
         } catch (APIExeption $e) {
-            throw new HelperException(__('Error fetching property group', 'moloni_on'));
+            throw new HelperException(__('Error fetching property group', 'moloni-on'));
         }
 
         /** Propery group is not found, exit process immediately */
         if (empty($moloniPropertyGroup)) {
-            throw new HelperException(__('Error fetching property group', 'moloni_on'), ['query' => $query]);
+            throw new HelperException(__('Error fetching property group', 'moloni-on'), ['query' => $query]);
         }
 
         $propertyGroupForUpdate = [
@@ -138,7 +138,7 @@ class GetOrUpdatePropertyGroup extends VariantHelperAbstract
                 $mutation = PropertyGroups::mutationPropertyGroupUpdate(['data' => $propertyGroupForUpdate]);
             } catch (APIExeption $e) {
                 throw new HelperException(
-                    sprintf(__('Failed to update existing property group "%s"', 'moloni_on'), $bestPropertyGroup['name'] ?? ''),
+                    sprintf(__('Failed to update existing property group "%s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
                     ['message' => $e->getMessage(), 'data' => $e->getData()]
                 );
             }
@@ -147,7 +147,7 @@ class GetOrUpdatePropertyGroup extends VariantHelperAbstract
 
             if (empty($updatedPropertyGroup)) {
                 throw new HelperException(
-                    sprintf(__('Failed to update existing property group "%s"', 'moloni_on'), $bestPropertyGroup['name'] ?? ''),
+                    sprintf(__('Failed to update existing property group "%s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
                     ['mutation' => $mutation, 'props' => $propertyGroupForUpdate]
                 );
             }

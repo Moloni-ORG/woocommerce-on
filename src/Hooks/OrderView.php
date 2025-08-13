@@ -62,27 +62,27 @@ class OrderView
             echo '<div style="display: none"><pre>' . print_r($order->get_taxes(), true) . '</pre></div>';
 
             if ($documentId > 0) {
-                echo __('The document has already been generated in Moloni' , 'moloni_on');
+                echo __('The document has already been generated in Moloni' , 'moloni-on');
                 echo '<br>';
 
                 $this->seeDocument($documentId);
                 $this->getRecreateDocumentButton($order);
             } elseif ($documentId === -1) {
-                echo __('Document marked as generated.' , 'moloni_on');
+                echo __('Document marked as generated.' , 'moloni-on');
                 echo '<br><br>';
 
                 $this->getDocumentTypeSelect();
                 echo '<br><br>';
 
-                $this->getDocumentCreateButton($order, __('Generate again' , 'moloni_on'));
+                $this->getDocumentCreateButton($order, __('Generate again' , 'moloni-on'));
             } else {
-                $this->getDocumentCreateButton($order, __('Create' , 'moloni_on'));
+                $this->getDocumentCreateButton($order, __('Create' , 'moloni-on'));
                 $this->getDocumentTypeSelect();
             }
 
             echo '<div style="clear:both"></div>';
         } else {
-            echo __('The order must be paid for in order to be generated.' , 'moloni_on');
+            echo __('The order must be paid for in order to be generated.' , 'moloni-on');
         }
     }
 
@@ -110,7 +110,7 @@ class OrderView
            href="<?= Context::getAdminUrl("action=getInvoice&id=$documentId") ?>"
            style="margin-top: 10px; margin-left: 10px; float:right;"
         >
-            <?= __('See document', 'moloni_on') ?>
+            <?= __('See document', 'moloni-on') ?>
         </a>
 
         <?php
@@ -132,7 +132,7 @@ class OrderView
            href="<?= Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>"
            style="margin-top: 10px; float:right;"
         >
-            <?= __('Generate again', 'moloni_on') ?>
+            <?= __('Generate again', 'moloni-on') ?>
         </a>
         <?php
     }

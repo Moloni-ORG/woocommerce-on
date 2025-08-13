@@ -62,7 +62,7 @@ class ExportProducts extends ExportService
             }
         }
 
-        Context::logger()->info(sprintf(__('Products export. Part %s', 'moloni_on'), $this->page), [
+        Context::logger()->info(sprintf(__('Products export. Part %s', 'moloni-on'), $this->page), [
                 'tag' => 'tool:export:product',
                 'success' => $this->syncedProducts,
                 'error' => $this->errorProducts,

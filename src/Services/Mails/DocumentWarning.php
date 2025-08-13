@@ -9,11 +9,11 @@ class DocumentWarning extends MailAbstract
     public function __construct($to = '', $orderName = '')
     {
         $this->to = $to;
-        $this->subject = __('Plugin Moloni', 'moloni_on') . ' - ' . __('Moloni document warning', 'moloni_on');
+        $this->subject = __('Plugin Moloni', 'moloni-on') . ' - ' . __('Moloni document warning', 'moloni-on');
         $this->template = 'Emails/DocumentWarning.php';
 
         if (!empty($orderName)) {
-            $this->extra = __('Order', 'moloni_on') . ': #' . $orderName;
+            $this->extra = __('Order', 'moloni-on') . ': #' . $orderName;
         }
 
         $this->run();

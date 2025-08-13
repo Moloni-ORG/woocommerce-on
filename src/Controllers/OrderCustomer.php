@@ -78,7 +78,7 @@ class OrderCustomer
                 $result = Customers::mutationCustomerCreate($variables);
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error creating customer.', 'moloni_on'),
+                    __('Error creating customer.', 'moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()
@@ -94,7 +94,7 @@ class OrderCustomer
                 $result = Customers::mutationCustomerUpdate($variables);
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error updating customer.','moloni_on'),
+                    __('Error updating customer.','moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()
@@ -108,7 +108,7 @@ class OrderCustomer
         if (isset($result['data'][$keyString]['data']['customerId'])) {
             $this->customer_id = $result['data'][$keyString]['data']['customerId'];
         } else {
-            throw new DocumentError(__('There was an error saving the customer.', 'moloni_on'));
+            throw new DocumentError(__('There was an error saving the customer.', 'moloni-on'));
         }
 
         return $this->customer_id;
@@ -165,7 +165,7 @@ class OrderCustomer
                 return null;
             }
 
-            throw new DocumentError(__('Customer has invalid VAT.', 'moloni_on'));
+            throw new DocumentError(__('Customer has invalid VAT.', 'moloni-on'));
         }
 
         return substr($vat, 0, 30);
@@ -264,7 +264,7 @@ class OrderCustomer
             ['countryId' => $countryId, 'languageId' => $languageId] = Tools::getMoloniCountryByCode($countryCode);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching countries', 'moloni_on'),
+                __('Error fetching countries', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -356,7 +356,7 @@ class OrderCustomer
             $searchResult = Customers::queryCustomers($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching customers.', 'moloni_on'),
+                __('Error fetching customers.', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()

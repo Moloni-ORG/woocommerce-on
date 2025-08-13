@@ -17,19 +17,19 @@ class LogLevel
     {
         return [
             [
-                'label' => __('Error', 'moloni_on'),
+                'label' => __('Error', 'moloni-on'),
                 'value' => self::ERROR
             ],
             [
-                'label' => __('Informative', 'moloni_on'),
+                'label' => __('Informative', 'moloni-on'),
                 'value' => self::INFO
             ],
             [
-                'label' => __('Alert', 'moloni_on'),
+                'label' => __('Alert', 'moloni-on'),
                 'value' => self::ALERT
             ],
             [
-                'label' => __('Critical', 'moloni_on'),
+                'label' => __('Critical', 'moloni-on'),
                 'value' => self::CRITICAL
             ]
         ];
@@ -39,21 +39,21 @@ class LogLevel
     {
         switch ($type) {
             case self::ERROR:
-                return __('Error', 'moloni_on');
+                return __('Error', 'moloni-on');
             case self::WARNING:
-                return __('Warning', 'moloni_on');
+                return __('Warning', 'moloni-on');
             case self::INFO:
-                return __('Informative', 'moloni_on');
+                return __('Informative', 'moloni-on');
             case self::DEBUG:
-                return __('Debug', 'moloni_on');
+                return __('Debug', 'moloni-on');
             case self::ALERT:
-                return __('Alert', 'moloni_on');
+                return __('Alert', 'moloni-on');
             case self::CRITICAL:
-                return __('Critical', 'moloni_on');
+                return __('Critical', 'moloni-on');
             case self::EMERGENCY:
-                return __('Emergency', 'moloni_on');
+                return __('Emergency', 'moloni-on');
             case self::NOTICE:
-                return __('Observation', 'moloni_on');
+                return __('Observation', 'moloni-on');
         }
 
         return $type;

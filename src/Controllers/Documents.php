@@ -191,7 +191,7 @@ class Documents
         apply_filters('moloni_on_before_insert_document', $this);
 
         if ($this->stopProcess) {
-            throw new DocumentError(__('Document creation stopped', 'moloni_on'));
+            throw new DocumentError(__('Document creation stopped', 'moloni-on'));
         }
 
         $keyString = '';
@@ -231,7 +231,7 @@ class Documents
             }
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error creating document', 'moloni_on'),
+                __('Error creating document', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -243,7 +243,7 @@ class Documents
 
         if (!isset($this->document['documentId'])) {
             throw new DocumentError(
-                __('Error creating document', 'moloni_on'),
+                __('Error creating document', 'moloni-on'),
                 Curl::getLog()
             );
         }
@@ -261,7 +261,7 @@ class Documents
         if ($this->shouldCloseDocument()) {
             $this->closeDocument();
         } else {
-            $note = __('Document inserted as a draft in Moloni', 'moloni_on');
+            $note = __('Document inserted as a draft in Moloni', 'moloni-on');
             $note .= " (" . $this->documentTypeName . ")";
 
             $this->order->add_order_note($note);
@@ -284,7 +284,7 @@ class Documents
         $documentTotal = $this->getDocumentExchageTotal();
 
         if (abs($orderTotal - $documentTotal) > 0.01) {
-            $note = __('Document inserted as a draft in Moloni', 'moloni_on');
+            $note = __('Document inserted as a draft in Moloni', 'moloni-on');
             $note .= " (" . $this->documentTypeName . ")";
 
             $this->order->add_order_note($note);
@@ -292,8 +292,8 @@ class Documents
             $viewUrl = Context::getAdminUrl("action=getInvoice&id={$this->documentId}");
 
             throw new DocumentWarning(
-                __('The document has been inserted but the totals do not match. ', 'moloni_on') .
-                '<a href="' . esc_url($viewUrl) . '" target="_BLANK">' . __('See document', 'moloni_on') . '</a>'
+                __('The document has been inserted but the totals do not match. ', 'moloni-on') .
+                '<a href="' . esc_url($viewUrl) . '" target="_BLANK">' . __('See document', 'moloni-on') . '</a>'
             );
         }
 
@@ -341,7 +341,7 @@ class Documents
             }
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error closing document', 'moloni_on'),
+                __('Error closing document', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -351,7 +351,7 @@ class Documents
 
         if (isset($mutation['errors']) || !isset($mutation['data'][$keyString]['data'])) {
             throw new DocumentError(
-                __('Error closing document', 'moloni_on'),
+                __('Error closing document', 'moloni-on'),
                 [
                     'variables' => $variables,
                     'mutation' => $mutation,
@@ -372,12 +372,12 @@ class Documents
                 $this->order->get_billing_email()
             );
 
-            $this->order->add_order_note(__('Document sent by email to the customer', 'moloni_on'));
+            $this->order->add_order_note(__('Document sent by email to the customer', 'moloni-on'));
         }
 
         apply_filters('moloni_on_after_close_document', $this);
 
-        $note = __('Document inserted in Moloni', 'moloni_on');
+        $note = __('Document inserted in Moloni', 'moloni-on');
         $note .= " (" . $this->documentTypeName . ")";
 
         $this->order->add_order_note($note);
@@ -423,7 +423,7 @@ class Documents
     private function saveLog(): void
     {
         $message = sprintf(
-            __('%s was created with success (%s)', 'moloni_on'),
+            __('%s was created with success (%s)', 'moloni-on'),
             $this->documentTypeName,
             $this->order->get_order_number()
         );
@@ -739,7 +739,7 @@ class Documents
                 ['countryId' => $countryId, 'code' => $code] = Tools::getMoloniCountryByCode($addressCode);
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error fetching document fiscal zone', 'moloni_on'),
+                    __('Error fetching document fiscal zone', 'moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()
@@ -778,7 +778,7 @@ class Documents
         }
 
         if ($documentSetId === 0) {
-            throw new DocumentError(__('Document set missing. Please select a document set in settings.', 'moloni_on'));
+            throw new DocumentError(__('Document set missing. Please select a document set in settings.', 'moloni-on'));
         }
 
         $this->documentSetId = $documentSetId;
@@ -895,7 +895,7 @@ class Documents
                 $result = Tools::getCurrencyExchangeRate($this->company['currency']['iso4217'], $this->order->get_currency());
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error fetching exchange rate.', 'moloni_on'),
+                    __('Error fetching exchange rate.', 'moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()
@@ -1046,7 +1046,7 @@ class Documents
             ['countryId' => $countryId] = Tools::getMoloniCountryByCode($this->order->get_shipping_country());
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching country', 'moloni_on'),
+                __('Error fetching country', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()

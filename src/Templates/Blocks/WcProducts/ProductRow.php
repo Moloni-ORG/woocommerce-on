@@ -22,27 +22,27 @@ $row = $row ?? [];
         <?php
         switch ($row['wc_product_object']->get_type()) {
             case 'external':
-                echo __('External', 'moloni_on');
+                echo __('External', 'moloni-on');
 
                 break;
             case 'grouped':
-                echo __('Grouped', 'moloni_on');
+                echo __('Grouped', 'moloni-on');
 
                 break;
             case 'simple':
-                echo __('Simple', 'moloni_on');
+                echo __('Simple', 'moloni-on');
 
                 break;
             case 'variable':
-                echo __('Variable', 'moloni_on');
+                echo __('Variable', 'moloni-on');
 
                 break;
             case 'variation':
-                echo __('Variation', 'moloni_on');
+                echo __('Variation', 'moloni-on');
 
                 break;
             default:
-                echo __('Others', 'moloni_on');
+                echo __('Others', 'moloni-on');
 
                 break;
         }
@@ -65,14 +65,14 @@ $row = $row ?? [];
         <?php if (!empty($row['wc_product_link']) || !empty($row['moloni_product_link'])) : ?>
             <div class="dropdown">
                 <button type="button" class="dropdown--manager button button-primary">
-                    <?= __('Open', 'moloni_on') ?> &#8628;
+                    <?= __('Open', 'moloni-on') ?> &#8628;
                 </button>
                 <div class="dropdown__content">
                     <ul>
                         <?php if (!empty($row['wc_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?= $row['wc_product_link'] ?>">
-                                    <?= __('Open in WooCommerce', 'moloni_on') ?>
+                                    <?= __('Open in WooCommerce', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -80,7 +80,7 @@ $row = $row ?? [];
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?= $row['moloni_product_link'] ?>">
-                                    <?= __('Open in Moloni', 'moloni_on') ?>
+                                    <?= __('Open in Moloni', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>

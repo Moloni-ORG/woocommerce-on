@@ -51,7 +51,7 @@ class ExportStockChanges extends ExportService
             }
         }
 
-        Context::logger()->info(sprintf(__('Products stock export. Part %s', 'moloni_on'), $this->page), [
+        Context::logger()->info(sprintf(__('Products stock export. Part %s', 'moloni-on'), $this->page), [
                 'tag' => 'tool:export:stock',
                 'success' => $this->syncedProducts,
                 'error' => $this->errorProducts,

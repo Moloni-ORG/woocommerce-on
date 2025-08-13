@@ -80,7 +80,7 @@ class OrderFees
         $this->price = (float)$this->fee['line_total'];
 
         $feeName = $this->fee->get_name();
-        $this->name = !empty($feeName) ? $feeName : __('Fee','moloni_on');
+        $this->name = !empty($feeName) ? $feeName : __('Fee','moloni-on');
 
         $this
             ->setReference()
@@ -96,7 +96,7 @@ class OrderFees
      */
     private function setReference(): OrderFees
     {
-        $this->reference = __('Fee','moloni_on');
+        $this->reference = __('Fee','moloni-on');
 
         return $this;
     }
@@ -132,7 +132,7 @@ class OrderFees
             $query = Products::queryProducts($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching order fee', 'moloni_on'),
+                __('Error fetching order fee', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -156,7 +156,7 @@ class OrderFees
             $insert = (Products::mutationProductCreate($this->mapPropsToValues(true)))['data']['productCreate']['data'] ?? [];
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error creating order fee', 'moloni_on'),
+                __('Error creating order fee', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -169,7 +169,7 @@ class OrderFees
             return;
         }
 
-        throw new DocumentError(__('Error inserting order fees' , 'moloni_on'));
+        throw new DocumentError(__('Error inserting order fees' , 'moloni-on'));
     }
 
     /**
@@ -180,7 +180,7 @@ class OrderFees
     private function setCategory(): OrderFees
     {
         try {
-            $this->category_id = (new GetOrCreateCategory(__('Online Store', 'moloni_on')))->get();
+            $this->category_id = (new GetOrCreateCategory(__('Online Store', 'moloni-on')))->get();
         } catch (HelperException $e) {
             throw new DocumentError($e->getMessage(), $e->getData());
         }
@@ -200,7 +200,7 @@ class OrderFees
         if (defined('MEASURE_UNIT')) {
             $this->unit_id = MEASURE_UNIT;
         } else {
-            throw new DocumentError(__('Measure unit not set!','moloni_on'));
+            throw new DocumentError(__('Measure unit not set!','moloni-on'));
         }
 
     }
@@ -266,7 +266,7 @@ class OrderFees
             $moloniTax = Tools::getTaxFromRate((float)$taxRate, $this->fiscalZone);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching taxes', 'moloni_on'),
+                __('Error fetching taxes', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()

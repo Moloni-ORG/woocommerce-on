@@ -84,7 +84,7 @@ class ImportStockChanges extends ImportService
             }
         }
 
-        Context::logger()->info(sprintf(__('Products stock import. Part %s', 'moloni_on'), $this->page), [
+        Context::logger()->info(sprintf(__('Products stock import. Part %s', 'moloni-on'), $this->page), [
                 'tag' => 'tool:import:stock',
                 'success' => $this->syncedProducts,
                 'error' => $this->errorProducts,

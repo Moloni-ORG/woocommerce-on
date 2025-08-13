@@ -30,7 +30,7 @@ class DownloadDocumentPDF
         try {
             $this->run();
         } catch (APIExeption $e) {
-            $this->showError(__('Unexpected error', 'moloni_on'));
+            $this->showError(__('Unexpected error', 'moloni-on'));
         }
     }
 
@@ -48,7 +48,7 @@ class DownloadDocumentPDF
         $invoice = Documents::queryDocument($variables);
 
         if (isset($invoice['errors']) || !isset($invoice['data']['document']['data']['documentId'])) {
-            $this->showError(__('Document not found', 'moloni_on'));
+            $this->showError(__('Document not found', 'moloni-on'));
 
             return;
         }
@@ -96,7 +96,7 @@ class DownloadDocumentPDF
         $result = $mutation['data'][$keyString]['data'] ?? [];
 
         if (empty($result)) {
-            $this->showError(__('Error getting document', 'moloni_on'));
+            $this->showError(__('Error getting document', 'moloni-on'));
 
             return;
         }

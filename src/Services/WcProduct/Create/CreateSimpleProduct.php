@@ -58,7 +58,7 @@ class CreateSimpleProduct extends WcProductSyncAbstract
 
     public function saveLog()
     {
-        $message = sprintf(__('Simple product created in WooCommerce (%s)', 'moloni_on'), $this->wcProduct->get_sku());
+        $message = sprintf(__('Simple product created in WooCommerce (%s)', 'moloni-on'), $this->wcProduct->get_sku());
 
         Context::logger()->info($message, [
             'tag' => 'service:wcproduct:simple:create',

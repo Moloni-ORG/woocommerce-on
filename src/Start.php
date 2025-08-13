@@ -238,7 +238,7 @@ class Start
      * @return void
      */
     private static function saveSettings() {
-        add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni_on'), 'updated');
+        add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni-on'), 'updated');
 
         $options = is_array($_POST['opt']) ? $_POST['opt'] : [];
 
@@ -251,7 +251,7 @@ class Start
      * @return void
      */
     private static function saveAutomations() {
-        add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni_on'), 'updated');
+        add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
 
         $options = is_array($_POST['opt']) ? $_POST['opt'] : [];
 

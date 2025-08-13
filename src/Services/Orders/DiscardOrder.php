@@ -17,14 +17,14 @@ class DiscardOrder
     public function run()
     {
         $this->order->add_meta_data('_molonion_sent', '-1');
-        $this->order->add_order_note(__('Order was discarded', 'moloni_on'));
+        $this->order->add_order_note(__('Order was discarded', 'moloni-on'));
         $this->order->save();
     }
 
     public function saveLog()
     {
         $message = sprintf(
-            __('Order was discarded (%s)', 'moloni_on'),
+            __('Order was discarded (%s)', 'moloni-on'),
             $this->order->get_order_number()
         );
 

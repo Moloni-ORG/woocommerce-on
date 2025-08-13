@@ -80,7 +80,7 @@ class CreateEntirePropertyGroup extends VariantHelperAbstract
             $mutation = PropertyGroups::mutationPropertyGroupCreate($creationVariables);
         } catch (APIExeption $e) {
             throw new HelperException(
-                sprintf(__('Error creating %s attribute group', 'moloni_on'), $newGroupName),
+                sprintf(__('Error creating %s attribute group', 'moloni-on'), $newGroupName),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -92,7 +92,7 @@ class CreateEntirePropertyGroup extends VariantHelperAbstract
 
         if (empty($mutationData)) {
             throw new HelperException(
-                sprintf(__('Error creating %s attribute group', 'moloni_on'), $newGroupName),
+                sprintf(__('Error creating %s attribute group', 'moloni-on'), $newGroupName),
                 ['mutation' => $mutation]
             );
         }

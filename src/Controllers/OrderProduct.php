@@ -367,7 +367,7 @@ class OrderProduct
             $moloniTax = Tools::getTaxFromRate((float)$taxRate, $this->fiscalZone);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching taxes', 'moloni_on'),
+                __('Error fetching taxes', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()

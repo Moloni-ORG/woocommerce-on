@@ -123,7 +123,7 @@ class ProductUpdate
         } catch (MoloniException $e) {
             Notice::addmessagecustom(htmlentities($e->geterror()));
 
-            $message = __('Error synchronizing products to Moloni.', 'moloni_on');
+            $message = __('Error synchronizing products to Moloni.', 'moloni-on');
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -140,7 +140,7 @@ class ProductUpdate
                 ]
             ]);
         } catch (Exception $e) {
-            Context::logger()->critical(__('Fatal error', 'moloni_on'), [
+            Context::logger()->critical(__('Fatal error', 'moloni-on'), [
                 'tag' => 'automatic:product:save:fatalerror',
                 'message' => $e->getMessage(),
                 'extra' => [
@@ -179,7 +179,7 @@ class ProductUpdate
     private function updateSimple(WC_Product $wcProduct, array $moloniProduct)
     {
         if (!empty($moloniProduct['variants']) && $moloniProduct['deletable'] === false) {
-            throw new HookException(__('Product types do not match', 'moloni_on'));
+            throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $moloniProduct['productId'])) {
@@ -235,7 +235,7 @@ class ProductUpdate
     private function updateVariant(WC_Product $wcProduct, array $moloniProduct)
     {
         if (empty($moloniProduct['variants']) && $moloniProduct['deletable'] === false) {
-            throw new HookException(__('Product types do not match', 'moloni_on'));
+            throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $moloniProduct['productId'])) {
@@ -384,15 +384,15 @@ class ProductUpdate
     private function validateWcProduct(?WC_Product $wcProduct)
     {
         if (empty($wcProduct)) {
-            throw new HookException(__('Product not found', 'moloni_on'));
+            throw new HookException(__('Product not found', 'moloni-on'));
         }
 
         if ($wcProduct->get_status() === 'draft') {
-            throw new HookException(__('Product is not published', 'moloni_on'));
+            throw new HookException(__('Product is not published', 'moloni-on'));
         }
 
         if (empty($wcProduct->get_sku())) {
-            throw new HookException(__('Product does not have reference', 'moloni_on'));
+            throw new HookException(__('Product does not have reference', 'moloni-on'));
         }
     }
 

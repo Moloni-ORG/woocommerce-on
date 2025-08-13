@@ -63,7 +63,7 @@ class Ajax
 
             $response = [
                 'valid' => 1,
-                'message' => sprintf(__('Document %s successfully inserted', 'moloni_on'), $service->getOrderNumber())
+                'message' => sprintf(__('Document %s successfully inserted', 'moloni-on'), $service->getOrderNumber())
             ];
         } catch (DocumentWarning $e) {
             $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
@@ -92,7 +92,7 @@ class Ajax
 
             $response = ['valid' => 0, 'message' => $e->getMessage(), 'data' => $e->getData()];
         } catch (Exception $e) {
-            Context::logger()->critical(__("Fatal error", 'moloni_on'), [
+            Context::logger()->critical(__("Fatal error", 'moloni-on'), [
                 'tag' => 'ajax:document:create:fatalerror',
                 'message' => $e->getMessage()
             ]);
@@ -233,7 +233,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni_on'));
+                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $mlProductId);
@@ -298,13 +298,13 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni_on'));
+                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
             }
 
             $wcProduct = wc_get_product($wcProductId);
 
             if (empty($wcProduct)) {
-                throw new GenericException(__('Product not found in WooCommerce store', 'moloni_on'));
+                throw new GenericException(__('Product not found in WooCommerce store', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProductId);
@@ -350,7 +350,7 @@ class Ajax
 
         try {
             if (empty($wcProduct)) {
-                throw new GenericException(__('Product not found in WooCommerce store', 'moloni_on'));
+                throw new GenericException(__('Product not found in WooCommerce store', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::WC_PRODUCT_SAVE, $wcProductId);
@@ -407,13 +407,13 @@ class Ajax
             $wcProduct = wc_get_product($wcProductId);
 
             if (empty($wcProduct)) {
-                throw new GenericException(__('Product not found in WooCommerce store', 'moloni_on'));
+                throw new GenericException(__('Product not found in WooCommerce store', 'moloni-on'));
             }
 
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni_on'));
+                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProductId);

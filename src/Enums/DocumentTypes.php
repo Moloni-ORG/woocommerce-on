@@ -52,13 +52,13 @@ class DocumentTypes
     public static function getForRender(): array
     {
         return [
-            self::INVOICE => __('Invoice', 'moloni_on'),
-            self::INVOICE_AND_RECEIPT => __('Invoice + Receipt', 'moloni_on'),
-            self::PURCHASE_ORDER => __('Purchase Order', 'moloni_on'),
-            self::PRO_FORMA_INVOICE => __('Pro Forma Invoice', 'moloni_on'),
-            self::SIMPLIFIED_INVOICE => __('Simplified invoice', 'moloni_on'),
-            self::ESTIMATE => __('Budget', 'moloni_on'),
-            self::BILLS_OF_LADING => __('Bills of lading', 'moloni_on')
+            self::INVOICE => __('Invoice', 'moloni-on'),
+            self::INVOICE_AND_RECEIPT => __('Invoice + Receipt', 'moloni-on'),
+            self::PURCHASE_ORDER => __('Purchase Order', 'moloni-on'),
+            self::PRO_FORMA_INVOICE => __('Pro Forma Invoice', 'moloni-on'),
+            self::SIMPLIFIED_INVOICE => __('Simplified invoice', 'moloni-on'),
+            self::ESTIMATE => __('Budget', 'moloni-on'),
+            self::BILLS_OF_LADING => __('Bills of lading', 'moloni-on')
         ];
     }
 
@@ -66,21 +66,21 @@ class DocumentTypes
     {
         switch ($documentType) {
             case self::INVOICE:
-                return __('Invoice', 'moloni_on');
+                return __('Invoice', 'moloni-on');
             case self::RECEIPT:
-                return __('Receipt', 'moloni_on');
+                return __('Receipt', 'moloni-on');
             case self::INVOICE_AND_RECEIPT:
-                return __('Invoice + Receipt', 'moloni_on');
+                return __('Invoice + Receipt', 'moloni-on');
             case self::PURCHASE_ORDER:
-                return __('Purchase Order', 'moloni_on');
+                return __('Purchase Order', 'moloni-on');
             case self::PRO_FORMA_INVOICE:
-                return __('Pro Forma Invoice', 'moloni_on');
+                return __('Pro Forma Invoice', 'moloni-on');
             case self::SIMPLIFIED_INVOICE:
-                return __('Simplified Invoice', 'moloni_on');
+                return __('Simplified Invoice', 'moloni-on');
             case self::ESTIMATE:
-                return __('Budget', 'moloni_on');
+                return __('Budget', 'moloni-on');
             case self::BILLS_OF_LADING:
-                return __('Bill of lading', 'moloni_on');
+                return __('Bill of lading', 'moloni-on');
         }
 
         return $documentType;

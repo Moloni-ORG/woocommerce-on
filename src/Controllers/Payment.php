@@ -42,7 +42,7 @@ class Payment
             $paymentMethods = PaymentMethods::queryPaymentMethods($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching payment methods', 'moloni_on'),
+                __('Error fetching payment methods', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -73,7 +73,7 @@ class Payment
             $mutation = (PaymentMethods::mutationPaymentMethodCreate($this->mapPropsToValues()))['data']['paymentMethodCreate']['data'] ?? [];
         } catch (APIExeption $e) {
             throw new DocumentError(
-                sprintf(__('Error creating payment method (%s)', 'moloni_on'), $this->name),
+                sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -87,7 +87,7 @@ class Payment
         }
 
         throw new DocumentError(
-            sprintf(__('Error creating payment method (%s)', 'moloni_on'), $this->name),
+            sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name),
             [
                 'mutation' => $mutation
             ]

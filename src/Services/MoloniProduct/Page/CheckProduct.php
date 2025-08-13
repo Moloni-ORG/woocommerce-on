@@ -72,7 +72,7 @@ class CheckProduct
         $this->createMoloniLink($row);
 
         if (in_array(strtolower($mlProduct['reference']), ['taxa', 'fee', 'tarifa', 'envio', 'shipping', 'envío'])) {
-            $row['tool_alert_message'][] = __('Product blocked', 'moloni_on');
+            $row['tool_alert_message'][] = __('Product blocked', 'moloni-on');
             return;
         }
 
@@ -80,7 +80,7 @@ class CheckProduct
 
         if (empty($wcProduct)) {
             $row['tool_show_create_button'] = true;
-            $row['tool_alert_message'][] = __('Product not found in WooCommerce store', 'moloni_on');
+            $row['tool_alert_message'][] = __('Product not found in WooCommerce store', 'moloni-on');
 
             return;
         }
@@ -92,13 +92,13 @@ class CheckProduct
         $this->createWcLink($row);
 
         if ($wcProduct->is_type('variable') && $wcProduct->has_child()) {
-            $row['tool_alert_message'][] = __('Product types do not match', 'moloni_on');
+            $row['tool_alert_message'][] = __('Product types do not match', 'moloni-on');
 
             return;
         }
 
         if (!empty($mlProduct['hasStock']) !== $wcProduct->managing_stock()) {
-            $row['tool_alert_message'][] = __('Different stock control status', 'moloni_on');
+            $row['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
             return;
         }
@@ -110,7 +110,7 @@ class CheckProduct
             if ($wcStock !== $moloniStock) {
                 $row['tool_show_update_stock_button'] = true;
 
-                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni_on');
+                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
                 $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                 $row['tool_alert_message'][] = $message;
@@ -130,7 +130,7 @@ class CheckProduct
         $this->createMoloniLink($parentRow);
 
         if (!$this->isSyncProductWithVariantsActive()) {
-            $parentRow['tool_alert_message'][] = __('Synchronization of products with variants is disabled', 'moloni_on');
+            $parentRow['tool_alert_message'][] = __('Synchronization of products with variants is disabled', 'moloni-on');
 
             return;
         }
@@ -139,7 +139,7 @@ class CheckProduct
 
         if (empty($wcProduct)) {
             $parentRow['tool_show_create_button'] = true;
-            $parentRow['tool_alert_message'][] = __('Product not found in WooCommerce store', 'moloni_on');
+            $parentRow['tool_alert_message'][] = __('Product not found in WooCommerce store', 'moloni-on');
 
             return;
         }
@@ -151,7 +151,7 @@ class CheckProduct
         $this->createWcLink($parentRow);
 
         if (!$wcProduct->is_type('variable') || !$wcProduct->has_child()) {
-            $parentRow['tool_alert_message'][] = __('Product types do not match', 'moloni_on');
+            $parentRow['tool_alert_message'][] = __('Product types do not match', 'moloni-on');
 
             return;
         }
@@ -159,7 +159,7 @@ class CheckProduct
         try {
             $wcParentAttributes = (new ParseProductProperties($wcProduct))->handle();
         } catch (HelperException $e) {
-            $parentRow['tool_alert_message'][] = __('Error parsing product properties', 'moloni_on');
+            $parentRow['tool_alert_message'][] = __('Error parsing product properties', 'moloni-on');
 
             return;
         }
@@ -173,7 +173,7 @@ class CheckProduct
             $childRow = &$this->rows[key($this->rows)];
 
             if ((int)$mlVariant['visible'] === Boolean::NO) {
-                $childRow['tool_alert_message'][] = __('Variant is not visible', 'moloni_on');;
+                $childRow['tool_alert_message'][] = __('Variant is not visible', 'moloni-on');;
 
                 continue;
             }
@@ -181,7 +181,7 @@ class CheckProduct
             $wcVariation = (new FindVariation($wcParentAttributes, $mlVariant))->run();
 
             if (empty($wcVariation)) {
-                $childRow['tool_alert_message'][] = __('Variation not found in WooCommerce', 'moloni_on');
+                $childRow['tool_alert_message'][] = __('Variation not found in WooCommerce', 'moloni-on');
 
                 continue;
             }
@@ -191,7 +191,7 @@ class CheckProduct
             $childRow['wc_product_object'] = $wcVariation;
 
             if (!empty($mlVariant['hasStock']) !== $wcVariation->managing_stock()) {
-                $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni_on');
+                $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
                 continue;
             }
@@ -203,7 +203,7 @@ class CheckProduct
                 if ($wcStock !== $moloniStock) {
                     $childRow['tool_show_update_stock_button'] = true;
 
-                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni_on');
+                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
                     $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                     $childRow['tool_alert_message'][] = $message;

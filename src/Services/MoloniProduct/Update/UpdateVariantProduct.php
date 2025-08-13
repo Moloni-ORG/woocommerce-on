@@ -65,7 +65,7 @@ class UpdateVariantProduct extends MoloniProductSyncAbstract
 
     public function saveLog()
     {
-        $message = sprintf(__('Product with variants updated in Moloni (%s)', 'moloni_on'), $this->moloniProduct['reference']);
+        $message = sprintf(__('Product with variants updated in Moloni (%s)', 'moloni-on'), $this->moloniProduct['reference']);
 
         Context::logger()->info($message, [
             'tag' => 'service:mlproduct:variant:update',

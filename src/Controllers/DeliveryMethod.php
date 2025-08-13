@@ -43,7 +43,7 @@ class DeliveryMethod
             $query = DeliveryMethods::queryDeliveryMethods($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching delivery methods', 'moloni_on'),
+                __('Error fetching delivery methods', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -82,7 +82,7 @@ class DeliveryMethod
             $query = DeliveryMethods::queryDeliveryMethods($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching delivery methods', 'moloni_on'),
+                __('Error fetching delivery methods', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -116,7 +116,7 @@ class DeliveryMethod
             $mutation = DeliveryMethods::mutationDeliveryMethodCreate($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                sprintf(__('Error creating delivery method (%s)', 'moloni_on'), $this->name),
+                sprintf(__('Error creating delivery method (%s)', 'moloni-on'), $this->name),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
@@ -132,7 +132,7 @@ class DeliveryMethod
         }
 
         throw new DocumentError(
-            sprintf(__('Error creating delivery method (%s)', 'moloni_on'), $this->name),
+            sprintf(__('Error creating delivery method (%s)', 'moloni-on'), $this->name),
             [
                 'mutation' => $mutation
             ]

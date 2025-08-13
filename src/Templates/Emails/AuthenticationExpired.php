@@ -12,8 +12,8 @@ if (!defined('ABSPATH')) {
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title><?= __('The Moloni authentication expired', 'moloni_on') ?></title>
-    <meta name="description" content="<?= __('Authentication Expired Email Template.', 'moloni_on') ?>">
+    <title><?= __('The Moloni authentication expired', 'moloni-on') ?></title>
+    <meta name="description" content="<?= __('Authentication Expired Email Template.', 'moloni-on') ?>">
     <style type="text/css">
         a:hover {
             text-decoration: underline !important;
@@ -52,24 +52,24 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:28px;font-family:'Rubik',sans-serif;">
-                                        <?= __('The Moloni authentication expired', 'moloni_on') ?>
+                                        <?= __('The Moloni authentication expired', 'moloni-on') ?>
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __("You're getting this email because there was an error getting new Moloni authentication tokens in your Wordpress plugin.", 'moloni_on') ?>
+                                        <?= __("You're getting this email because there was an error getting new Moloni authentication tokens in your Wordpress plugin.", 'moloni-on') ?>
                                     </p>
 
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('Please access the Moloni Spain plugin from your WooCommerce store admin panel and confirm the authentication status of your account.', 'moloni_on') ?>
+                                        <?= __('Please access the Moloni Spain plugin from your WooCommerce store admin panel and confirm the authentication status of your account.', 'moloni-on') ?>
                                     </p>
 
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                         <?php
-                                        $text = __('If the authentication has expired, please proceed with the authentication process again, which you can consult <a href="%s">here</a>.', 'moloni_on');
+                                        $text = __('If the authentication has expired, please proceed with the authentication process again, which you can consult <a href="%s">here</a>.', 'moloni-on');
                                         $link = Context::configs()->get('help_page');
 
                                         echo sprintf($text, $link);
@@ -79,7 +79,7 @@ if (!defined('ABSPATH')) {
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?= __('If you have any questions or concerns, please contact our customer support.', 'moloni_on') ?>
+                                        <?= __('If you have any questions or concerns, please contact our customer support.', 'moloni-on') ?>
                                     </p>
                                 </td>
                             </tr>

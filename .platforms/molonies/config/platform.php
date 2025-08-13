@@ -2,7 +2,7 @@
 
 return [
     'name' => 'Moloni',
-    'name_translated' => function_exists('__') ? __('Moloni Spain', 'moloni_on') : 'Moloni Spain',
+    'name_translated' => function_exists('__') ? __('Moloni Spain', 'moloni-on') : 'Moloni Spain',
     'database_infix' => 'es',
     'rest_api' => 'moloni/v1',
     'page_name' => 'molonies',

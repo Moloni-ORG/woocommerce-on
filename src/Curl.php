@@ -72,7 +72,7 @@ class Curl
             return $parsed;
         }
 
-        throw new APIExeption(__('Oops, an error was encountered...', 'moloni_on'), $log);
+        throw new APIExeption(__('Oops, an error was encountered...', 'moloni-on'), $log);
     }
 
     /**
@@ -187,7 +187,7 @@ class Curl
             'received' => $parsed
         ];
 
-        throw new APIExeption(__('Invalid credentials', 'moloni_on'), $log);
+        throw new APIExeption(__('Invalid credentials', 'moloni-on'), $log);
     }
 
     /**

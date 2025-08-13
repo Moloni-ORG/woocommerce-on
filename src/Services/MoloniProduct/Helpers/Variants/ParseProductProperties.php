@@ -69,7 +69,7 @@ class ParseProductProperties
                 $rawData = $productAttribute->get_data();
 
                 if (empty($rawData['options'])) {
-                    throw new HelperException(__('Product attribute not found', 'moloni_on'));
+                    throw new HelperException(__('Product attribute not found', 'moloni-on'));
                 }
 
                 foreach ($rawData['options'] as $option) {

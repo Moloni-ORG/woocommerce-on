@@ -78,7 +78,7 @@ class OrderList
             $newColumns[$name] = $info;
 
             if ('order_status' === $name) {
-                $newColumns['moloni_document'] = __('Moloni document', 'moloni_on');
+                $newColumns['moloni_document'] = __('Moloni document', 'moloni-on');
             }
         }
 
@@ -107,9 +107,9 @@ class OrderList
             if ($documentId > 0) {
                 $redirectUrl = Context::getAdminUrl("action=downloadDocument&id=$documentId");
 
-                echo '<a class="button" target="_blank" onclick="window.open(\'' . $redirectUrl . '\', \'_blank\')">' . __('Download', 'moloni_on') . '</a>';
+                echo '<a class="button" target="_blank" onclick="window.open(\'' . $redirectUrl . '\', \'_blank\')">' . __('Download', 'moloni-on') . '</a>';
             } else {
-                echo '<div>' . __('No associated document', 'moloni_on') . '</div>';
+                echo '<div>' . __('No associated document', 'moloni-on') . '</div>';
             }
         }
     }

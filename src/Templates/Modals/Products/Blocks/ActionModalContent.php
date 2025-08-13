@@ -1,5 +1,5 @@
 <p>
-    <?= __('Total results', 'moloni_on') ?>: <?= $data['totalResults'] ?? 0 ?>
+    <?= __('Total results', 'moloni-on') ?>: <?= $data['totalResults'] ?? 0 ?>
 </p>
 
 <?php if (isset($data['hasMore']) && $data['hasMore']) : ?>
@@ -10,10 +10,10 @@
     <img src="<?php echo esc_url(includes_url() . 'js/thickbox/loadingAnimation.gif'); ?>"/>
 
     <p>
-        <?= __('Please wait, tool in progress', 'moloni_on') ?>
+        <?= __('Please wait, tool in progress', 'moloni-on') ?>
     </p>
 <?php else: ?>
     <p>
-        <?= __('Process complete', 'moloni_on') ?>
+        <?= __('Process complete', 'moloni-on') ?>
     </p>
 <?php endif; ?>

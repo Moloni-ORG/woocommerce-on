@@ -14,7 +14,7 @@ $logsContext = [];
 ?>
 
 <div class="wrap">
-    <h3><?= __('Here you can check all plugin logs', 'moloni_on') ?></h3>
+    <h3><?= __('Here you can check all plugin logs', 'moloni-on') ?></h3>
 
     <div class="tablenav top">
         <div class="tablenav-pages">
@@ -26,10 +26,10 @@ $logsContext = [];
         <table class='wp-list-table widefat striped posts'>
             <thead>
             <tr>
-                <th><a><?= __('Date', 'moloni_on') ?></a></th>
-                <th><a><?= __('Level', 'moloni_on') ?></a></th>
-                <th><a><?= __('Message', 'moloni_on') ?></a></th>
-                <th><a><?= __('Context', 'moloni_on') ?></a></th>
+                <th><a><?= __('Date', 'moloni-on') ?></a></th>
+                <th><a><?= __('Level', 'moloni-on') ?></a></th>
+                <th><a><?= __('Message', 'moloni-on') ?></a></th>
+                <th><a><?= __('Context', 'moloni-on') ?></a></th>
             </tr>
             <tr>
                 <th>
@@ -47,7 +47,7 @@ $logsContext = [];
                         <?php $filterLevel = esc_html($_GET['filter_level'] ?? $_POST['filter_level'] ?? '') ?>
 
                         <option value='' selected><?=
-                            __('Choose an option', 'moloni_on') ?>
+                            __('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($options as $option) : ?>
@@ -70,7 +70,7 @@ $logsContext = [];
                 </th>
                 <th>
                     <button type="submit" name="submit" id="submit" class="button button-primary">
-                        <?= __('Search', 'moloni_on') ?>
+                        <?= __('Search', 'moloni-on') ?>
                     </button>
                 </th>
             </tr>
@@ -99,7 +99,7 @@ $logsContext = [];
 
                             <button type="button" class="button action"
                                     onclick="Moloni.Logs.openContextDialog(<?= $logContext ?>)">
-                                <?= __("See", 'moloni_on') ?>
+                                <?= __("See", 'moloni-on') ?>
                             </button>
                         </td>
                     </tr>
@@ -107,17 +107,17 @@ $logsContext = [];
             <?php else : ?>
                 <tr>
                     <td colspan="4">
-                        <?= __('No records found!', 'moloni_on') ?>
+                        <?= __('No records found!', 'moloni-on') ?>
                     </td>
                 </tr>
             <?php endif; ?>
 
             <tfoot>
             <tr>
-                <th><a><?= __('Date', 'moloni_on') ?></a></th>
-                <th><a><?= __('Level', 'moloni_on') ?></a></th>
-                <th><a><?= __('Message', 'moloni_on') ?></a></th>
-                <th><a><?= __('Context', 'moloni_on') ?></a></th>
+                <th><a><?= __('Date', 'moloni-on') ?></a></th>
+                <th><a><?= __('Level', 'moloni-on') ?></a></th>
+                <th><a><?= __('Message', 'moloni-on') ?></a></th>
+                <th><a><?= __('Context', 'moloni-on') ?></a></th>
             </tr>
             </tfoot>
         </table>
@@ -126,7 +126,7 @@ $logsContext = [];
     <div class="tablenav bottom">
         <div class="alignleft actions">
             <a class="button button-primary" href='<?= Context::getAdminUrl('tab=logs&action=remLogs') ?>'>
-                <?= __('Delete records older than 1 week', 'moloni_on') ?>
+                <?= __('Delete records older than 1 week', 'moloni-on') ?>
             </a>
         </div>
 

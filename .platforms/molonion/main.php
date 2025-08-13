@@ -1,6 +1,6 @@
 /**
- *   Plugin Name:  MoloniOn
- *   Description:  Simple invoicing integration with MoloniOn.
+ *   Plugin Name:  Moloni On
+ *   Description:  Simple invoicing integration with Moloni On.
  *   Version:      #VERSION#
  *   Tested up to: 6.8.1
  *   WC tested up to: 9.9.3

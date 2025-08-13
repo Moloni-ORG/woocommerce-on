@@ -68,7 +68,7 @@ class Plugin
     private function translations()
     {
         /** Loads translations files */
-        load_plugin_textdomain('moloni_on', FALSE, MOLONI_ON_LANGUAGES_DIR);
+        load_plugin_textdomain('moloni-on', FALSE, MOLONI_ON_LANGUAGES_DIR);
     }
 
     /**
@@ -185,10 +185,10 @@ class Plugin
 
         if ($service->getDocumentId() > 0) {
             $viewUrl = ' <a href="' . esc_url(Context::getAdminUrl("&action=getInvoice&id={$service->getDocumentId()}")) . '" target="_BLANK">';
-            $viewUrl .= __('View document', 'moloni_on');
+            $viewUrl .= __('View document', 'moloni-on');
             $viewUrl .= '</a>';
 
-            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni_on') . $viewUrl, 'updated');
+            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni-on') . $viewUrl, 'updated');
         }
     }
 
@@ -205,7 +205,7 @@ class Plugin
             new OpenDocument($documentId);
         }
 
-        add_settings_error('molonion', 'moloni-document-not-found', __('Document not found.', 'moloni_on'));
+        add_settings_error('molonion', 'moloni-document-not-found', __('Document not found.', 'moloni-on'));
     }
 
     /**
@@ -231,7 +231,7 @@ class Plugin
     {
         Logs::removeOlderLogs();
 
-        add_settings_error('molonion', 'moloni-rem-logs', __('Logs cleanup is complete.', 'moloni_on'), 'updated');
+        add_settings_error('molonion', 'moloni-rem-logs', __('Logs cleanup is complete.', 'moloni-on'), 'updated');
     }
 
     /**
@@ -251,14 +251,14 @@ class Plugin
             add_settings_error(
                 'molonion',
                 'moloni-order-remove-success',
-                sprintf(__('Order %s has been marked as generated!', 'moloni_on'), $orderId),
+                sprintf(__('Order %s has been marked as generated!', 'moloni-on'), $orderId),
                 'updated'
             );
         } else {
             add_settings_error(
                 'molonion',
                 'moloni-order-remove',
-                sprintf(__('Do you confirm that you want to mark the order %s as paid?', 'moloni_on'), $orderId) . " <a href='" . esc_url(Context::getAdminUrl("action=remInvoice&confirm=true&id=$orderId")) . "'>" . __('Yes, i confirm', 'moloni_on') . "</a>"
+                sprintf(__('Do you confirm that you want to mark the order %s as paid?', 'moloni-on'), $orderId) . " <a href='" . esc_url(Context::getAdminUrl("action=remInvoice&confirm=true&id=$orderId")) . "'>" . __('Yes, i confirm', 'moloni-on') . "</a>"
             );
         }
     }
@@ -280,10 +280,10 @@ class Plugin
                 WebHooks::createHook('Product', 'update');
             }
 
-            $msg = __('Moloni Webhooks reinstalled successfully.', 'moloni_on');
+            $msg = __('Moloni Webhooks reinstalled successfully.', 'moloni-on');
             $type = 'updated';
         } catch (APIExeption $e) {
-            $msg = __('Something went wrong reinstalling Moloni Webhooks.', 'moloni_on');
+            $msg = __('Something went wrong reinstalling Moloni Webhooks.', 'moloni-on');
             $type = 'error';
         }
 

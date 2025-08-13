@@ -150,7 +150,7 @@ class Settings
                         new AuthenticationExpired(ALERT_EMAIL);
                     }
 
-                    Context::logger()->error(sprintf(__('Reseting tokens after %s tries', 'moloni_on'), $retryNumber), [
+                    Context::logger()->error(sprintf(__('Reseting tokens after %s tries', 'moloni-on'), $retryNumber), [
                         'tag' => 'service:refreshtokens:error',
                     ]);
 

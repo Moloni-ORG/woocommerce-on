@@ -2,7 +2,7 @@
 
 return [
     'name' => 'MoloniOn',
-    'name_translated' => function_exists('__') ? __('MoloniOn', 'moloni_on') : 'MoloniOn',
+    'name_translated' => function_exists('__') ? __('Moloni On', 'moloni-on') : 'MoloniOn',
     'database_infix' => 'on',
     'rest_api' => 'molonion/v1',
     'page_name' => 'molonion',
@@ -18,5 +18,5 @@ return [
     // Builder configuration
     'folder_name' => 'molonion',
     'zip_name' => 'moloni-on',
-    'main_file_name' => 'moloni_on',
+    'main_file_name' => 'moloni-on',
 ];

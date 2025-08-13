@@ -21,11 +21,11 @@ $row = $row ?? [];
     <td>
         <?php
         if (!empty($row['moloni_product_array']['variants'])) {
-            echo __('Variable', 'moloni_on');
+            echo __('Variable', 'moloni-on');
         } elseif (!empty($row['moloni_product_array']['parent'])) {
-            echo __('Variation', 'moloni_on');
+            echo __('Variation', 'moloni-on');
         } else {
-            echo __('Simple', 'moloni_on');
+            echo __('Simple', 'moloni-on');
         }
         ?>
     </td>
@@ -46,14 +46,14 @@ $row = $row ?? [];
         <?php if (!empty($row['wc_product_link']) || !empty($row['moloni_product_link'])) : ?>
             <div class="dropdown">
                 <button type="button" class="dropdown--manager button button-primary">
-                    <?= __('Open', 'moloni_on') ?> &#8628;
+                    <?= __('Open', 'moloni-on') ?> &#8628;
                 </button>
                 <div class="dropdown__content">
                     <ul>
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?= $row['moloni_product_link'] ?>">
-                                    <?= __('Open in Moloni', 'moloni_on') ?>
+                                    <?= __('Open in Moloni', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -61,7 +61,7 @@ $row = $row ?? [];
                         <?php if (!empty($row['wc_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?= $row['wc_product_link'] ?>">
-                                    <?= __('Open in WooCommerce', 'moloni_on') ?>
+                                    <?= __('Open in WooCommerce', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>

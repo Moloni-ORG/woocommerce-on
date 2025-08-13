@@ -148,7 +148,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
         if ($categoryId === 0) {
             try {
-                $categoryId = (new GetOrCreateCategory(__('Online Store', 'moloni_on')))->get();
+                $categoryId = (new GetOrCreateCategory(__('Online Store', 'moloni-on')))->get();
             } catch (HelperException $e) {
                 throw new ServiceException($e->getMessage(), $e->getData());
             }
@@ -410,8 +410,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         } catch (APIExeption $e) {
             throw new ServiceException(
                 sprintf(
-                    __('Error %s product in Moloni (%s)', 'moloni_on'),
-                    __('creating', 'moloni_on'),
+                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
                 [
@@ -426,8 +426,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         if (empty($product)) {
             throw new ServiceException(
                 sprintf(
-                    __('Error %s product in Moloni (%s)', 'moloni_on'),
-                    __('creating', 'moloni_on'),
+                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
                 [
@@ -458,8 +458,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         } catch (APIExeption $e) {
             throw new ServiceException(
                 sprintf(
-                    __('Error %s product in Moloni (%s)', 'moloni_on'),
-                    __('updating', 'moloni_on'),
+                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),
                 [
@@ -474,8 +474,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         if (empty($product)) {
             throw new ServiceException(
                 sprintf(
-                    __('Error %s product in Moloni (%s)', 'moloni_on'),
-                    __('updating', 'moloni_on'),
+                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),
                 [

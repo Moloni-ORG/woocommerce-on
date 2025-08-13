@@ -18,17 +18,17 @@ $orders = PendingOrders::getAllAvailable();
 ?>
 
 <div class="wrap">
-    <h3><?= __('Here you can see all the orders you have to generate', 'moloni_on') ?></h3>
+    <h3><?= __('Here you can see all the orders you have to generate', 'moloni-on') ?></h3>
 
     <div class="tablenav top">
         <div class="alignleft actions bulkactions">
             <label for="bulk-action-selector-top" class="screen-reader-text"></label><select
                     name="action" id="bulk-action-selector-top">
-                <option value="-1"><?= __('Bulk actions', 'moloni_on') ?></option>
-                <option value="bulkGenInvoice"><?= __('Generate documents', 'moloni_on') ?></option>
-                <option value="bulkDiscardOrder"><?= __('Discard documents', 'moloni_on') ?></option>
+                <option value="-1"><?= __('Bulk actions', 'moloni-on') ?></option>
+                <option value="bulkGenInvoice"><?= __('Generate documents', 'moloni-on') ?></option>
+                <option value="bulkDiscardOrder"><?= __('Discard documents', 'moloni-on') ?></option>
             </select>
-            <input type="submit" id="doAction" class="button action" value="<?= __('Run', 'moloni_on') ?>">
+            <input type="submit" id="doAction" class="button action" value="<?= __('Run', 'moloni-on') ?>">
         </div>
 
         <div class="tablenav-pages">
@@ -43,12 +43,12 @@ $orders = PendingOrders::getAllAvailable();
                 <label for="moloni-pending-orders-select-all" class="screen-reader-text"></label>
                 <input id="moloni-pending-orders-select-all" class="moloni-pending-orders-select-all" type="checkbox">
             </td>
-            <th><a><?= __('Order', 'moloni_on') ?></a></th>
-            <th><a><?= __('Client', 'moloni_on') ?></a></th>
-            <th><a><?= __('VAT', 'moloni_on') ?></a></th>
-            <th><a><?= __('Total', 'moloni_on') ?></a></th>
-            <th><a><?= __('Status', 'moloni_on') ?></a></th>
-            <th><a><?= __('Payment date', 'moloni_on') ?></a></th>
+            <th><a><?= __('Order', 'moloni-on') ?></a></th>
+            <th><a><?= __('Client', 'moloni-on') ?></a></th>
+            <th><a><?= __('VAT', 'moloni-on') ?></a></th>
+            <th><a><?= __('Total', 'moloni-on') ?></a></th>
+            <th><a><?= __('Status', 'moloni-on') ?></a></th>
+            <th><a><?= __('Payment date', 'moloni-on') ?></a></th>
             <th style="width: 350px;"></th>
         </tr>
         </thead>
@@ -72,7 +72,7 @@ $orders = PendingOrders::getAllAvailable();
                         if (!empty($order->get_billing_first_name())) {
                             echo $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
                         } else {
-                            echo __('Unknown', 'moloni_on');
+                            echo __('Unknown', 'moloni-on');
                         }
                         ?>
                     <td>
@@ -135,13 +135,13 @@ $orders = PendingOrders::getAllAvailable();
                             <input type="submit"
                                    class="wp-core-ui button-primary"
                                    style="width: 80px; text-align: center; margin-right: 5px"
-                                   value="<?= __('Create', 'moloni_on') ?>"
+                                   value="<?= __('Create', 'moloni-on') ?>"
                             >
 
 
                             <a class="wp-core-ui button-secondary" style="width: 80px; text-align: center"
                                href="<?= esc_url(Context::getAdminUrl("action=remInvoice&id={$order->get_id()}")) ?>">
-                                <?= __('Discard', 'moloni_on') ?>
+                                <?= __('Discard', 'moloni-on') ?>
                             </a>
                         </form>
                     </td>
@@ -150,7 +150,7 @@ $orders = PendingOrders::getAllAvailable();
         <?php else : ?>
             <tr>
                 <td colspan="8">
-                    <?= __('No orders to be generated were found!', 'moloni_on') ?>
+                    <?= __('No orders to be generated were found!', 'moloni-on') ?>
                 </td>
             </tr>
 
@@ -164,12 +164,12 @@ $orders = PendingOrders::getAllAvailable();
                        type="checkbox">
             </td>
 
-            <th><a><?= __('Order', 'moloni_on') ?></a></th>
-            <th><a><?= __('Client', 'moloni_on') ?></a></th>
-            <th><a><?= __('VAT', 'moloni_on') ?></a></th>
-            <th><a><?= __('Total', 'moloni_on') ?></a></th>
-            <th><a><?= __('Status', 'moloni_on') ?></a></th>
-            <th><a><?= __('Payment date', 'moloni_on') ?></a></th>
+            <th><a><?= __('Order', 'moloni-on') ?></a></th>
+            <th><a><?= __('Client', 'moloni-on') ?></a></th>
+            <th><a><?= __('VAT', 'moloni-on') ?></a></th>
+            <th><a><?= __('Total', 'moloni-on') ?></a></th>
+            <th><a><?= __('Status', 'moloni-on') ?></a></th>
+            <th><a><?= __('Payment date', 'moloni-on') ?></a></th>
             <th></th>
         </tr>
         </tfoot>
@@ -187,15 +187,15 @@ $orders = PendingOrders::getAllAvailable();
 <script>
     jQuery(document).ready(function () {
         Moloni.OrdersBulkAction({
-            startingProcess: "<?=__('Starting process...', 'moloni_on')?>",
-            noOrdersSelected: "<?=__('No orders selected to process', 'moloni_on')?>",
-            creatingDocument: "<?=__('Creating document', 'moloni_on')?>",
-            discardingOrder: "<?=__('Discarding order', 'moloni_on')?>",
-            createdDocuments: "<?=__('Documents created:', 'moloni_on')?>",
-            documentsWithErrors: "<?=__('Documents with errors:', 'moloni_on')?>",
-            discardedOrders: "<?=__('Orders discarded:', 'moloni_on')?>",
-            ordersWithErrors: "<?=__('Orders with errors:', 'moloni_on')?>",
-            close: "<?=__('Close', 'moloni_on')?>",
+            startingProcess: "<?=__('Starting process...', 'moloni-on')?>",
+            noOrdersSelected: "<?=__('No orders selected to process', 'moloni-on')?>",
+            creatingDocument: "<?=__('Creating document', 'moloni-on')?>",
+            discardingOrder: "<?=__('Discarding order', 'moloni-on')?>",
+            createdDocuments: "<?=__('Documents created:', 'moloni-on')?>",
+            documentsWithErrors: "<?=__('Documents with errors:', 'moloni-on')?>",
+            discardedOrders: "<?=__('Orders discarded:', 'moloni-on')?>",
+            ordersWithErrors: "<?=__('Orders with errors:', 'moloni-on')?>",
+            close: "<?=__('Close', 'moloni-on')?>",
         });
     });
 </script>

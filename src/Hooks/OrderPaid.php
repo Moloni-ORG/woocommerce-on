@@ -38,8 +38,8 @@ class OrderPaid
             $orderName = $service->getOrderNumber() ?? '';
 
             Context::logger()->info(sprintf(
-                __("Automatically generating order document in status '%s' (%s)", 'moloni_on'),
-                __('Complete', 'moloni_on'),
+                __("Automatically generating order document in status '%s' (%s)", 'moloni-on'),
+                __('Complete', 'moloni-on'),
                 $orderName
             ), [
                 'tag' => 'automatic:document:create:complete:start',
@@ -80,7 +80,7 @@ class OrderPaid
                     ]
                 );
             } catch (Exception $ex) {
-                Context::logger()->critical(__("Fatal error", 'moloni_on'), [
+                Context::logger()->critical(__("Fatal error", 'moloni-on'), [
                     'tag' => 'automatic:document:create:complete:fatalerror',
                     'message' => $ex->getMessage()
                 ]);
@@ -95,8 +95,8 @@ class OrderPaid
             $orderName = $service->getOrderNumber() ?? '';
 
             Context::logger()->info(sprintf(
-                __("Automatically generating order document in status '%s' (%s)", 'moloni_on'),
-                __('Processing', 'moloni_on'),
+                __("Automatically generating order document in status '%s' (%s)", 'moloni-on'),
+                __('Processing', 'moloni-on'),
                 $orderName
             ), [
                     'tag' => 'automatic:document:create:processing:start',
@@ -138,7 +138,7 @@ class OrderPaid
                     ]
                 );
             } catch (Exception $ex) {
-                Context::logger()->critical(__("Fatal error", 'moloni_on'), [
+                Context::logger()->critical(__("Fatal error", 'moloni-on'), [
                     'tag' => 'automatic:document:create:processing:fatalerror',
                     'message' => $ex->getMessage()
                 ]);
@@ -196,10 +196,10 @@ class OrderPaid
             $adminUrl = Context::getAdminUrl("action=getInvoice&id={$service->getDocumentId()}");
 
             $viewUrl = ' <a href="' . esc_url($adminUrl) . '" target="_BLANK">';
-            $viewUrl .= __('View document', 'moloni_on');
+            $viewUrl .= __('View document', 'moloni-on');
             $viewUrl .= '</a>';
 
-            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni_on') . $viewUrl, 'updated');
+            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni-on') . $viewUrl, 'updated');
         }
     }
 }

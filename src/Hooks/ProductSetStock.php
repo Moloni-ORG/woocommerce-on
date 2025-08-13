@@ -58,7 +58,7 @@ class ProductSetStock
             $service->run();
             $service->saveLog();
         } catch (MoloniException $e) {
-            $message = __('Error synchronizing stock.', 'moloni_on');
+            $message = __('Error synchronizing stock.', 'moloni-on');
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -73,7 +73,7 @@ class ProductSetStock
                 ]
             );
         } catch (Exception $e) {
-            Context::logger()->critical(__('Fatal error', 'moloni_on'), [
+            Context::logger()->critical(__('Fatal error', 'moloni-on'), [
                 'tag' => 'automatic:product:stock:fatalerror',
                 'message' => $e->getMessage(),
                 'extra' => [
@@ -119,7 +119,7 @@ class ProductSetStock
             $service->run();
             $service->saveLog();
         } catch (MoloniException $e) {
-            $message = __('Error synchronizing stock.', 'moloni_on');
+            $message = __('Error synchronizing stock.', 'moloni-on');
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -134,7 +134,7 @@ class ProductSetStock
                 ]
             );
         } catch (Exception $e) {
-            Context::logger()->critical(__('Fatal error', 'moloni_on'), [
+            Context::logger()->critical(__('Fatal error', 'moloni-on'), [
                 'tag' => 'automatic:variation:stock:fatalerror',
                 'message' => $e->getMessage(),
                 'extra' => [
@@ -216,15 +216,15 @@ class ProductSetStock
     private function validateMoloniProduct(?array $moloniProduct = [])
     {
         if (empty($moloniProduct)) {
-            throw new HookException(__('Product not found', 'moloni_on'));
+            throw new HookException(__('Product not found', 'moloni-on'));
         }
 
         if (!empty($moloniProduct['variants'])) {
-            throw new HookException(__('Product types do not match', 'moloni_on'));
+            throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
         if ((int)$moloniProduct['hasStock'] === Boolean::NO) {
-            throw new HookException(__('Product does not manage stock', 'moloni_on'));
+            throw new HookException(__('Product does not manage stock', 'moloni-on'));
         }
     }
 
@@ -236,15 +236,15 @@ class ProductSetStock
     private function validateWcProduct(WC_Product $wcProduct)
     {
         if ($wcProduct->is_type('variable')) {
-            throw new HookException(__('Product types do not match', 'moloni_on'));
+            throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
         if ($wcProduct->get_status() === 'draft') {
-            throw new HookException(__('Product is not published', 'moloni_on'));
+            throw new HookException(__('Product is not published', 'moloni-on'));
         }
 
         if (SyncLogs::hasTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProduct->get_id())) {
-            throw new HookException(__('Product has timeout', 'moloni_on'));
+            throw new HookException(__('Product has timeout', 'moloni-on'));
         }
     }
 }

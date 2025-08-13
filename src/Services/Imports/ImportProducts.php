@@ -73,7 +73,7 @@ class ImportProducts extends ImportService
             }
         }
 
-        Context::logger()->info(sprintf(__('Products import. Part %s', 'moloni_on'), $this->page), [
+        Context::logger()->info(sprintf(__('Products import. Part %s', 'moloni-on'), $this->page), [
                 'tag' => 'tool:import:product',
                 'success' => $this->syncedProducts,
                 'error' => $this->errorProducts,
