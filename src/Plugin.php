@@ -156,7 +156,7 @@ class Plugin
         try {
             $service->run();
         } catch (DocumentWarning $e) {
-            // Translators: %1$s is the order name.
+            // Translators: %s is the order name.
             $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
             $message .= ' </br>';
             $message .= $e->getMessage();
@@ -170,7 +170,7 @@ class Plugin
 
             throw $e;
         } catch (DocumentError $e) {
-            // Translators: %1$s is the order name.
+            // Translators: %s is the order name.
             $message = sprintf(__('There was an error when generating the document (%s)'), $orderName);
             $message .= ' </br>';
             $message .= strip_tags($e->getMessage());
@@ -250,7 +250,7 @@ class Plugin
             $service->run();
             $service->saveLog();
 
-            // Translators: %1$s is the order ID.
+            // Translators: %s is the order ID.
             $message = sprintf(__('Order %s has been marked as generated!', 'moloni-on'), $orderId);
 
             add_settings_error(
@@ -260,7 +260,7 @@ class Plugin
                 'updated'
             );
         } else {
-            // Translators: %1$s is the order ID.
+            // Translators: %s is the order ID.
             $message = sprintf(__('Do you confirm that you want to mark the order %s as paid?', 'moloni-on'), $orderId);
 
             add_settings_error(

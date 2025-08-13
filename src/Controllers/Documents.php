@@ -422,7 +422,7 @@ class Documents
      */
     private function saveLog(): void
     {
-        // Translators: %1$s is the document type name, %2$s is the order number.
+        // Translators: %s is the document type name, %s is the order number.
         $message = sprintf(__('%s was created with success (%s)', 'moloni-on'),
             $this->documentTypeName,
             $this->order->get_order_number()

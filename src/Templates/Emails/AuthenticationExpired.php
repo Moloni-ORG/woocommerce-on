@@ -69,7 +69,7 @@ if (!defined('ABSPATH')) {
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                         <?php
-                                        // Translators: %1$s is log's page link.
+                                        // Translators: %s is log's page link.
                                         $text = __('If the authentication has expired, please proceed with the authentication process again, which you can consult <a href="%s">here</a>.', 'moloni-on');
                                         $link = Context::configs()->get('help_page');
 

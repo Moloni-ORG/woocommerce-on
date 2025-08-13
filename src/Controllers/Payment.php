@@ -72,7 +72,7 @@ class Payment
         try {
             $mutation = (PaymentMethods::mutationPaymentMethodCreate($this->mapPropsToValues()))['data']['paymentMethodCreate']['data'] ?? [];
         } catch (APIExeption $e) {
-            // Translators: %1$s is the payment name.
+            // Translators: %s is the payment name.
             $log = sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name);
 
             throw new DocumentError($log, [
@@ -87,7 +87,7 @@ class Payment
             return $this;
         }
 
-        // Translators: %1$s is the payment name.
+        // Translators: %s is the payment name.
         $log = sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name);
 
         throw new DocumentError($log, [

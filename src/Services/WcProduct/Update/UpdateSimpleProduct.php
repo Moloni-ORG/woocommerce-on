@@ -57,7 +57,7 @@ class UpdateSimpleProduct extends WcProductSyncAbstract
 
     public function saveLog()
     {
-        // Translators: %1$s is the WooCommerce product SKU.
+        // Translators: %s is the WooCommerce product SKU.
         $message = sprintf(__('Simple product updated in WooCommerce (%s)', 'moloni-on'), $this->wcProduct->get_sku());
 
         Context::logger()->info($message, [

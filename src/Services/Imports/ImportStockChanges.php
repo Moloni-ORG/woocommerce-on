@@ -84,7 +84,7 @@ class ImportStockChanges extends ImportService
             }
         }
 
-        // Translators: %1$s is the part number.
+        // Translators: %s is the part number.
         Context::logger()->info(sprintf(__('Products stock import. Part %s', 'moloni-on'), $this->page), [
                 'tag' => 'tool:import:stock',
                 'success' => $this->syncedProducts,

@@ -59,7 +59,7 @@ class CreateParentProduct extends WcProductSyncAbstract
 
     public function saveLog()
     {
-        // Translators: %1$s is the product SKU.
+        // Translators: %s is the product SKU.
         $message = sprintf(__('Product with variations created in WooCommerce (%s)', 'moloni-on'), $this->wcProduct->get_sku());
 
         Context::logger()->info($message, [
