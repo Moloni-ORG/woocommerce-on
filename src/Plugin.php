@@ -156,6 +156,7 @@ class Plugin
         try {
             $service->run();
         } catch (DocumentWarning $e) {
+            // Translators: %1$s is the order name.
             $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
             $message .= ' </br>';
             $message .= $e->getMessage();
@@ -169,6 +170,7 @@ class Plugin
 
             throw $e;
         } catch (DocumentError $e) {
+            // Translators: %1$s is the order name.
             $message = sprintf(__('There was an error when generating the document (%s)'), $orderName);
             $message .= ' </br>';
             $message .= strip_tags($e->getMessage());
@@ -248,17 +250,23 @@ class Plugin
             $service->run();
             $service->saveLog();
 
+            // Translators: %1$s is the order ID.
+            $message = sprintf(__('Order %s has been marked as generated!', 'moloni-on'), $orderId);
+
             add_settings_error(
                 'molonion',
                 'moloni-order-remove-success',
-                sprintf(__('Order %s has been marked as generated!', 'moloni-on'), $orderId),
+                $message,
                 'updated'
             );
         } else {
+            // Translators: %1$s is the order ID.
+            $message = sprintf(__('Do you confirm that you want to mark the order %s as paid?', 'moloni-on'), $orderId);
+
             add_settings_error(
                 'molonion',
                 'moloni-order-remove',
-                sprintf(__('Do you confirm that you want to mark the order %s as paid?', 'moloni-on'), $orderId) . " <a href='" . esc_url(Context::getAdminUrl("action=remInvoice&confirm=true&id=$orderId")) . "'>" . __('Yes, i confirm', 'moloni-on') . "</a>"
+                $message . " <a href='" . esc_url(Context::getAdminUrl("action=remInvoice&confirm=true&id=$orderId")) . "'>" . __('Yes, i confirm', 'moloni-on') . "</a>"
             );
         }
     }

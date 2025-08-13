@@ -43,11 +43,13 @@ class SyncProductStock extends MoloniStockSyncAbstract
         $moloniStock = (int)MoloniProduct::parseMoloniStock($this->moloniProduct, $warehouseId);
 
         if ($wcStock === $moloniStock) {
+            // Translators: %1$s is the product SKU.
             $msg = sprintf(
                 __('Stock is already updated in Moloni (%s)', 'moloni-on'),
                 $this->moloniProduct['reference']
             );
         } else {
+            // Translators: %1$s is the old Moloni stock, %2$s is the new WooCommerce stock, %3$s is the product SKU.
             $msg = sprintf(
                 __('Stock updated in Moloni (old: %s | new: %s) (%s)', 'moloni-on'),
                 $moloniStock,
@@ -71,6 +73,7 @@ class SyncProductStock extends MoloniStockSyncAbstract
                 } catch (APIExeption $e) {
                     throw new ServiceException(
                         sprintf(
+                            // Translators: %1$s is the product SKU.
                             __('Something went wrong updating stock (%s)', 'moloni-on'),
                             $this->moloniProduct['reference']
                         ),
@@ -91,8 +94,10 @@ class SyncProductStock extends MoloniStockSyncAbstract
                 try {
                     $mutation = Stocks::mutationStockMovementManualEntryCreate(['data' => $props]);
                 } catch (APIExeption $e) {
+
                     throw new ServiceException(
                         sprintf(
+                            // Translators: %1$s is the product SKU.
                             __('Something went wrong updating stock (%s)', 'moloni-on'),
                             $this->moloniProduct['reference']
                         ),
@@ -109,6 +114,7 @@ class SyncProductStock extends MoloniStockSyncAbstract
 
             if (empty($movementId)) {
                 throw new ServiceException(sprintf(
+                    // Translators: %1$s is the product SKU.
                     __('Something went wrong updating stock (%s)', 'moloni-on'),
                     $this->moloniProduct['reference']
                 ), [

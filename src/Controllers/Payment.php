@@ -53,7 +53,7 @@ class Payment
         if (!empty($paymentMethods)) {
             foreach ($paymentMethods as $paymentMethod) {
                 if ($paymentMethod['name'] === $this->name) {
-                    $this->payment_method_id = (int) $paymentMethod['paymentMethodId'];
+                    $this->payment_method_id = (int)$paymentMethod['paymentMethodId'];
                     return $this;
                 }
             }
@@ -72,9 +72,10 @@ class Payment
         try {
             $mutation = (PaymentMethods::mutationPaymentMethodCreate($this->mapPropsToValues()))['data']['paymentMethodCreate']['data'] ?? [];
         } catch (APIExeption $e) {
-            throw new DocumentError(
-                sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name),
-                [
+            // Translators: %1$s is the payment name.
+            $log = sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name);
+
+            throw new DocumentError($log, [
                     'message' => $e->getMessage(),
                     'data' => $e->getData(),
                 ]
@@ -86,9 +87,10 @@ class Payment
             return $this;
         }
 
-        throw new DocumentError(
-            sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name),
-            [
+        // Translators: %1$s is the payment name.
+        $log = sprintf(__('Error creating payment method (%s)', 'moloni-on'), $this->name);
+
+        throw new DocumentError($log, [
                 'mutation' => $mutation
             ]
         );
