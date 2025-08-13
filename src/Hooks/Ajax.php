@@ -70,7 +70,7 @@ class Ajax
             ];
         } catch (DocumentWarning $e) {
             // Translators: %1$s is the order name.
-            $message = sprintf(__('There was an warning when generating the document (%1$s)'), $orderName);
+            $message = sprintf(__('There was an warning when generating the document (%1$s)', 'moloni-on'), $orderName);
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -84,7 +84,7 @@ class Ajax
             $response = ['valid' => 1, 'message' => $e->getMessage(), 'data' => $e->getData()];
         } catch (DocumentError $e) {
             // Translators: %1$s is the order name.
-            $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
+            $message = sprintf(__('There was an error when generating the document (%1$s)', 'moloni-on'), $orderName);
             $message .= ' </br>';
             $message .= wp_strip_all_tags($e->getMessage());
 

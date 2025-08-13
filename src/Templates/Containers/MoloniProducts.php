@@ -67,7 +67,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         $warehouseId = $service->getWarehouseId();
 
         if ($warehouseId === 1) {
-            echo '- <b>' . __('Accumulated stock from all warehouses.', 'moloni-on') . '</b>';
+            echo '- <b>' . esc_attr__('Accumulated stock from all warehouses.', 'moloni-on') . '</b>';
         } else {
             try {
                 $warehouse = Warehouses::queryWarehouse([
@@ -78,7 +78,7 @@ $backAction = Context::getAdminUrl('tab=tools');
                 return;
             }
 
-            echo '- ' . __('Warehouse', 'moloni-on');
+            echo '- ' . esc_attr__('Warehouse', 'moloni-on');
             echo '<b>';
             echo ': ' . $warehouse['name'] . ' (' . $warehouse['number'] . ')';
             echo '</b>';

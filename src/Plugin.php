@@ -147,7 +147,7 @@ class Plugin
             $service->run();
         } catch (DocumentWarning $e) {
             // Translators: %1$s is the order name.
-            $message = sprintf(__('There was an warning when generating the document (%1$s)'), $orderName);
+            $message = sprintf(__('There was an warning when generating the document (%1$s)', 'moloni-on'), $orderName);
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -161,7 +161,7 @@ class Plugin
             throw $e;
         } catch (DocumentError $e) {
             // Translators: %1$s is the order name.
-            $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
+            $message = sprintf(__('There was an error when generating the document (%1$s)', 'moloni-on'), $orderName);
             $message .= ' </br>';
             $message .= wp_strip_all_tags($e->getMessage());
 

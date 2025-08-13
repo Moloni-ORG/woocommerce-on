@@ -122,7 +122,7 @@ try {
                     </select>
 
                     <p class='description'>
-                        <?php esc_html_e('Required', 'moloni-on') . ' ' . __('(Invoice + Receipt cannot be created in draft)', 'moloni-on') ?>
+                        <?php echo esc_attr__('Required', 'moloni-on') . ' ' . esc_attr__('(Invoice + Receipt cannot be created in draft)', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
@@ -268,7 +268,7 @@ try {
                                 <?php $activeCountry = defined('LOAD_ADDRESS_CUSTOM_COUNTRY') ? (int)LOAD_ADDRESS_CUSTOM_COUNTRY : 0; ?>
 
                                 <option value='0' <?php echo ($activeCountry === 0 ? 'selected' : '') ?>><?php echo
-                                    __('Choose an option', 'moloni-on') ?>
+                                    esc_attr_e('Choose an option', 'moloni-on') ?>
                                 </option>
 
                                 <?php foreach ($countries['data']['countries']['data'] as $country) : ?>

@@ -3,7 +3,7 @@ Contributors: Moloni
 Requires Plugins: woocommerce
 Tags: Invoicing, Orders
 Stable tag: #VERSION#
-Tested up to: 6.8.0
+Tested up to: 6.8
 WC tested up to: 9.9.3
 
 Requires PHP: 7.2

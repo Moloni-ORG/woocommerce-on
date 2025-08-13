@@ -46,8 +46,8 @@ $logsContext = [];
                     <select name="filter_level">
                         <?php $filterLevel = esc_html($_GET['filter_level'] ?? $_POST['filter_level'] ?? '') ?>
 
-                        <option value='' selected><?php echo
-                            __('Choose an option', 'moloni-on') ?>
+                        <option value='' selected>
+                            <?php esc_attr_e('Choose an option', 'moloni-on') ?>
                         </option>
 
                         <?php foreach ($options as $option) : ?>

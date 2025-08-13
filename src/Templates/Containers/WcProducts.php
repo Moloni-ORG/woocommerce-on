@@ -74,7 +74,7 @@ $backAction = Context::getAdminUrl('tab=tools');
             return;
         }
 
-        echo '- ' . __('Warehouse', 'moloni-on');
+        echo '- ' . esc_attr__('Warehouse', 'moloni-on');
         echo '<b>';
         echo ': ' . $warehouse['name'] . ' (' . $warehouse['number'] . ')';
         echo '</b>';

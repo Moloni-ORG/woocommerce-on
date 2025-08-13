@@ -187,15 +187,15 @@ $orders = PendingOrders::getAllAvailable();
 <script>
     jQuery(document).ready(function () {
         Moloni.OrdersBulkAction({
-            startingProcess: "<?php echo__('Starting process...', 'moloni-on')?>",
-            noOrdersSelected: "<?php echo__('No orders selected to process', 'moloni-on')?>",
-            creatingDocument: "<?php echo__('Creating document', 'moloni-on')?>",
-            discardingOrder: "<?php echo__('Discarding order', 'moloni-on')?>",
-            createdDocuments: "<?php echo__('Documents created:', 'moloni-on')?>",
-            documentsWithErrors: "<?php echo__('Documents with errors:', 'moloni-on')?>",
-            discardedOrders: "<?php echo__('Orders discarded:', 'moloni-on')?>",
-            ordersWithErrors: "<?php echo__('Orders with errors:', 'moloni-on')?>",
-            close: "<?php echo__('Close', 'moloni-on')?>",
+            startingProcess: "<?php esc_attr_e('Starting process...', 'moloni-on')?>",
+            noOrdersSelected: "<?php esc_attr_e('No orders selected to process', 'moloni-on')?>",
+            creatingDocument: "<?php esc_attr_e('Creating document', 'moloni-on')?>",
+            discardingOrder: "<?php esc_attr_e('Discarding order', 'moloni-on')?>",
+            createdDocuments: "<?php esc_attr_e('Documents created:', 'moloni-on')?>",
+            documentsWithErrors: "<?php esc_attr_e('Documents with errors:', 'moloni-on')?>",
+            discardedOrders: "<?php esc_attr_e('Orders discarded:', 'moloni-on')?>",
+            ordersWithErrors: "<?php esc_attr_e('Orders with errors:', 'moloni-on')?>",
+            close: "<?php esc_attr_e('Close', 'moloni-on')?>",
         });
     });
 </script>

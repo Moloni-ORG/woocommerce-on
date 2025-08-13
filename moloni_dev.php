@@ -4,7 +4,7 @@
  *   Plugin Name:  Moloni DEV
  *   Description:  Development plugin for Moloni Spain and MoloniOn.
  *   Version:      0.0.01
- *   Tested up to: 6.8.0
+ *   Tested up to: 6.8
  *   WC tested up to: 9.8.5
  *
  *   Author:       Moloni
