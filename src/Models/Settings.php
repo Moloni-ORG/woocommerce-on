@@ -150,8 +150,8 @@ class Settings
                         new AuthenticationExpired(ALERT_EMAIL);
                     }
 
-                    // Translators: %s is the number of tries.
-                    Context::logger()->error(sprintf(__('Reseting tokens after %s tries', 'moloni-on'), $retryNumber), [
+                    // Translators: %1$s is the number of tries.
+                    Context::logger()->error(sprintf(__('Reseting tokens after %1$s tries', 'moloni-on'), $retryNumber), [
                         'tag' => 'service:refreshtokens:error',
                     ]);
 

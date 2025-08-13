@@ -61,16 +61,16 @@ class Ajax
         try {
             $service->run();
 
-            // Translators: %s is the order name.
-            $log = __('Document %s successfully inserted', 'moloni-on');
+            // Translators: %1$s is the order name.
+            $log = __('Document %1$s successfully inserted', 'moloni-on');
 
             $response = [
                 'valid' => 1,
                 'message' => sprintf($log, $service->getOrderNumber())
             ];
         } catch (DocumentWarning $e) {
-            // Translators: %s is the order name.
-            $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
+            // Translators: %1$s is the order name.
+            $message = sprintf(__('There was an warning when generating the document (%1$s)'), $orderName);
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -83,8 +83,8 @@ class Ajax
 
             $response = ['valid' => 1, 'message' => $e->getMessage(), 'data' => $e->getData()];
         } catch (DocumentError $e) {
-            // Translators: %s is the order name.
-            $message = sprintf(__('There was an error when generating the document (%s)'), $orderName);
+            // Translators: %1$s is the order name.
+            $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
             $message .= ' </br>';
             $message .= strip_tags($e->getMessage());
 

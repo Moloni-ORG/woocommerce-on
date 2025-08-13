@@ -50,8 +50,8 @@ class UpdateChildProduct extends WcProductSyncAbstract
 
     public function saveLog()
     {
-        // Translators: %s is the WooCommerce product SKU.
-        $message = sprintf(__('Variation product updated in WooCommerce (%s)', 'moloni-on'), $this->wcProduct->get_sku());
+        // Translators: %1$s is the WooCommerce product SKU.
+        $message = sprintf(__('Variation product updated in WooCommerce (%1$s)', 'moloni-on'), $this->wcProduct->get_sku());
 
         Context::logger()->info($message, [
             'tag' => 'service:wcproduct:child:update',

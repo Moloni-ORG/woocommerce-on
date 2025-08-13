@@ -410,8 +410,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         } catch (APIExeption $e) {
             throw new ServiceException(
                 sprintf(
-                    // Translators: %s is the action. %s is the product SKU.
-                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    // Translators: %1$s is the action. %2$s is the product SKU.
+                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
                     __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
@@ -427,8 +427,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         if (empty($product)) {
             throw new ServiceException(
                 sprintf(
-                    // Translators: %s is the action. %s is the product SKU.
-                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    // Translators: %1$s is the action. %2$s is the product SKU.
+                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
                     __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
@@ -460,8 +460,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         } catch (APIExeption $e) {
             throw new ServiceException(
                 sprintf(
-                    // Translators: %s is the action. %s is the product SKU.
-                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    // Translators: %1$s is the action. %2$s is the product SKU.
+                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
                     __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),
@@ -477,8 +477,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         if (empty($product)) {
             throw new ServiceException(
                 sprintf(
-                    // Translators: %s is the action. %s is the product SKU.
-                    __('Error %s product in Moloni (%s)', 'moloni-on'),
+                    // Translators: %1$s is the action. %2$s is the product SKU.
+                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
                     __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),

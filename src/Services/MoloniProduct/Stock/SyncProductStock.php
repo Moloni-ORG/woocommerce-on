@@ -43,15 +43,15 @@ class SyncProductStock extends MoloniStockSyncAbstract
         $moloniStock = (int)MoloniProduct::parseMoloniStock($this->moloniProduct, $warehouseId);
 
         if ($wcStock === $moloniStock) {
-            // Translators: %s is the product SKU.
+            // Translators: %1$s is the product SKU.
             $msg = sprintf(
-                __('Stock is already updated in Moloni (%s)', 'moloni-on'),
+                __('Stock is already updated in Moloni (%1$s)', 'moloni-on'),
                 $this->moloniProduct['reference']
             );
         } else {
-            // Translators: %s is the old Moloni stock, %s is the new WooCommerce stock, %s is the product SKU.
+            // Translators: %1$s is the old Moloni stock, %2$s is the new WooCommerce stock, %3$s is the product SKU.
             $msg = sprintf(
-                __('Stock updated in Moloni (old: %s | new: %s) (%s)', 'moloni-on'),
+                __('Stock updated in Moloni (old: %1$s | new: %2$s) (%3$s)', 'moloni-on'),
                 $moloniStock,
                 $wcStock,
                 $this->moloniProduct['reference']
@@ -73,8 +73,8 @@ class SyncProductStock extends MoloniStockSyncAbstract
                 } catch (APIExeption $e) {
                     throw new ServiceException(
                         sprintf(
-                            // Translators: %s is the product SKU.
-                            __('Something went wrong updating stock (%s)', 'moloni-on'),
+                            // Translators: %1$s is the product SKU.
+                            __('Something went wrong updating stock (%1$s)', 'moloni-on'),
                             $this->moloniProduct['reference']
                         ),
                         [
@@ -97,8 +97,8 @@ class SyncProductStock extends MoloniStockSyncAbstract
 
                     throw new ServiceException(
                         sprintf(
-                            // Translators: %s is the product SKU.
-                            __('Something went wrong updating stock (%s)', 'moloni-on'),
+                            // Translators: %1$s is the product SKU.
+                            __('Something went wrong updating stock (%1$s)', 'moloni-on'),
                             $this->moloniProduct['reference']
                         ),
                         [
@@ -114,8 +114,8 @@ class SyncProductStock extends MoloniStockSyncAbstract
 
             if (empty($movementId)) {
                 throw new ServiceException(sprintf(
-                    // Translators: %s is the product SKU.
-                    __('Something went wrong updating stock (%s)', 'moloni-on'),
+                    // Translators: %1$s is the product SKU.
+                    __('Something went wrong updating stock (%1$s)', 'moloni-on'),
                     $this->moloniProduct['reference']
                 ), [
                     'mutation' => $mutation,

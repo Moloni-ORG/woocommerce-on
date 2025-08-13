@@ -23,8 +23,8 @@ class DiscardOrder
 
     public function saveLog()
     {
-        // Translators: %s is the order number.
-        $message = sprintf(__('Order was discarded (%s)', 'moloni-on'),
+        // Translators: %1$s is the order number.
+        $message = sprintf(__('Order was discarded (%1$s)', 'moloni-on'),
             $this->order->get_order_number()
         );
 

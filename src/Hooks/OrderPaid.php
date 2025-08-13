@@ -37,8 +37,8 @@ class OrderPaid
             $service = new CreateMoloniDocument($orderId);
             $orderName = $service->getOrderNumber() ?? '';
 
-            // Translators: %s is the status, %s is the order name.
-            $message = __("Automatically generating order document in status '%s' (%s)", 'moloni-on');
+            // Translators: %1$s is the status, %2$s is the order name.
+            $message = __('Automatically generating order document in status \'%1$s\' (%2$s)', 'moloni-on');
             $orderStatus = __('Complete', 'moloni-on');
 
             Context::logger()->info(sprintf($message, $orderStatus, $orderName), [
@@ -52,8 +52,8 @@ class OrderPaid
             } catch (DocumentWarning $e) {
                 $this->sendWarningEmail($orderName);
 
-                // Translators: %s is the order name.
-                $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
+                // Translators: %1$s is the order name.
+                $message = sprintf(__('There was an warning when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
                 $message .= $e->getMessage();
 
@@ -68,8 +68,8 @@ class OrderPaid
             } catch (DocumentError $e) {
                 $this->sendErrorEmail($orderName);
 
-                // Translators: %s is the order name.
-                $message = sprintf(__('There was an error when generating the document (%s)'), $orderName);
+                // Translators: %1$s is the order name.
+                $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
                 $message .= strip_tags($e->getMessage());
 
@@ -96,8 +96,8 @@ class OrderPaid
             $service = new CreateMoloniDocument($orderId);
             $orderName = $service->getOrderNumber() ?? '';
 
-            // Translators: %s is the status, %s is the order name.
-            $message = __("Automatically generating order document in status '%s' (%s)", 'moloni-on');
+            // Translators: %1$s is the status, %2$s is the order name.
+            $message = __('Automatically generating order document in status \'%1$s\' (%2$s)', 'moloni-on');
             $orderStatus = __('Processing', 'moloni-on');
 
             Context::logger()->info(sprintf($message, $orderStatus, $orderName), [
@@ -112,8 +112,8 @@ class OrderPaid
             } catch (DocumentWarning $e) {
                 $this->sendWarningEmail($orderName);
 
-                // Translators: %s is the order name.
-                $message = sprintf(__('There was an warning when generating the document (%s)'), $orderName);
+                // Translators: %1$s is the order name.
+                $message = sprintf(__('There was an warning when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
                 $message .= $e->getMessage();
 
@@ -128,8 +128,8 @@ class OrderPaid
             } catch (DocumentError $e) {
                 $this->sendErrorEmail($orderName);
 
-                // Translators: %s is the order name.
-                $message = sprintf(__('There was an error when generating the document (%s)'), $orderName);
+                // Translators: %1$s is the order name.
+                $message = sprintf(__('There was an error when generating the document (%1$s)'), $orderName);
                 $message .= ' </br>';
                 $message .= strip_tags($e->getMessage());
 

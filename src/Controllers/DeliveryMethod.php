@@ -115,8 +115,8 @@ class DeliveryMethod
         try {
             $mutation = DeliveryMethods::mutationDeliveryMethodCreate($variables);
         } catch (APIExeption $e) {
-            // Translators: %s is the delivery name.
-            $log = sprintf(__('Error creating delivery method (%s)', 'moloni-on'), $this->name);
+            // Translators: %1$s is the delivery name.
+            $log = sprintf(__('Error creating delivery method (%1$s)', 'moloni-on'), $this->name);
 
             throw new DocumentError(
                 $log,
@@ -134,8 +134,8 @@ class DeliveryMethod
             return $this;
         }
 
-        // Translators: %s is the delivery name.
-        $log = sprintf(__('Error creating delivery method (%s)', 'moloni-on'), $this->name);
+        // Translators: %1$s is the delivery name.
+        $log = sprintf(__('Error creating delivery method (%1$s)', 'moloni-on'), $this->name);
 
         throw new DocumentError(
             $log,
