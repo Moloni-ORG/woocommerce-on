@@ -55,18 +55,20 @@ abstract class EndpointAbstract
      */
     private static function loadFromFile($folder, $name): string
     {
-        $path_safe = MOLONI_ON_DIR . "/src/API/$folder/$name.graphql";
+        $path = MOLONI_ON_DIR . "/src/API/$folder/$name.graphql";
 
-        if (!file_exists($path_safe)) {
-            throw new APIExeption("Query/Mutation file not found: $path_safe");
+        if (!file_exists($path)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new APIExeption("Query/Mutation file not found: $path");
         }
 
-        $contents = file_get_contents($path_safe);
+        $contents = file_get_contents($path);
 
         if ($contents === false) {
-            $error_safe = error_get_last();
+            $error = error_get_last();
 
-            throw new APIExeption("Query/Mutation file failed to read: {$error_safe['message']}");
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new APIExeption("Query/Mutation file failed to read: {$error['message']}");
         }
 
         self::$operationsCache[$name] = $contents;

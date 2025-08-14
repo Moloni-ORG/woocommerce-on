@@ -72,6 +72,7 @@ class Curl
             return $parsed;
         }
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         throw new APIExeption(__('Oops, an error was encountered...', 'moloni-on'), $log);
     }
 
@@ -165,7 +166,9 @@ class Curl
             ['body' => $postFields, 'timeout' => 45]
         );
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         if (is_wp_error($response)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new APIExeption($response->get_error_message(), [
                 'code' => $response->get_error_code(),
                 'data' => $response->get_error_data(),
@@ -187,6 +190,7 @@ class Curl
             'received' => $parsed
         ];
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         throw new APIExeption(__('Invalid credentials', 'moloni-on'), $log);
     }
 

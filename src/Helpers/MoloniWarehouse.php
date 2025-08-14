@@ -20,10 +20,8 @@ class MoloniWarehouse
         try {
             $results = Warehouses::queryWarehouses();
         } catch (APIExeption $e) {
-            throw new HelperException(
-                __('Error fetching warehouses', 'moloni-on'),
-                ['message' => $e->getMessage(), 'data' => $e->getData()]
-            );
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new HelperException(__('Error fetching warehouses', 'moloni-on'), ['message' => $e->getMessage(), 'data' => $e->getData()]);
         }
 
         foreach ($results as $result) {
@@ -32,9 +30,7 @@ class MoloniWarehouse
             }
         }
 
-        throw new HelperException(
-            __('No default warehouse found', 'moloni-on'),
-            ['results' => $results]
-        );
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+        throw new HelperException(__('No default warehouse found', 'moloni-on'), ['results' => $results]);
     }
 }

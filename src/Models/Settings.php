@@ -79,15 +79,20 @@ class Settings
         $setting = $wpdb->get_row($query, ARRAY_A);
 
         if (!empty($setting)) {
-            $wpdb->update("{$tableName}_api_config",
-                ['selected' => $value],
-                ['config' => $option]
+            $mutation = $wpdb->prepare(
+                "UPDATE {$tableName}_api_config SET selected = %s WHERE config = %s",
+                $value,
+                $option
             );
         } else {
-            $wpdb->insert("{$tableName}_api_config",
-                ['selected' => $value, 'config' => $option]
+            $mutation = $wpdb->prepare(
+                "INSERT INTO {$tableName}_api_config (selected, config) VALUES (%s, %s)",
+                $value,
+                $option
             );
         }
+
+        $wpdb->query($mutation);
 
         return $wpdb->insert_id;
     }

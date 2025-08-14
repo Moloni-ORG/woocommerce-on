@@ -179,6 +179,7 @@ class ProductUpdate
     private function updateSimple(WC_Product $wcProduct, array $moloniProduct)
     {
         if (!empty($moloniProduct['variants']) && $moloniProduct['deletable'] === false) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
@@ -235,6 +236,7 @@ class ProductUpdate
     private function updateVariant(WC_Product $wcProduct, array $moloniProduct)
     {
         if (empty($moloniProduct['variants']) && $moloniProduct['deletable'] === false) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new HookException(__('Product types do not match', 'moloni-on'));
         }
 
@@ -384,14 +386,17 @@ class ProductUpdate
     private function validateWcProduct(?WC_Product $wcProduct)
     {
         if (empty($wcProduct)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new HookException(__('Product not found', 'moloni-on'));
         }
 
         if ($wcProduct->get_status() === 'draft') {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new HookException(__('Product is not published', 'moloni-on'));
         }
 
         if (empty($wcProduct->get_sku())) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new HookException(__('Product does not have reference', 'moloni-on'));
         }
     }
