@@ -81,7 +81,7 @@ $logsContext = [];
                 <?php foreach ($logs as $log) : ?>
                     <tr>
                         <td>
-                            <?php echo gmdate("d-m-Y H:i:s", strtotime($log['created_at'])) ?>
+                            <?php echo esc_html(gmdate("d-m-Y H:i:s", strtotime($log['created_at']))) ?>
                         </td>
                         <td>
                             <?php
@@ -97,11 +97,10 @@ $logsContext = [];
                             <?php echo $log['message'] ?>
                         </td>
                         <td>
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                             <?php $logContext = htmlspecialchars($log['context']) ?>
 
-                            <button type="button" class="button action"
-                                    onclick="Moloni.Logs.openContextDialog(<?php echo $logContext ?>)">
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            <button type="button" class="button action" onclick="Moloni.Logs.openContextDialog(<?php echo $logContext ?>)">
                                 <?php esc_html_e("See", 'moloni-on') ?>
                             </button>
                         </td>

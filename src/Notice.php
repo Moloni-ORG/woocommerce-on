@@ -16,10 +16,10 @@ class Notice
 
         if (!empty($messages) && isset($messages['message'])) {
             if ($messages['notice-level'] == 'custom') {
-                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo html_entity_decode($messages['message']);
             } else {
-                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo self::getMessageHtml($messages['message'], $messages['notice-level']);
             }
         }
