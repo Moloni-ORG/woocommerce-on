@@ -14,7 +14,7 @@ $company = $company ?? [];
         <div class="companies__card-header">
             <div class="companies__card-accent"></div>
             <div>
-                <?php echo $company["name"] ?>
+                <?php echo esc_html($company["name"]) ?>
             </div>
         </div>
 
@@ -25,10 +25,10 @@ $company = $company ?? [];
                 <?php esc_html_e("Address", 'moloni-on') ?>
             </div>
             <div class="companies__card-text">
-                <?php echo $company["address"] ?>
+                <?php echo esc_html($company["address"]) ?>
             </div>
             <div class="companies__card-text">
-                <?php echo $company["zipCode"] ?>
+                <?php echo esc_html($company["zipCode"]) ?>
             </div>
         </div>
 
@@ -37,13 +37,13 @@ $company = $company ?? [];
                 <?php esc_html_e("Vat number", 'moloni-on') ?>
             </div>
             <div class="companies__card-text">
-                <?php echo $company["vat"] ?>
+                <?php echo esc_html($company["vat"]) ?>
             </div>
         </div>
     </div>
 
     <button class="ml-button ml-button--primary w-full"
-            onclick="window.location.href = '<?php echo Context::getAdminUrl("companyId={$company["companyId"]}") ?>'">
+            onclick="window.location.href = '<?php echo esc_url(Context::getAdminUrl("companyId={$company["companyId"]}")) ?>'">
         <?php esc_html_e('Choose company', 'moloni-on') ?>
     </button>
 </div>

@@ -59,6 +59,7 @@ class OrderView
 
             Start::login(true);
 
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             echo '<div style="display: none"><pre>' . print_r($order->get_taxes(), true) . '</pre></div>';
 
             if ($documentId > 0) {
@@ -93,8 +94,8 @@ class OrderView
         ?>
         <select id="moloni_document_type" style="float:right">
             <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
-                <option value='<?php echo $id ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
-                    <?php echo $name ?>
+                <option value='<?php echo esc_attr($id) ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
+                    <?php echo esc_html($name) ?>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -107,7 +108,7 @@ class OrderView
         <a type="button"
            class="button button-primary"
            target="_BLANK"
-           href="<?php echo Context::getAdminUrl("action=getInvoice&id=$documentId") ?>"
+           href="<?php echo esc_url(Context::getAdminUrl("action=getInvoice&id=$documentId")) ?>"
            style="margin-top: 10px; margin-left: 10px; float:right;"
         >
             <?php esc_html_e('See document', 'moloni-on') ?>
@@ -129,7 +130,7 @@ class OrderView
         <a type="button"
            class="button"
            target="_BLANK"
-           href="<?php echo Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>"
+           href="<?php echo esc_url(Context::getAdminUrl("action=genInvoice&id={$order->get_id()}")) ?>"
            style="margin-top: 10px; float:right;"
         >
             <?php esc_html_e('Generate again', 'moloni-on') ?>
@@ -154,12 +155,12 @@ class OrderView
            onclick="createMoloniDocument()"
            style="margin-left: 5px; float:right;"
         >
-            <?php echo $text ?>
+            <?php echo esc_html($text) ?>
         </a>
 
         <script>
             function createMoloniDocument() {
-                var redirectUrl = "<?php echo Context::getAdminUrl("action=genInvoice&id={$order->get_id()}") ?>";
+                var redirectUrl = "<?php echo esc_url(Context::getAdminUrl("action=genInvoice&id={$order->get_id()}")) ?>";
 
                 if (document.getElementById('moloni_document_type')) {
                     redirectUrl += '&document_type=' + document.getElementById('moloni_document_type').value;

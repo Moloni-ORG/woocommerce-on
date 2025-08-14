@@ -21,7 +21,7 @@ try {
 }
 ?>
 
-<form method='POST' action='<?php echo Context::getAdminUrl("tab=automation") ?>' id='formOpcoes'>
+<form method='POST' action='<?php echo esc_url(Context::getAdminUrl("tab=automation")) ?>' id='formOpcoes'>
     <input type='hidden' value='saveAutomations' name='action'>
     <div>
         <h2 class="title">
@@ -113,9 +113,8 @@ try {
 
                         <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                             <?php foreach ($warehouses as $warehouse) : ?>
-                                <option
-                                        value='<?php echo $warehouse['warehouseId'] ?>' <?php echo ($hookStockSyncWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
-                                    <?php echo $warehouse['name'] ?> (<?php echo $warehouse['number'] ?>)
+                                <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo ($hookStockSyncWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
+                                    <?php echo esc_html($warehouse['name'] . ' (' . $warehouse['number'] . ')') ?>
                                 </option>
                             <?php endforeach; ?>
                         </optgroup>
@@ -186,9 +185,8 @@ try {
 
                         <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                             <?php foreach ($warehouses as $warehouse) : ?>
-                                <option
-                                        value='<?php echo $warehouse['warehouseId'] ?>' <?php echo ($hookStockSyncWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
-                                    <?php echo $warehouse['name'] ?> (<?php echo $warehouse['number'] ?>)
+                                <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo ($hookStockSyncWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
+                                    <?php echo esc_html($warehouse['name'] . ' (' . $warehouse['number'] . ')') ?>
                                 </option>
                             <?php endforeach; ?>
                         </optgroup>

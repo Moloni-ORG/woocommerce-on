@@ -86,11 +86,11 @@ class ProductView
         ?>
         <div>
             <p>
-                <b><?php esc_html_e("Reference: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['reference'] ?><br>
-                <b><?php esc_html_e("Price: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['price'] ?>€<br>
+                <b><?php esc_html_e("Reference: ", 'moloni-on') ?></b> <?php echo esc_html($this->moloniProduct['reference']) ?><br>
+                <b><?php esc_html_e("Price: ", 'moloni-on') ?></b> <?php echo esc_html($this->moloniProduct['price']) ?>€<br>
 
                 <?php if ((int)$this->moloniProduct['hasStock'] === Boolean::YES) : ?>
-                    <b><?php esc_html_e("Stock: ", 'moloni-on') ?></b> <?php echo $this->moloniProduct['stock'] ?>
+                    <b><?php esc_html_e("Stock: ", 'moloni-on') ?></b> <?php echo esc_html($this->moloniProduct['stock']) ?>
                 <?php endif; ?>
 
                 <?php
@@ -108,7 +108,7 @@ class ProductView
                 <a type="button"
                    class="button button-primary"
                    target="_BLANK"
-                   href="<?php echo Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId'] ?>"
+                   href="<?php echo esc_attr(Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId']) ?>"
                 > <?php esc_html_e("See product", 'moloni-on') ?> </a>
             <?php endif; ?>
         </div>

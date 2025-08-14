@@ -3,6 +3,6 @@
 .dev/node_modules
 .platforms/**/*.css
 .platforms/**/*.css.map
-logs
+./logs
 vendor
 build

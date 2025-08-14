@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 
 <section id="moloni" class="moloni">
     <div class="header">
-        <img src="<?php echo Context::getImagesPath() ?>logo.svg" width='300px' alt="Moloni">
+        <img src="<?php echo esc_url(Context::getImagesPath()) ?>logo.svg" width='300px' alt="Moloni">
     </div>
 
     <?php settings_errors(); ?>

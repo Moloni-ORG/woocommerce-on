@@ -107,9 +107,10 @@ class OrderList
             if ($documentId > 0) {
                 $redirectUrl = Context::getAdminUrl("action=downloadDocument&id=$documentId");
 
+                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
                 echo '<a class="button" target="_blank" onclick="window.open(\'' . $redirectUrl . '\', \'_blank\')">' . __('Download', 'moloni-on') . '</a>';
             } else {
-                echo '<div>' . __('No associated document', 'moloni-on') . '</div>';
+                echo '<div>' . esc_html__('No associated document', 'moloni-on') . '</div>';
             }
         }
     }

@@ -8,15 +8,15 @@ $row = $row ?? [];
 ?>
 
 <tr class="product__row"
-    data-wc-id="<?php echo $row['wc_product_id'] ?? 0 ?>"
-    data-moloni-id="<?php echo $row['moloni_product_id'] ?? 0 ?>"
+    data-wc-id="<?php echo esc_attr($row['wc_product_id'] ?? 0) ?>"
+    data-moloni-id="<?php echo esc_attr($row['moloni_product_id'] ?? 0) ?>"
 >
     <td class="product__row-name">
         <?php echo !empty($row['moloni_product_array']['parent']) ? ' 	&rdsh; ' : '' ?>
-        <?php echo $row['moloni_product_array']['name'] ?? '---' ?>
+        <?php echo esc_html($row['moloni_product_array']['name'] ?? '---') ?>
     </td>
     <td class="product__row-reference">
-        <?php echo $row['moloni_product_array']['reference'] ?? '---' ?>
+        <?php echo esc_html($row['moloni_product_array']['reference'] ?? '---') ?>
     </td>
     <td>
         <?php
@@ -34,10 +34,10 @@ $row = $row ?? [];
         if (empty($row['tool_alert_message'])) {
             echo '---';
         } elseif (is_string($row['tool_alert_message'])) {
-            echo $row['tool_alert_message'];
+            echo esc_html($row['tool_alert_message']);
         } elseif (is_array($row['tool_alert_message'])) {
             foreach ($row['tool_alert_message'] as $message) {
-                echo "<p>$message</p>";
+                echo "<p>" . esc_html($message) . "</p>";
             }
         }
         ?>

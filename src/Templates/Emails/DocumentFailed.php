@@ -30,8 +30,8 @@ if (!defined('ABSPATH')) {
                 </tr>
                 <tr>
                     <td style="text-align:center;">
-                        <a href="<?php echo $url ?? '' ?>" title="logo" target="_blank">
-                            <img width="200px" src="<?php echo $image ?? '' ?>" title="logo"
+                        <a href="<?php echo esc_url($url ?? '') ?>" title="logo" target="_blank">
+                            <img width="200px" src="<?php echo esc_url($image ?? '') ?>" title="logo"
                                  alt="logo">
                         </a>
                     </td>
@@ -60,6 +60,7 @@ if (!defined('ABSPATH')) {
                                     </p>
                                     <br>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
                                         <?php echo $extra ?? '' ?>
                                     </p>
                                 </td>
@@ -78,7 +79,7 @@ if (!defined('ABSPATH')) {
     <tr>
         <td style="text-align:center;">
             <p style="font-size:14px; color:#fff; line-height:18px; margin:0 0 0;">
-                &copy; <strong><?php echo $year ?? '' ?> Moloni</strong>
+                &copy; <strong><?php echo esc_html($year ?? '') ?> Moloni</strong>
             </p>
         </td>
     </tr>

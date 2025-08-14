@@ -109,7 +109,7 @@ class DownloadDocumentPDF
     private function showError($message): void
     {
         echo "<script>";
-        echo "  alert('" . $message . "');";
+        echo "  alert('" . esc_html($message) . "');";
         echo "  window.close();";
         echo "</script>";
     }

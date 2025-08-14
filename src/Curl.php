@@ -169,11 +169,7 @@ class Curl
         // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         if (is_wp_error($response)) {
             // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
-            throw new APIExeption($response->get_error_message(), [
-                'code' => $response->get_error_code(),
-                'data' => $response->get_error_data(),
-                'message' => $response->get_error_message(),
-            ]);
+            throw new APIExeption($response->get_error_message(), ['code' => $response->get_error_code(), 'data' => $response->get_error_data(), 'message' => $response->get_error_message(),]);
         }
 
         $raw = wp_remote_retrieve_body($response);

@@ -76,19 +76,19 @@ $backAction = Context::getAdminUrl('tab=tools');
 
         echo '- ' . esc_attr__('Warehouse', 'moloni-on');
         echo '<b>';
-        echo ': ' . $warehouse['name'] . ' (' . $warehouse['number'] . ')';
+        echo ': ' . esc_html($warehouse['name']) . ' (' . esc_html($warehouse['number']) . ')';
         echo '</b>';
         ?>
     </p>
 </div>
 
-<form method="get" action='<?php echo $currentAction ?>' class="list_form">
+<form method="get" action='<?php echo esc_html($currentAction) ?>' class="list_form">
     <input type="hidden" name="page" value="molonion">
-    <input type="hidden" name="paged" value="<?php echo $page ?>">
+    <input type="hidden" name="paged" value="<?php echo esc_attr($page) ?>">
     <input type="hidden" name="tab" value="wcProductsList">
 
     <div class="tablenav top">
-        <a href='<?php echo $backAction ?>' class="button button-large">
+        <a href='<?php echo esc_url($backAction) ?>' class="button button-large">
             <?php esc_html_e('Back', 'moloni-on') ?>
         </a>
 
@@ -97,6 +97,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo $paginator ?>
         </div>
     </div>
@@ -147,7 +148,7 @@ $backAction = Context::getAdminUrl('tab=tools');
                     <?php esc_html_e('Search', 'moloni-on') ?>
                 </button>
 
-                <a href='<?php echo $currentAction ?>' class="button">
+                <a href='<?php echo esc_url($currentAction) ?>' class="button">
                     <?php esc_html_e('Clear', 'moloni-on') ?>
                 </a>
             </th>
@@ -167,6 +168,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <tbody>
         <?php if (!empty($rows) && is_array($rows)) : ?>
             <?php foreach ($rows as $row) : ?>
+                <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
                 <?php echo $row ?>
             <?php endforeach; ?>
         <?php else : ?>
@@ -204,7 +206,7 @@ $backAction = Context::getAdminUrl('tab=tools');
     </table>
 
     <div class="tablenav bottom">
-        <a href='<?php echo $backAction ?>' class="button button-large">
+        <a href='<?php echo esc_url($backAction) ?>' class="button button-large">
             <?php esc_html_e('Back', 'moloni-on') ?>
         </a>
 
@@ -213,6 +215,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo $paginator ?>
         </div>
     </div>

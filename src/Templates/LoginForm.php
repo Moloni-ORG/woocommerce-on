@@ -19,11 +19,11 @@ if (!defined('ABSPATH')) {
     <?php endif; ?>
 
     <div class="login login__wrapper">
-        <form class="login-form" method='POST' action='<?php echo Context::getAdminUrl() ?>'>
+        <form class="login-form" method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>'>
             <div class="login__card">
                 <div class="login__image">
-                    <a href="<?php echo Context::configs()->get('home_page') ?>" target="_blank">
-                        <img src="<?php echo Context::getImagesPath() ?>logo.svg" width="186px" height="32px" alt="Logo">
+                    <a href="<?php echo esc_url(Context::configs()->get('home_page')) ?>" target="_blank">
+                        <img src="<?php echo esc_url(Context::getImagesPath()) ?>logo.svg" width="186px" height="32px" alt="Logo">
                     </a>
                 </div>
 
@@ -38,6 +38,7 @@ if (!defined('ABSPATH')) {
                                 <use xlink:href="#ic_notices_important_warning"></use>
                             </svg>
 
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
                             <?php echo $error ?>
                         </div>
                     <?php endif; ?>
@@ -60,7 +61,7 @@ if (!defined('ABSPATH')) {
                 </div>
 
                 <div class="login__help">
-                    <a href="<?php echo Context::configs()->get('landing_page') ?>" target="_blank">
+                    <a href="<?php echo esc_url(Context::configs()->get('landing_page')) ?>" target="_blank">
                         <?php esc_html_e('Click here for more instructions', 'moloni-on') ?>
                     </a>
                 </div>

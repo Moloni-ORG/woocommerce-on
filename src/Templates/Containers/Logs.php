@@ -18,11 +18,12 @@ $logsContext = [];
 
     <div class="tablenav top">
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo Logs::getPagination() ?>
         </div>
     </div>
 
-    <form method="post" action='<?php echo Context::getAdminUrl("tab=logs") ?>'>
+    <form method="post" action='<?php echo esc_url(Context::getAdminUrl("tab=logs")) ?>'>
         <table class='wp-list-table widefat striped posts'>
             <thead>
             <tr>
@@ -34,10 +35,10 @@ $logsContext = [];
             <tr>
                 <th>
                     <input
-                        type="date"
-                        class="inputOut ml-0"
-                        name="filter_date"
-                        value="<?php echo esc_html($_GET['filter_date'] ?? $_POST['filter_date'] ?? '') ?>"
+                            type="date"
+                            class="inputOut ml-0"
+                            name="filter_date"
+                            value="<?php echo esc_html($_GET['filter_date'] ?? $_POST['filter_date'] ?? '') ?>"
                     >
                 </th>
                 <th>
@@ -52,20 +53,20 @@ $logsContext = [];
 
                         <?php foreach ($options as $option) : ?>
                             <option
-                                value='<?php echo $option['value'] ?>'
-                                <?php echo $filterLevel === $option['value'] ? 'selected' : '' ?>
+                                    value='<?php echo esc_attr($option['value']) ?>'
+                                    <?php echo $filterLevel === $option['value'] ? 'selected' : '' ?>
                             >
-                            <?php echo $option['label'] ?>
+                                <?php echo esc_html($option['label']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </th>
                 <th>
                     <input
-                        type="text"
-                        class="inputOut ml-0"
-                        name="filter_message"
-                        value="<?php echo esc_html($_GET['filter_message'] ?? $_POST['filter_message'] ?? '') ?>"
+                            type="text"
+                            class="inputOut ml-0"
+                            name="filter_message"
+                            value="<?php echo esc_html($_GET['filter_message'] ?? $_POST['filter_message'] ?? '') ?>"
                     >
                 </th>
                 <th>
@@ -87,14 +88,16 @@ $logsContext = [];
                             $logLevel = $log['log_level'] ?? '';
                             ?>
 
-                            <div class="chip <?php echo LogLevel::getClass($logLevel) ?>">
-                                <?php echo LogLevel::getTranslation($logLevel) ?>
+                            <div class="chip <?php echo esc_attr(LogLevel::getClass($logLevel)) ?>">
+                                <?php echo esc_html(LogLevel::getTranslation($logLevel)) ?>
                             </div>
                         </td>
                         <td>
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
                             <?php echo $log['message'] ?>
                         </td>
                         <td>
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
                             <?php $logContext = htmlspecialchars($log['context']) ?>
 
                             <button type="button" class="button action"
@@ -125,12 +128,14 @@ $logsContext = [];
 
     <div class="tablenav bottom">
         <div class="alignleft actions">
-            <a class="button button-primary" href='<?php echo Context::getAdminUrl('tab=logs&action=remLogs') ?>'>
+            <a class="button button-primary"
+               href='<?php echo esc_url(Context::getAdminUrl('tab=logs&action=remLogs')) ?>'>
                 <?php esc_html_e('Delete records older than 1 week', 'moloni-on') ?>
             </a>
         </div>
 
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo Logs::getPagination() ?>
         </div>
     </div>

@@ -38,7 +38,7 @@ if (!defined('ABSPATH')) {
             </p>
         </th>
         <td class="run-tool p-8 text-right">
-            <a href='<?php echo Context::getAdminUrl('tab=moloniProductsList') ?>'
+            <a href='<?php echo esc_url(Context::getAdminUrl('tab=moloniProductsList')) ?>'
                class="button button-large"
             >
                 <?php esc_html_e('View Moloni products', 'moloni-on') ?>
@@ -56,7 +56,7 @@ if (!defined('ABSPATH')) {
             </p>
         </th>
         <td class="run-tool p-8 text-right">
-            <a href='<?php echo Context::getAdminUrl("tab=wcProductsList") ?>'
+            <a href='<?php echo esc_url(Context::getAdminUrl("tab=wcProductsList")) ?>'
                class="button button-large"
             >
                 <?php esc_html_e('View WooCommerce Products', 'moloni-on') ?>

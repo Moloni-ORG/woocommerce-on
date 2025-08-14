@@ -32,6 +32,7 @@ $orders = PendingOrders::getAllAvailable();
         </div>
 
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>
@@ -57,20 +58,21 @@ $orders = PendingOrders::getAllAvailable();
 
             <!-- Let's draw a list of all the available orders -->
             <?php foreach ($orders as $order) : ?>
-                <tr id="moloni-pending-order-row-<?php echo $order->get_id() ?>">
+                <tr id="moloni-pending-order-row-<?php echo esc_attr($order->get_id()) ?>">
                     <td class="">
-                        <label for="moloni-pending-order-<?php echo $order->get_id() ?>" class="screen-reader-text"></label>
-                        <input id="moloni-pending-order-<?php echo $order->get_id() ?>" type="checkbox"
-                               value="<?php echo $order->get_id() ?>">
+                        <label for="moloni-pending-order-<?php echo esc_attr($order->get_id()) ?>" class="screen-reader-text"></label>
+                        <input id="moloni-pending-order-<?php echo esc_attr($order->get_id()) ?>" type="checkbox"
+                               value="<?php echo esc_attr($order->get_id()) ?>">
                     </td>
                     <td>
-                        <a target="_blank"
-                           href=<?php echo $order->get_edit_order_url() ?>>#<?php echo $order->get_order_number() ?></a>
+                        <a target="_blank" href=<?php echo esc_url($order->get_edit_order_url()) ?>>
+                            #<?php echo esc_html($order->get_order_number()) ?>
+                        </a>
                     </td>
                     <td>
                         <?php
                         if (!empty($order->get_billing_first_name())) {
-                            echo $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+                            echo esc_html($order->get_billing_first_name() . ' ' . $order->get_billing_last_name());
                         } else {
                             esc_html_e('Unknown', 'moloni-on');
                         }
@@ -85,36 +87,38 @@ $orders = PendingOrders::getAllAvailable();
                             $vat = $meta;
                         }
 
-                        echo empty($vat) ? 'n/a' : $vat;
+                        echo esc_html(empty($vat) ? 'n/a' : $vat);
                         ?>
                     </td>
-                    <td><?php echo $order->get_total() . $order->get_currency() ?></td>
+                    <td>
+                        <?php echo esc_html($order->get_total() . $order->get_currency()) ?>
+                    </td>
                     <td>
                         <?php
                         $availableStatus = wc_get_order_statuses();
                         $needle = 'wc-' . $order->get_status();
 
                         if (isset($availableStatus[$needle])) {
-                            echo $availableStatus[$needle];
+                            echo esc_html($availableStatus[$needle]);
                         } else {
-                            echo $needle;
+                            echo esc_html($needle);
                         }
                         ?>
                     </td>
                     <td>
                         <?php
                         if (!empty($order->get_date_paid())) {
-                            echo gmdate('Y-m-d H:i:s', strtotime($order->get_date_paid()));
+                            echo esc_html(gmdate('Y-m-d H:i:s', strtotime($order->get_date_paid())));
                         } else {
                             echo 'n/a';
                         }
                         ?>
                     </td>
                     <td class="order_status column-order_status" style="text-align: right">
-                        <form action="<?php echo admin_url('admin.php') ?>">
+                        <form action="<?php echo esc_url(admin_url('admin.php')) ?>">
                             <input type="hidden" name="page" value="molonion">
                             <input type="hidden" name="action" value="genInvoice">
-                            <input type="hidden" name="id" value="<?php echo $order->get_id() ?>">
+                            <input type="hidden" name="id" value="<?php echo esc_attr($order->get_id()) ?>">
 
                             <select name="document_type" style="margin-right: 5px; max-width: 45%;">
                                 <?php
@@ -126,8 +130,8 @@ $orders = PendingOrders::getAllAvailable();
                                 ?>
 
                                 <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
-                                    <option value='<?php echo $id ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
-                                        <?php echo $name ?>
+                                    <option value='<?php echo esc_attr($id) ?>' <?php echo ($documentType === $id ? 'selected' : '') ?>>
+                                        <?php echo esc_html($name) ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -177,6 +181,7 @@ $orders = PendingOrders::getAllAvailable();
 
     <div class="tablenav bottom">
         <div class="tablenav-pages">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
             <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>
