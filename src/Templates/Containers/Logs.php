@@ -18,7 +18,7 @@ $logsContext = [];
 
     <div class="tablenav top">
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo Logs::getPagination() ?>
         </div>
     </div>
@@ -93,11 +93,11 @@ $logsContext = [];
                             </div>
                         </td>
                         <td>
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                             <?php echo $log['message'] ?>
                         </td>
                         <td>
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                             <?php $logContext = htmlspecialchars($log['context']) ?>
 
                             <button type="button" class="button action"
@@ -135,7 +135,7 @@ $logsContext = [];
         </div>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo Logs::getPagination() ?>
         </div>
     </div>

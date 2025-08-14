@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile WordPress.Security.EscapeOutput.ExceptionNotEscaped
 
 namespace MoloniOn\Services\MoloniProduct\Helpers;
 
@@ -60,7 +61,7 @@ class GetOrCreateCategory
             $categoriesList = Categories::queryProductCategories($variables);
         } catch (APIExeption $e) {
             throw new HelperException(
-                __('Error fetching categories','moloni-on'),
+                __('Error fetching categories', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -89,7 +90,7 @@ class GetOrCreateCategory
         $variables = [
             'data' => [
                 'name' => $this->name,
-                'parentId' =>  $this->parent_id === 0 ? null : (int)$this->parent_id
+                'parentId' => $this->parent_id === 0 ? null : (int)$this->parent_id
             ]
         ];
 
@@ -98,10 +99,8 @@ class GetOrCreateCategory
 
             $category = $mutation['data']['productCategoryCreate']['data'] ?? [];
         } catch (APIExeption $e) {
-            throw new HelperException(
-                // Translators: %1$s is the category name.
-                sprintf(__('Error creating category %1$s','moloni-on') ,$this->name),
-                [
+            // Translators: %1$s is the category name.
+            throw new HelperException(sprintf(esc_html__('Error creating category %1$s', 'moloni-on'), $this->name), [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
                 ]
@@ -112,10 +111,9 @@ class GetOrCreateCategory
             return (int)$category['productCategoryId'];
         }
 
-        throw new HelperException(
-            // Translators: %1$s is the category name.
-            sprintf(__('Error creating category %1$s','moloni-on') ,$this->name),
-            ['mutation' => $mutation]
-        );
+        // Translators: %1$s is the category name.
+        throw new HelperException(sprintf(esc_html__('Error creating category %1$s', 'moloni-on'), $this->name), [
+            'mutation' => $mutation
+        ]);
     }
 }

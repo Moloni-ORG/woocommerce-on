@@ -32,7 +32,7 @@ $orders = PendingOrders::getAllAvailable();
         </div>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>
@@ -181,7 +181,7 @@ $orders = PendingOrders::getAllAvailable();
 
     <div class="tablenav bottom">
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo PendingOrders::getPagination() ?>
         </div>
     </div>

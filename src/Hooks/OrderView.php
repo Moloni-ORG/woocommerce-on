@@ -59,7 +59,7 @@ class OrderView
 
             Start::login(true);
 
-            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '<div style="display: none"><pre>' . print_r($order->get_taxes(), true) . '</pre></div>';
 
             if ($documentId > 0) {

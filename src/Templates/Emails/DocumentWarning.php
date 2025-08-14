@@ -60,7 +60,7 @@ if (!defined('ABSPATH')) {
                                     </p>
                                     <br>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                         <?php echo $extra ?? '' ?>
                                     </p>
                                 </td>

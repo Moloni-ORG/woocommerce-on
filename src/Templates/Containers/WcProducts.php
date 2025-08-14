@@ -97,7 +97,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo $paginator ?>
         </div>
     </div>
@@ -168,7 +168,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <tbody>
         <?php if (!empty($rows) && is_array($rows)) : ?>
             <?php foreach ($rows as $row) : ?>
-                <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php echo $row ?>
             <?php endforeach; ?>
         <?php else : ?>
@@ -215,7 +215,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo $paginator ?>
         </div>
     </div>

@@ -515,13 +515,13 @@ try {
                             <?php esc_html_e('Automatic', 'moloni-on') ?>
                         </option>
                         <optgroup label="<?php esc_html_e('Language', 'moloni-on') ?>">
-                            <option value='<?php echo Languages::PT ?>' <?php echo($customerLanguage === Languages::PT ? 'selected' : '') ?>>
+                            <option value='<?php echo esc_attr(Languages::PT) ?>' <?php echo($customerLanguage === Languages::PT ? 'selected' : '') ?>>
                                 <?php esc_html_e('Portuguese', 'moloni-on') ?>
                             </option>
-                            <option value='<?php echo Languages::ES ?>' <?php echo($customerLanguage === Languages::ES ? 'selected' : '') ?>>
+                            <option value='<?php echo esc_attr(Languages::ES) ?>' <?php echo($customerLanguage === Languages::ES ? 'selected' : '') ?>>
                                 <?php esc_html_e('Spanish', 'moloni-on') ?>
                             </option>
-                            <option value='<?php echo Languages::EN ?>' <?php echo($customerLanguage === Languages::EN ? 'selected' : '') ?>>
+                            <option value='<?php echo esc_attr(Languages::EN) ?>' <?php echo($customerLanguage === Languages::EN ? 'selected' : '') ?>>
                                 <?php esc_html_e('English', 'moloni-on') ?>
                             </option>
                         </optgroup>
@@ -682,10 +682,10 @@ try {
                     <p class='description'>
                         <?php esc_html_e("Custom field associated with the customer's taxpayer ID. If the field doesn't appear, make sure you have at least one order with this field in use.", 'moloni-on') ?>
                         <br>
-                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?>
                         <?php _e("For the Custom Field to appear, you must have at least one order with the taxpayer ID filled. The field should have a name like <i>_billing_vat</i>.", 'moloni-on') ?>
                         <br>
-                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?>
                         <?php _e("If you don't have a field for the taxpayer ID yet, you can add the plugin available <a target='_blank' href='https://wordpress.org/plugins/contribuinte-checkout'>here.</a>", 'moloni-on') ?>
                     </p>
                 </td>

@@ -52,7 +52,7 @@ $row = $row ?? [];
                     <ul>
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
-                                <a target="_blank" href="<?php echo $row['moloni_product_link'] ?>">
+                                <a target="_blank" href="<?php echo esc_url($row['moloni_product_link']) ?>">
                                     <?php esc_html_e('Open in Moloni', 'moloni-on') ?>
                                 </a>
                             </li>
@@ -60,7 +60,7 @@ $row = $row ?? [];
 
                         <?php if (!empty($row['wc_product_link'])) : ?>
                             <li>
-                                <a target="_blank" href="<?php echo $row['wc_product_link'] ?>">
+                                <a target="_blank" href="<?php echo esc_url($row['wc_product_link']) ?>">
                                     <?php esc_html_e('Open in WooCommerce', 'moloni-on') ?>
                                 </a>
                             </li>

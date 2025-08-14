@@ -73,6 +73,7 @@ if (!defined('ABSPATH')) {
                                         $text = esc_attr__('If the authentication has expired, please proceed with the authentication process again, which you can consult <a href="%1$s">here</a>.', 'moloni-on');
                                         $link = Context::configs()->get('help_page');
 
+                                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                         echo sprintf($text, $link);
                                         ?>
                                     </p>

@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     <div id="message" class="updated error is-dismissible">
         <p>
             <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $message ?? '';
             ?>
         </p>

@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
 
     <?php if (!empty($errorData)): ?>
         <pre style="display: none;" id="curl_error_data">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo print_r($errorData, true) ?>
         </pre>
     <?php endif; ?>
@@ -28,7 +29,7 @@ if (!defined('ABSPATH')) {
                 </div>
 
                 <div class="login__title">
-                    <?php esc_html_e("Sign in to your account", 'moloni-on') ?> <span><?php echo Context::configs()->get('name') ?></span>
+                    <?php esc_html_e("Sign in to your account", 'moloni-on') ?> <span><?php echo esc_html(Context::configs()->get('name')) ?></span>
                 </div>
 
                 <div class="login__error">
@@ -38,7 +39,7 @@ if (!defined('ABSPATH')) {
                                 <use xlink:href="#ic_notices_important_warning"></use>
                             </svg>
 
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped ?>
+                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                             <?php echo $error ?>
                         </div>
                     <?php endif; ?>
