@@ -43,4 +43,24 @@ class Companies extends EndpointAbstract
 
         return Curl::simple('company', $query, $variables);
     }
+
+    /**
+     * Gets the information of the companies that the logged-in user has access
+     *
+     * @return array returns an array with the company's information
+     *
+     * @throws APIExeption
+     */
+    public static function queryCompanies(): array
+    {
+        $action = 'companies';
+
+        if (empty(self::$responseCache[$action])) {
+            $query = self::loadQuery($action);
+
+            self::$responseCache[$action] = Curl::simple($action, $query);
+        }
+
+        return self::$responseCache[$action];
+    }
 }

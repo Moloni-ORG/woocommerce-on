@@ -149,27 +149,18 @@ class Start
         }
 
         try {
-            $companiesIds = Companies::queryMe();
+            $query = Companies::queryCompanies();
 
-            foreach ($companiesIds['data']['me']['data']['userCompanies'] as $company) {
-                if (empty($company['company']['companyId'])) {
+            foreach ($query['data']['companies']['data']as $company) {
+                if (empty($company['companyId'])) {
                     continue;
                 }
 
-                $variables = [
-                    'companyId' => $company['company']['companyId'],
-                    'options' => [
-                        'defaultLanguageId' => Languages::EN
-                    ]
-                ];
-
-                $query = Companies::queryCompany($variables)['data']['company']['data'];
-
-                if (!$query['isConfirmed']) {
+                if (!$company['isConfirmed']) {
                     continue;
                 }
 
-                $companies[] = $query;
+                $companies[] = $company;
             }
         } catch (APIExeption $e) {
             $companies = [];
