@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <div id="bulk-action-progress-modal" class="modal" style="display: none">
     <h2 style="display: none" id="bulk-action-progress-title-start">
         <?php esc_html_e('Processing', 'moloni-on') ?>

@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <div id="logs-context-modal" class="modal" style="display: none">
     <h2>
         <?php esc_html_e('Log context', 'moloni-on') ?>

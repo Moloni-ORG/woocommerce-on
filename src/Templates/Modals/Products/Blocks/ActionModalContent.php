@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <p>
     <?php esc_html_e('Total results', 'moloni-on') ?>: <?php echo esc_html($data['totalResults'] ?? 0) ?>
 </p>

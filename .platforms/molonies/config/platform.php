@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 return [
     'name' => 'Moloni',
     'name_translated' => function_exists('__') ? __('Moloni Spain', 'moloni-on') : 'Moloni Spain',

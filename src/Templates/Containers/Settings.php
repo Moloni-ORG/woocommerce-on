@@ -682,11 +682,15 @@ try {
                     <p class='description'>
                         <?php esc_html_e("Custom field associated with the customer's taxpayer ID. If the field doesn't appear, make sure you have at least one order with this field in use.", 'moloni-on') ?>
                         <br>
-                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?>
-                        <?php _e("For the Custom Field to appear, you must have at least one order with the taxpayer ID filled. The field should have a name like <i>_billing_vat</i>.", 'moloni-on') ?>
+                        <?php
+                        esc_html_e("For the Custom Field to appear, you must have at least one order with the taxpayer ID filled. The field should have a name like '_billing_vat'.", 'moloni-on');
+                        ?>
                         <br>
-                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?>
-                        <?php _e("If you don't have a field for the taxpayer ID yet, you can add the plugin available <a target='_blank' href='https://wordpress.org/plugins/contribuinte-checkout'>here.</a>", 'moloni-on') ?>
+                        <?php
+                        esc_html_e("If you don't have a field for the taxpayer ID yet, you can add our plugin.", 'moloni-on');
+                        ?>
+                        &nbsp;
+                        <a target='_blank' href='https://wordpress.org/plugins/contribuinte-checkout'>Download</a>
                     </p>
                 </td>
             </tr>

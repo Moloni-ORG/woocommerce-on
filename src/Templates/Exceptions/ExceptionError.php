@@ -23,9 +23,9 @@ if (!defined('ABSPATH')) {
             <br>
 
             <pre>
-                <?php echo
-                    /** @var array $data */
-                    json_encode($data ?? [], JSON_PRETTY_PRINT)
+                <?php
+                /** @var array $data */
+                echo wp_json_encode($data ?? [], JSON_PRETTY_PRINT)
                 ?>
             </pre>
         </div>

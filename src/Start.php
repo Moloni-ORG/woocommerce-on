@@ -4,7 +4,6 @@ namespace MoloniOn;
 
 use MoloniOn\API\Companies;
 use MoloniOn\Enums\Boolean;
-use MoloniOn\Enums\Languages;
 use MoloniOn\Enums\MoloniPlans;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Helpers\WebHooks;

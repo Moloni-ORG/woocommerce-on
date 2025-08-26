@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <div id="export-products-modal" class="modal" style="display: none">
     <h2>
         <?php esc_html_e('Export products to Moloni', 'moloni-on') ?>

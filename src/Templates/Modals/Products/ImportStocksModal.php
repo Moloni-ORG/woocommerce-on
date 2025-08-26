@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <div id="import-stocks-modal" class="modal" style="display: none">
     <h2>
         <?php esc_html_e('Import stocks from Moloni' , 'moloni-on') ?>

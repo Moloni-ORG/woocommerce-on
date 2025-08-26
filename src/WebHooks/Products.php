@@ -299,7 +299,7 @@ class Products
 
     private function reply(?int $valid = 1, ?string $message = ''): void
     {
-        echo json_encode(['valid' => $valid, 'message' => $message]);
+        echo wp_json_encode(['valid' => $valid, 'message' => $message]);
     }
 
     //            Auxiliary            //

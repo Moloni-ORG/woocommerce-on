@@ -3,6 +3,7 @@
 use MoloniOn\Configurations;
 
 define('MOLONI_ON_DIR', __DIR__);
+define('ABSPATH', 'DUMMY_VALUE');
 define('PLUGIN_VERSION', ltrim(getenv('PLUGIN_VERSION') ?: 'v0.0.01', 'v'));
 
 require_once __DIR__ . '/src/Configurations.php';

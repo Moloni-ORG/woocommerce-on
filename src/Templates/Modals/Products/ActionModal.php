@@ -1,3 +1,9 @@
+<?php
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
 <div id="action-modal" class="modal" style="display: none">
     <h2 id="action-modal-title-start" style="display: none;">
         <?php esc_html_e('Action in progress', 'moloni-on') ?>
