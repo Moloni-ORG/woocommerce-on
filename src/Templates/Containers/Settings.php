@@ -324,7 +324,7 @@ try {
             <?php esc_html_e('(within the European Union)', 'moloni-on') ?>
 
             <a style="cursor: help;"
-               title="<?php esc_html_e('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes) ?>">
+               title="<?php echo esc_attr(__('European Union countries', 'moloni-on') . ': ' . implode(", ", Tools::$europeanCountryCodes)) ?>">
                 (?)
             </a>
         </div>
@@ -689,7 +689,6 @@ try {
                         <?php
                         esc_html_e("If you don't have a field for the taxpayer ID yet, you can add our plugin.", 'moloni-on');
                         ?>
-                        &nbsp;
                         <a target='_blank' href='https://wordpress.org/plugins/contribuinte-checkout'>Download</a>
                     </p>
                 </td>
