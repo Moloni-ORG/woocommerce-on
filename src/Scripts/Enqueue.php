@@ -24,7 +24,7 @@ class Enqueue
 
         $ver = '3.0';
 
-        wp_enqueue_style('moloni-styles', plugins_url(Context::getCssPath() . "/css/molonion.min.css", MOLONI_ON_PLUGIN_FILE), [], $ver);
-        wp_enqueue_script('moloni-scripts', plugins_url("assets/js/molonion.min.js", MOLONI_ON_PLUGIN_FILE), [], $ver);
+        wp_enqueue_style('_molonion-styles', plugins_url(Context::getCssPath() . "/css/molonion.min.css", MOLONI_ON_PLUGIN_FILE), [], $ver);
+        wp_enqueue_script('_molonion-scripts', plugins_url("assets/js/molonion.min.js", MOLONI_ON_PLUGIN_FILE), [], $ver);
     }
 }
