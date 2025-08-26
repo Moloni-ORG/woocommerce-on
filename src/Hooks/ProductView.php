@@ -15,7 +15,6 @@ use WC_Product;
 /**
  * Class OrderView
  * Add a Moloni Windows to when user is in the product view
- * @package Moloni\Hooks
  */
 class ProductView
 {

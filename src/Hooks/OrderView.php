@@ -16,8 +16,6 @@ use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableControlle
  * Class OrderView
  * Add a Moloni Windows to when user is in the order view
  * There they can create a document for that order or check the document if it was already created
- *
- * @package Moloni\Hooks
  */
 class OrderView
 {

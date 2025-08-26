@@ -12,8 +12,6 @@ use MoloniOn\Helpers\MoloniOrder;
 /**
  * Class OrderList
  * Add a Moloni column orders list
- *
- * @package Moloni\Hooks
  */
 class OrderList
 {

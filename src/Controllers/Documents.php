@@ -29,7 +29,6 @@ use WC_Order_Item_Product;
 /**
  * Class Documents
  * Used to create and/or update a Moloni Document
- * @package Moloni\Controllers
  */
 class Documents
 {

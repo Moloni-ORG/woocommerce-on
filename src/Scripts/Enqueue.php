@@ -7,8 +7,6 @@ use MoloniOn\Context;
 /**
  * Class Enqueue
  * Add script files to queue
- *
- * @package Moloni\Scripts
  */
 class Enqueue
 {
