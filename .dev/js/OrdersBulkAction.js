@@ -58,8 +58,9 @@ Moloni.OrdersBulkAction = (function(translations) {
             ProgressWindowMessage.html(translations.creatingDocument + ' ' + OrderId);
 
             var data = {
-                'action': 'genInvoice',
-                'id': OrderId
+                'action': 'molonion_gen_invoice',
+                'id': OrderId,
+                'nonce': molonionAjax.nonce,
             };
 
             $.ajax({
@@ -128,8 +129,9 @@ Moloni.OrdersBulkAction = (function(translations) {
             ProgressWindowMessage.html(translations.discardingOrder + ' ' + OrderId);
 
             var data = {
-                'action': 'discardOrder',
-                'id': OrderId
+                'action': 'molonion_discard_order',
+                'id': OrderId,
+                'nonce': molonionAjax.nonce,
             };
 
             $.ajax({

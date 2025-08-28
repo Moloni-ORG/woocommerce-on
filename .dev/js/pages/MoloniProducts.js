@@ -17,11 +17,11 @@ Moloni.MoloniProducts = (function ($) {
 
     function startObservers() {
         $('#importStocksButton').on('click', function () {
-            showPreModal('import-stocks-modal', 'toolsMassImportStock');
+            showPreModal('import-stocks-modal', 'molonion_tools_mass_import_stock');
         });
 
         $('#importProductsButton').on('click', function () {
-            showPreModal('import-products-modal', 'toolsMassImportProduct');
+            showPreModal('import-products-modal', 'molonion_tools_mass_import_product');
         });
 
         let form = $('.list_form');
@@ -95,8 +95,8 @@ Moloni.MoloniProducts = (function ($) {
         if (rows.length) {
             Moloni.modals.ProductsProcessBulk(
                 rows,
-                'toolsCreateWcProduct',
-                'toolsUpdateWcStock',
+                'molonion_tools_create_wc_product',
+                'molonion_tools_update_wc_stock',
                 translations,
                 startObservers
             );

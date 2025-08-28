@@ -34,7 +34,8 @@ Moloni.modals.ProductsProcessBulk = (async function (rows, createProductAction, 
         var data = {
             'action': updateStockAction,
             'ml_product_id': mlProductId,
-            'wc_product_id': wcProductId
+            'wc_product_id': wcProductId,
+            'nonce': molonionAjax.nonce,
         };
 
         return $.ajax({
@@ -49,7 +50,8 @@ Moloni.modals.ProductsProcessBulk = (async function (rows, createProductAction, 
         var data = {
             'action': createProductAction,
             'ml_product_id': mlProductId,
-            'wc_product_id': wcProductId
+            'wc_product_id': wcProductId,
+            'nonce': molonionAjax.nonce,
         };
 
         return $.ajax({

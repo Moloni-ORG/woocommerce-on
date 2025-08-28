@@ -39,7 +39,8 @@ Moloni.modals.ProductsProcessAll = (async function (action) {
             url: ajaxurl,
             data: {
                 'action': action,
-                'page': page
+                'page': page,
+                'nonce': molonionAjax.nonce,
             },
             async: true
         });

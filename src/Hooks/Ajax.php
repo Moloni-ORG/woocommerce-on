@@ -34,17 +34,17 @@ class Ajax
         $this->parent = $parent;
 
         add_action('wp_ajax_molonion_gen_invoice', [$this, 'molonion_gen_invoice']);
-        add_action('wp_ajax_molonion_discard_order', [$this, 'molonion_discard_order'])
-        ;
-        add_action('wp_ajax_molonion_mass_import_stock', [$this, 'molonion_tools_mass_import_stock']);
-        add_action('wp_ajax_molonion_mass_import_product', [$this, 'molonion_tools_mass_import_product']);
-        add_action('wp_ajax_molonion_mass_export_stock', [$this, 'molonion_tools_mass_export_stock']);
-        add_action('wp_ajax_molonion_mass_export_product', [$this, 'molonion_tools_mass_export_product']);
+        add_action('wp_ajax_molonion_discard_order', [$this, 'molonion_discard_order']);
 
-        add_action('wp_ajax_molonion_create_wc_product', [$this, 'molonion_tools_create_wc_product']);
-        add_action('wp_ajax_molonion_update_wc_stock', [$this, 'molonion_tools_update_wc_stock']);
-        add_action('wp_ajax_molonion_create_moloni_product', [$this, 'molonion_tools_create_moloni_product']);
-        add_action('wp_ajax_molonion_update_moloni_stock', [$this, 'molonion_tools_update_moloni_stock']);
+        add_action('wp_ajax_molonion_tools_mass_import_stock', [$this, 'molonion_tools_mass_import_stock']);
+        add_action('wp_ajax_molonion_tools_mass_import_product', [$this, 'molonion_tools_mass_import_product']);
+        add_action('wp_ajax_molonion_tools_mass_export_stock', [$this, 'molonion_tools_mass_export_stock']);
+        add_action('wp_ajax_molonion_tools_mass_export_product', [$this, 'molonion_tools_mass_export_product']);
+
+        add_action('wp_ajax_molonion_tools_create_wc_product', [$this, 'molonion_tools_create_wc_product']);
+        add_action('wp_ajax_molonion_tools_update_wc_stock', [$this, 'molonion_tools_update_wc_stock']);
+        add_action('wp_ajax_molonion_tools_create_moloni_product', [$this, 'molonion_tools_create_moloni_product']);
+        add_action('wp_ajax_molonion_tools_update_moloni_stock', [$this, 'molonion_tools_update_moloni_stock']);
     }
 
     //             Public's             //
@@ -451,21 +451,16 @@ class Ajax
 
     private function isAuthed(): bool
     {
+        if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'molonion-ajax-nonce')) {
+            wp_send_json_error('Invalid security token');
+            wp_die();
+        }
+
         if (!current_user_can('manage_woocommerce')) {
             return false;
         }
 
         return Start::login(true);
-    }
-
-    private function isRequestSafe()
-    {
-        if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'molonion_ajax_nonce')) {
-            wp_send_json_error('Invalid security token');
-            wp_die();
-        }
-
-        return true;
     }
 
     /**

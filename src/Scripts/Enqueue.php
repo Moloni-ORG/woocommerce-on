@@ -32,6 +32,10 @@ class Enqueue
         wp_enqueue_style('molonion-styles');
         wp_enqueue_script('molonion-scripts');
 
+        wp_localize_script('molonion-scripts', 'molonionAjax', [
+            'nonce' => wp_create_nonce('molonion-ajax-nonce')
+        ]);
+
         if (!empty(self::$inlineScripts)) {
             $allJs = implode("\n", self::$inlineScripts);
 
