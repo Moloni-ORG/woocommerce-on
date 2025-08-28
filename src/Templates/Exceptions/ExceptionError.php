@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
             ?>
         </p>
 
-        <a onclick="showMoloniErrors();" style="cursor: pointer;">
+        <a onclick="molonion_show_errors();" style="cursor: pointer;">
             <p><?php esc_html_e("Click here for more information",'moloni-on') ?></p>
         </a>
 

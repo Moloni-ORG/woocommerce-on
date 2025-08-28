@@ -1,4 +1,4 @@
-function showMoloniErrors() {
+function molonion_show_errors() {
     let errorConsole = document.getElementsByClassName("MoloniConsoleLogError");
 
     if (errorConsole.length > 0) {
@@ -8,7 +8,7 @@ function showMoloniErrors() {
     }
 }
 
-function createMoloniDocument(redirectUrl) {
+function molonion_create_document(redirectUrl) {
     var select = document.getElementById('moloni_document_type');
 
     if (select) {

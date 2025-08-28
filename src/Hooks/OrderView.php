@@ -152,7 +152,7 @@ class OrderView
         <a type="button"
            class="button-primary"
            target="_BLANK"
-           onclick="createMoloniDocument('<?php echo esc_url($url) ?>')"
+           onclick="molonion_create_document('<?php echo esc_url($url) ?>')"
            style="margin-left: 5px; float:right;"
         >
             <?php echo esc_html($text) ?>
