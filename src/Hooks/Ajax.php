@@ -47,7 +47,7 @@ class Ajax
         add_action('wp_ajax_molonion_update_moloni_stock', [$this, 'molonion_tools_update_moloni_stock']);
     }
 
-    //             Publics             //
+    //             Public's             //
 
     public function molonion_gen_invoice()
     {
@@ -456,6 +456,16 @@ class Ajax
         }
 
         return Start::login(true);
+    }
+
+    private function isRequestSafe()
+    {
+        if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'molonion_ajax_nonce')) {
+            wp_send_json_error('Invalid security token');
+            wp_die();
+        }
+
+        return true;
     }
 
     /**

@@ -238,9 +238,7 @@ class Start
 
         $options = self::sanitizeSettingsValues($_POST['opt'] ?? []);
 
-        foreach ($options as $option => $value) {
-            Settings::setOption($option, $value);
-        }
+        self::saveOptions($options);
 
         add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni-on'), 'updated');
     }
@@ -258,9 +256,7 @@ class Start
 
         $options = self::sanitizeAutomationsValues($_POST['opt'] ?? []);
 
-        foreach ($options as $option => $value) {
-            Settings::setOption($option, $value);
-        }
+        self::saveOptions($options);
 
         try {
             WebHooks::deleteHooks();
@@ -277,6 +273,13 @@ class Start
         }
 
         add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
+    }
+
+    private static function saveOptions(array $options)
+    {
+        foreach ($options as $option => $value) {
+            Settings::setOption($option, $value);
+        }
     }
 
     private static function sanitizeSettingsValues($input): array
@@ -394,7 +397,7 @@ class Start
             return false;
         }
 
-        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'molonion-form')) {
+        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'molonion-form-nonce')) {
             wp_die('Security check failed');
         }
 

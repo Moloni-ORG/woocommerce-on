@@ -40,7 +40,7 @@ try {
 ?>
 
 <form method='POST' action='<?php echo esc_url(Context::getAdminUrl("tab=settings")) ?>' id='formOpcoes'>
-    <?php wp_nonce_field("molonion-form"); ?>
+    <?php wp_nonce_field("molonion-form-nonce"); ?>
 
     <input type='hidden' value='saveSettings' name='action'>
     <div>
