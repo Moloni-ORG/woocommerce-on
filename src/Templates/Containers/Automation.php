@@ -22,7 +22,10 @@ try {
 ?>
 
 <form method='POST' action='<?php echo esc_url(Context::getAdminUrl("tab=automation")) ?>' id='formOpcoes'>
+    <?php wp_nonce_field("molonion-form"); ?>
+
     <input type='hidden' value='saveAutomations' name='action'>
+
     <div>
         <h2 class="title">
             <?php esc_html_e('Automatic actions from WooCommerce', 'moloni-on') ?>

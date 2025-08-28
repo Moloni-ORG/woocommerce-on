@@ -33,12 +33,12 @@ class Start
     {
         self::$ajax = $ajax;
 
-        $action = isset($_REQUEST['action']) ? sanitize_text_field(trim($_REQUEST['action'])) : '';
-        $developerId = isset($_POST['developer_id']) ? sanitize_text_field(trim($_POST['developer_id'])) : '';
-        $clientSecret = isset($_POST['client_secret']) ? sanitize_text_field(trim($_POST['client_secret'])) : '';
-        $code = isset($_GET['code']) ? sanitize_text_field(trim($_GET['code'])) : '';
+        $action = trim(sanitize_text_field($_REQUEST['action'] ?? ''));
+        $developerId = trim(sanitize_text_field($_POST['developer_id'] ?? ''));
+        $clientSecret = trim(sanitize_text_field($_POST['client_secret'] ?? ''));
+        $code = trim(sanitize_text_field($_GET['code'] ?? ''));
 
-        if (!empty($developerId) && !empty($clientSecret)) {
+        if (!empty($developerId) && !empty($clientSecret) && self::shouldTrustForm()) {
             self::redirectToApi($developerId, $clientSecret);
             return true;
         }
@@ -232,7 +232,7 @@ class Start
      */
     private static function saveSettings()
     {
-        if (!self::shouldSaveValues()) {
+        if (!self::shouldTrustForm()) {
             return;
         }
 
@@ -252,7 +252,7 @@ class Start
      */
     private static function saveAutomations()
     {
-        if (!self::shouldSaveValues()) {
+        if (!self::shouldTrustForm()) {
             return;
         }
 
@@ -358,11 +358,7 @@ class Start
     private static function sanitizer(array $schema, $input, array $output): array
     {
         foreach ($schema as $key => $type) {
-            if (!isset($input[$key])) {
-                continue;
-            }
-
-            $value = $input[$key];
+            $value = $input[$key] ?? null;
 
             switch ($type) {
                 case 'bool':
@@ -392,13 +388,13 @@ class Start
         return $output;
     }
 
-    private static function shouldSaveValues(): bool
+    private static function shouldTrustForm(): bool
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return false;
         }
 
-        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'moloni-on-settings')) {
+        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'molonion-form')) {
             wp_die('Security check failed');
         }
 

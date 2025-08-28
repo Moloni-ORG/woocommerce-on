@@ -19,6 +19,8 @@ if (!defined('ABSPATH')) {
 
     <div class="login login__wrapper">
         <form class="login-form" method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>'>
+            <?php wp_nonce_field("molonion-form"); ?>
+
             <div class="login__card">
                 <div class="login__image">
                     <a href="<?php echo esc_url(Context::configs()->get('home_page')) ?>" target="_blank">
