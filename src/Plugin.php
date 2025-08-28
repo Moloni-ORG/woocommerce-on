@@ -20,6 +20,7 @@ use MoloniOn\Hooks\UpgradeProcess;
 use MoloniOn\Hooks\WoocommerceInitialize;
 use MoloniOn\Menus\Admin;
 use MoloniOn\Models\Logs;
+use MoloniOn\Scripts\Enqueue;
 use MoloniOn\Services\Documents\DownloadDocumentPDF;
 use MoloniOn\Services\Documents\OpenDocument;
 use MoloniOn\Services\Orders\CreateMoloniDocument;

@@ -31,15 +31,3 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 </div>
-
-<script>
-    function showMoloniErrors() {
-        let errorConsole = document.getElementsByClassName("MoloniConsoleLogError");
-
-        if (errorConsole.length > 0) {
-            Array.from(errorConsole).forEach(function (element) {
-                element.style['display'] = element.style['display'] === 'none' ? 'block' : 'none';
-            });
-        }
-    }
-</script>

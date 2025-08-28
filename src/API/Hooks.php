@@ -38,7 +38,7 @@ class Hooks extends EndpointAbstract
     {
         $query = self::loadMutation('hookCreate');
 
-        return Curl::simple('hookCreate', $query, $variables);
+         return Curl::simple('hookCreate', $query, $variables);
     }
 
     /**

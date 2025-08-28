@@ -804,10 +804,4 @@ try {
     </div>
 </form>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.Settings.init({
-            example: "<?php esc_html_e('Example', 'moloni-on') ?>"
-        });
-    });
-</script>
+<div id="molonion-settings-page-anchor"></div>

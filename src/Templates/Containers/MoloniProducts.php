@@ -230,17 +230,4 @@ $backAction = Context::getAdminUrl('tab=tools');
 <?php include MOLONI_ON_TEMPLATE_DIR . 'Modals/Products/ImportProductsModal.php'; ?>
 <?php include MOLONI_ON_TEMPLATE_DIR . 'Modals/Products/ImportStocksModal.php'; ?>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.MoloniProducts.init({
-            'create_action': "<?php esc_html_e('product creation processes.', 'moloni-on') ?>",
-            'update_action': "<?php esc_html_e('product update processes.', 'moloni-on') ?>",
-            'stock_action': "<?php esc_html_e('stock update processes.', 'moloni-on') ?>",
-            'processing_product': "<?php esc_html_e('Processing product', 'moloni-on') ?>",
-            'successfully_processed': "<?php esc_html_e('Successfully processed', 'moloni-on') ?>",
-            'error_in_the_process': "<?php esc_html_e('Error in the process', 'moloni-on') ?>",
-            'click_to_see': "<?php esc_html_e('Click to see', 'moloni-on') ?>",
-            'completed': "<?php esc_html_e('Completed', 'moloni-on') ?>",
-        });
-    });
-</script>
+<div id="molonion-moloni-products-page-anchor"></div>

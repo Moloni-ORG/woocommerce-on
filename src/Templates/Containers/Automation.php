@@ -296,8 +296,4 @@ try {
     </div>
 </form>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.Automations.init();
-    });
-</script>
+<div id="molonion-automation-page-anchor"></div>

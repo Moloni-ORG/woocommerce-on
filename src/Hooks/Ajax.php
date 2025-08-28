@@ -33,23 +33,23 @@ class Ajax
     {
         $this->parent = $parent;
 
-        add_action('wp_ajax_genInvoice', [$this, 'genInvoice']);
-        add_action('wp_ajax_discardOrder', [$this, 'discardOrder']);
+        add_action('wp_ajax_molonion_gen_invoice', [$this, 'molonion_gen_invoice']);
+        add_action('wp_ajax_molonion_discard_order', [$this, 'molonion_discard_order'])
+        ;
+        add_action('wp_ajax_molonion_mass_import_stock', [$this, 'molonion_tools_mass_import_stock']);
+        add_action('wp_ajax_molonion_mass_import_product', [$this, 'molonion_tools_mass_import_product']);
+        add_action('wp_ajax_molonion_mass_export_stock', [$this, 'molonion_tools_mass_export_stock']);
+        add_action('wp_ajax_molonion_mass_export_product', [$this, 'molonion_tools_mass_export_product']);
 
-        add_action('wp_ajax_toolsMassImportStock', [$this, 'toolsMassImportStock']);
-        add_action('wp_ajax_toolsMassImportProduct', [$this, 'toolsMassImportProduct']);
-        add_action('wp_ajax_toolsMassExportStock', [$this, 'toolsMassExportStock']);
-        add_action('wp_ajax_toolsMassExportProduct', [$this, 'toolsMassExportProduct']);
-
-        add_action('wp_ajax_toolsCreateWcProduct', [$this, 'toolsCreateWcProduct']);
-        add_action('wp_ajax_toolsUpdateWcStock', [$this, 'toolsUpdateWcStock']);
-        add_action('wp_ajax_toolsCreateMoloniProduct', [$this, 'toolsCreateMoloniProduct']);
-        add_action('wp_ajax_toolsUpdateMoloniStock', [$this, 'toolsUpdateMoloniStock']);
+        add_action('wp_ajax_molonion_create_wc_product', [$this, 'molonion_tools_create_wc_product']);
+        add_action('wp_ajax_molonion_update_wc_stock', [$this, 'molonion_tools_update_wc_stock']);
+        add_action('wp_ajax_molonion_create_moloni_product', [$this, 'molonion_tools_create_moloni_product']);
+        add_action('wp_ajax_molonion_update_moloni_stock', [$this, 'molonion_tools_update_moloni_stock']);
     }
 
     //             Publics             //
 
-    public function genInvoice()
+    public function molonion_gen_invoice()
     {
         if (!$this->isAuthed()) {
             return;
@@ -108,7 +108,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function discardOrder()
+    public function molonion_discard_order()
     {
         if (!$this->isAuthed()) {
             return;
@@ -128,7 +128,7 @@ class Ajax
     }
 
 
-    public function toolsMassImportStock()
+    public function molonion_tools_mass_import_stock()
     {
         if (!$this->isAuthed()) {
             return;
@@ -150,7 +150,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsMassImportProduct()
+    public function molonion_tools_mass_import_product()
     {
         if (!$this->isAuthed()) {
             return;
@@ -172,7 +172,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsMassExportStock()
+    public function molonion_tools_mass_export_stock()
     {
         if (!$this->isAuthed()) {
             return;
@@ -194,7 +194,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsMassExportProduct()
+    public function molonion_tools_mass_export_product()
     {
         if (!$this->isAuthed()) {
             return;
@@ -217,7 +217,7 @@ class Ajax
     }
 
 
-    public function toolsCreateWcProduct()
+    public function molonion_tools_create_wc_product()
     {
         if (!$this->isAuthed()) {
             return;
@@ -280,7 +280,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsUpdateWcStock()
+    public function molonion_tools_update_wc_stock()
     {
         if (!$this->isAuthed()) {
             return;
@@ -334,7 +334,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsCreateMoloniProduct()
+    public function molonion_tools_create_moloni_product()
     {
         if (!$this->isAuthed()) {
             return;
@@ -388,7 +388,7 @@ class Ajax
         $this->sendJson($response);
     }
 
-    public function toolsUpdateMoloniStock()
+    public function molonion_tools_update_moloni_stock()
     {
         if (!$this->isAuthed()) {
             return;
@@ -451,6 +451,10 @@ class Ajax
 
     private function isAuthed(): bool
     {
+        if (!current_user_can('manage_woocommerce')) {
+            return false;
+        }
+
         return Start::login(true);
     }
 

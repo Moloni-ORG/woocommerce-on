@@ -1,5 +1,5 @@
 .companies {
-  @apply flex flex-col justify-start items-start font-poppins;
+  @apply flex flex-col justify-start items-start;
   @apply bg-neutral-50 p-6 sm:mr-6 mr-3 rounded;
 
   &__title {

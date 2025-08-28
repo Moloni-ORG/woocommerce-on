@@ -150,7 +150,7 @@ class Start
         try {
             $query = Companies::queryCompanies();
 
-            foreach ($query['data']['companies']['data']as $company) {
+            foreach ($query['data']['companies']['data'] as $company) {
                 if (empty($company['companyId'])) {
                     continue;
                 }
@@ -191,12 +191,14 @@ class Start
      *
      * @return void
      */
-    private static function logout() {
+    private static function logout()
+    {
         Settings::resetTokens();
 
         try {
             WebHooks::deleteHooks();
-        } catch (APIExeption $e) {}
+        } catch (APIExeption $e) {
+        }
     }
 
 
@@ -217,7 +219,8 @@ class Start
             } else {
                 self::saveOptions(['sync_products_with_variants' => Boolean::NO]);
             }
-        } catch (APIExeption $e) {}
+        } catch (APIExeption $e) {
+        }
     }
 
     //          Settings/Automations          //
@@ -227,12 +230,19 @@ class Start
      *
      * @return void
      */
-    private static function saveSettings() {
+    private static function saveSettings()
+    {
+        if (!self::shouldSaveValues()) {
+            return;
+        }
+
+        $options = self::sanitizeSettingsValues($_POST['opt'] ?? []);
+
+        foreach ($options as $option => $value) {
+            Settings::setOption($option, $value);
+        }
+
         add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni-on'), 'updated');
-
-        $options = is_array($_POST['opt']) ? $_POST['opt'] : [];
-
-        self::saveOptions($options);
     }
 
     /**
@@ -240,31 +250,17 @@ class Start
      *
      * @return void
      */
-    private static function saveAutomations() {
-        add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
-
-        $options = is_array($_POST['opt']) ? $_POST['opt'] : [];
-
-        /** Verifies checkboxes because they are not set if not checked */
-        $syncOptions = [
-            'sync_fields_description',
-            'sync_fields_visibility',
-            'sync_fields_stock',
-            'sync_fields_name',
-            'sync_fields_price',
-            'sync_fields_categories',
-            'sync_fields_ean',
-            'sync_fields_image'
-        ];
-
-        /** for each sync opt check if it is set */
-        foreach ($syncOptions as $option) {
-            if (!isset($options[$option])) {
-                $options[$option] = 0;
-            }
+    private static function saveAutomations()
+    {
+        if (!self::shouldSaveValues()) {
+            return;
         }
 
-        self::saveOptions($options);
+        $options = self::sanitizeAutomationsValues($_POST['opt'] ?? []);
+
+        foreach ($options as $option => $value) {
+            Settings::setOption($option, $value);
+        }
 
         try {
             WebHooks::deleteHooks();
@@ -277,23 +273,135 @@ class Start
                 WebHooks::createHook('Product', 'create');
                 WebHooks::createHook('Product', 'update');
             }
-        } catch (APIExeption $e) {}
+        } catch (APIExeption $e) {
+        }
+
+        add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
     }
 
-    /**
-     * Save data in settings table
-     *
-     * @param array $options
-     *
-     * @return void
-     */
-    private static function saveOptions(array $options)
+    private static function sanitizeSettingsValues($input): array
     {
-        foreach ($options as $option => $value) {
-            $option = sanitize_text_field($option);
-            $value = sanitize_text_field($value);
+        $output = [];
 
-            Settings::setOption($option, $value);
+        $schema = [
+            // === Text fields ===
+            'company_slug' => 'text',
+            'document_type' => 'text',
+            'load_address_custom_address' => 'text',
+            'load_address_custom_code' => 'text',
+            'load_address_custom_city' => 'text',
+            'exemption_reason' => 'text',
+            'exemption_reason_shipping' => 'text',
+            'exemption_reason_extra_community' => 'text',
+            'exemption_reason_shipping_extra_community' => 'text',
+            'client_prefix' => 'text',
+            'vat_field' => 'text',
+
+            // === Integers (IDs, dropdowns, etc.) ===
+            'document_status' => 'int',
+            'load_address' => 'int',
+            'customer_language' => 'int',
+            'document_set_id' => 'int',
+            'load_address_custom_country' => 'int',
+            'moloni_product_warehouse' => 'int',
+            'measure_unit' => 'int',
+            'maturity_date' => 'int',
+            'payment_method' => 'int',
+            'create_bill_of_lading' => 'int',
+            'shipping_info' => 'int',
+            'email_send' => 'int',
+            'vat_validate' => 'int',
+            'moloni_show_download_column' => 'int',
+
+            // === Email ===
+            'alert_email' => 'email',
+
+            // === Date ===
+            'order_created_at_max' => 'date',
+        ];
+
+        return self::sanitizer($schema, $input, $output);
+    }
+
+    private static function sanitizeAutomationsValues($input): array
+    {
+        $output = [];
+
+        $schema = [
+            // === Boolean flags (0/1) ===
+            'sync_products_with_variants' => 'bool',
+            'sync_fields_name' => 'bool',
+            'sync_fields_price' => 'bool',
+            'sync_fields_description' => 'bool',
+            'sync_fields_visibility' => 'bool',
+            'sync_fields_stock' => 'bool',
+            'sync_fields_categories' => 'bool',
+            'sync_fields_ean' => 'bool',
+            'sync_fields_image' => 'bool',
+
+            // === Integers (IDs, dropdowns, etc.) ===
+            'invoice_auto' => 'int',
+            'moloni_product_sync' => 'int',
+            'moloni_stock_sync' => 'int',
+            'moloni_stock_sync_warehouse' => 'int',
+            'hook_product_sync' => 'int',
+            'hook_stock_sync' => 'int',
+            'hook_stock_sync_warehouse' => 'int',
+
+            // === Special status ===
+            'invoice_auto_status' => 'status',
+        ];
+
+        return self::sanitizer($schema, $input, $output);
+    }
+
+    private static function sanitizer(array $schema, $input, array $output): array
+    {
+        foreach ($schema as $key => $type) {
+            if (!isset($input[$key])) {
+                continue;
+            }
+
+            $value = $input[$key];
+
+            switch ($type) {
+                case 'bool':
+                    $output[$key] = empty($value) ? 0 : 1;
+                    break;
+
+                case 'int':
+                    $output[$key] = absint($value);
+                    break;
+
+                case 'email':
+                    $output[$key] = sanitize_email($value);
+                    break;
+
+                case 'status':
+                    $allowed = ['completed', 'pending', 'on-hold', 'processing'];
+                    $value = sanitize_text_field($value);
+                    $output[$key] = in_array($value, $allowed, true) ? $value : 'completed';
+                    break;
+                case 'date':
+                case 'text':
+                default:
+                    $output[$key] = sanitize_text_field($value);
+            }
         }
+
+        return $output;
+    }
+
+    private static function shouldSaveValues(): bool
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return false;
+        }
+
+        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'moloni-on-settings')) {
+            wp_die('Security check failed');
+        }
+
+        return true;
     }
 }

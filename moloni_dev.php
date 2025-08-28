@@ -17,6 +17,10 @@
 
 namespace MoloniOn;
 
+use MoloniOn\Scripts\Enqueue;
+use MoloniOn\Activators\Remove;
+use MoloniOn\Activators\Install;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -51,13 +55,15 @@ if (!defined('MOLONI_ON_IMAGES_URL')) {
     define('MOLONI_ON_IMAGES_URL', plugin_dir_url(__FILE__) . 'images/');
 }
 
-register_activation_hook(__FILE__, '\MoloniOn\Activators\Install::run');
-register_deactivation_hook(__FILE__, '\MoloniOn\Activators\Remove::run');
+register_activation_hook(__FILE__, [Install::class, 'run']);
+register_deactivation_hook(__FILE__, [Remove::class, 'run']);
 
-add_action('wp_initialize_site', '\MoloniOn\Activators\Install::initializeSite', 200);
-add_action('wp_uninitialize_site', '\MoloniOn\Activators\Remove::uninitializeSite');
+add_action('wp_initialize_site', [Install::class, 'initializeSite'], 200);
+add_action('wp_uninitialize_site', [Remove::class, 'uninitializeSite']);
 add_action('plugins_loaded', Start::class);
-add_action('admin_enqueue_scripts', '\MoloniOn\Scripts\Enqueue::defines');
+
+add_action('admin_enqueue_scripts', [Enqueue::class, 'adminCommon']);
+add_action('admin_print_footer_scripts-toplevel_page_molonion', [Enqueue::class, 'adminCore']);
 
 function Start(): Plugin
 {

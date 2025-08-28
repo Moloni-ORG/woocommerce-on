@@ -44,14 +44,15 @@ function processJS() {
         './node_modules/jquery-modal/jquery.modal.js',
         './js/modals/ProductsProcessAll.js',
         './js/modals/ProductsProcessBulk.js',
-        './js/Automations.js',
-        './js/Login.js',
-        './js/Logs.js',
-        './js/MoloniProducts.js',
+        './js/pages/Automations.js',
+        './js/pages/Login.js',
+        './js/pages/Logs.js',
+        './js/pages/MoloniProducts.js',
         './js/OrdersBulkAction.js',
-        './js/Settings.js',
-        './js/Tools.js',
-        './js/WcProducts.js',
+        './js/pages/Settings.js',
+        './js/pages/Tools.js',
+        './js/pages/WcProducts.js',
+        './js/EntryPoint.js',
     ];
 
     return (

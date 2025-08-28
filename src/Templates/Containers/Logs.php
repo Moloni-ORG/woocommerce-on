@@ -38,14 +38,14 @@ $logsContext = [];
                             type="date"
                             class="inputOut ml-0"
                             name="filter_date"
-                            value="<?php echo esc_html($_GET['filter_date'] ?? $_POST['filter_date'] ?? '') ?>"
+                            value="<?php echo esc_html(sanitize_text_field($_GET['filter_date'] ?? $_POST['filter_date'] ?? '')) ?>"
                     >
                 </th>
                 <th>
                     <?php $options = LogLevel::getForRender() ?>
 
                     <select name="filter_level">
-                        <?php $filterLevel = esc_html($_GET['filter_level'] ?? $_POST['filter_level'] ?? '') ?>
+                        <?php $filterLevel = esc_html(sanitize_text_field($_GET['filter_level'] ?? $_POST['filter_level'] ?? '')) ?>
 
                         <option value='' selected>
                             <?php esc_attr_e('Choose an option', 'moloni-on') ?>
@@ -66,7 +66,7 @@ $logsContext = [];
                             type="text"
                             class="inputOut ml-0"
                             name="filter_message"
-                            value="<?php echo esc_html($_GET['filter_message'] ?? $_POST['filter_message'] ?? '') ?>"
+                            value="<?php echo esc_html(sanitize_text_field($_GET['filter_message'] ?? $_POST['filter_message'] ?? '')) ?>"
                     >
                 </th>
                 <th>
@@ -142,8 +142,4 @@ $logsContext = [];
 
 <?php include MOLONI_ON_TEMPLATE_DIR . 'Modals/Logs/LogsContextModal.php'; ?>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.Logs.init();
-    });
-</script>
+<div id="molonion-logs-page-anchor"></div>

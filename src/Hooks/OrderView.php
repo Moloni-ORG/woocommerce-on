@@ -146,27 +146,17 @@ class OrderView
      */
     private function getDocumentCreateButton($order, $text)
     {
+        $url = Context::getAdminUrl("action=genInvoice&id={$order->get_id()}");
+
         ?>
         <a type="button"
            class="button-primary"
            target="_BLANK"
-           onclick="createMoloniDocument()"
+           onclick="createMoloniDocument('<?php echo esc_url($url) ?>')"
            style="margin-left: 5px; float:right;"
         >
             <?php echo esc_html($text) ?>
         </a>
-
-        <script>
-            function createMoloniDocument() {
-                var redirectUrl = "<?php echo esc_url(Context::getAdminUrl("action=genInvoice&id={$order->get_id()}")) ?>";
-
-                if (document.getElementById('moloni_document_type')) {
-                    redirectUrl += '&document_type=' + document.getElementById('moloni_document_type').value;
-                }
-
-                window.open(redirectUrl, '_blank')
-            }
-        </script>
         <?php
     }
 }

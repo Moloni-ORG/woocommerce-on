@@ -1,5 +1,5 @@
 === Moloni Spain ===
-Contributors: Moloni
+Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: Invoicing, Orders
 Stable tag: #VERSION#

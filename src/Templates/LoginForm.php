@@ -5,12 +5,10 @@ use MoloniOn\Context;
 if (!defined('ABSPATH')) {
     exit;
 }
-
 ?>
 
 <section id="moloni" class="moloni">
     <?php include MOLONI_ON_DIR . '/assets/icons/plugin.svg' ?>
-    <?php include MOLONI_ON_TEMPLATE_DIR . '/Assets/Fonts.php' ?>
 
     <?php if (!empty($errorData)): ?>
         <pre style="display: none;" id="curl_error_data">
@@ -76,9 +74,5 @@ if (!defined('ABSPATH')) {
         </form>
     </div>
 
-    <script>
-        jQuery(document).ready(function () {
-            Moloni.Login.init();
-        });
-    </script>
+    <div id="molonion-login-page-anchor"></div>
 </section>

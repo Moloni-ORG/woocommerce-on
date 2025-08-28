@@ -7,8 +7,6 @@ $hasValidCompany = false;
 ?>
 
 <section id="moloni" class="moloni">
-    <?php include MOLONI_ON_TEMPLATE_DIR . '/Assets/Fonts.php' ?>
-
     <div class="companies">
         <?php if (!empty($companies) && is_array($companies)) : ?>
             <div class="companies__title">
@@ -26,10 +24,4 @@ $hasValidCompany = false;
             <?php include MOLONI_ON_TEMPLATE_DIR . 'Blocks/CompanySelect/NoCompanies.php'; ?>
         <?php endif; ?>
     </div>
-
-    <script>
-        jQuery(document).ready(function () {
-
-        });
-    </script>
 </section>

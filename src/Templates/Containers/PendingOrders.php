@@ -189,18 +189,4 @@ $orders = PendingOrders::getAllAvailable();
 
 <?php include MOLONI_ON_TEMPLATE_DIR . 'Modals/PendingOrders/BulkActionModal.php'; ?>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.OrdersBulkAction({
-            startingProcess: "<?php esc_attr_e('Starting process...', 'moloni-on')?>",
-            noOrdersSelected: "<?php esc_attr_e('No orders selected to process', 'moloni-on')?>",
-            creatingDocument: "<?php esc_attr_e('Creating document', 'moloni-on')?>",
-            discardingOrder: "<?php esc_attr_e('Discarding order', 'moloni-on')?>",
-            createdDocuments: "<?php esc_attr_e('Documents created:', 'moloni-on')?>",
-            documentsWithErrors: "<?php esc_attr_e('Documents with errors:', 'moloni-on')?>",
-            discardedOrders: "<?php esc_attr_e('Orders discarded:', 'moloni-on')?>",
-            ordersWithErrors: "<?php esc_attr_e('Orders with errors:', 'moloni-on')?>",
-            close: "<?php esc_attr_e('Close', 'moloni-on')?>",
-        });
-    });
-</script>
+<div id="molonion-pending-orders-page-anchor"></div>

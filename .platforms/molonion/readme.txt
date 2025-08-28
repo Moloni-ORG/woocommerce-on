@@ -1,5 +1,5 @@
 === Moloni On ===
-Contributors: Moloni
+Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
 Stable tag: #VERSION#

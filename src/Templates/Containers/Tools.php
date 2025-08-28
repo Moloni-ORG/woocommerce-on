@@ -83,8 +83,4 @@ if (!defined('ABSPATH')) {
     </tbody>
 </table>
 
-<script>
-    jQuery(document).ready(function () {
-        Moloni.Tools.init();
-    });
-</script>
+<div id="molonion-tools-page-anchor"></div>
