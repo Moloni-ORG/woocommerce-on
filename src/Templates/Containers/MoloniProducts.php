@@ -3,6 +3,7 @@
 use MoloniOn\API\Warehouses;
 use MoloniOn\Context;
 use MoloniOn\Exceptions\APIExeption;
+use MoloniOn\Helpers\Security;
 use MoloniOn\Services\MoloniProduct\Page\FetchAndCheckProducts;
 
 if (!defined('ABSPATH')) {
@@ -172,8 +173,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <tbody>
         <?php if (!empty($rows) && is_array($rows)) : ?>
             <?php foreach ($rows as $row) : ?>
-                <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                <?php echo $row ?>
+                <?php echo Security::wp_kses_post_with_inputs($row) ?>
             <?php endforeach; ?>
         <?php else : ?>
             <tr class="text-center">

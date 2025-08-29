@@ -93,14 +93,13 @@ $logsContext = [];
                             </div>
                         </td>
                         <td>
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                            <?php echo $log['message'] ?>
+                            <?php echo wp_kses_post($log['message']) ?>
                         </td>
                         <td>
                             <?php $logContext = htmlspecialchars($log['context']) ?>
 
                             <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                            <button type="button" class="button action" onclick="Moloni.Logs.openContextDialog(<?php echo $logContext ?>)">
+                            <button type="button" class="button action" onclick="Moloni.Logs.openContextDialog(<?php echo esc_js($logContext) ?>)">
                                 <?php esc_html_e("See", 'moloni-on') ?>
                             </button>
                         </td>

@@ -79,26 +79,32 @@ class SyncLogs
     {
         global $wpdb;
 
-        $tableName = Context::getTableName();
-
-        $query = "SELECT COUNT(*) FROM {$tableName}_sync_logs WHERE `entity_id` = {$entityId} AND";
+        $tableName = Context::getTableName() . '_sync_logs';
 
         if (is_array($typeId)) {
-            $query .= ' `type_id` IN (';
+            $placeholders = implode(',', array_fill(0, count($typeId), '%d'));
 
-            foreach ($typeId as $value) {
-                $query .= (int)$value . ',';
-            }
-
-            $query = rtrim($query, ',');
-            $query .= ')';
+            $query = $wpdb->prepare(
+                "SELECT COUNT(*) as cnt 
+             FROM {$tableName} 
+             WHERE entity_id = %d 
+             AND type_id IN ($placeholders)",
+                array_merge([$entityId], array_map('intval', $typeId))
+            );
         } else {
-            $query .= ' `type_id` = ' . (int)$typeId;
+            $query = $wpdb->prepare(
+                "SELECT COUNT(*) as cnt 
+             FROM {$tableName} 
+             WHERE entity_id = %d 
+             AND type_id = %d",
+                $entityId,
+                (int)$typeId
+            );
         }
 
-        $queryResult = $wpdb->get_row($query, ARRAY_A);
+        $queryResult = $wpdb->get_var($query);
 
-        return (int)$queryResult['COUNT(*)'] > 0;
+        return (int)$queryResult > 0;
     }
 
     /**

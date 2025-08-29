@@ -7,10 +7,7 @@ if (!defined('ABSPATH')) {
 <div>
     <div id="message" class="updated error is-dismissible">
         <p>
-            <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $message ?? '';
-            ?>
+            <?php echo wp_kses_post($message ?? ''); ?>
         </p>
 
         <a onclick="molonion_show_errors();" style="cursor: pointer;">

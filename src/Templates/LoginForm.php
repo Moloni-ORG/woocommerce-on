@@ -39,8 +39,7 @@ if (!defined('ABSPATH')) {
                                 <use xlink:href="#ic_notices_important_warning"></use>
                             </svg>
 
-                            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                            <?php echo $error ?>
+                            <?php echo wp_kses_post($error); ?>
                         </div>
                     <?php endif; ?>
                 </div>
