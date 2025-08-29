@@ -112,6 +112,16 @@ function processPlatform($platform)
         copyDir($srcDir, "$buildDir/$dirName");
     }
 
+    // Step 2.1: Copy JS development files to assets/js/raw
+    $devJsDir = "$base/.dev/js";
+    $rawJsDir = "$buildDir/assets/js/raw";
+
+    if (is_dir($devJsDir)) {
+        @mkdir($rawJsDir, 0777, true);
+        copyDir($devJsDir, $rawJsDir);
+        echo "✅ Copied JS development files to assets/js/raw \n";
+    }
+
     // Step 3: Copy platform-specific overrides from .platforms/{platform}/ to build
     $platformOverride = "$base/.platforms/$folderName";
     if (is_dir($platformOverride)) {
