@@ -11,30 +11,22 @@ class ProductAssociations
 
     public static function findByWcId($wcId)
     {
-        $condition = 'wc_product_id = ' . (int)$wcId;
-
-        return self::fetch($condition);
+        return self::fetch('wc_product_id', (int)$wcId);
     }
 
     public static function findByWcParentId($wcParentId)
     {
-        $condition = 'wc_parent_id = ' . (int)$wcParentId;
-
-        return self::fetch($condition);
+        return self::fetch('wc_parent_id', (int)$wcParentId);
     }
 
     public static function findByMoloniId($mlId)
     {
-        $condition = 'ml_product_id = ' . (int)$mlId;
-
-        return self::fetch($condition);
+        return self::fetch('ml_product_id', (int)$mlId);
     }
 
     public static function findByMoloniParentId($mlParentId)
     {
-        $condition = 'ml_parent_id = ' . (int)$mlParentId;
-
-        return self::fetch($condition);
+        return self::fetch('ml_parent_id', (int)$mlParentId);
     }
 
     //          CRUD          //
@@ -59,59 +51,57 @@ class ProductAssociations
 
     public static function deleteById($id): void
     {
-        $condition = 'id = ' . (int)$id;
-
-        self::delete($condition);
+        self::delete('id', (int)$id);
     }
 
     public static function deleteByWcId($wcId): void
     {
-        $condition = 'wc_product_id = ' . (int)$wcId;
-
-        self::delete($condition);
+        self::delete('wc_product_id', (int)$wcId);
     }
 
     public static function deleteByWcParentId($wcParentId): void
     {
-        $condition = 'wc_parent_id = ' . (int)$wcParentId;
-
-        self::delete($condition);
+        self::delete('wc_parent_id', (int)$wcParentId);
     }
 
     public static function deleteByMoloniId($mlId): void
     {
-        $condition = 'ml_product_id = ' . (int)$mlId;
-
-        self::delete($condition);
+        self::delete('ml_product_id', (int)$mlId);
     }
 
     public static function deleteByMoloniParentId($mlParentId): void
     {
-        $condition = 'ml_parent_id = ' . (int)$mlParentId;
-
-        self::delete($condition);
+        self::delete('ml_parent_id', (int)$mlParentId);
     }
 
     //          Privates          //
 
-    private static function fetch($condition = '')
+    private static function fetch($field, $value)
     {
         global $wpdb;
 
         $tableName = Context::getTableName();
+        $table = $tableName . '_product_associations';
 
-        $query = "SELECT * FROM {$tableName}_product_associations WHERE {$condition}";
+        $query = $wpdb->prepare(
+            "SELECT * FROM `$table` WHERE $field = %d",
+            $value
+        );
 
         return $wpdb->get_row($query, ARRAY_A);
     }
 
-    private static function delete($condition = '')
+    private static function delete($field, $value)
     {
         global $wpdb;
 
         $tableName = Context::getTableName();
+        $table = $tableName . '_product_associations';
 
-        $query = "DELETE FROM {$tableName}_product_associations WHERE {$condition}";
+        $query = $wpdb->prepare(
+            "DELETE FROM `$table` WHERE $field = %d",
+            $value
+        );
 
         $wpdb->query($query);
     }

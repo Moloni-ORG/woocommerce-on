@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     <?php endif; ?>
 
     <div class="login login__wrapper">
-        <form class="login-form" method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>'>
+        <form method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>' class="login-form">
             <?php wp_nonce_field("molonion-form-nonce"); ?>
 
             <div class="login__card">

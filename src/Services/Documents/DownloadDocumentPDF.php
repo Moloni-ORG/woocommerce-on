@@ -108,6 +108,6 @@ class DownloadDocumentPDF
 
     private function showError($message): void
     {
-        wp_die($message);
+        wp_die(esc_html($message));
     }
 }

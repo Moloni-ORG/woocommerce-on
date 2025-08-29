@@ -38,7 +38,7 @@ class Start
         $clientSecret = trim(sanitize_text_field($_POST['client_secret'] ?? ''));
         $code = trim(sanitize_text_field($_GET['code'] ?? ''));
 
-        if (!empty($developerId) && !empty($clientSecret) && self::shouldTrustForm()) {
+        if (!empty($developerId) && !empty($clientSecret)) {
             self::redirectToApi($developerId, $clientSecret);
             return true;
         }
@@ -232,10 +232,6 @@ class Start
      */
     private static function saveSettings()
     {
-        if (!self::shouldTrustForm()) {
-            return;
-        }
-
         $options = self::sanitizeSettingsValues($_POST['opt'] ?? []);
 
         self::saveOptions($options);
@@ -250,10 +246,6 @@ class Start
      */
     private static function saveAutomations()
     {
-        if (!self::shouldTrustForm()) {
-            return;
-        }
-
         $options = self::sanitizeAutomationsValues($_POST['opt'] ?? []);
 
         self::saveOptions($options);
@@ -389,18 +381,5 @@ class Start
         }
 
         return $output;
-    }
-
-    private static function shouldTrustForm(): bool
-    {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return false;
-        }
-
-        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'molonion-form-nonce')) {
-            wp_die('Security check failed');
-        }
-
-        return true;
     }
 }

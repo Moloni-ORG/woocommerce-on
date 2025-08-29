@@ -91,17 +91,6 @@ class ProductView
                 <?php if ((int)$this->moloniProduct['hasStock'] === Boolean::YES) : ?>
                     <b><?php esc_html_e("Stock: ", 'moloni-on') ?></b> <?php echo esc_html($this->moloniProduct['stock']) ?>
                 <?php endif; ?>
-
-                <?php
-
-                echo "<pre style='display: none'>";
-                print_r($this->wcProduct->get_meta_data());
-                print_r($this->wcProduct->get_default_attributes());
-                print_r($this->wcProduct->get_attributes());
-                print_r($this->wcProduct->get_data());
-                echo "</pre>";
-
-                ?>
             </p>
             <?php if (defined("COMPANY_SLUG")) : ?>
                 <a type="button"

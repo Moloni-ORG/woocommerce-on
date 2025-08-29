@@ -112,7 +112,9 @@ $paginator = PendingOrders::getPagination();
                         ?>
                     </td>
                     <td class="order_status column-order_status" style="text-align: right">
-                        <form action="<?php echo esc_url(admin_url('admin.php')) ?>">
+                        <form method='POST' action="<?php echo esc_url(admin_url('admin.php')) ?>">
+                            <?php wp_nonce_field("molonion-form-nonce"); ?>
+
                             <input type="hidden" name="page" value="molonion">
                             <input type="hidden" name="action" value="genInvoice">
                             <input type="hidden" name="id" value="<?php echo esc_attr($order->get_id()) ?>">

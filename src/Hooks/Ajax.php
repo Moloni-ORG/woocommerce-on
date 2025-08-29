@@ -13,6 +13,7 @@ use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\Exceptions\DocumentWarning;
 use MoloniOn\Exceptions\GenericException;
 use MoloniOn\Helpers\MoloniWarehouse;
+use MoloniOn\Helpers\Security;
 use MoloniOn\Models\SyncLogs;
 use MoloniOn\Plugin;
 use MoloniOn\Services\Exports\ExportProducts;
@@ -451,10 +452,7 @@ class Ajax
 
     private function isAuthed(): bool
     {
-        if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'molonion-ajax-nonce')) {
-            wp_send_json_error('Invalid security token');
-            wp_die();
-        }
+        Security::verify_ajax_request_or_die();
 
         if (!current_user_can('manage_woocommerce')) {
             return false;

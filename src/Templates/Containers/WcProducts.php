@@ -83,7 +83,9 @@ $backAction = Context::getAdminUrl('tab=tools');
     </p>
 </div>
 
-<form method="get" action='<?php echo esc_html($currentAction) ?>' class="list_form">
+<form method='POST' action='<?php echo esc_html($currentAction) ?>' class="list_form">
+    <?php wp_nonce_field("molonion-form-nonce"); ?>
+
     <input type="hidden" name="page" value="molonion">
     <input type="hidden" name="paged" value="<?php echo esc_attr($page) ?>">
     <input type="hidden" name="tab" value="wcProductsList">
@@ -168,6 +170,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <tbody>
         <?php if (!empty($rows) && is_array($rows)) : ?>
             <?php foreach ($rows as $row) : ?>
+                <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php echo Security::wp_kses_post_with_inputs($row) ?>
             <?php endforeach; ?>
         <?php else : ?>

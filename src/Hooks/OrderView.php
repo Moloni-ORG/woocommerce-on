@@ -57,9 +57,6 @@ class OrderView
 
             Start::login(true);
 
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo '<div style="display: none"><pre>' . print_r($order->get_taxes(), true) . '</pre></div>';
-
             if ($documentId > 0) {
                 esc_html_e('The document has already been generated in Moloni' , 'moloni-on');
                 echo '<br>';

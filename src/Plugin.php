@@ -8,6 +8,7 @@ use MoloniOn\Exceptions\Core\MoloniException;
 use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\Exceptions\DocumentWarning;
 use MoloniOn\Helpers\External;
+use MoloniOn\Helpers\Security;
 use MoloniOn\Helpers\WebHooks;
 use MoloniOn\Hooks\Ajax;
 use MoloniOn\Hooks\OrderList;
@@ -85,7 +86,7 @@ class Plugin
         new WoocommerceInitialize($this);
     }
 
-    //            Publics            //
+    //            Public's            //
 
     /**
      * Main function
@@ -93,41 +94,51 @@ class Plugin
      */
     public function run()
     {
+        if (wp_doing_ajax()) {
+            return;
+        }
+
+        Security::verify_post_request_or_die();
+
+        $authenticated = false;
+
         try {
             $authenticated = Start::login();
 
             /** If the user is not logged in show the login form */
-            if ($authenticated) {
-                switch ($this->action) {
-                    case 'remInvoice':
-                        $this->removeOrder();
-                        break;
+            if (!$authenticated) {
+                return;
+            }
 
-                    case 'reinstallWebhooks':
-                        $this->reinstallWebhooks();
-                        break;
+            switch ($this->action) {
+                case 'remInvoice':
+                    $this->removeOrder();
+                    break;
 
-                    case 'genInvoice':
-                        $this->createDocument();
-                        break;
+                case 'reinstallWebhooks':
+                    $this->reinstallWebhooks();
+                    break;
 
-                    case 'remLogs':
-                        $this->removeLogs();
-                        break;
+                case 'genInvoice':
+                    $this->createDocument();
+                    break;
 
-                    case 'getInvoice':
-                        $this->openDocument();
-                        break;
-                    case 'downloadDocument':
-                        $this->downloadDocument();
-                        break;
-                }
+                case 'remLogs':
+                    $this->removeLogs();
+                    break;
+
+                case 'getInvoice':
+                    $this->openDocument();
+                    break;
+                case 'downloadDocument':
+                    $this->downloadDocument();
+                    break;
             }
         } catch (MoloniException $error) {
             $pluginErrorException = $error;
         }
 
-        if (isset($authenticated) && $authenticated && !wp_doing_ajax()) {
+        if ($authenticated) {
             include MOLONI_ON_TEMPLATE_DIR . 'MainContainer.php';
         }
     }

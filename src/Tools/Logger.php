@@ -13,15 +13,15 @@ class Logger extends AbstractLogger
 
         $tableName = Context::getTableName();
 
-        $query = $wpdb->prepare(
-            "INSERT INTO `{$tableName}_logs`(log_level, company_id, message, context, created_at) VALUES(%s, %d, %s, %s, %s)",
-            $level,
-            Context::$MOLONI_ON_COMPANY_ID ?? 0,
-            $message,
-            json_encode($context),
-            gmdate('Y-m-d H:i:s')
+        $wpdb->insert(
+            $tableName . '_logs',
+            [
+                'log_level' => $level,
+                'company_id' => Context::$MOLONI_ON_COMPANY_ID ?? 0,
+                'message' => $message,
+                'context' => json_encode($context),
+                'created_at' => gmdate('Y-m-d H:i:s')
+            ]
         );
-
-        $wpdb->query($query);
     }
 }

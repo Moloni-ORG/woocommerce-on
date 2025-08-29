@@ -23,7 +23,9 @@ $logsContext = [];
         </div>
     </div>
 
-    <form method="post" action='<?php echo esc_url(Context::getAdminUrl("tab=logs")) ?>'>
+    <form method='POST' action='<?php echo esc_url(Context::getAdminUrl("tab=logs")) ?>'>
+        <?php wp_nonce_field("molonion-form-nonce"); ?>
+
         <table class='wp-list-table widefat striped posts'>
             <thead>
             <tr>
