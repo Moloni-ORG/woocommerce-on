@@ -41,7 +41,7 @@ class Logs
             'total' => self::$totalPages,
         ];
 
-        return paginate_links($args);
+        return paginate_links($args) ?? '';
     }
 
     public static function removeOlderLogs()

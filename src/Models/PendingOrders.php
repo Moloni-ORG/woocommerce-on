@@ -55,6 +55,6 @@ class PendingOrders
             'total' => self::$totalPages,
         ];
 
-        return paginate_links($args);
+        return paginate_links($args) ?? '';
     }
 }

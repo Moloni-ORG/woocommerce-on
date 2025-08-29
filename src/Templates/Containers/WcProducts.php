@@ -97,8 +97,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo $paginator ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 
@@ -215,8 +214,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </button>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo $paginator ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 </form>

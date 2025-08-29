@@ -67,7 +67,7 @@ class FetchAndCheckProducts
             'total' => ceil($this->totalProducts / self::$perPage),
         ];
 
-        return paginate_links($args);
+        return paginate_links($args) ?? '';
     }
 
     //            Privates            //

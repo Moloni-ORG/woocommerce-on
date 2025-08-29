@@ -10,11 +10,9 @@ use MoloniOn\Context;
 use MoloniOn\Enums\DocumentTypes;
 use MoloniOn\Models\PendingOrders;
 
-?>
-
-<?php
 /** @var WC_Order[] $orders */
 $orders = PendingOrders::getAllAvailable();
+$paginator = PendingOrders::getPagination();
 ?>
 
 <div class="wrap">
@@ -32,8 +30,7 @@ $orders = PendingOrders::getAllAvailable();
         </div>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo PendingOrders::getPagination() ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 
@@ -181,8 +178,7 @@ $orders = PendingOrders::getAllAvailable();
 
     <div class="tablenav bottom">
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo PendingOrders::getPagination() ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 </div>

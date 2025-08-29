@@ -9,6 +9,7 @@ use MoloniOn\Enums\LogLevel;
 use MoloniOn\Models\Logs;
 
 $logs = Logs::getAllAvailable();
+$paginator = Logs::getPagination();
 
 $logsContext = [];
 ?>
@@ -18,8 +19,7 @@ $logsContext = [];
 
     <div class="tablenav top">
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo Logs::getPagination() ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 
@@ -134,8 +134,7 @@ $logsContext = [];
         </div>
 
         <div class="tablenav-pages">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo Logs::getPagination() ?>
+            <?php echo wp_kses_post($paginator) ?>
         </div>
     </div>
 </div>
