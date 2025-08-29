@@ -16,7 +16,7 @@ class Logs
 
     public static function getAllAvailable(): array
     {
-        self::$currentPage = (isset($_GET['paged']) && (int)($_GET['paged']) > 0) ? (int)$_GET['paged'] : 1;
+        self::$currentPage = isset($_GET['paged']) ? absint(wp_unslash($_GET['paged'])) : 1;
 
         self::$filterDate = sanitize_text_field($_GET['filter_date'] ?? $_POST['filter_date'] ?? '');
         self::$filterMessage = sanitize_text_field($_GET['filter_message'] ?? $_POST['filter_message'] ?? '');

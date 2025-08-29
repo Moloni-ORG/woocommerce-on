@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$page = (int)($_REQUEST['paged'] ?? 1);
+$page = isset($_REQUEST['paged']) ? absint(wp_unslash($_REQUEST['paged'])) : 1;
 $filters = [
     'filter_name' => sanitize_text_field($_REQUEST['filter_name'] ?? ''),
     'filter_reference' => sanitize_text_field($_REQUEST['filter_reference'] ?? ''),

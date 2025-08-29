@@ -10,10 +10,10 @@ Requires at least: 5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises. No initial investment, complete and intuitive.
+Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises.
 
 == Description ==
-Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises. No initial investment, complete and intuitive.
+Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises.
 
 Through the plugin it is possible to:
 * Synchronize products and stocks between the two platforms

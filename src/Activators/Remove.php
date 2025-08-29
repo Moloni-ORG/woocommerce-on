@@ -57,9 +57,11 @@ class Remove
     {
         global $wpdb;
 
-        $wpdb->query("DROP TABLE {$tableName}_api");
-        $wpdb->query("DROP TABLE {$tableName}_config");
-        $wpdb->query("DROP TABLE {$tableName}_logs");
-        $wpdb->query("DROP TABLE {$tableName}_sync_logs");
+        $tableName = esc_sql($tableName);
+
+        $wpdb->query("DROP TABLE IF EXISTS `{$tableName}_api`");
+        $wpdb->query("DROP TABLE IF EXISTS `{$tableName}_config`");
+        $wpdb->query("DROP TABLE IF EXISTS `{$tableName}_logs`");
+        $wpdb->query("DROP TABLE IF EXISTS `{$tableName}_sync_logs`");
     }
 }

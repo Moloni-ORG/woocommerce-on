@@ -19,7 +19,7 @@ class PendingOrders
      */
     public static function getAllAvailable(): array
     {
-        self::$currentPage = (isset($_GET['paged']) && (int)($_GET['paged']) > 0) ? (int)$_GET['paged'] : 1;
+        self::$currentPage = isset($_GET['paged']) ? absint(wp_unslash($_GET['paged'])) : 1;
 
         $args = [
             'post_status' => self::$ordersStatuses,
@@ -51,7 +51,7 @@ class PendingOrders
         $args = [
             'base' => add_query_arg('paged', '%#%'),
             'format' => '',
-            'current' => isset($_GET['paged']) ? (int)$_GET['paged'] : 1,
+            'current' => self::$currentPage,
             'total' => self::$totalPages,
         ];
 

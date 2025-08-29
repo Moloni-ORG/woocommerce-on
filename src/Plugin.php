@@ -219,7 +219,7 @@ class Plugin
      */
     private function downloadDocument(): void
     {
-        $documentId = (int)$_REQUEST['id'];
+        $documentId = (int)(sanitize_text_field($_REQUEST['id']));
 
         if ($documentId > 0) {
             new DownloadDocumentPDF($documentId);

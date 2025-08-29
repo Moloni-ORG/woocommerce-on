@@ -77,6 +77,9 @@ class Install
     {
         global $wpdb;
 
+        $tableName = esc_sql($tableName);
+        $charsetCollate = $wpdb->get_charset_collate();
+
         $wpdb->query(
             "CREATE TABLE IF NOT EXISTS `{$tableName}_api`( 
                 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
@@ -88,7 +91,7 @@ class Install
                 client_secret VARCHAR(100), 
                 company_id INT,
                 dated TIMESTAMP default CURRENT_TIMESTAMP
-            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;"
+            ) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=2 ;"
         );
 
         $wpdb->query(
@@ -98,7 +101,7 @@ class Install
                 description VARCHAR(100), 
                 selected VARCHAR(100), 
                 changed TIMESTAMP default CURRENT_TIMESTAMP
-			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;"
+			) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=2 ;"
         );
 
         $wpdb->query(
@@ -108,7 +111,7 @@ class Install
                 entity_id INT NOT NULL,
                 sync_date VARCHAR(250) CHARACTER SET utf8 NOT NULL,
 			    PRIMARY KEY (`log_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;"
+			) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=1 ;"
         );
 
         $wpdb->query(
@@ -119,7 +122,7 @@ class Install
                 message TEXT,
                 context TEXT,
                 created_at TIMESTAMP default CURRENT_TIMESTAMP
-            ) DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;"
+            ) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=2 ;"
         );
 
         $wpdb->query(
@@ -130,7 +133,7 @@ class Install
                 ml_product_id INT(11) NOT NULL,
                 ml_parent_id INT(11) DEFAULT 0,
                 active INT(11) DEFAULT 1
-            ) DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;"
+            ) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=2 ;"
         );
     }
 }
