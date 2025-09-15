@@ -99,6 +99,6 @@ class Context
         $pageName = self::getPageName();
         $arguments = ltrim($arguments, '&');
 
-        return Security::get_nonce_url(admin_url("admin.php?page=$pageName&$arguments"), 'molonion-form-nonce');
+        return Security::get_nonce_url(admin_url("admin.php?page=$pageName&$arguments"));
     }
 }
