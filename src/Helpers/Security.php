@@ -28,6 +28,11 @@ class Security
         return wp_nonce_url($url, 'molonion-form-nonce');
     }
 
+    public static function verify_user_can_access(): bool
+    {
+        return current_user_can('manage_woocommerce');
+    }
+
     public static function verify_ajax_request_or_die(): void
     {
         if (!check_admin_referer('molonion-ajax-nonce', '_wpnonce')) {

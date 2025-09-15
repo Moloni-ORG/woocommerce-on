@@ -94,7 +94,7 @@ class Plugin
      */
     public function run()
     {
-        if (wp_doing_ajax()) {
+        if (wp_doing_ajax() || !Security::verify_user_can_access()) {
             return;
         }
 

@@ -3,6 +3,7 @@
 namespace MoloniOn\Menus;
 
 use MoloniOn\Context;
+use MoloniOn\Helpers\Security;
 use MoloniOn\Plugin;
 
 class Admin
@@ -27,7 +28,7 @@ class Admin
 
     public function admin_menu()
     {
-        if (!current_user_can('manage_woocommerce')) {
+        if (!Security::verify_user_can_access()) {
             return;
         }
 

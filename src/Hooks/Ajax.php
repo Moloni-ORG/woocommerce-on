@@ -454,7 +454,7 @@ class Ajax
     {
         Security::verify_ajax_request_or_die();
 
-        if (!current_user_can('manage_woocommerce')) {
+        if (!Security::verify_user_can_access()) {
             return false;
         }
 
