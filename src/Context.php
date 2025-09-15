@@ -3,6 +3,7 @@
 namespace MoloniOn;
 
 use MoloniOn\Helpers\External;
+use MoloniOn\Helpers\Security;
 use MoloniOn\Tools\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -98,6 +99,6 @@ class Context
         $pageName = self::getPageName();
         $arguments = ltrim($arguments, '&');
 
-        return admin_url("admin.php?page=$pageName&$arguments");
+        return Security::get_nonce_url(admin_url("admin.php?page=$pageName&$arguments"), 'molonion-form-nonce');
     }
 }

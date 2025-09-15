@@ -98,7 +98,10 @@ class Plugin
             return;
         }
 
-        Security::verify_post_request_or_die();
+        /**
+         * This is the plugin entry point, so we check the request's validity here
+         */
+        Security::verify_request_or_die();
 
         $authenticated = false;
 

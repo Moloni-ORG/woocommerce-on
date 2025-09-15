@@ -60,7 +60,7 @@ Moloni.OrdersBulkAction = (function(translations) {
             var data = {
                 'action': 'molonion_gen_invoice',
                 'id': OrderId,
-                'nonce': molonionAjax.nonce,
+                '_wpnonce': molonionAjax.nonce,
             };
 
             $.ajax({
@@ -131,7 +131,7 @@ Moloni.OrdersBulkAction = (function(translations) {
             var data = {
                 'action': 'molonion_discard_order',
                 'id': OrderId,
-                'nonce': molonionAjax.nonce,
+                '_wpnonce': molonionAjax.nonce,
             };
 
             $.ajax({

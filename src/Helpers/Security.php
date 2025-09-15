@@ -23,12 +23,35 @@ class Security
         return wp_kses($content, $allowed_html);
     }
 
+    public static function get_nonce_url(string $url): string
+    {
+        return wp_nonce_url($url, 'molonion-form-nonce');
+    }
+
     public static function verify_ajax_request_or_die(): void
     {
-        if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'molonion-ajax-nonce')) {
+        if (!check_admin_referer('molonion-ajax-nonce', '_wpnonce')) {
+            wp_send_json_error('Invalid referer');
+            wp_die();
+        }
+
+        $nonce = sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'] ?? ''));
+
+        if (empty($nonce)) {
+            wp_send_json_error('Invalid nonce');
+            wp_die();
+        }
+
+        if (!wp_verify_nonce($nonce, 'molonion-ajax-nonce')) {
             wp_send_json_error('Invalid security token');
             wp_die();
         }
+    }
+
+    public static function verify_request_or_die()
+    {
+        self::verify_post_request_or_die();
+        self::verify_get_request_or_die();
     }
 
     public static function verify_post_request_or_die(): void
@@ -37,7 +60,29 @@ class Security
             return;
         }
 
-        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'molonion-form-nonce')) {
+        $nonce = sanitize_text_field(wp_unslash($_POST['_wpnonce'] ?? ''));
+
+        if (!wp_verify_nonce($nonce, 'molonion-form-nonce')) {
+            wp_die('Security check failed');
+        }
+    }
+
+    public static function verify_get_request_or_die(): void
+    {
+        $action = sanitize_text_field($_REQUEST['action'] ?? '');
+
+        // No data is changed with GET requests, so we only check if there's an action
+        if (empty($action)) {
+            return;
+        }
+
+        if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'GET') {
+            return;
+        }
+
+        $nonce = sanitize_text_field(wp_unslash($_GET['_wpnonce'] ?? ''));
+
+        if (!wp_verify_nonce($nonce, 'molonion-form-nonce')) {
             wp_die('Security check failed');
         }
     }
