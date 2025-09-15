@@ -50,15 +50,16 @@ class Security
 
     public static function verify_request_or_die()
     {
-        self::verify_post_request_or_die();
-        self::verify_get_request_or_die();
+        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+            self::verify_post_request_or_die();
+        } elseif ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
+            self::verify_get_request_or_die();
+        }
     }
 
     public static function verify_post_request_or_die(): void
     {
-        if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return;
-        }
+        // All post request must have nonce
 
         $nonce = sanitize_text_field(wp_unslash($_POST['_wpnonce'] ?? ''));
 
@@ -73,10 +74,6 @@ class Security
 
         // No data is changed with GET requests, so we only check if there's an action
         if (empty($action)) {
-            return;
-        }
-
-        if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'GET') {
             return;
         }
 
