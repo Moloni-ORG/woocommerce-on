@@ -28,7 +28,7 @@ class Security
         return wp_nonce_url($url, 'molonion-form-nonce');
     }
 
-    public static function verify_user_can_access(): bool
+    public static function verify_user_can_access_wc(): bool
     {
         return current_user_can('manage_woocommerce');
     }

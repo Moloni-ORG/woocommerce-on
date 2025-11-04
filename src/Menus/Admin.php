@@ -28,7 +28,7 @@ class Admin
 
     public function admin_menu()
     {
-        if (!Security::verify_user_can_access()) {
+        if (!Security::verify_user_can_access_wc()) {
             return;
         }
 

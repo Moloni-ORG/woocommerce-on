@@ -52,7 +52,9 @@ class Ajax
 
     public function molonion_gen_invoice()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_shop_order')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -111,7 +113,9 @@ class Ajax
 
     public function molonion_discard_order()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_shop_order')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -131,7 +135,9 @@ class Ajax
 
     public function molonion_tools_mass_import_stock()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('edit_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -153,7 +159,9 @@ class Ajax
 
     public function molonion_tools_mass_import_product()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('edit_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -175,7 +183,9 @@ class Ajax
 
     public function molonion_tools_mass_export_stock()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -197,7 +207,9 @@ class Ajax
 
     public function molonion_tools_mass_export_product()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -220,7 +232,9 @@ class Ajax
 
     public function molonion_tools_create_wc_product()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('edit_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -283,7 +297,9 @@ class Ajax
 
     public function molonion_tools_update_wc_stock()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('edit_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -337,7 +353,9 @@ class Ajax
 
     public function molonion_tools_create_moloni_product()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -391,7 +409,9 @@ class Ajax
 
     public function molonion_tools_update_moloni_stock()
     {
-        if (!$this->isAuthed()) {
+        if (!$this->isAuthed('read_product')) {
+            $this->sendErrorJson();
+
             return;
         }
 
@@ -450,11 +470,15 @@ class Ajax
 
     //             Privates             //
 
-    private function isAuthed(): bool
+    private function isAuthed($capability = ''): bool
     {
         Security::verify_ajax_request_or_die();
 
-        if (!Security::verify_user_can_access()) {
+        if (!Security::verify_user_can_access_wc()) {
+            return false;
+        }
+
+        if (!empty($capability) && !current_user_can($capability)) {
             return false;
         }
 
@@ -486,6 +510,19 @@ class Ajax
     private function sendJson(array $data)
     {
         wp_send_json($data);
+        wp_die();
+    }
+
+    /**
+     * Return error and stop execution afterward.
+     *
+     * @see https://developer.wordpress.org/reference/hooks/wp_ajax_action/
+     *
+     * @return void
+     */
+    private function sendErrorJson()
+    {
+        wp_send_json_error( 'Insufficient permissions.');
         wp_die();
     }
 }
