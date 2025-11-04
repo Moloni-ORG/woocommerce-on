@@ -52,7 +52,7 @@ class Ajax
 
     public function molonion_gen_invoice()
     {
-        if (!$this->isAuthed('read_shop_order')) {
+        if (!$this->isAuthed('edit_shop_orders')) {
             $this->sendErrorJson();
 
             return;
@@ -113,7 +113,7 @@ class Ajax
 
     public function molonion_discard_order()
     {
-        if (!$this->isAuthed('read_shop_order')) {
+        if (!$this->isAuthed('edit_shop_orders')) {
             $this->sendErrorJson();
 
             return;
@@ -135,7 +135,7 @@ class Ajax
 
     public function molonion_tools_mass_import_stock()
     {
-        if (!$this->isAuthed('edit_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -159,7 +159,7 @@ class Ajax
 
     public function molonion_tools_mass_import_product()
     {
-        if (!$this->isAuthed('edit_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -183,7 +183,7 @@ class Ajax
 
     public function molonion_tools_mass_export_stock()
     {
-        if (!$this->isAuthed('read_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -207,7 +207,7 @@ class Ajax
 
     public function molonion_tools_mass_export_product()
     {
-        if (!$this->isAuthed('read_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -232,7 +232,7 @@ class Ajax
 
     public function molonion_tools_create_wc_product()
     {
-        if (!$this->isAuthed('edit_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -297,7 +297,7 @@ class Ajax
 
     public function molonion_tools_update_wc_stock()
     {
-        if (!$this->isAuthed('edit_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -353,7 +353,7 @@ class Ajax
 
     public function molonion_tools_create_moloni_product()
     {
-        if (!$this->isAuthed('read_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -409,7 +409,7 @@ class Ajax
 
     public function molonion_tools_update_moloni_stock()
     {
-        if (!$this->isAuthed('read_product')) {
+        if (!$this->isAuthed('edit_products')) {
             $this->sendErrorJson();
 
             return;
@@ -478,7 +478,7 @@ class Ajax
             return false;
         }
 
-        if (!empty($capability) && !current_user_can($capability)) {
+        if (!current_user_can($capability)) {
             return false;
         }
 
