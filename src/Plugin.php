@@ -155,6 +155,10 @@ class Plugin
      */
     private function createDocument()
     {
+        if (!$this->checkCapabilityPermissions('edit_shop_orders')) {
+            return;
+        }
+
         $service = new CreateMoloniDocument((int)(sanitize_text_field($_REQUEST['id'])));
         $orderName = $service->getOrderNumber();
 
@@ -246,6 +250,10 @@ class Plugin
      */
     private function removeOrder()
     {
+        if (!$this->checkCapabilityPermissions('edit_shop_orders')) {
+            return;
+        }
+
         $orderId = (int)(sanitize_text_field($_GET['id']));
 
         if (isset($_GET['confirm']) && sanitize_text_field($_GET['confirm']) === 'true') {
@@ -301,5 +309,18 @@ class Plugin
         }
 
         add_settings_error('molonion', 'moloni-webhooks-reinstall-error', $msg, $type);
+    }
+
+    //            Actions            //
+
+    private function checkCapabilityPermissions($capability = ''): bool
+    {
+        if (current_user_can($capability)) {
+            return true;
+        }
+
+        add_settings_error('molonion', 'moloni-missing-permissions', __('Insufficient permissions.', 'moloni-on'));
+
+        return false;
     }
 }
