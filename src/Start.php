@@ -46,7 +46,6 @@ class Start
         if (!empty($code)) {
             $loginValid = false;
             $errorMessage = '';
-            $errorBag = [];
 
             try {
                 $tokensRow = Settings::getTokensRow();
@@ -60,11 +59,10 @@ class Start
                 }
             } catch (APIExeption $e) {
                 $errorMessage = $e->getMessage();
-                $errorBag = $e->getData();
             }
 
             if (!$loginValid) {
-                self::loginForm($errorMessage, $errorBag);
+                self::loginForm($errorMessage);
                 return false;
             }
         }
@@ -128,9 +126,8 @@ class Start
      * Shows a login form
      *
      * @param bool|string $error Is used in include
-     * @param bool|array $errorData Is used in include
      */
-    public static function loginForm($error = false, $errorData = false)
+    public static function loginForm($error = false)
     {
         if (!self::$ajax) {
             include(MOLONI_ON_TEMPLATE_DIR . 'LoginForm.php');

@@ -10,13 +10,6 @@ if (!defined('ABSPATH')) {
 <section id="moloni" class="moloni">
     <?php include MOLONI_ON_DIR . '/assets/icons/plugin.svg' ?>
 
-    <?php if (!empty($errorData)): ?>
-        <pre style="display: none;" id="curl_error_data">
-            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo print_r($errorData, true) ?>
-        </pre>
-    <?php endif; ?>
-
     <div class="login login__wrapper">
         <form method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>' class="login-form">
             <?php wp_nonce_field("molonion-form-nonce"); ?>
