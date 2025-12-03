@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 3.2.00
+Stable tag: #VERSION#
 Tested up to: 6.8
 WC tested up to: 9.9.3
 Requires PHP: 7.2

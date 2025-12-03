@@ -25,29 +25,6 @@ const INCLUDE_FILES = [
     'composer.lock',
 ];
 
-function loadPlatforms(): array
-{
-    $base = __DIR__;
-    $directoryPath = "$base/.platforms";
-
-    $folders = [];
-    $platforms = [];
-
-    $items = scandir($directoryPath) ?: [];
-
-    foreach ($items as $item) {
-        if ($item != '.' && $item != '..') {
-            $folders[] = $item;
-        }
-    }
-
-    foreach ($folders as $folder) {
-        $platforms[] = (new Configurations(['PLATFORM' => $folder, 'IS_DEV' => true]))->getAll();
-    }
-
-    return $platforms;
-}
-
 function copyDir($src, $dst, $exclude = [])
 {
     $dir = opendir($src);
@@ -69,13 +46,14 @@ function copyDir($src, $dst, $exclude = [])
     closedir($dir);
 }
 
-function processPlatform($platform)
+function buildAndDeploy()
 {
     $base = __DIR__;
 
+    $platform = (new Configurations())->getAll();
+
     $folderName = $platform['folder_name'];
     $zipName = $platform['zip_name'];
-    $mainFileName = $platform['main_file_name'];
 
     $buildDir = "$base/build/$folderName";
 
@@ -122,54 +100,24 @@ function processPlatform($platform)
         echo "✅ Copied JS development files to assets/js/raw \n";
     }
 
-    // Step 3: Copy platform-specific overrides from .platforms/{platform}/ to build
-    $platformOverride = "$base/.platforms/$folderName";
-    if (is_dir($platformOverride)) {
-        // Step 3.1: Copy platform-specific assets and configurations
-        copyDir("$platformOverride/config", "$buildDir/config"); // Copy configs
-        copyDir("$platformOverride/images", "$buildDir/images"); // Copy images
-        copyDir("$platformOverride/css", "$buildDir/assets/css"); // Copy CSS
+    // Step 3: Update version placeholders
+    // Step 3.1: Update the main file version
+    $buildMainPath = "$buildDir/moloni-on.php";
 
-        // Step 3.2: Replace the main file header
-        $platformMainPath = "$platformOverride/main.php";
-        $buildMainPath = "$buildDir/moloni_dev.php";
+    $buildMain = file_get_contents($buildMainPath);
+    $buildMain = str_replace('#VERSION#', PLUGIN_VERSION, $buildMain); // Replace version placeholder
 
-        $platformMain = file_get_contents($platformMainPath);
-        $buildMain = file_get_contents($buildMainPath);
+    file_put_contents($buildMainPath, $buildMain);
 
-        $fileCommentRegex = '/\/\*.*?\*\//s';
+    // Step 3.2: Update the readme version
+    $buildReadmePath = "$buildDir/readme.txt";
 
-        $updatedBuildMain = preg_replace($fileCommentRegex, $platformMain, $buildMain);
-        $updatedBuildMain = str_replace('#VERSION#', PLUGIN_VERSION, $updatedBuildMain); // Replace version placeholder
+    $buildReadme = file_get_contents($buildReadmePath);
+    $buildReadme = str_replace('#VERSION#', PLUGIN_VERSION, $buildReadme); // Replace version placeholder
 
-        file_put_contents($buildMainPath, $updatedBuildMain);
+    file_put_contents($buildReadmePath, $buildReadme);
 
-        // Step 3.3: Replace the readme file header
-        $platformReadmePath = "$platformOverride/readme.txt";
-        $buildReadmePath = "$buildDir/readme.txt";
-
-        $platformReadme = file_get_contents($platformReadmePath);
-        $buildReadme = file_get_contents($buildReadmePath);
-
-        $combinedReadme = $platformReadme . "\n" . $buildReadme;// Combine the contents
-        $combinedReadme = str_replace('#VERSION#', PLUGIN_VERSION, $combinedReadme); // Replace version placeholder
-
-        file_put_contents($buildReadmePath, $combinedReadme);
-
-        // Step 3.4: Rename the main plugin file
-        $oldMainFile = "$buildDir/moloni_dev.php";
-        $newMainFile = "$buildDir/$mainFileName.php";
-
-        rename($oldMainFile, $newMainFile);
-    }
-
-    // Step 4: Replace the platform reference in the configuration file
-    $configurationsFile = "$buildDir/src/Configurations.php";
-    $content = file_get_contents($configurationsFile);
-    $content = str_replace("parse_ini_file(MOLONI_ON_DIR . '/.env')", "['PLATFORM' => '$folderName']", $content);
-    file_put_contents($configurationsFile, $content);
-
-    // Step 5: Zip the build folder
+    // Step 4: Zip the build folder
     $zip = new ZipArchive();
     $zipPath = "$base/build/$zipName.zip";
     $zipFolderName = $zipName;
@@ -199,8 +147,4 @@ function processPlatform($platform)
     }
 }
 
-$platforms = loadPlatforms();
-
-foreach ($platforms as $platform) {
-    processPlatform($platform);
-}
+buildAndDeploy();

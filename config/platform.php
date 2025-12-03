@@ -23,5 +23,4 @@ return [
     // Builder configuration
     'folder_name' => 'molonion',
     'zip_name' => 'moloni-on',
-    'main_file_name' => 'moloni-on',
 ];
