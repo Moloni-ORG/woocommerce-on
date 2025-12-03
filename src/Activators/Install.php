@@ -50,15 +50,11 @@ class Install
      */
     public static function initializeSite(WP_Site $site): void
     {
-        $tableNames = [];
-
         $blogId = $site->blog_id;
 
-        $tableNames[] = Context::getTableName($blogId);
+        $tableName = Context::getTableName($blogId);
 
-        foreach ($tableNames as $tableName) {
-            self::createTables($tableName);
-        }
+        self::createTables($tableName);
     }
 
     /**

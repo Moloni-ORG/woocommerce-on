@@ -33,15 +33,11 @@ class Remove
 
     public static function uninitializeSite(WP_Site $site): void
     {
-        $tableNames = [];
-
         $blogId = $site->blog_id;
 
-        $tableNames[] = Context::getTableName($blogId);
+        $tableName = Context::getTableName($blogId);
 
-        foreach ($tableNames as $tableName) {
-            self::dropTables($tableName);
-        }
+        self::dropTables($tableName);
     }
 
     private static function dropTables(string $tableName): void
