@@ -3,8 +3,8 @@ Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
 Stable tag: #VERSION#
-Tested up to: 6.8
-WC tested up to: 9.9.3
+Tested up to: 6.9
+WC tested up to: 10.3.6
 Requires PHP: 7.2
 Requires at least: 5.0
 License: GPLv2 or later
