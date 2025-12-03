@@ -19,8 +19,4 @@ return [
     'help_page' => 'https://www.molonion.pt/help',
     'home_page' => 'https://www.molonion.pt/',
     'register_page' => 'https://account.molonion.pt/signup',
-
-    // Builder configuration
-    'folder_name' => 'molonion',
-    'zip_name' => 'moloni-on',
 ];

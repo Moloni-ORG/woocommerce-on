@@ -1,9 +1,6 @@
 <?php
 
-use MoloniOn\Configurations;
-
 define('MOLONI_ON_DIR', __DIR__);
-define('ABSPATH', 'DUMMY_VALUE');
 define('PLUGIN_VERSION', ltrim(getenv('PLUGIN_VERSION') ?: 'v0.0.01', 'v'));
 
 require_once __DIR__ . '/src/Configurations.php';
@@ -20,7 +17,7 @@ const INCLUDE_DIRS = [
 const INCLUDE_FILES = [
     'readme.txt',
     'readme.md',
-    'moloni_dev.php',
+    'moloni-on.php',
     'composer.json',
     'composer.lock',
 ];
@@ -50,12 +47,7 @@ function buildAndDeploy()
 {
     $base = __DIR__;
 
-    $platform = (new Configurations())->getAll();
-
-    $folderName = $platform['folder_name'];
-    $zipName = $platform['zip_name'];
-
-    $buildDir = "$base/build/$folderName";
+    $buildDir = "$base/build/molonion";
 
     // Clean old build
     if (is_dir($buildDir)) {
@@ -119,6 +111,7 @@ function buildAndDeploy()
 
     // Step 4: Zip the build folder
     $zip = new ZipArchive();
+    $zipName = "moloni-on";
     $zipPath = "$base/build/$zipName.zip";
     $zipFolderName = $zipName;
 
