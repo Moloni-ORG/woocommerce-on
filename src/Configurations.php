@@ -1,5 +1,4 @@
 <?php
-// phpcs:ignoreFile WordPress.Security.EscapeOutput.ExceptionNotEscaped
 
 namespace MoloniOn;
 
@@ -15,23 +14,12 @@ final class Configurations
      *
      * @throws MoloniException
      */
-    public function __construct($env = null)
+    public function __construct()
     {
-        if (empty($env)) {
-            $env = parse_ini_file(MOLONI_ON_DIR . '/.env');
-        }
-
-        $platform = $env['PLATFORM'] ?? '';
-        $isDev = $env['IS_DEV'] ?? false;
-
-        if ($isDev) {
-            $configFile = MOLONI_ON_DIR . "/.platforms/$platform/config/platform.php";
-        } else {
-            $configFile = MOLONI_ON_DIR . "/config/platform.php";
-        }
+        $configFile = MOLONI_ON_DIR . "/config/platform.php";
 
         if (!file_exists($configFile)) {
-            throw new MoloniException("Configuration file for platform '$platform' not found.");
+            throw new MoloniException("Configuration file for not found.");
         }
 
         $configs = require $configFile;
@@ -40,7 +28,7 @@ final class Configurations
             throw new MoloniException('Invalid configuration file format.');
         }
 
-        $this->configs = array_merge($configs, ['platform' => $platform, 'is_dev' => $isDev]);
+        $this->configs = $configs;
     }
 
     public function get(string $key)

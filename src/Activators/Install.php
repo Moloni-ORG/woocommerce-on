@@ -3,7 +3,6 @@
 namespace MoloniOn\Activators;
 
 use MoloniOn\Context;
-use MoloniOn\Helpers\Development;
 use WP_Site;
 
 class Install
@@ -24,8 +23,6 @@ class Install
 
         $tableNames = [];
 
-        $isDev = Context::configs()->get('is_dev');
-
         if (is_multisite() && function_exists('get_sites')) {
             /** @var WP_Site[] $sites */
             $sites = get_sites();
@@ -33,14 +30,10 @@ class Install
             foreach ($sites as $site) {
                 $blogId = $site->blog_id;
 
-                $isDev ?
-                    $tableNames = array_merge($tableNames, Development::getPlatformsTableNames($blogId)) :
-                    $tableNames[] = Context::getTableName($blogId);
+                $tableNames[] = Context::getTableName($blogId);
             }
         } else {
-            $isDev ?
-                $tableNames = Development::getPlatformsTableNames() :
-                $tableNames[] = Context::getTableName();
+            $tableNames[] = Context::getTableName();
         }
 
         foreach ($tableNames as $tableName) {
@@ -61,9 +54,7 @@ class Install
 
         $blogId = $site->blog_id;
 
-        Context::configs()->get('is_dev') ?
-            $tableNames = Development::getPlatformsTableNames($blogId) :
-            $tableNames[] = Context::getTableName($blogId);
+        $tableNames[] = Context::getTableName($blogId);
 
         foreach ($tableNames as $tableName) {
             self::createTables($tableName);

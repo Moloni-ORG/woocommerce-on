@@ -1,4 +1,4 @@
-const colors = require('./css/colors/molonion');
+const colors = require('./molonion.colors');
 
 module.exports = {
     mode: 'jit',

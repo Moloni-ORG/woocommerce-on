@@ -1,11 +1,10 @@
 <?php
 /**
- *
- *   Plugin Name:  Moloni DEV
- *   Description:  Development plugin for Moloni Spain and MoloniOn.
- *   Version:      0.0.01
+ *   Plugin Name:  Moloni On
+ *   Description:  Simple invoicing integration with Moloni On.
+ *   Version:      3.2.00
  *   Tested up to: 6.8
- *   WC tested up to: 9.8.5
+ *   WC tested up to: 9.9.3
  *
  *   Author:       Moloni
  *   Author URI:   https://moloni.pt

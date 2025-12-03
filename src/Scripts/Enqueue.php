@@ -2,8 +2,6 @@
 
 namespace MoloniOn\Scripts;
 
-use MoloniOn\Context;
-
 /**
  * Class Enqueue
  * Add script files to queue
@@ -14,7 +12,7 @@ class Enqueue
 
     public static $inlineStyles = [];
 
-    private static $version = '3.2';
+    private static $version = '3.2.00';
 
     /**
      * Define some table params
@@ -26,7 +24,7 @@ class Enqueue
             return;
         }
 
-        wp_register_style('molonion-styles', MOLONI_ON_PLUGIN_URL . Context::getCssPath() . "/css/molonion.min.css", [], self::$version);
+        wp_register_style('molonion-styles', MOLONI_ON_PLUGIN_URL . "assets/css/molonion.min.css", [], self::$version);
         wp_register_script('molonion-scripts', MOLONI_ON_PLUGIN_URL . "assets/js/molonion.min.js", [], self::$version);
 
         wp_enqueue_style('molonion-styles');

@@ -70,17 +70,8 @@ class Context
         return self::configs()->get('page_name') ?? '';
     }
 
-    public static function getCssPath(): string
-    {
-        return self::configs()->get('is_dev') ? ".platforms/" . self::configs()->get('platform') : 'assets';
-    }
-
     public static function getImagesPath(): string
     {
-        if (self::configs()->get('is_dev')) {
-            return MOLONI_ON_PLUGIN_URL . '.platforms/' . self::configs()->get('platform') . '/images/';
-        }
-
         return MOLONI_ON_PLUGIN_URL . 'images/';
     }
 
@@ -89,9 +80,8 @@ class Context
         global $wpdb;
 
         $prefix = $wpdb->get_blog_prefix($blogId);
-        $infix = self::configs()->get('database_infix');
 
-        return "{$prefix}moloni_{$infix}";
+        return "{$prefix}moloni_on";
     }
 
     public static function getAdminUrl(?string $arguments = ''): string

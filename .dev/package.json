@@ -4,7 +4,7 @@
   "description": "Plugin for WooCommerce integration with MoloniOn",
   "main": "index.js",
   "scripts": {
-    "build-prod": "gulp css:prod:on css:prod:es js:prod"
+    "build-prod": "gulp css:prod js:prod"
   },
   "keywords": [
     "Moloni",
