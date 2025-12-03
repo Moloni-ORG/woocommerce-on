@@ -119,6 +119,7 @@ class Install
                 wc_parent_id INT(11) DEFAULT 0,
                 ml_product_id INT(11) NOT NULL,
                 ml_parent_id INT(11) DEFAULT 0,
+                company_id INT(11) DEFAULT 0,
                 active INT(11) DEFAULT 1
             ) ENGINE=InnoDB {$charsetCollate} AUTO_INCREMENT=2 ;"
         );

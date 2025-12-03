@@ -44,6 +44,7 @@ class ProductAssociations
                 'wc_parent_id' => (int)$wcParentId,
                 'ml_product_id' => (int)$mlProductId,
                 'ml_parent_id' => (int)$mlParentId,
+                'company_id' => (int)Context::$MOLONI_ON_COMPANY_ID,
                 'active' => Boolean::YES,
             ]
         );
@@ -84,8 +85,9 @@ class ProductAssociations
         $table = $tableName . '_product_associations';
 
         $query = $wpdb->prepare(
-            "SELECT * FROM `$table` WHERE $field = %d",
-            $value
+            "SELECT * FROM `$table` WHERE $field = %d AND company_id = %d",
+            $value,
+            Context::$MOLONI_ON_COMPANY_ID
         );
 
         return $wpdb->get_row($query, ARRAY_A);
@@ -99,8 +101,9 @@ class ProductAssociations
         $table = $tableName . '_product_associations';
 
         $query = $wpdb->prepare(
-            "DELETE FROM `$table` WHERE $field = %d",
-            $value
+            "DELETE FROM `$table` WHERE $field = %d AND company_id = %d",
+            $value,
+            Context::$MOLONI_ON_COMPANY_ID
         );
 
         $wpdb->query($query);
