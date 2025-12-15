@@ -1,6 +1,7 @@
 <?php
 /**
  *   Plugin Name:  Moloni On
+ *   Plugin URI: https://github.com/Moloni-ORG/woocommerce-on
  *   Description:  Simple invoicing integration with Moloni On.
  *   Version:      #VERSION#
  *   Tested up to: 6.9

@@ -28,6 +28,9 @@ Through the plugin it is possible to:
 
 All technical and commercial support given to users of the plugin is provided by the Moloni Customer Support team.
 
+GitHub repository:
+https://github.com/Moloni-ORG/woocommerce-on
+
 == Frequently Asked Questions ==
 
 = Is there a paid version of the plugin? =

@@ -21,6 +21,9 @@ With the Moloni On plugin, you can:
 
 All technical and commercial support is provided **free of charge** by the Moloni Customer Support team.
 
+GitHub repository:
+https://github.com/Moloni-ORG/woocommerce-on
+
 ---
 
 ## 🛠 Requirements
