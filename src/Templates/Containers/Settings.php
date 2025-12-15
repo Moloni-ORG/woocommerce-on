@@ -124,7 +124,7 @@ try {
                     </select>
 
                     <p class='description'>
-                        <?php echo esc_attr__('Required', 'moloni-on') . ' ' . esc_attr__('(Invoice + Receipt cannot be created in draft)', 'moloni-on') ?>
+                        <?php echo esc_attr__('Required', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>

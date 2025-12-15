@@ -6,6 +6,7 @@ namespace MoloniOn\Controllers;
 use MoloniOn\API\Documents\BillsOfLading;
 use MoloniOn\API\Documents\Estimate;
 use MoloniOn\API\Documents\Invoice;
+use MoloniOn\API\Documents\InvoiceReceipt;
 use MoloniOn\API\Documents\ProFormaInvoice;
 use MoloniOn\API\Documents\PurchaseOrder;
 use MoloniOn\API\Documents\Receipt;
@@ -204,6 +205,10 @@ class Documents
                     $mutation = Invoice::mutationInvoiceCreate($props);
                     $keyString = 'invoiceCreate';
                     break;
+                case DocumentTypes::INVOICE_RECEIPT:
+                    $mutation = InvoiceReceipt::mutationInvoiceReceiptCreate($props);
+                    $keyString = 'invoiceReceiptCreate';
+                    break;
                 case DocumentTypes::RECEIPT:
                     $mutation = Receipt::mutationReceiptCreate($props);
                     $keyString = 'receiptCreate';
@@ -313,6 +318,11 @@ class Documents
                     $mutation = Invoice::mutationInvoiceUpdate($variables);
 
                     $keyString = 'invoiceUpdate';
+                    break;
+                case DocumentTypes::INVOICE_RECEIPT:
+                    $mutation = InvoiceReceipt::mutationInvoiceReceiptUpdate($variables);
+
+                    $keyString = 'invoiceReceiptUpdate';
                     break;
                 case DocumentTypes::RECEIPT:
                     $mutation = Receipt::mutationReceiptUpdate($variables);

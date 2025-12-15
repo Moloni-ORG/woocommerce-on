@@ -5,8 +5,8 @@ if (!defined('ABSPATH')) {
 }
 
 return [
-    'name' => 'Moloni On',
-    'name_translated' => function_exists('__') ? __('Moloni On', 'moloni-on') : 'Moloni On',
+    'name' => 'Moloni ON',
+    'name_translated' => function_exists('__') ? __('Moloni ON', 'moloni-on') : 'Moloni ON',
     'page_name' => 'molonion',
     'rest_api' => 'molonion/v1',
 

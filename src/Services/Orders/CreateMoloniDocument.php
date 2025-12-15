@@ -97,30 +97,10 @@ class CreateMoloniDocument
             $builder = new Documents($this->order, $company);
         }
 
-        if ($this->documentType === DocumentTypes::INVOICE_AND_RECEIPT) {
-            $builder
-                ->setDocumentType(DocumentTypes::INVOICE)
-                ->setDocumentStatus(DocumentStatus::CLOSED)
-                ->createDocument();
-
-            $receipt = clone $builder;
-
-            $receipt
-                ->addRelatedDocument(
-                    $builder->getDocumentId(),
-                    $builder->getDocumentTotal(),
-                    $builder->getDocumentProducts()
-                )
-                ->setDocumentType(DocumentTypes::RECEIPT)
-                ->setDocumentStatus(DocumentStatus::CLOSED)
-                ->createDocument();
-        } else {
-            $builder
-                ->setDocumentType($this->documentType)
-                ->createDocument();
-        }
-
-        $this->documentId = $builder->getDocumentId();
+        $this->documentId = $builder
+            ->setDocumentType($this->documentType)
+            ->createDocument()
+            ->getDocumentId();
     }
 
     //          GETS          //

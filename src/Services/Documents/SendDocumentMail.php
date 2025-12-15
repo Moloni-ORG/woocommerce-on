@@ -5,6 +5,7 @@ namespace MoloniOn\Services\Documents;
 use MoloniOn\API\Documents\BillsOfLading;
 use MoloniOn\API\Documents\Estimate;
 use MoloniOn\API\Documents\Invoice;
+use MoloniOn\API\Documents\InvoiceReceipt;
 use MoloniOn\API\Documents\ProFormaInvoice;
 use MoloniOn\API\Documents\PurchaseOrder;
 use MoloniOn\API\Documents\Receipt;
@@ -63,6 +64,9 @@ class SendDocumentMail
         switch ($this->documentType) {
             case DocumentTypes::INVOICE:
                 Invoice::mutationInvoiceSendMail($variables);
+                break;
+            case DocumentTypes::INVOICE_RECEIPT:
+                InvoiceReceipt::mutationInvoiceReceiptSendEmail($variables);
                 break;
             case DocumentTypes::RECEIPT:
                 Receipt::mutationReceiptSendMail($variables);

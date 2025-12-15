@@ -5,6 +5,7 @@ namespace MoloniOn\Services\Documents;
 use MoloniOn\API\Documents\BillsOfLading;
 use MoloniOn\API\Documents\Estimate;
 use MoloniOn\API\Documents\Invoice;
+use MoloniOn\API\Documents\InvoiceReceipt;
 use MoloniOn\API\Documents\ProFormaInvoice;
 use MoloniOn\API\Documents\PurchaseOrder;
 use MoloniOn\API\Documents\Receipt;
@@ -47,6 +48,9 @@ class CreateDocumentPDF
         switch ($this->documentType) {
             case DocumentTypes::INVOICE:
                 Invoice::mutationInvoiceGetPDF($variables);
+                break;
+            case DocumentTypes::INVOICE_RECEIPT:
+                InvoiceReceipt::mutationInvoiceReceiptGetPDF($variables);
                 break;
             case  DocumentTypes::RECEIPT:
                 Receipt::mutationReceiptGetPDF($variables);
