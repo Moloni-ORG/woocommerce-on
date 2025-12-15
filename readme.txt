@@ -9,6 +9,7 @@ Requires PHP: 7.2
 Requires at least: 5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+GitHub: https://github.com/Moloni-ORG/woocommerce-on
 
 Innovative billing software that fits your business! Intended for professionals, micro, small and medium enterprises.
 
@@ -27,9 +28,6 @@ Through the plugin it is possible to:
 * Access issued documents without leaving WordPress
 
 All technical and commercial support given to users of the plugin is provided by the Moloni Customer Support team.
-
-GitHub repository:
-https://github.com/Moloni-ORG/woocommerce-on
 
 == Frequently Asked Questions ==
 

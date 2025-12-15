@@ -21,9 +21,6 @@ With the Moloni On plugin, you can:
 
 All technical and commercial support is provided **free of charge** by the Moloni Customer Support team.
 
-GitHub repository:
-https://github.com/Moloni-ORG/woocommerce-on
-
 ---
 
 ## 🛠 Requirements
@@ -62,3 +59,6 @@ If you use a plugin that adds a VAT field (e.g., `_billing_vat`), select this fi
 2. Activate the plugin through the **Plugins** menu in WordPress.
 
 You may also install it through the **WordPress plugin installer**.
+
+## 🌐 GitHub repository
+https://github.com/Moloni-ORG/woocommerce-on
