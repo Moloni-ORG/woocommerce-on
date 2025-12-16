@@ -1,4 +1,4 @@
-# Moloni On – WooCommerce Integration
+# Moloni ON – WooCommerce Integration
 
 Innovative billing software that fits your business!  
 Designed for professionals, micro, small, and medium-sized enterprises who use **WooCommerce** and want seamless integration with **Moloni** for invoicing and product synchronization.
@@ -7,7 +7,7 @@ Designed for professionals, micro, small, and medium-sized enterprises who use *
 
 ## ✨ Features
 
-With the Moloni On plugin, you can:
+With the Moloni ON plugin, you can:
 
 - 🔄 **Synchronize products and stock** between WooCommerce and Moloni
 - 🧾 **Issue documents automatically or manually**
@@ -47,7 +47,7 @@ You can reach us at **suporte@moloni.pt**.
 
 ### **Documents are being issued without a taxpayer/VAT number — why?**
 WooCommerce does not include a VAT field by default.  
-If you use a plugin that adds a VAT field (e.g., `_billing_vat`), select this field inside the Moloni On settings under the VAT/custom field option.
+If you use a plugin that adds a VAT field (e.g., `_billing_vat`), select this field inside the Moloni ON settings under the VAT/custom field option.
 
 ---
 
