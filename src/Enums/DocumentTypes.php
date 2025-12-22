@@ -6,7 +6,7 @@ class DocumentTypes
 {
     public const INVOICE = 'invoice';
     public const RECEIPT = 'receipt';
-    public const INVOICE_AND_RECEIPT = 'invoiceAndReceipt';
+    public const INVOICE_RECEIPT = 'invoiceReceipts';
     public const SIMPLIFIED_INVOICE = 'simplifiedInvoice';
     public const BILLS_OF_LADING = 'billsOfLading';
     public const PURCHASE_ORDER = 'purchaseOrder';
@@ -15,12 +15,14 @@ class DocumentTypes
 
     public const TYPES_WITH_PAYMENTS = [
         self::RECEIPT,
+        self::INVOICE_RECEIPT,
         self::PRO_FORMA_INVOICE,
         self::SIMPLIFIED_INVOICE,
     ];
 
     public const TYPES_WITH_DELIVERY = [
         self::INVOICE,
+        self::INVOICE_RECEIPT,
         self::PURCHASE_ORDER,
         self::PRO_FORMA_INVOICE,
         self::SIMPLIFIED_INVOICE,
@@ -34,7 +36,7 @@ class DocumentTypes
 
     public const TYPES_RELATES_TO_BILL_OF_LADING = [
         self::INVOICE,
-        self::INVOICE_AND_RECEIPT,
+        self::INVOICE_RECEIPT,
         self::SIMPLIFIED_INVOICE,
         self::PURCHASE_ORDER,
         self::PRO_FORMA_INVOICE,
@@ -42,6 +44,7 @@ class DocumentTypes
 
     public const TYPES_WITH_PRODUCTS = [
         self::INVOICE,
+        self::INVOICE_RECEIPT,
         self::PURCHASE_ORDER,
         self::PRO_FORMA_INVOICE,
         self::SIMPLIFIED_INVOICE,
@@ -53,7 +56,7 @@ class DocumentTypes
     {
         return [
             self::INVOICE => __('Invoice', 'moloni-on'),
-            self::INVOICE_AND_RECEIPT => __('Invoice + Receipt', 'moloni-on'),
+            self::INVOICE_RECEIPT => __('Invoice-Receipt', 'moloni-on'),
             self::PURCHASE_ORDER => __('Purchase Order', 'moloni-on'),
             self::PRO_FORMA_INVOICE => __('Pro Forma Invoice', 'moloni-on'),
             self::SIMPLIFIED_INVOICE => __('Simplified invoice', 'moloni-on'),
@@ -69,8 +72,8 @@ class DocumentTypes
                 return __('Invoice', 'moloni-on');
             case self::RECEIPT:
                 return __('Receipt', 'moloni-on');
-            case self::INVOICE_AND_RECEIPT:
-                return __('Invoice + Receipt', 'moloni-on');
+            case self::INVOICE_RECEIPT:
+                return __('Invoice-Receipt', 'moloni-on');
             case self::PURCHASE_ORDER:
                 return __('Purchase Order', 'moloni-on');
             case self::PRO_FORMA_INVOICE:
