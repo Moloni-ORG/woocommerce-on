@@ -1,24 +1,27 @@
 services:
   mariadb:
-    image: docker.io/bitnami/mariadb:10.6
+    image: bitnami/mariadb:latest
+    container_name: mariadb
     volumes:
-      - './database:/bitnami/mariadb'
+      - ./database:/bitnami/mariadb
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
     ports:
-      - '3306:3306'
+      - "3306:3306"
+
   wordpress:
-    image: docker.io/bitnami/wordpress:latest
-    ports:
-      - '80:8080'
-      - '443:8443'
-    volumes:
-      - './data:/bitnami/wordpress/'
-      #- './moloni-dev:/bitnami/wordpress/wp-content/plugins/moloni-dev'
+    image: bitnami/wordpress:latest
+    container_name: wordpress
     depends_on:
       - mariadb
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./data:/bitnami/wordpress
+      - ./moloni-dev:/bitnami/wordpress/wp-content/plugins/moloni-on
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - WORDPRESS_DATABASE_HOST=mariadb
@@ -28,6 +31,6 @@ services:
       - WORDPRESS_USERNAME=admin
       - WORDPRESS_PASSWORD=123456789
       - WORDPRESS_EMAIL=user@moloni.com
-      - WORDPRESS_FIRST_NAME=Jonh
+      - WORDPRESS_FIRST_NAME=John
       - WORDPRESS_LAST_NAME=Doe
-      - WORDPRESS_BLOG_NAME=Generic shop
+      - WORDPRESS_BLOG_NAME=Generic Shop
