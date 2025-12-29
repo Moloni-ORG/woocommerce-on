@@ -47,7 +47,7 @@ if (!defined('ABSPATH')) {
 
                     <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
                         <label for='client_secret'>
-                            <?php esc_html_e('Client Secret', 'moloni-on') ?>
+                            <?php esc_html_e('Client secret', 'moloni-on') ?>
                         </label>
                         <input id="client_secret" type='text' name='client_secret'>
                     </div>

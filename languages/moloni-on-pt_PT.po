@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Moloni ES\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:52+0000\n"
-"PO-Revision-Date: 2025-12-15 18:00+0000\n"
+"PO-Revision-Date: 2025-12-29 14:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese (Portugal)\n"
 "Language: pt_PT\n"
@@ -223,8 +223,9 @@ msgid "Client"
 msgstr "Cliente"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/LoginForm.php:50
-msgid "Client Secret"
-msgstr "Segredo de cliente"
+#| msgid "Client Secret"
+msgid "Client secret"
+msgstr "Client secret"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ActionModal.php:41
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ExportProductsModal.php:24
@@ -371,7 +372,7 @@ msgstr "Descrição"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/LoginForm.php:43
 msgid "Developer Id"
-msgstr "Id de programador"
+msgstr "ID de cliente"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:101
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:194
@@ -1023,7 +1024,6 @@ msgid "Moloni login invalid"
 msgstr "Credenciais Moloni inválidas"
 
 #. Name of the plugin
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/config/platform.php:9
 #| msgid "MoloniOn"
 msgid "Moloni ON"
 msgstr "Moloni ON"
