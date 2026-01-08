@@ -85,7 +85,7 @@ try {
                         <option value='0' <?php echo (defined('MOLONI_PRODUCT_SYNC') && MOLONI_PRODUCT_SYNC === '0' ? 'selected' : '') ?>><?php esc_html_e('No', 'moloni-on') ?></option>
                         <option value='1' <?php echo (defined('MOLONI_PRODUCT_SYNC') && MOLONI_PRODUCT_SYNC === '1' ? 'selected' : '') ?>><?php esc_html_e('Yes', 'moloni-on') ?></option>
                     </select>
-                    <p class='description'><?php esc_html_e('When saving a product in WooCommerce, the plugin will automatically create the product in Moloni or update if it already exists (only if product has SKU set)', 'moloni-on') ?></p>
+                    <p class='description'><?php esc_html_e('When saving a product in WooCommerce, the plugin will automatically create the product in Moloni ON or update if it already exists (only if product has SKU set)', 'moloni-on') ?></p>
                 </td>
             </tr>
 
@@ -132,11 +132,11 @@ try {
         </table>
 
         <h2 class="title">
-            <?php esc_html_e('Automatic actions from Moloni', 'moloni-on') ?>
+            <?php esc_html_e('Automatic actions from Moloni ON', 'moloni-on') ?>
         </h2>
 
         <div class="subtitle">
-            (<?php esc_html_e('This actions happen when an action occours in your Moloni account.', 'moloni-on') ?>)
+            (<?php esc_html_e('This actions happen when an action occours in your Moloni ON account.', 'moloni-on') ?>)
         </div>
 
         <table class="form-table">
@@ -151,7 +151,7 @@ try {
                         <option value='0' <?php echo (defined('HOOK_PRODUCT_SYNC') && HOOK_PRODUCT_SYNC === '0' ? 'selected' : '') ?>><?php esc_html_e('No', 'moloni-on') ?></option>
                         <option value='1' <?php echo (defined('HOOK_PRODUCT_SYNC') && HOOK_PRODUCT_SYNC === '1' ? 'selected' : '') ?>><?php esc_html_e('Yes', 'moloni-on') ?></option>
                     </select>
-                    <p class='description'><?php esc_html_e('When saving a product in Moloni, the plugin will automatically create the product in WooCommerce or update if it already exists', 'moloni-on') ?></p>
+                    <p class='description'><?php esc_html_e('When saving a product in Moloni ON, the plugin will automatically create the product in WooCommerce or update if it already exists', 'moloni-on') ?></p>
                 </td>
             </tr>
 
@@ -169,7 +169,7 @@ try {
                         </option>
                     </select>
                     <p class='description'>
-                        <?php esc_html_e('When a stock movement is created in moloni, the movement will be recreated in WooCommerce (if product exists)', 'moloni-on') ?>
+                        <?php esc_html_e('When a stock movement is created in Moloni ON, the movement will be recreated in WooCommerce (if product exists)', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
@@ -196,7 +196,7 @@ try {
                     </select>
 
                     <p class='description'>
-                        <?php esc_html_e('This warehouse will be used when a product is inserted or updated in Moloni', 'moloni-on') ?>
+                        <?php esc_html_e('This warehouse will be used when a product is inserted or updated in Moloni ON', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
@@ -235,9 +235,9 @@ try {
                             </option>
                         </select>
                         <p class='description'>
-                            <?php esc_html_e('WooCommerce product with variations will be created in Moloni as products with variants. If disabled, each WooCommerce variation will be created as a simple product.', 'moloni-on') ?>
+                            <?php esc_html_e('WooCommerce product with variations will be created in Moloni ON as products with variants. If disabled, each WooCommerce variation will be created as a simple product.', 'moloni-on') ?>
                             <br/>
-                            <?php esc_html_e('Moloni product with variants will be created in WooCommerce as products with variations. If disabled, Moloni products with variants will not be synchronized.', 'moloni-on') ?>
+                            <?php esc_html_e('Moloni ON product with variants will be created in WooCommerce as products with variations. If disabled, Moloni products with variants will not be synchronized.', 'moloni-on') ?>
                         </p>
                     </td>
                 </tr>

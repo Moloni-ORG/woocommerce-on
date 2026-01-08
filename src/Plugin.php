@@ -301,10 +301,10 @@ class Plugin
                 WebHooks::createHook('Product', 'update');
             }
 
-            $msg = __('Moloni Webhooks reinstalled successfully.', 'moloni-on');
+            $msg = __('Moloni ON Webhooks reinstalled successfully.', 'moloni-on');
             $type = 'updated';
         } catch (APIExeption $e) {
-            $msg = __('Something went wrong reinstalling Moloni Webhooks.', 'moloni-on');
+            $msg = __('Something went wrong reinstalling Moloni ON Webhooks.', 'moloni-on');
             $type = 'error';
         }
 

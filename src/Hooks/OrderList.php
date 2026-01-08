@@ -76,7 +76,7 @@ class OrderList
             $newColumns[$name] = $info;
 
             if ('order_status' === $name) {
-                $newColumns['moloni_document'] = __('Moloni document', 'moloni-on');
+                $newColumns['moloni_document'] = __('Moloni ON document', 'moloni-on');
             }
         }
 

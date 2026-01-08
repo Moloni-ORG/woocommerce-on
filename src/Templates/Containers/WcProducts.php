@@ -41,7 +41,7 @@ $backAction = Context::getAdminUrl('tab=tools');
 
 <h4>
     <?php esc_html_e('This list will display all WooCommerce products from the current store and indicate errors/alerts that may exist.', 'moloni-on') ?>
-    <?php esc_html_e('All actions on this page will be in the WooCommerce -> Moloni direction.', 'moloni-on') ?>
+    <?php esc_html_e('All actions on this page will be in the WooCommerce -> Moloni ON direction.', 'moloni-on') ?>
 </h4>
 
 <div class="notice notice-success m-0">
@@ -62,7 +62,7 @@ $backAction = Context::getAdminUrl('tab=tools');
 
 <div class="notice notice-warning m-0 mt-4">
     <p>
-        <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
+        <?php esc_html_e('Moloni ON stock values based on:', 'moloni-on') ?>
     </p>
     <p>
         <?php

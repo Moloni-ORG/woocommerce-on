@@ -6,11 +6,11 @@ if (!defined('ABSPATH')) {
 
 <div id="import-products-modal" class="modal" style="display: none">
     <h2>
-        <?php esc_html_e('Import products from Moloni' , 'moloni-on') ?>
+        <?php esc_html_e('Import products from Moloni ON' , 'moloni-on') ?>
     </h2>
     <div>
         <p>
-            <?php esc_html_e('All your Moloni products will be created in your WooCommerce store if they do not exist.', 'moloni-on') ?>
+            <?php esc_html_e('All your Moloni ON products will be created in your WooCommerce store if they do not exist.', 'moloni-on') ?>
         </p>
         <p>
             <?php esc_html_e('This may take a while, so, please keep this window open until the process finishes.', 'moloni-on') ?>

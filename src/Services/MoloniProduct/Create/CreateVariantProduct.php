@@ -64,7 +64,7 @@ class CreateVariantProduct extends MoloniProductSyncAbstract
     public function saveLog()
     {
         // Translators: %1$s is the product reference.
-        $message = sprintf(__('Product with variants created in Moloni (%1$s)', 'moloni-on'), $this->moloniProduct['reference']);
+        $message = sprintf(__('Product with variants created in Moloni ON (%1$s)', 'moloni-on'), $this->moloniProduct['reference']);
 
         Context::logger()->info($message, [
             'tag' => 'service:mlproduct:variant:create',

@@ -390,7 +390,7 @@ class Products
     {
         /** Product not found */
         if (empty($this->moloniProduct)) {
-            throw new WebhookException(__('Moloni product not found', 'moloni-on'));
+            throw new WebhookException(__('Moloni ON product not found', 'moloni-on'));
         }
 
         /** We only want to update the main product */

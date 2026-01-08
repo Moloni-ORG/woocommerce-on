@@ -58,7 +58,7 @@ class OrderView
             Start::login(true);
 
             if ($documentId > 0) {
-                esc_html_e('The document has already been generated in Moloni' , 'moloni-on');
+                esc_html_e('The document has already been generated in Moloni ON' , 'moloni-on');
                 echo '<br>';
 
                 $this->seeDocument($documentId);
