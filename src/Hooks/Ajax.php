@@ -287,6 +287,8 @@ class Ajax
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:create:wcproduct', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -342,6 +344,8 @@ class Ajax
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:update:wcstock', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -401,6 +405,8 @@ class Ajax
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:create:moloniproduct', $wcProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -464,6 +470,8 @@ class Ajax
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:update:molonistock', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -527,5 +535,17 @@ class Ajax
     {
         wp_send_json_error( 'Insufficient permissions.');
         wp_die();
+    }
+
+    private function writeErrorLog(MoloniException $e, string $tag, int $productId)
+    {
+        Context::logger()->error($e->getMessage(), [
+            'tag' => $tag,
+            'message' => $e->getMessage(),
+            'extra' => [
+                'productId' => $productId,
+                'data' => $e->getData(),
+            ]
+        ]);
     }
 }
