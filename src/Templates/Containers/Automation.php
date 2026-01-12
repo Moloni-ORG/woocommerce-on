@@ -91,7 +91,7 @@ try {
                             <?php esc_html_e('Yes', 'moloni-on') ?>
                         </option>
                     </select>
-                    <p class='description'><?php esc_html_e('When saving a product in WooCommerce, the plugin will automatically create the product in Moloni or update if it already exists (only if product has SKU set)', 'moloni-on') ?></p>
+                    <p class='description'><?php esc_html_e('When saving a product in WooCommerce, the plugin will automatically create the product in Moloni ON or update if it already exists (only if product has SKU set)', 'moloni-on') ?></p>
                 </td>
             </tr>
 
@@ -148,11 +148,11 @@ try {
         </table>
 
         <h2 class="title">
-            <?php esc_html_e('Automatic actions from Moloni', 'moloni-on') ?>
+            <?php esc_html_e('Automatic actions from Moloni ON', 'moloni-on') ?>
         </h2>
 
         <div class="subtitle">
-            (<?php esc_html_e('This actions happen when an action occours in your Moloni account.', 'moloni-on') ?>)
+            (<?php esc_html_e('This actions happen when an action occours in your Moloni ON account.', 'moloni-on') ?>)
         </div>
 
         <table class="form-table">

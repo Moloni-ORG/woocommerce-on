@@ -37,12 +37,12 @@ $backAction = Context::getAdminUrl('tab=tools');
 ?>
 
 <h3>
-    <?php esc_html_e('Moloni product list', 'moloni-on') ?>
+    <?php esc_html_e('Moloni ON product list', 'moloni-on') ?>
 </h3>
 
 <h4>
-    <?php esc_html_e('This list will present all Moloni products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
-    <?php esc_html_e('All actions on this page will be in the Moloni -> WooCommerce direction.', 'moloni-on') ?>
+    <?php esc_html_e('This list will present all Moloni ON products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
+    <?php esc_html_e('All actions on this page will be in the Moloni ON -> WooCommerce direction.', 'moloni-on') ?>
 </h4>
 
 <div class="notice notice-success m-0">
@@ -187,7 +187,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <?php else : ?>
             <tr class="text-center">
                 <td colspan="100%">
-                    <?php esc_html_e('No Moloni products were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No Moloni ON products were found!', 'moloni-on') ?>
                 </td>
             </tr>
         <?php endif; ?>

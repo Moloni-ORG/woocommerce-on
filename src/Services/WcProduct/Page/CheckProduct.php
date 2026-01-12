@@ -106,14 +106,14 @@ class CheckProduct
         try {
             $mlProduct = $this->findMoloniProduct($product);
         } catch (APIExeption $e) {
-            $parentRow['tool_alert_message'][] = __('Error fetching Moloni product', 'moloni-on');
+            $parentRow['tool_alert_message'][] = __('Error fetching Moloni ON product', 'moloni-on');
 
             return;
         }
 
         if (empty($mlProduct)) {
             $parentRow['tool_show_create_button'] = true;
-            $parentRow['tool_alert_message'][] = __('Product not found in Moloni account', 'moloni-on');
+            $parentRow['tool_alert_message'][] = __('Product not found in Moloni ON account', 'moloni-on');
 
             return;
         }
@@ -192,7 +192,7 @@ class CheckProduct
                 if ($wcStock !== $moloniStock) {
                     $childRow['tool_show_update_stock_button'] = true;
 
-                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                    $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                     $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                     $childRow['tool_alert_message'][] = $message;
@@ -224,14 +224,14 @@ class CheckProduct
         try {
             $mlProduct = $this->findMoloniProduct($product);
         } catch (APIExeption $e) {
-            $row['tool_alert_message'][] = __('Error fetching Moloni product', 'moloni-on');
+            $row['tool_alert_message'][] = __('Error fetching Moloni ON product', 'moloni-on');
 
             return;
         }
 
         if (empty($mlProduct)) {
             $row['tool_show_create_button'] = true;
-            $row['tool_alert_message'][] = __('Product not found in Moloni account', 'moloni-on');
+            $row['tool_alert_message'][] = __('Product not found in Moloni ON account', 'moloni-on');
 
             return;
         }
@@ -258,7 +258,7 @@ class CheckProduct
             if ($wcStock !== $moloniStock) {
                 $row['tool_show_update_stock_button'] = true;
 
-                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                 $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                 $row['tool_alert_message'][] = $message;

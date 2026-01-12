@@ -53,7 +53,7 @@ $row = $row ?? [];
                         <?php if (!empty($row['moloni_product_link'])) : ?>
                             <li>
                                 <a target="_blank" href="<?php echo esc_url($row['moloni_product_link']) ?>">
-                                    <?php esc_html_e('Open in Moloni', 'moloni-on') ?>
+                                    <?php esc_html_e('Open in Moloni ON', 'moloni-on') ?>
                                 </a>
                             </li>
                         <?php endif; ?>

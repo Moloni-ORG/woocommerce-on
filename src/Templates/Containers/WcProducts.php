@@ -43,7 +43,7 @@ $backAction = Context::getAdminUrl('tab=tools');
 
 <h4>
     <?php esc_html_e('This list will display all WooCommerce products from the current store and indicate errors/alerts that may exist.', 'moloni-on') ?>
-    <?php esc_html_e('All actions on this page will be in the WooCommerce -> Moloni direction.', 'moloni-on') ?>
+    <?php esc_html_e('All actions on this page will be in the WooCommerce -> Moloni ON direction.', 'moloni-on') ?>
 </h4>
 
 <div class="notice notice-success m-0">

@@ -45,12 +45,12 @@ class SyncProductStock extends MoloniStockSyncAbstract
 
         if ($wcStock === $moloniStock) {
             // Translators: %1$s is the product SKU.
-            $msg = sprintf(__('Stock is already updated in Moloni (%1$s)', 'moloni-on'),
+            $msg = sprintf(__('Stock is already updated in Moloni ON (%1$s)', 'moloni-on'),
                 $this->moloniProduct['reference']
             );
         } else {
             // Translators: %1$s is the old Moloni stock, %2$s is the new WooCommerce stock, %3$s is the product SKU.
-            $msg = sprintf(__('Stock updated in Moloni (old: %1$s | new: %2$s) (%3$s)', 'moloni-on'),
+            $msg = sprintf(__('Stock updated in Moloni ON (old: %1$s | new: %2$s) (%3$s)', 'moloni-on'),
                 $moloniStock,
                 $wcStock,
                 $this->moloniProduct['reference']

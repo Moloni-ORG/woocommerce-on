@@ -266,7 +266,7 @@ class Documents
         if ($this->shouldCloseDocument()) {
             $this->closeDocument();
         } else {
-            $note = __('Document inserted as a draft in Moloni', 'moloni-on');
+            $note = __('Document inserted as a draft in Moloni ON', 'moloni-on');
             $note .= " (" . $this->documentTypeName . ")";
 
             $this->order->add_order_note($note);
@@ -289,7 +289,7 @@ class Documents
         $documentTotal = $this->getDocumentExchageTotal();
 
         if (abs($orderTotal - $documentTotal) > 0.01) {
-            $note = __('Document inserted as a draft in Moloni', 'moloni-on');
+            $note = __('Document inserted as a draft in Moloni ON', 'moloni-on');
             $note .= " (" . $this->documentTypeName . ")";
 
             $this->order->add_order_note($note);
@@ -387,7 +387,7 @@ class Documents
 
         apply_filters('moloni_on_after_close_document', $this);
 
-        $note = __('Document inserted in Moloni', 'moloni-on');
+        $note = __('Document inserted in Moloni ON', 'moloni-on');
         $note .= " (" . $this->documentTypeName . ")";
 
         $this->order->add_order_note($note);

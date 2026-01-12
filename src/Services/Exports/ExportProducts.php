@@ -96,7 +96,7 @@ class ExportProducts extends ExportService
 
         if (!empty($moloniProduct)) {
             $this->errorProducts[] = [$wcProduct->get_id() => [
-                'message' => 'Product already exists in Moloni.',
+                'message' => 'Product already exists in Moloni ON.',
             ]];
 
             return;
@@ -128,7 +128,7 @@ class ExportProducts extends ExportService
 
         if (!empty($moloniProduct)) {
             $this->errorProducts[] = [$wcProduct->get_id() => [
-                'message' => 'Product already exists in Moloni.',
+                'message' => 'Product already exists in Moloni ON.',
             ]];
 
             return;
@@ -165,7 +165,7 @@ class ExportProducts extends ExportService
 
             if (!empty($moloniProduct)) {
                 $this->errorProducts[] = [$wcVariation->get_id() => [
-                    'message' => 'Variation already exists in Moloni.',
+                    'message' => 'Variation already exists in Moloni ON.',
                 ]];
 
                 return;

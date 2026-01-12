@@ -123,7 +123,7 @@ class ProductUpdate
         } catch (MoloniException $e) {
             Notice::addmessagecustom(htmlentities($e->geterror()));
 
-            $message = __('Error synchronizing products to Moloni.', 'moloni-on');
+            $message = __('Error synchronizing products to Moloni ON.', 'moloni-on');
             $message .= ' </br>';
             $message .= $e->getMessage();
 

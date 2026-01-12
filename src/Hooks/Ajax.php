@@ -253,7 +253,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $mlProductId);
@@ -321,7 +321,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             $wcProduct = wc_get_product($wcProductId);
@@ -449,7 +449,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProductId);

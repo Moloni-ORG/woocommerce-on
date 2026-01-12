@@ -46,7 +46,7 @@ $hasWebhooks = Context::company()->hasWebhooks();
             <a href='<?php echo esc_url(Context::getAdminUrl('tab=moloniProductsList')) ?>'
                class="button button-large"
             >
-                <?php esc_html_e('View Moloni products', 'moloni-on') ?>
+                <?php esc_html_e('View Moloni ON products', 'moloni-on') ?>
             </a>
         </td>
     </tr>
@@ -54,7 +54,7 @@ $hasWebhooks = Context::company()->hasWebhooks();
     <tr>
         <th class="p-8">
             <strong class="name">
-                <?php esc_html_e('List WooCommerce Products', 'moloni-on') ?>
+                <?php esc_html_e('List WooCommerce products', 'moloni-on') ?>
             </strong>
             <p class='description'>
                 <?php esc_html_e('List all products in WooCommerce store and export data to your Moloni company', 'moloni-on') ?>
@@ -64,7 +64,7 @@ $hasWebhooks = Context::company()->hasWebhooks();
             <a href='<?php echo esc_url(Context::getAdminUrl("tab=wcProductsList")) ?>'
                class="button button-large"
             >
-                <?php esc_html_e('View WooCommerce Products', 'moloni-on') ?>
+                <?php esc_html_e('View WooCommerce products', 'moloni-on') ?>
             </a>
         </td>
     </tr>

@@ -112,7 +112,7 @@ class CheckProduct
             if ($wcStock !== $moloniStock) {
                 $row['tool_show_update_stock_button'] = true;
 
-                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                 $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                 $row['tool_alert_message'][] = $message;
@@ -209,7 +209,7 @@ class CheckProduct
                 if ($wcStock !== $moloniStock) {
                     $childRow['tool_show_update_stock_button'] = true;
 
-                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                    $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                     $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                     $childRow['tool_alert_message'][] = $message;

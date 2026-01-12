@@ -65,7 +65,7 @@ class ProductView
                     $this->fetchMoloniProduct();
 
                     if (empty($this->moloniProduct)) {
-                        esc_html_e("Product not found in Moloni", 'moloni-on');
+                        esc_html_e("Product not found in Moloni ON", 'moloni-on');
                         return null;
                     }
 

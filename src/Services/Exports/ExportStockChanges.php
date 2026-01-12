@@ -100,14 +100,14 @@ class ExportStockChanges extends ExportService
 
         /** Moloni product not found */
         if (empty($moloniProduct)) {
-            $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni.'];
+            $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni ON.'];
 
             return;
         }
 
         /** Moloni product does not manage stock */
         if ((int)$moloniProduct['hasStock'] === Boolean::NO) {
-            $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni product does not manage stock.'];
+            $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni ON product does not manage stock.'];
 
             return;
         }
@@ -135,14 +135,14 @@ class ExportStockChanges extends ExportService
 
         /** Moloni product not found */
         if (empty($moloniProduct)) {
-            $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni.'];
+            $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni ON.'];
 
             return;
         }
 
         /** Moloni product does not manage stock */
         if ((int)$moloniProduct['hasStock'] === Boolean::NO) {
-            $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni product does not manage stock.'];
+            $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni ON product does not manage stock.'];
 
             return;
         }
@@ -190,7 +190,7 @@ class ExportStockChanges extends ExportService
 
             /** Moloni variant not found */
             if (empty($moloniVariant)) {
-                $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni variant not found.'];
+                $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni ON variant not found.'];
 
                 continue;
             }
@@ -224,14 +224,14 @@ class ExportStockChanges extends ExportService
 
             /** Moloni product not found */
             if (empty($moloniProduct)) {
-                $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni.'];
+                $this->errorProducts[] = [$wcProduct->get_id() => 'Product does not exist in Moloni ON.'];
 
                 continue;
             }
 
             /** Moloni product does not manage stock */
             if ((int)$moloniProduct['hasStock'] === Boolean::NO) {
-                $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni product does not manage stock.'];
+                $this->errorProducts[] = [$wcProduct->get_id() => 'Moloni ON product does not manage stock.'];
 
                 continue;
             }
