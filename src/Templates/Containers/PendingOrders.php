@@ -77,9 +77,10 @@ $paginator = PendingOrders::getPagination();
                     <td>
                         <?php
                         $vat = '';
+                        $vatField = Context::settings()->getString('vat_field');
 
-                        if (defined('VAT_FIELD')) {
-                            $meta = $order->get_meta(VAT_FIELD);
+                        if (!empty($vatField)) {
+                            $meta = $order->get_meta($vatField);
 
                             $vat = $meta;
                         }
@@ -121,11 +122,7 @@ $paginator = PendingOrders::getPagination();
 
                             <select name="document_type" style="margin-right: 5px; max-width: 45%;">
                                 <?php
-                                $documentType = '';
-
-                                if (defined('DOCUMENT_TYPE') && !empty(DOCUMENT_TYPE)) {
-                                    $documentType = DOCUMENT_TYPE;
-                                }
+                                $documentType = Context::settings()->getString('document_type');
                                 ?>
 
                                 <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>

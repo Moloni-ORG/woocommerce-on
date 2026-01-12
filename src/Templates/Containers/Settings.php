@@ -79,11 +79,7 @@ try {
                 <td>
                     <select id="document_type" name='opt[document_type]' class='inputOut'>
                         <?php
-                        $documentType = '';
-
-                        if (defined('DOCUMENT_TYPE') && !empty(DOCUMENT_TYPE)) {
-                            $documentType = DOCUMENT_TYPE;
-                        }
+                        $documentType = Context::settings()->getString('document_type');
                         ?>
 
                         <?php foreach (DocumentTypes::getForRender() as $id => $name) : ?>
@@ -108,11 +104,7 @@ try {
                 <td>
                     <select id="document_status" name='opt[document_status]' class='inputOut'>
                         <?php
-                        $documentStatus = 0;
-
-                        if (defined('DOCUMENT_STATUS') && !empty(DOCUMENT_STATUS)) {
-                            $documentStatus = (int)DOCUMENT_STATUS;
-                        }
+                        $documentStatus = Context::settings()->getInt('document_status');
                         ?>
 
                         <option value='0' <?php echo($documentStatus === DocumentStatus::DRAFT ? 'selected' : '') ?>>
@@ -138,11 +130,7 @@ try {
                 </th>
                 <td>
                     <?php
-                    $createBillOfLading = 0;
-
-                    if (defined('CREATE_BILL_OF_LADING')) {
-                        $createBillOfLading = (int)CREATE_BILL_OF_LADING;
-                    }
+                    $createBillOfLading = Context::settings()->getInt('create_bill_of_lading');
                     ?>
 
                     <select id="create_bill_of_lading" name='opt[create_bill_of_lading]' class='inputOut'>
@@ -170,7 +158,7 @@ try {
                 <td>
                     <select id="document_set_id" name='opt[document_set_id]' class='inputOut'>
                         <?php
-                        $selectedDocumentSetId = defined('DOCUMENT_SET_ID') ? (int)DOCUMENT_SET_ID : null;
+                        $selectedDocumentSetId = Context::settings()->getInt('document_set_id');
 
                         foreach ($documentSets as $documentSet) :
                             $isSelected = $selectedDocumentSetId === $documentSet['documentSetId'] ? 'selected' : '';
@@ -197,7 +185,7 @@ try {
                 </th>
                 <td>
                     <select id="shipping_info" name='opt[shipping_info]' class='inputOut'>
-                        <?php $shippingInfo = defined('SHIPPING_INFO') ? (int)SHIPPING_INFO : 0; ?>
+                        <?php $shippingInfo = Context::settings()->getInt('shipping_info'); ?>
 
                         <option value='0' <?php echo $shippingInfo === Boolean::NO ? 'selected' : '' ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
@@ -221,7 +209,7 @@ try {
                 </th>
                 <td>
                     <select id="load_address" name='opt[load_address]' class='inputOut'>
-                        <?php $activeLoadAddress = defined('LOAD_ADDRESS') ? (int)LOAD_ADDRESS : 0; ?>
+                        <?php $activeLoadAddress = Context::settings()->getInt('load_address'); ?>
 
                         <option value='0' <?php echo($activeLoadAddress === 0 ? 'selected' : '') ?>>
                             <?php esc_html_e('Company address', 'moloni-on') ?>
@@ -233,7 +221,7 @@ try {
 
                     <div class="custom-address__wrapper" id="load_address_custom_line">
                         <div class="custom-address__line">
-                            <?php $customAddress = defined('LOAD_ADDRESS_CUSTOM_ADDRESS') ? LOAD_ADDRESS_CUSTOM_ADDRESS : ''; ?>
+                            <?php $customAddress = Context::settings()->getString('load_address_custom_address'); ?>
 
                             <input name="opt[load_address_custom_address]"
                                    id="load_address_custom_address"
@@ -246,8 +234,8 @@ try {
 
                         <div class="custom-address__line">
                             <?php
-                            $customCode = defined('LOAD_ADDRESS_CUSTOM_CODE') ? LOAD_ADDRESS_CUSTOM_CODE : '';
-                            $customCity = defined('LOAD_ADDRESS_CUSTOM_CITY') ? LOAD_ADDRESS_CUSTOM_CITY : '';
+                            $customCode = Context::settings()->getString('load_address_custom_code');
+                            $customCity = Context::settings()->getString('load_address_custom_city');
                             ?>
 
                             <input name="opt[load_address_custom_code]"
@@ -268,7 +256,7 @@ try {
                         <div class="custom-address__line">
                             <select id="load_address_custom_country" name="opt[load_address_custom_country]"
                                     class="inputOut inputOut--sm">
-                                <?php $activeCountry = defined('LOAD_ADDRESS_CUSTOM_COUNTRY') ? (int)LOAD_ADDRESS_CUSTOM_COUNTRY : 0; ?>
+                                <?php $activeCountry = Context::settings()->getInt('load_address_custom_country'); ?>
 
                                 <option value='0' <?php echo($activeCountry === 0 ? 'selected' : '') ?>><?php echo
                                     esc_attr_e('Choose an option', 'moloni-on') ?>
@@ -297,7 +285,7 @@ try {
                     </label>
                 </th>
                 <td>
-                    <?php $emailSend = defined('EMAIL_SEND') ? (int)EMAIL_SEND : 0; ?>
+                    <?php $emailSend = Context::settings()->getInt('email_send'); ?>
 
                     <select id="email_send" name="opt[email_send]" class="inputOut">
                         <option value="0" <?php echo $emailSend === Boolean::NO ? 'selected' : '' ?>>
@@ -335,7 +323,7 @@ try {
             <tr>
                 <?php
                 $reasonName = 'exemption_reason';
-                $reasonValue = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
+                $reasonValue = Context::settings()->getString('exemption_reason');
                 ?>
                 <th>
                     <label for="<?php echo esc_attr($reasonName) ?>">
@@ -354,7 +342,7 @@ try {
             <tr>
                 <?php
                 $reasonName = 'exemption_reason_shipping';
-                $reasonValue = defined('EXEMPTION_REASON_SHIPPING') ? EXEMPTION_REASON_SHIPPING : '';
+                $reasonValue = Context::settings()->getString('exemption_reason_shipping');
                 ?>
 
                 <th>
@@ -389,7 +377,7 @@ try {
             <tr>
                 <?php
                 $reasonName = 'exemption_reason_extra_community';
-                $reasonValue = defined('EXEMPTION_REASON_EXTRA_COMMUNITY') ? EXEMPTION_REASON_EXTRA_COMMUNITY : '';
+                $reasonValue = Context::settings()->getString('exemption_reason_extra_community');
                 ?>
 
                 <th>
@@ -409,7 +397,7 @@ try {
             <tr>
                 <?php
                 $reasonName = 'exemption_reason_shipping_extra_community';
-                $reasonValue = defined('EXEMPTION_REASON_SHIPPING_EXTRA_COMMUNITY') ? EXEMPTION_REASON_SHIPPING_EXTRA_COMMUNITY : '';
+                $reasonValue = Context::settings()->getString('exemption_reason_shipping_extra_community');
                 ?>
 
                 <th>
@@ -451,7 +439,7 @@ try {
                                 <?php esc_html_e('Default warehouse', 'moloni-on') ?>
                             </option>
 
-                            <?php $moloniProductWarehouse = defined('MOLONI_PRODUCT_WAREHOUSE') ? (int)MOLONI_PRODUCT_WAREHOUSE : 0; ?>
+                            <?php $moloniProductWarehouse = Context::settings()->getInt('moloni_product_warehouse'); ?>
 
                             <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                                 <?php foreach ($warehouses as $warehouse) : ?>
@@ -474,7 +462,7 @@ try {
                     <label for="measure_unit_id"><?php esc_html_e('Measurement unit', 'moloni-on') ?></label>
                 </th>
                 <td>
-                    <?php $measureUnit = defined('MEASURE_UNIT') ? (int)MEASURE_UNIT : 0; ?>
+                    <?php $measureUnit = Context::settings()->getInt('measure_unit'); ?>
 
                     <select id="measure_unit_id" name='opt[measure_unit]' class='inputOut'>
                         <?php foreach ($measurementUnits as $measurementUnit) : ?>
@@ -508,11 +496,7 @@ try {
                 </th>
                 <td>
                     <?php
-                    $customerLanguage = 0;
-
-                    if (defined('CUSTOMER_LANGUAGE')) {
-                        $customerLanguage = (int)CUSTOMER_LANGUAGE;
-                    }
+                    $customerLanguage = Context::settings()->getInt('customer_language');
                     ?>
 
                     <select id="customer_language" name='opt[customer_language]' class='inputOut'>
@@ -546,7 +530,7 @@ try {
                     </label>
                 </th>
                 <td>
-                    <?php $clientPrefix = defined('CLIENT_PREFIX') ? CLIENT_PREFIX : ''; ?>
+                    <?php $clientPrefix = Context::settings()->getString('client_prefix'); ?>
 
                     <input id="client_prefix"
                            name="opt[client_prefix]"
@@ -574,7 +558,7 @@ try {
                     </label>
                 </th>
                 <td>
-                    <?php $clientPrefix = defined('MATURITY_DATE') ? (int)MATURITY_DATE : 0; ?>
+                    <?php $clientPrefix = Context::settings()->getInt('maturity_date'); ?>
 
                     <select id="maturity_date_id" name='opt[maturity_date]' class='inputOut'>
                         <option value='0' <?php echo $clientPrefix === 0 ? 'selected' : '' ?>>
@@ -601,7 +585,7 @@ try {
                     </label>
                 </th>
                 <td>
-                    <?php $selectedPaymentMethod = defined('PAYMENT_METHOD') ? (int)PAYMENT_METHOD : 0; ?>
+                    <?php $selectedPaymentMethod = Context::settings()->getInt('payment_method'); ?>
 
                     <select id="payment_method_id" name='opt[payment_method]' class='inputOut'>
                         <option value='0' <?php echo $selectedPaymentMethod === 0 ? 'selected' : '' ?>>
@@ -629,11 +613,7 @@ try {
                 </th>
                 <td>
                     <?php
-                    $vatValidate = 0;
-
-                    if (defined('VAT_VALIDATE')) {
-                        $vatValidate = (int)VAT_VALIDATE;
-                    }
+                    $vatValidate = Context::settings()->getInt('vat_validate');
                     ?>
 
                     <select id="vat_validate" name='opt[vat_validate]' class='inputOut'>
@@ -661,11 +641,9 @@ try {
                         <?php
                         $customFields = Settings::getPossibleVatFields();
 
-                        $vatField = '';
+                        $vatField = Context::settings()->getString('vat_field');
 
-                        if (defined('VAT_FIELD') && !empty(VAT_FIELD)) {
-                            $vatField = VAT_FIELD;
-                        } elseif (External::isMoloniVatPluginActive()) {
+                        if (empty($vatField) && External::isMoloniVatPluginActive()) {
                             $vatField = '_billing_vat';
 
                             if (!in_array($vatField, $customFields, true)) {
@@ -718,7 +696,7 @@ try {
                 </th>
                 <td>
                     <select id="moloni_show_download_column" name='opt[moloni_show_download_column]' class='inputOut'>
-                        <?php $moloniShowDownloadColumn = defined('MOLONI_SHOW_DOWNLOAD_COLUMN') ? (int)MOLONI_SHOW_DOWNLOAD_COLUMN : Boolean::NO; ?>
+                        <?php $moloniShowDownloadColumn = Context::settings()->getInt('moloni_show_download_column'); ?>
 
                         <option value='0' <?php echo($moloniShowDownloadColumn === Boolean::NO ? 'selected' : '') ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
@@ -751,11 +729,7 @@ try {
                 </th>
                 <td>
                     <?php
-                    $orderCreatedAtMax = '';
-
-                    if (defined('ORDER_CREATED_AT_MAX')) {
-                        $orderCreatedAtMax = ORDER_CREATED_AT_MAX;
-                    }
+                    $orderCreatedAtMax = Context::settings()->getString('order_created_at_max');
                     ?>
 
                     <input value="<?php echo esc_html($orderCreatedAtMax) ?>"
@@ -782,7 +756,7 @@ try {
                     <input id="alert_email"
                            name="opt[alert_email]"
                            type="text"
-                           value="<?php echo esc_attr(defined('ALERT_EMAIL') ? ALERT_EMAIL : '') ?>"
+                           value="<?php echo esc_attr(Context::settings()->getString('alert_email')); ?>"
                            class="inputOut"
                     >
 

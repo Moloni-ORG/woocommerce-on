@@ -119,8 +119,10 @@ class Auth
                     }
 
                     // Send e-mail notification if email is set
-                    if (defined('ALERT_EMAIL') && !empty(ALERT_EMAIL)) {
-                        new AuthenticationExpired(ALERT_EMAIL);
+                    $alertEmail = Context::settings()->getString('alert_email');
+
+                    if (!empty($alertEmail)) {
+                        new AuthenticationExpired($alertEmail);
                     }
 
                     // Translators: %1$s is the number of tries.

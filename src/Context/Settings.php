@@ -16,7 +16,7 @@ final class Settings
         return $this->settings[$key] ?? $default;
     }
 
-    public function getString(string $key, $default = ''): int
+    public function getString(string $key, $default = ''): string
     {
         return (string)($this->get($key, $default));
     }

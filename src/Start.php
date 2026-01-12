@@ -140,7 +140,7 @@ class Start
 
     private function loadSettings()
     {
-        Settings::defineConfigs();
+        Settings::loadToContext();
     }
 
     private function loadCompany()

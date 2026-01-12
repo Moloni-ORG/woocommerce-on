@@ -655,12 +655,8 @@ class Documents
                 $this->documentStatus = (int)$documentStatus;
 
                 break;
-            case defined('DOCUMENT_STATUS'):
-                $this->documentStatus = (int)DOCUMENT_STATUS;
-
-                break;
             default:
-                $this->documentStatus = DocumentStatus::DRAFT;
+                $this->documentStatus = Context::settings()->getInt('document_status', DocumentStatus::DRAFT);
 
                 break;
         }
@@ -696,11 +692,8 @@ class Documents
                 $this->documentType = $documentType;
 
                 break;
-            case defined('DOCUMENT_TYPE'):
-                $this->documentType = DOCUMENT_TYPE;
-                break;
             default:
-                $this->documentType = '';
+                $this->documentType = Context::settings()->getString('document_type');
 
                 break;
         }
@@ -781,11 +774,7 @@ class Documents
      */
     public function setDocumentSetId(): Documents
     {
-        $documentSetId = 0;
-
-        if (defined('DOCUMENT_SET_ID')) {
-            $documentSetId = (int)DOCUMENT_SET_ID;
-        }
+        $documentSetId = Context::settings()->getInt('document_set_id');
 
         if ($documentSetId === 0) {
             throw new DocumentError(__('Document set missing. Please select a document set in settings.', 'moloni-on'));
@@ -810,12 +799,8 @@ class Documents
                 $this->sendEmail = (int)$sendByEmail;
 
                 break;
-            case defined('EMAIL_SEND'):
-                $this->sendEmail = (int)EMAIL_SEND;
-
-                break;
             default:
-                $this->sendEmail = 0;
+                $this->sendEmail = Context::settings()->getInt('email_send');
 
                 break;
         }
@@ -940,12 +925,8 @@ class Documents
                 $this->useShipping = $useShipping;
 
                 break;
-            case defined('SHIPPING_INFO'):
-                $this->useShipping = (int)SHIPPING_INFO;
-
-                break;
             default:
-                $this->useShipping = 0;
+                $this->useShipping = Context::settings()->getInt('shipping_info');
 
                 break;
         }
@@ -1031,17 +1012,13 @@ class Documents
         $this->deliveryMethodId = $deliveryMethod->delivery_method_id;
         $this->deliveryLoadDate = gmdate('Y-m-d H:i:s');
 
-        $loadSetting = defined('LOAD_ADDRESS') ? (int)LOAD_ADDRESS : 0;
+        $loadSetting = Context::settings()->getInt('load_address');
 
-        if ($loadSetting === 1 &&
-            defined('LOAD_ADDRESS_CUSTOM_ADDRESS') &&
-            defined('LOAD_ADDRESS_CUSTOM_CITY') &&
-            defined('LOAD_ADDRESS_CUSTOM_CODE') &&
-            defined('LOAD_ADDRESS_CUSTOM_COUNTRY')) {
-            $this->deliveryLoadAddress = LOAD_ADDRESS_CUSTOM_ADDRESS;
-            $this->deliveryLoadCity = LOAD_ADDRESS_CUSTOM_CITY;
-            $this->deliveryLoadZipCode = LOAD_ADDRESS_CUSTOM_CODE;
-            $this->deliveryLoadCountryId = (int)LOAD_ADDRESS_CUSTOM_COUNTRY;
+        if ($loadSetting === 1) {
+            $this->deliveryLoadAddress = Context::settings()->getString('load_address_custom_address');
+            $this->deliveryLoadCity = Context::settings()->getString('load_address_custom_city');
+            $this->deliveryLoadZipCode = Context::settings()->getString('load_address_custom_code');
+            $this->deliveryLoadCountryId = Context::settings()->getInt('load_address_custom_country');
         } else {
             $this->deliveryLoadAddress = $this->company['address'];
             $this->deliveryLoadCity = $this->company['city'];

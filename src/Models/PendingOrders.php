@@ -2,6 +2,8 @@
 
 namespace MoloniOn\Models;
 
+use MoloniOn\Context;
+
 class PendingOrders
 {
     private static $limit = 50;
@@ -33,8 +35,10 @@ class PendingOrders
             'meta_compare'  => 'NOT EXISTS',
         ];
 
-        if (defined('ORDER_CREATED_AT_MAX') && !empty(ORDER_CREATED_AT_MAX)) {
-            $args['date_created'] = ">=" . ORDER_CREATED_AT_MAX;
+        $createdMax = Context::settings()->getString('order_created_at_max');
+
+        if (!empty($createdMax)) {
+            $args['date_created'] = ">=" . $createdMax;
         }
 
         $args = apply_filters('moloni_on_before_pending_orders_fetch', $args);

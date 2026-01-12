@@ -228,7 +228,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         $this->props['hasStock'] = $hasStock;
 
         if ($hasStock) {
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse');
 
             if (empty($warehouseId)) {
                 try {
@@ -270,7 +270,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
     protected function setMeasureUnit()
     {
-        $this->props['measurementUnitId'] = defined('MEASURE_UNIT') ? (int)MEASURE_UNIT : 0;
+        $this->props['measurementUnitId'] = Context::settings()->getInt('measure_unit');
     }
 
     protected function setTaxes()
@@ -305,7 +305,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         }
 
         if (empty($this->props['taxes'])) {
-            $this->props['exemptionReason'] = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
+            $this->props['exemptionReason'] = Context::settings()->getString('exemption_reason');
         }
     }
 

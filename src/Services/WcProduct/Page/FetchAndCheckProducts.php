@@ -74,7 +74,7 @@ class FetchAndCheckProducts
             return $this;
         }
 
-        $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+        $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse');
 
         if (empty($warehouseId)) {
             $warehouseId = MoloniWarehouse::getDefaultWarehouseId();

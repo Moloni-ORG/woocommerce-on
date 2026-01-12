@@ -75,7 +75,7 @@ class FetchAndCheckProducts
             return $this;
         }
 
-        $this->warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
+        $this->warehouseId = Context::settings()->getInt('hook_stock_sync_warehouse', 1);
 
         return $this;
     }

@@ -84,7 +84,7 @@ class OrderView
 
     private function getDocumentTypeSelect()
     {
-        $documentType = defined('DOCUMENT_TYPE') ? DOCUMENT_TYPE : '';
+        $documentType = Context::settings()->getString('document_type');
 
         ?>
         <select id="moloni_document_type" style="float:right">

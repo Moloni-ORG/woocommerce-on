@@ -44,7 +44,7 @@ try {
                 </th>
                 <td>
                     <select id="invoice_auto" name='opt[invoice_auto]' class='inputOut'>
-                        <?php $invoiceAuto = defined('INVOICE_AUTO') ? (int)INVOICE_AUTO : Boolean::NO; ?>
+                        <?php $invoiceAuto = Context::settings()->getInt('invoice_auto'); ?>
 
                         <option value='0' <?php echo ($invoiceAuto === Boolean::NO ? 'selected' : '') ?>>
                             <?php esc_html_e('No', 'moloni-on') ?>
@@ -63,7 +63,7 @@ try {
                 </th>
                 <td>
                     <select id="invoice_auto_status" name='opt[invoice_auto_status]' class='inputOut'>
-                        <?php $invoiceAutoStatus = defined('INVOICE_AUTO_STATUS') ? INVOICE_AUTO_STATUS : ''; ?>
+                        <?php $invoiceAutoStatus = Context::settings()->getString('invoice_auto_status'); ?>
 
                         <option value='completed' <?php echo ($invoiceAutoStatus === AutomaticDocumentsStatus::COMPLETED ? 'selected' : '') ?>>
                             <?php esc_html_e('Complete', 'moloni-on') ?>
@@ -82,8 +82,14 @@ try {
                 </th>
                 <td>
                     <select id="moloni_product_sync" name='opt[moloni_product_sync]' class='inputOut'>
-                        <option value='0' <?php echo (defined('MOLONI_PRODUCT_SYNC') && MOLONI_PRODUCT_SYNC === '0' ? 'selected' : '') ?>><?php esc_html_e('No', 'moloni-on') ?></option>
-                        <option value='1' <?php echo (defined('MOLONI_PRODUCT_SYNC') && MOLONI_PRODUCT_SYNC === '1' ? 'selected' : '') ?>><?php esc_html_e('Yes', 'moloni-on') ?></option>
+                        <?php $moloniProductSync = Context::settings()->getInt('moloni_product_sync'); ?>
+
+                        <option value='0' <?php echo ($moloniProductSync === Boolean::NO ? 'selected' : '') ?>>
+                            <?php esc_html_e('No', 'moloni-on') ?>
+                        </option>
+                        <option value='1' <?php echo ($moloniProductSync === Boolean::YES ? 'selected' : '') ?>>
+                            <?php esc_html_e('Yes', 'moloni-on') ?>
+                        </option>
                     </select>
                     <p class='description'><?php esc_html_e('When saving a product in WooCommerce, the plugin will automatically create the product in Moloni or update if it already exists (only if product has SKU set)', 'moloni-on') ?></p>
                 </td>
@@ -96,8 +102,14 @@ try {
                     </th>
                     <td>
                         <select id="moloni_stock_sync" name='opt[moloni_stock_sync]' class='inputOut'>
-                            <option value='0' <?php echo(defined('MOLONI_STOCK_SYNC') && MOLONI_STOCK_SYNC === '0' ? 'selected' : '') ?>><?php esc_html_e('No', 'moloni-on') ?></option>
-                            <option value='1' <?php echo(defined('MOLONI_STOCK_SYNC') && MOLONI_STOCK_SYNC === '1' ? 'selected' : '') ?>><?php esc_html_e('Yes', 'moloni-on') ?></option>
+                            <?php $moloniStockSync = Context::settings()->getInt('moloni_stock_sync'); ?>
+
+                            <option value='0' <?php echo($moloniStockSync === Boolean::NO ? 'selected' : '') ?>>
+                                <?php esc_html_e('No', 'moloni-on') ?>
+                            </option>
+                            <option value='1' <?php echo($moloniStockSync === Boolean::YES ? 'selected' : '') ?>>
+                                <?php esc_html_e('Yes', 'moloni-on') ?>
+                            </option>
                         </select>
                         <p class='description'><?php esc_html_e('Automatic stock synchronization', 'moloni-on') ?></p>
                     </td>
@@ -115,7 +127,7 @@ try {
                                 <?php esc_html_e('Default company warehouse', 'moloni-on') ?>
                             </option>
 
-                            <?php $hookStockSyncWarehouse = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0; ?>
+                            <?php $hookStockSyncWarehouse = Context::settings()->getInt('moloni_stock_sync_warehouse'); ?>
 
                             <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                                 <?php foreach ($warehouses as $warehouse) : ?>
@@ -153,8 +165,14 @@ try {
                     </th>
                     <td>
                         <select id="hook_product_sync" name='opt[hook_product_sync]' class='inputOut'>
-                            <option value='0' <?php echo(defined('HOOK_PRODUCT_SYNC') && HOOK_PRODUCT_SYNC === '0' ? 'selected' : '') ?>><?php esc_html_e('No', 'moloni-on') ?></option>
-                            <option value='1' <?php echo(defined('HOOK_PRODUCT_SYNC') && HOOK_PRODUCT_SYNC === '1' ? 'selected' : '') ?>><?php esc_html_e('Yes', 'moloni-on') ?></option>
+                            <?php $hookProductSync = Context::settings()->getInt('hook_product_sync'); ?>
+
+                            <option value='0' <?php echo($hookProductSync === Boolean::NO ? 'selected' : '') ?>>
+                                <?php esc_html_e('No', 'moloni-on') ?>
+                            </option>
+                            <option value='1' <?php echo($hookProductSync === Boolean::YES ? 'selected' : '') ?>>
+                                <?php esc_html_e('Yes', 'moloni-on') ?>
+                            </option>
                         </select>
                         <p class='description'><?php esc_html_e('When saving a product in Moloni, the plugin will automatically create the product in WooCommerce or update if it already exists', 'moloni-on') ?></p>
                     </td>
@@ -167,10 +185,12 @@ try {
                         </th>
                         <td>
                             <select id="hook_stock_sync" name='opt[hook_stock_sync]' class='inputOut'>
-                                <option value='0' <?php echo(defined('HOOK_STOCK_SYNC') && HOOK_STOCK_SYNC === '0' ? 'selected' : '') ?>>
+                                <?php $hookStockSync = Context::settings()->getInt('hook_stock_sync'); ?>
+
+                                <option value='0' <?php echo($hookStockSync === Boolean::NO ? 'selected' : '') ?>>
                                     <?php esc_html_e('No', 'moloni-on') ?>
                                 </option>
-                                <option value='1' <?php echo(defined('HOOK_STOCK_SYNC') && HOOK_STOCK_SYNC === '1' ? 'selected' : '') ?>>
+                                <option value='1' <?php echo($hookStockSync === Boolean::YES ? 'selected' : '') ?>>
                                     <?php esc_html_e('Yes', 'moloni-on') ?>
                                 </option>
                             </select>
@@ -193,7 +213,7 @@ try {
                                 <?php esc_html_e('Accumulated stock', 'moloni-on') ?>
                             </option>
 
-                            <?php $hookStockSyncWarehouse = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1 ?>
+                            <?php $hookStockSyncWarehouse = Context::settings()->getInt('hook_stock_sync_warehouse', 1); ?>
 
                             <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
                                 <?php foreach ($warehouses as $warehouse) : ?>
@@ -231,37 +251,37 @@ try {
                 <td>
                     <fieldset>
                         <input type="checkbox" name="opt[sync_fields_name]" id="name"
-                               value="1" <?php echo (defined('SYNC_FIELDS_NAME') && SYNC_FIELDS_NAME === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_name') ? 'checked' : '') ?>/>
                         <label for="name"><?php esc_html_e('Name', 'moloni-on') ?></label><br/>
 
                         <input type="checkbox" name="opt[sync_fields_price]" id="price"
-                               value="1" <?php echo (defined('SYNC_FIELDS_PRICE') && SYNC_FIELDS_PRICE === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_price') ? 'checked' : '') ?>/>
                         <label for="price"><?php esc_html_e('Price', 'moloni-on') ?></label><br/>
 
                         <input type="checkbox" name="opt[sync_fields_description]]" id="description"
-                               value="1" <?php echo (defined('SYNC_FIELDS_DESCRIPTION') && SYNC_FIELDS_DESCRIPTION === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_description') ? 'checked' : '') ?>/>
                         <label for="description"><?php esc_html_e('Description', 'moloni-on') ?></label><br/>
 
                         <input type="checkbox" name="opt[sync_fields_visibility]" id="visibility"
-                               value="1" <?php echo (defined('SYNC_FIELDS_VISIBILITY') && SYNC_FIELDS_VISIBILITY === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_visibility') ? 'checked' : '') ?>/>
                         <label for="visibility"><?php esc_html_e('Visibility', 'moloni-on') ?></label><br/>
 
                         <?php if ($canSyncStock) : ?>
                             <input type="checkbox" name="opt[sync_fields_stock]" id="stock"
-                                   value="1" <?php echo(defined('SYNC_FIELDS_STOCK') && SYNC_FIELDS_STOCK === '1' ? 'checked' : '') ?>/>
+                                   value="1" <?php echo(Context::settings()->getInt('sync_fields_stock') ? 'checked' : '') ?>/>
                             <label for="stock"><?php esc_html_e('Stock', 'moloni-on') ?></label><br/>
                         <?php endif; ?>
 
                         <input type="checkbox" name="opt[sync_fields_categories]" id="categories"
-                               value="1" <?php echo (defined('SYNC_FIELDS_CATEGORIES') && SYNC_FIELDS_CATEGORIES === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_categories') ? 'checked' : '') ?>/>
                         <label for="categories"><?php esc_html_e('Categories', 'moloni-on') ?></label><br/>
 
                         <input type="checkbox" name="opt[sync_fields_ean]" id="ean"
-                               value="1" <?php echo (defined('SYNC_FIELDS_EAN') && SYNC_FIELDS_EAN === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_ean') ? 'checked' : '') ?>/>
                         <label for="ean"><?php esc_html_e('EAN', 'moloni-on') ?></label><br/>
 
                         <input type="checkbox" name="opt[sync_fields_image]" id="image"
-                               value="1" <?php echo (defined('SYNC_FIELDS_IMAGE') && SYNC_FIELDS_IMAGE === '1' ? 'checked' : '') ?>/>
+                               value="1" <?php echo (Context::settings()->getInt('sync_fields_image') ? 'checked' : '') ?>/>
                         <label for="image"><?php esc_html_e('Image', 'moloni-on') ?></label><br/>
                     </fieldset>
                     <p class='description'>

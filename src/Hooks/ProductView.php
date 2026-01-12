@@ -92,11 +92,12 @@ class ProductView
                     <b><?php esc_html_e("Stock: ", 'moloni-on') ?></b> <?php echo esc_html($this->moloniProduct['stock']) ?>
                 <?php endif; ?>
             </p>
-            <?php if (defined("COMPANY_SLUG")) : ?>
+            <?php $slug = Context::settings()->get('company_slug') ?>
+            <?php if ($slug) : ?>
                 <a type="button"
                    class="button button-primary"
                    target="_BLANK"
-                   href="<?php echo esc_attr(Context::configs()->get('ac_url') . COMPANY_SLUG . '/productCategories/products/' . $this->moloniProduct['productId']) ?>"
+                   href="<?php echo esc_attr(Context::configs()->get('ac_url') . $slug . '/productCategories/products/' . $this->moloniProduct['productId']) ?>"
                 > <?php esc_html_e("See product", 'moloni-on') ?> </a>
             <?php endif; ?>
         </div>

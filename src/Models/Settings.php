@@ -47,20 +47,20 @@ class Settings
     /**
      * Define company selected settings
      */
-    public static function defineConfigs()
+    public static function loadToContext()
     {
         global $wpdb;
 
         $tableName = Context::getTableName();
         $results = $wpdb->get_results("SELECT * FROM {$tableName}_api_config ORDER BY id DESC", ARRAY_A);
 
-        foreach ($results as $result) {
-            $setting = strtoupper($result['config']);
+        $settings = [];
 
-            if (!defined($setting)) {
-                define($setting, $result['selected']);
-            }
+        foreach ($results as $result) {
+            $settings[$result['config']] = $result['selected'];
         }
+
+        Context::setSettings($settings);
     }
 
     /**

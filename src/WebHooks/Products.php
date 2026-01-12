@@ -368,12 +368,12 @@ class Products
 
     private function shouldSyncProduct(): bool
     {
-        return defined('HOOK_PRODUCT_SYNC') && (int)HOOK_PRODUCT_SYNC === Boolean::YES;
+        return Context::settings()->getInt('hook_product_sync') === Boolean::YES;
     }
 
     private function shouldSyncStock(): bool
     {
-        return defined('HOOK_STOCK_SYNC') && (int)HOOK_STOCK_SYNC === Boolean::YES;
+        return Context::settings()->getInt('hook_stock_sync') === Boolean::YES;
     }
 
     private function moloniProductHasVariants(): bool

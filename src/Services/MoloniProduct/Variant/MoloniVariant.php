@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Services\MoloniProduct\Variant;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\Boolean;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Exceptions\ServiceException;
@@ -172,7 +173,7 @@ class MoloniVariant
         $hasStock = $this->wcProduct->managing_stock();
 
         if ($hasStock) {
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse');
 
             if (empty($warehouseId)) {
                 try {

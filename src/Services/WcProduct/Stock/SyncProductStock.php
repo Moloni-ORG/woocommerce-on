@@ -20,7 +20,7 @@ class SyncProductStock extends WcStockSyncAbstract
         $wcStock = (int)$this->wcProduct->get_stock_quantity();
         $moloniStock = (int)MoloniProduct::parseMoloniStock(
             $this->moloniProduct,
-            defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1
+            Context::settings()->getInt('hook_stock_sync_warehouse', 1)
         );
 
         if ($wcStock === $moloniStock)

@@ -206,11 +206,7 @@ class ProductSetStock
 
     private function shouldRunHook(): bool
     {
-        if (!defined('MOLONI_STOCK_SYNC')) {
-            return false;
-        }
-
-        if ((int)MOLONI_STOCK_SYNC !== Boolean::YES) {
+        if (Context::settings()->getInt('moloni_stock_sync') !== Boolean::YES) {
             return false;
         }
 

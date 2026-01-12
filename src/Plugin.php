@@ -103,20 +103,8 @@ class Plugin
         Security::verify_request_or_die();
 
         try {
-            // "Free" actions
-            switch ($this->action) {
-                case 'logout':
-                    $this->logout();
-
-                    break;
-                case 'saveSettings':
-                    $this->saveSettings();
-
-                    break;
-                case 'saveAutomations':
-                    $this->saveAutomations();
-
-                    break;
+            if ($this->action == 'logout') {
+                $this->logout();
             }
 
             /** If the user is not logged in show the login form */
@@ -126,6 +114,14 @@ class Plugin
 
             // "Authed" actions
             switch ($this->action) {
+                case 'saveSettings':
+                    $this->saveSettings();
+
+                    break;
+                case 'saveAutomations':
+                    $this->saveAutomations();
+
+                    break;
                 case 'remInvoice':
                     $this->removeOrder();
                     break;
@@ -302,11 +298,11 @@ class Plugin
         try {
             WebHooks::deleteHooks();
 
-            if (defined('HOOK_STOCK_SYNC') && (int)HOOK_STOCK_SYNC === Boolean::YES) {
+            if (Context::settings()->getInt('hook_stock_sync') === Boolean::YES) {
                 WebHooks::createHook('Product', 'stockChanged');
             }
 
-            if (defined('HOOK_PRODUCT_SYNC') && (int)HOOK_PRODUCT_SYNC === Boolean::YES) {
+            if (Context::settings()->getInt('hook_product_sync') === Boolean::YES) {
                 WebHooks::createHook('Product', 'create');
                 WebHooks::createHook('Product', 'update');
             }
@@ -345,6 +341,8 @@ class Plugin
         $this->saveOptions($options);
 
         add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni-on'), 'updated');
+
+        Settings::loadToContext();
     }
 
     /**
@@ -373,6 +371,8 @@ class Plugin
         }
 
         add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
+
+        Settings::loadToContext();
     }
 
     private function saveOptions(array $options)

@@ -280,7 +280,7 @@ class Ajax
                 }
             }
 
-            $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
+            $warehouseId = Context::settings()->getInt('hook_stock_sync_warehouse', 1);
 
             $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
@@ -337,7 +337,7 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
+            $warehouseId = Context::settings()->getInt('hook_stock_sync_warehouse', 1);
 
             $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
@@ -391,7 +391,7 @@ class Ajax
             $service->saveLog();
 
             if (Context::company()->canSyncStock()) {
-                $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+                $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse', 0);
 
                 if (empty($warehouseId)) {
                     $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
@@ -459,7 +459,7 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse', 0);
 
             if (empty($warehouseId)) {
                 $warehouseId = MoloniWarehouse::getDefaultWarehouseId();

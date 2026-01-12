@@ -30,7 +30,7 @@ class SyncProductStock extends MoloniStockSyncAbstract
      */
     public function run()
     {
-        $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+        $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse');
 
         if (empty($warehouseId)) {
             try {
