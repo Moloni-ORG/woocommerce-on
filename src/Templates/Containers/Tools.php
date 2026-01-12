@@ -18,7 +18,7 @@ $hasWebhooks = Context::company()->hasWebhooks();
         <tr>
             <th class="p-8">
                 <strong class="name">
-                    <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
+                    <?php esc_html_e('Reinstall Moloni ON Webhooks', 'moloni-on') ?>
                 </strong>
                 <p class='description'>
                     <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
@@ -27,7 +27,7 @@ $hasWebhooks = Context::company()->hasWebhooks();
             <td class="run-tool p-8 text-right">
                 <a class="button button-large"
                    href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=reinstallWebhooks")) ?>'>
-                    <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
+                    <?php esc_html_e('Reinstall Moloni ON Webhooks', 'moloni-on') ?>
                 </a>
             </td>
         </tr>

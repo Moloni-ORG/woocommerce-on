@@ -67,7 +67,7 @@ $backAction = Context::getAdminUrl('tab=tools');
 <?php if ($canSyncStock) : ?>
     <div class="notice notice-warning m-0 mt-4">
         <p>
-            <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
+            <?php esc_html_e('Moloni ON stock values based on:', 'moloni-on') ?>
         </p>
         <p>
             <?php

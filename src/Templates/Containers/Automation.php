@@ -174,7 +174,7 @@ try {
                                 <?php esc_html_e('Yes', 'moloni-on') ?>
                             </option>
                         </select>
-                        <p class='description'><?php esc_html_e('When saving a product in Moloni, the plugin will automatically create the product in WooCommerce or update if it already exists', 'moloni-on') ?></p>
+                        <p class='description'><?php esc_html_e('When saving a product in Moloni ON, the plugin will automatically create the product in WooCommerce or update if it already exists', 'moloni-on') ?></p>
                     </td>
                 </tr>
 
@@ -195,7 +195,7 @@ try {
                                 </option>
                             </select>
                             <p class='description'>
-                                <?php esc_html_e('When a stock movement is created in moloni, the movement will be recreated in WooCommerce (if product exists)', 'moloni-on') ?>
+                                <?php esc_html_e('When a stock movement is created in Moloni ON, the movement will be recreated in WooCommerce (if product exists)', 'moloni-on') ?>
                             </p>
                         </td>
                     </tr>
@@ -225,7 +225,7 @@ try {
                         </select>
 
                         <p class='description'>
-                            <?php esc_html_e('This warehouse will be used when a product is inserted or updated in Moloni', 'moloni-on') ?>
+                            <?php esc_html_e('This warehouse will be used when a product is inserted or updated in Moloni ON', 'moloni-on') ?>
                         </p>
                     </td>
                 </tr>
