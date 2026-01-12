@@ -1,11 +1,11 @@
 <?php
 
-namespace MoloniOn\Tools;
+namespace MoloniOn\Context;
 
 use MoloniOn\Context;
 use Psr\Log\AbstractLogger;
 
-class Logger extends AbstractLogger
+final class Logger extends AbstractLogger
 {
     public function log($level, $message, array $context = []): void
     {

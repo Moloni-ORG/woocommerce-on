@@ -157,7 +157,7 @@ class OrderPaid
      */
     private function canCreateCompleteDocument(): bool
     {
-        if (!Start::login(true) || !defined("INVOICE_AUTO") || (int)INVOICE_AUTO === Boolean::NO) {
+        if (!(new Start())->isFullyAuthed() || !defined("INVOICE_AUTO") || (int)INVOICE_AUTO === Boolean::NO) {
             return false;
         }
 
@@ -173,7 +173,7 @@ class OrderPaid
      */
     private function canCreateProcessingDocument(): bool
     {
-        return Start::login(true)
+        return (new Start())->isFullyAuthed()
             && defined("INVOICE_AUTO")
             && (int)INVOICE_AUTO === Boolean::YES
             && defined('INVOICE_AUTO_STATUS')

@@ -18,15 +18,13 @@ class CheckProduct
 
     private $product;
     private $warehouseId;
-    private $company;
 
     private $rows = [];
 
-    public function __construct(array $product, int $warehouseId, array $company)
+    public function __construct(array $product, int $warehouseId)
     {
         $this->product = $product;
         $this->warehouseId = $warehouseId;
-        $this->company = $company;
     }
 
     public function run()
@@ -94,6 +92,10 @@ class CheckProduct
         if ($wcProduct->is_type('variable') && $wcProduct->has_child()) {
             $row['tool_alert_message'][] = __('Product types do not match', 'moloni-on');
 
+            return;
+        }
+
+        if (!Context::company()->canSyncStock()) {
             return;
         }
 
@@ -190,6 +192,10 @@ class CheckProduct
             $childRow['wc_product_parent_id'] = $wcVariation->get_parent_id();
             $childRow['wc_product_object'] = $wcVariation;
 
+            if (!Context::company()->canSyncStock()) {
+                continue;
+            }
+
             if (!empty($mlVariant['hasStock']) !== $wcVariation->managing_stock()) {
                 $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -235,7 +241,7 @@ class CheckProduct
     private function createMoloniLink(array &$row)
     {
         $row['moloni_product_link'] = Context::configs()->get('ac_url');
-        $row['moloni_product_link'] .= $this->company['slug'];
+        $row['moloni_product_link'] .= Context::company()->get('slug');
         $row['moloni_product_link'] .= '/productCategories/products/all/';
         $row['moloni_product_link'] .= $row['moloni_product_array']['productId'];
     }

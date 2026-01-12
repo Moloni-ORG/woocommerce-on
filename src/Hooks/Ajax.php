@@ -135,7 +135,7 @@ class Ajax
 
     public function molonion_tools_mass_import_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -183,7 +183,7 @@ class Ajax
 
     public function molonion_tools_mass_export_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -281,9 +281,8 @@ class Ajax
             }
 
             $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
 
-            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
@@ -297,7 +296,7 @@ class Ajax
 
     public function molonion_tools_update_wc_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -337,9 +336,8 @@ class Ajax
             $service->saveLog();
 
             $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
 
-            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
@@ -388,14 +386,17 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            if (Context::company()->canSyncStock()) {
+                $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
 
-            if (empty($warehouseId)) {
-                $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
+                if (empty($warehouseId)) {
+                    $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
+                }
+            } else {
+                $warehouseId = 0;
             }
 
-            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
@@ -409,7 +410,7 @@ class Ajax
 
     public function molonion_tools_update_moloni_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -429,6 +430,9 @@ class Ajax
         ];
 
         try {
+            if (!Context::company()->canSyncStock()) {
+                throw new GenericException(__('Stocks module not active', 'moloni-on'));
+            }
 
             $wcProduct = wc_get_product($wcProductId);
 
@@ -449,14 +453,13 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
             $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
 
             if (empty($warehouseId)) {
                 $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
             }
 
-            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
@@ -482,7 +485,7 @@ class Ajax
             return false;
         }
 
-        return Start::login(true);
+        return (new Start())->isFullyAuthed();
     }
 
     /**

@@ -2,9 +2,12 @@
 
 namespace MoloniOn;
 
+use MoloniOn\Context\Company;
+use MoloniOn\Context\Configurations;
+use MoloniOn\Context\Logger;
+use MoloniOn\Context\Settings;
 use MoloniOn\Helpers\External;
 use MoloniOn\Helpers\Security;
-use MoloniOn\Tools\Logger;
 use Psr\Log\LoggerInterface;
 
 class Context
@@ -34,12 +37,27 @@ class Context
      */
     private static $CONFIGURATIONS;
 
+    /**
+     * Company instance information
+     *
+     * @var Company|null
+     */
+    private static $COMPANY;
+
+    /**
+     * Company instance information
+     *
+     * @var Settings|null
+     */
+    private static $SETTINGS;
+
     public static function initContext()
     {
         self::$USES_NEW_ORDERS_SYSTEM = External::isNewOrdersSystemEnabled();
 
         self::$LOGGER = new Logger();
         self::$CONFIGURATIONS = new Configurations();
+        self::$COMPANY = null;
 
         self::resetSession();
     }
@@ -61,6 +79,28 @@ class Context
     public static function configs(): ?Configurations
     {
         return self::$CONFIGURATIONS;
+    }
+
+    public static function company(): ?Company
+    {
+        return self::$COMPANY;
+    }
+
+    public static function settings(): ?Settings
+    {
+        return self::$SETTINGS;
+    }
+
+    // Sets //
+
+    public static function setSettings(?array $settings = [])
+    {
+        self::$SETTINGS = new Settings($settings);
+    }
+
+    public static function setCompany(?array $company = [])
+    {
+        self::$COMPANY = new Company($company);
     }
 
     // Gets //

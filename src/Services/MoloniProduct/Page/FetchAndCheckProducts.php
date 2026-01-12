@@ -2,8 +2,8 @@
 
 namespace MoloniOn\Services\MoloniProduct\Page;
 
-use MoloniOn\API\Companies;
 use MoloniOn\API\Products;
+use MoloniOn\Context;
 use MoloniOn\Exceptions\APIExeption;
 
 class FetchAndCheckProducts
@@ -19,7 +19,6 @@ class FetchAndCheckProducts
     private $totalProducts = 0;
 
     private $warehouseId = 0;
-    private $company = [];
 
     //            Public's            //
 
@@ -27,12 +26,10 @@ class FetchAndCheckProducts
      * Service runner
      *
      * @return void
-     * @throws APIExeption
      */
     public function run()
     {
         $this
-            ->loadCompany()
             ->loadWarehouse()
             ->fetchProducts();
 
@@ -45,7 +42,7 @@ class FetchAndCheckProducts
                 continue;
             }
 
-            $service = new CheckProduct($product, $this->warehouseId, $this->company);
+            $service = new CheckProduct($product, $this->warehouseId);
             $service->run();
 
             $this->rows[] = $service->getRowsHtml();
@@ -72,22 +69,12 @@ class FetchAndCheckProducts
 
     //            Privates            //
 
-    /**
-     * Load company
-     *
-     * @throws APIExeption
-     */
-    private function loadCompany(): FetchAndCheckProducts
-    {
-        $company = Companies::queryCompany();
-
-        $this->company = $company['data']['company']['data'];
-
-        return $this;
-    }
-
     private function loadWarehouse(): FetchAndCheckProducts
     {
+        if (!Context::company()->canSyncStock()) {
+            return $this;
+        }
+
         $this->warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
 
         return $this;

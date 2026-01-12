@@ -17,6 +17,8 @@ $filters = [
     'filter_reference' => sanitize_text_field($_REQUEST['filter_reference'] ?? ''),
 ];
 
+$canSyncStock = Context::company()->canSyncStock();
+
 $service = new FetchAndCheckProducts();
 $service->setPage($page);
 $service->setFilters($filters);
@@ -54,34 +56,38 @@ $backAction = Context::getAdminUrl('tab=tools');
             <?php esc_html_e('Export all products', 'moloni-on') ?>
         </button>
 
-        <button id="exportStocksButton" class="button button-large">
-            <?php esc_html_e('Export all stock', 'moloni-on') ?>
-        </button>
+        <?php if ($canSyncStock) : ?>
+            <button id="exportStocksButton" class="button button-large">
+                <?php esc_html_e('Export all stock', 'moloni-on') ?>
+            </button>
+        <?php endif; ?>
     </p>
 </div>
 
-<div class="notice notice-warning m-0 mt-4">
-    <p>
-        <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
-    </p>
-    <p>
-        <?php
-        try {
-            $warehouse = Warehouses::queryWarehouse([
-                'warehouseId' => $service->getWarehouseId()
-            ])['data']['warehouse']['data'];
-        } catch (APIExeption $e) {
-            $e->showError();
-            return;
-        }
+<?php if ($canSyncStock) : ?>
+    <div class="notice notice-warning m-0 mt-4">
+        <p>
+            <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
+        </p>
+        <p>
+            <?php
+            try {
+                $warehouse = Warehouses::queryWarehouse([
+                        'warehouseId' => $service->getWarehouseId()
+                ])['data']['warehouse']['data'];
+            } catch (APIExeption $e) {
+                $e->showError();
+                return;
+            }
 
-        echo '- ' . esc_attr__('Warehouse', 'moloni-on');
-        echo '<b>';
-        echo ': ' . esc_html($warehouse['name']) . ' (' . esc_html($warehouse['number']) . ')';
-        echo '</b>';
-        ?>
-    </p>
-</div>
+            echo '- ' . esc_attr__('Warehouse', 'moloni-on');
+            echo '<b>';
+            echo ': ' . esc_html($warehouse['name']) . ' (' . esc_html($warehouse['number']) . ')';
+            echo '</b>';
+            ?>
+        </p>
+    </div>
+<?php endif; ?>
 
 <form method='POST' action='<?php echo esc_html($currentAction) ?>' class="list_form">
     <?php wp_nonce_field("molonion-form-nonce"); ?>

@@ -19,15 +19,13 @@ class CheckProduct
 
     private $product;
     private $warehouseId;
-    private $company;
 
     private $rows = [];
 
-    public function __construct(WC_Product $product, int $warehouseId, array $company)
+    public function __construct(WC_Product $product, int $warehouseId)
     {
         $this->product = $product;
         $this->warehouseId = $warehouseId;
-        $this->company = $company;
     }
 
     public function run()
@@ -177,6 +175,10 @@ class CheckProduct
             $childRow['moloni_product_id'] = $moloniVariant['productId'];
             $childRow['moloni_product_array'] = $moloniVariant;
 
+            if (!Context::company()->canSyncStock()) {
+                continue;
+            }
+
             if (!empty($moloniVariant['hasStock']) !== $wcVariation->managing_stock()) {
                 $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -239,6 +241,10 @@ class CheckProduct
 
         $this->createMoloniLink($row);
 
+        if (!Context::company()->canSyncStock()) {
+            return;
+        }
+
         if (!empty($mlProduct['hasStock']) !== $product->managing_stock()) {
             $row['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -283,7 +289,7 @@ class CheckProduct
     private function createMoloniLink(array &$row)
     {
         $row['moloni_product_link'] = Context::configs()->get('ac_url');
-        $row['moloni_product_link'] .= $this->company['slug'];
+        $row['moloni_product_link'] .= Context::company()->get('slug');
         $row['moloni_product_link'] .= '/productCategories/products/all/';
         $row['moloni_product_link'] .= $row['moloni_product_array']['productId'];
     }

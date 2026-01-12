@@ -67,12 +67,12 @@ class ProductUpdate
         }
 
         /** Login is valid */
-        if (!Start::login(true)) {
+        if (!(new Start())->isFullyAuthed()) {
             return;
         }
 
-        /** No sincronization is active */
-        if (!$this->shouldSyncProduct() && !$this->shouldSyncStock()) {
+        /** No synchronization is active */
+        if (!$this->shouldSyncProduct()) {
             return;
         }
 
@@ -373,7 +373,15 @@ class ProductUpdate
 
     private function shouldSyncStock(): bool
     {
-        return defined('MOLONI_STOCK_SYNC') && (int)MOLONI_STOCK_SYNC === Boolean::YES;
+        if (!defined('MOLONI_STOCK_SYNC')) {
+            return false;
+        }
+
+        if ((int)MOLONI_STOCK_SYNC !== Boolean::YES) {
+            return false;
+        }
+
+        return Context::company()->canSyncStock();
     }
 
     //          Validations          //

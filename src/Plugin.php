@@ -7,7 +7,6 @@ use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\Core\MoloniException;
 use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\Exceptions\DocumentWarning;
-use MoloniOn\Helpers\External;
 use MoloniOn\Helpers\Security;
 use MoloniOn\Helpers\WebHooks;
 use MoloniOn\Hooks\Ajax;
@@ -20,13 +19,13 @@ use MoloniOn\Hooks\ProductView;
 use MoloniOn\Hooks\UpgradeProcess;
 use MoloniOn\Hooks\WoocommerceInitialize;
 use MoloniOn\Menus\Admin;
+use MoloniOn\Models\Auth;
 use MoloniOn\Models\Logs;
-use MoloniOn\Scripts\Enqueue;
+use MoloniOn\Models\Settings;
 use MoloniOn\Services\Documents\DownloadDocumentPDF;
 use MoloniOn\Services\Documents\OpenDocument;
 use MoloniOn\Services\Orders\CreateMoloniDocument;
 use MoloniOn\Services\Orders\DiscardOrder;
-use MoloniOn\Tools\Logger;
 use MoloniOn\WebHooks\WebHook;
 
 /**
@@ -103,16 +102,29 @@ class Plugin
          */
         Security::verify_request_or_die();
 
-        $authenticated = false;
-
         try {
-            $authenticated = Start::login();
+            // "Free" actions
+            switch ($this->action) {
+                case 'logout':
+                    $this->logout();
+
+                    break;
+                case 'saveSettings':
+                    $this->saveSettings();
+
+                    break;
+                case 'saveAutomations':
+                    $this->saveAutomations();
+
+                    break;
+            }
 
             /** If the user is not logged in show the login form */
-            if (!$authenticated) {
+            if (!(new Start())->handleRequest()) {
                 return;
             }
 
+            // "Authed" actions
             switch ($this->action) {
                 case 'remInvoice':
                     $this->removeOrder();
@@ -141,9 +153,7 @@ class Plugin
             $pluginErrorException = $error;
         }
 
-        if ($authenticated) {
-            include MOLONI_ON_TEMPLATE_DIR . 'MainContainer.php';
-        }
+        include MOLONI_ON_TEMPLATE_DIR . 'MainContainer.php';
     }
 
     //            Actions            //
@@ -309,6 +319,142 @@ class Plugin
         }
 
         add_settings_error('molonion', 'moloni-webhooks-reinstall-error', $msg, $type);
+    }
+
+    private function logout()
+    {
+        Auth::loadToContext();
+
+        try {
+            WebHooks::deleteHooks();
+        } catch (APIExeption $e) {
+        }
+
+        Auth::resetTokens();
+    }
+
+    /**
+     * Save plugin settings
+     *
+     * @return void
+     */
+    private function saveSettings()
+    {
+        $options = $this->sanitizeSettingsValues($_POST['opt'] ?? []);
+
+        $this->saveOptions($options);
+
+        add_settings_error('general', 'settings_updated', __('Changes saved.', 'moloni-on'), 'updated');
+    }
+
+    /**
+     * Save plugin automations
+     *
+     * @return void
+     */
+    private function saveAutomations()
+    {
+        $options = $this->sanitizeAutomationsValues($_POST['opt'] ?? []);
+
+        $this->saveOptions($options);
+
+        try {
+            WebHooks::deleteHooks();
+
+            if (isset($options['hook_stock_sync']) && (int)$options['hook_stock_sync'] === Boolean::YES) {
+                WebHooks::createHook('Product', 'stockChanged');
+            }
+
+            if (isset($options['hook_product_sync']) && (int)$options['hook_product_sync'] === Boolean::YES) {
+                WebHooks::createHook('Product', 'create');
+                WebHooks::createHook('Product', 'update');
+            }
+        } catch (APIExeption $e) {
+        }
+
+        add_settings_error('general', 'automations_updated', __('Changes saved.', 'moloni-on'), 'updated');
+    }
+
+    private function saveOptions(array $options)
+    {
+        foreach ($options as $option => $value) {
+            Settings::setOption($option, $value);
+        }
+    }
+
+    private function sanitizeSettingsValues($input): array
+    {
+        $output = [];
+
+        $schema = [
+            // === Text fields ===
+            'company_slug' => 'text',
+            'document_type' => 'text',
+            'load_address_custom_address' => 'text',
+            'load_address_custom_code' => 'text',
+            'load_address_custom_city' => 'text',
+            'exemption_reason' => 'text',
+            'exemption_reason_shipping' => 'text',
+            'exemption_reason_extra_community' => 'text',
+            'exemption_reason_shipping_extra_community' => 'text',
+            'client_prefix' => 'text',
+            'vat_field' => 'text',
+
+            // === Integers (IDs, dropdowns, etc.) ===
+            'document_status' => 'int',
+            'load_address' => 'int',
+            'customer_language' => 'int',
+            'document_set_id' => 'int',
+            'load_address_custom_country' => 'int',
+            'moloni_product_warehouse' => 'int',
+            'measure_unit' => 'int',
+            'maturity_date' => 'int',
+            'payment_method' => 'int',
+            'create_bill_of_lading' => 'int',
+            'shipping_info' => 'int',
+            'email_send' => 'int',
+            'vat_validate' => 'int',
+            'moloni_show_download_column' => 'int',
+
+            // === Email ===
+            'alert_email' => 'email',
+
+            // === Date ===
+            'order_created_at_max' => 'date',
+        ];
+
+        return Security::sanitizer($schema, $input, $output);
+    }
+
+    private function sanitizeAutomationsValues($input): array
+    {
+        $output = [];
+
+        $schema = [
+            // === Boolean flags (0/1) ===
+            'sync_fields_name' => 'bool',
+            'sync_fields_price' => 'bool',
+            'sync_fields_description' => 'bool',
+            'sync_fields_visibility' => 'bool',
+            'sync_fields_stock' => 'bool',
+            'sync_fields_categories' => 'bool',
+            'sync_fields_ean' => 'bool',
+            'sync_fields_image' => 'bool',
+
+            // === Integers (IDs, dropdowns, etc.) ===
+            'invoice_auto' => 'int',
+            'moloni_product_sync' => 'int',
+            'moloni_stock_sync' => 'int',
+            'moloni_stock_sync_warehouse' => 'int',
+            'hook_product_sync' => 'int',
+            'hook_stock_sync' => 'int',
+            'hook_stock_sync_warehouse' => 'int',
+
+            // === Special status ===
+            'invoice_auto_status' => 'status',
+        ];
+
+        return Security::sanitizer($schema, $input, $output);
     }
 
     //            Actions            //

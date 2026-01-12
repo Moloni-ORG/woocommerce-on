@@ -5,28 +5,33 @@ use MoloniOn\Context;
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$hasWebhooks = Context::company()->hasWebhooks();
+
 ?>
 
 <br>
 <table class="wc_status_table wc_status_table--tools widefat">
     <tbody class="tools">
 
-    <tr>
-        <th class="p-8">
-            <strong class="name">
-                <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
-            </strong>
-            <p class='description'>
-                <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
-            </p>
-        </th>
-        <td class="run-tool p-8 text-right">
-            <a class="button button-large"
-               href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=reinstallWebhooks")) ?>'>
-                <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
-            </a>
-        </td>
-    </tr>
+    <?php if ($hasWebhooks) : ?>
+        <tr>
+            <th class="p-8">
+                <strong class="name">
+                    <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
+                </strong>
+                <p class='description'>
+                    <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
+                </p>
+            </th>
+            <td class="run-tool p-8 text-right">
+                <a class="button button-large"
+                   href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=reinstallWebhooks")) ?>'>
+                    <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
+                </a>
+            </td>
+        </tr>
+    <?php endif; ?>
 
     <tr>
         <th class="p-8">

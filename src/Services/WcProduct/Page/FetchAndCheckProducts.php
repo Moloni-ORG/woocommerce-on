@@ -2,8 +2,7 @@
 
 namespace MoloniOn\Services\WcProduct\Page;
 
-use MoloniOn\API\Companies;
-use MoloniOn\Exceptions\APIExeption;
+use MoloniOn\Context;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Helpers\MoloniWarehouse;
 
@@ -20,7 +19,6 @@ class FetchAndCheckProducts
     private $totalProducts = 0;
 
     private $warehouseId = 0;
-    private $company = [];
 
     //            Public's            //
 
@@ -30,17 +28,15 @@ class FetchAndCheckProducts
      * @return void
      *
      * @throws HelperException
-     * @throws APIExeption
      */
     public function run()
     {
         $this
-            ->loadCompany()
             ->loadWarehouse()
             ->fetchProducts();
 
         foreach ($this->products as $product) {
-            $service = new CheckProduct($product, $this->warehouseId, $this->company);
+            $service = new CheckProduct($product, $this->warehouseId);
             $service->run();
 
             $this->rows[] = $service->getRowsHtml();
@@ -68,26 +64,16 @@ class FetchAndCheckProducts
     //            Privates            //
 
     /**
-     * Load company
-     *
-     * @throws APIExeption
-     */
-    private function loadCompany(): FetchAndCheckProducts
-    {
-        $company = Companies::queryCompany();
-
-        $this->company = $company['data']['company']['data'];
-
-        return $this;
-    }
-
-    /**
      * Load warehouse to use
      *
      * @throws HelperException
      */
     private function loadWarehouse(): FetchAndCheckProducts
     {
+        if (!Context::company()->canSyncStock()) {
+            return $this;
+        }
+
         $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
 
         if (empty($warehouseId)) {
@@ -129,11 +115,6 @@ class FetchAndCheckProducts
     public function getWarehouseId(): int
     {
         return $this->warehouseId;
-    }
-
-    public function getCompany(): array
-    {
-        return $this->company;
     }
 
     //            Sets            //

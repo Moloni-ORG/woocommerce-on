@@ -123,7 +123,7 @@ class OrderList
     {
         if (self::$columnVisible === null) {
             try {
-                self::$columnVisible = Start::login(true) && defined('MOLONI_SHOW_DOWNLOAD_COLUMN') && (int)MOLONI_SHOW_DOWNLOAD_COLUMN === 1;
+                self::$columnVisible = (new Start())->isFullyAuthed() && defined('MOLONI_SHOW_DOWNLOAD_COLUMN') && (int)MOLONI_SHOW_DOWNLOAD_COLUMN === 1;
             } catch (Exception $e) {
                 self::$columnVisible = false;
             }

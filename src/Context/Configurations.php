@@ -1,6 +1,6 @@
 <?php
 
-namespace MoloniOn;
+namespace MoloniOn\Context;
 
 use MoloniOn\Exceptions\Core\MoloniException;
 

@@ -57,17 +57,7 @@ class CreateMoloniDocument
     {
         $this->checkForWarnings();
 
-        try {
-            $company = (Companies::queryCompany())['data']['company']['data'] ?? [];
-        } catch (APIExeption $e) {
-            throw new DocumentError(
-                __('Error fetching company', 'moloni-on'),
-                [
-                    'message' => $e->getMessage(),
-                    'data' => $e->getData(),
-                ]
-            );
-        }
+        $company = Context::company()->getAll();
 
         if ($this->shouldCreateBillOfLading()) {
             $billOfLading = new Documents($this->order, $company);

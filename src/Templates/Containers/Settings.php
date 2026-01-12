@@ -21,16 +21,16 @@ use MoloniOn\Models\Settings;
 use MoloniOn\Tools;
 
 try {
-    $company = Companies::queryCompany()['data']['company']['data'] ?? [];
+    $company = Context::company()->getAll();
     $documentSets = DocumentSets::queryDocumentSets();
     $paymentMethods = PaymentMethods::queryPaymentMethods();
     $maturityDates = MaturityDates::queryMaturityDates();
-    $warehouses = Warehouses::queryWarehouses();
+    $warehouses = Context::company()->canSyncStock() ? Warehouses::queryWarehouses() : [];
     $measurementUnits = MeasurementUnits::queryMeasurementUnits();
 
     $countries = Countries::queryCountries([
             'options' => [
-                    'defaultLanguageId' => Languages::EN
+                    'defaultLanguageId' => Languages::PT
             ]
     ]);
 } catch (APIExeption $e) {
@@ -438,33 +438,36 @@ try {
         <table class="form-table mb-4">
             <tbody>
 
-            <tr>
-                <th>
-                    <label for="moloni_product_warehouse">
-                        <?php esc_html_e('Warehouse', 'moloni-on') ?>
-                    </label>
-                </th>
-                <td>
-                    <select id="moloni_product_warehouse" name='opt[moloni_product_warehouse]' class='inputOut'>
-                        <option value='0'>
-                            <?php esc_html_e('Default warehouse', 'moloni-on') ?>
-                        </option>
+            <?php if ($warehouses) : ?>
+                <tr>
+                    <th>
+                        <label for="moloni_product_warehouse">
+                            <?php esc_html_e('Warehouse', 'moloni-on') ?>
+                        </label>
+                    </th>
+                    <td>
+                        <select id="moloni_product_warehouse" name='opt[moloni_product_warehouse]' class='inputOut'>
+                            <option value='0'>
+                                <?php esc_html_e('Default warehouse', 'moloni-on') ?>
+                            </option>
 
-                        <?php $moloniProductWarehouse = defined('MOLONI_PRODUCT_WAREHOUSE') ? (int)MOLONI_PRODUCT_WAREHOUSE : 0; ?>
+                            <?php $moloniProductWarehouse = defined('MOLONI_PRODUCT_WAREHOUSE') ? (int)MOLONI_PRODUCT_WAREHOUSE : 0; ?>
 
-                        <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
-                            <?php foreach ($warehouses as $warehouse) : ?>
-                                <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
-                                    <?php echo esc_html($warehouse['name']) ?> (<?php echo esc_html($warehouse['number']) ?>)
-                                </option>
-                            <?php endforeach; ?>
-                        </optgroup>
-                    </select>
-                    <p class='description'>
-                        <?php esc_html_e('Warehouse used in documents', 'moloni-on') ?>
-                    </p>
-                </td>
-            </tr>
+                            <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
+                                <?php foreach ($warehouses as $warehouse) : ?>
+                                    <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
+                                        <?php echo esc_html($warehouse['name']) ?>
+                                        (<?php echo esc_html($warehouse['number']) ?>)
+                                    </option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        </select>
+                        <p class='description'>
+                            <?php esc_html_e('Warehouse used in documents', 'moloni-on') ?>
+                        </p>
+                    </td>
+                </tr>
+            <?php endif; ?>
 
             <tr>
                 <th>

@@ -67,7 +67,7 @@ class Products
 
         try {
             /** Model has to be 'Product', needs to be logged in and received hash has to match logged in company id hash */
-            if ($parameters['model'] !== 'Product' || !Start::login(true) || !$this->checkHash($parameters['hash'])) {
+            if ($parameters['model'] !== 'Product' || !(new Start())->isFullyAuthed() || !$this->checkHash($parameters['hash'])) {
                 return;
             }
 
@@ -403,9 +403,7 @@ class Products
             throw new WebhookException(__('Product reference blacklisted', 'moloni-on'));
         }
 
-        /** Do not sync product with varianst if settings is not set */
-        if ($this->moloniProductHasVariants() &&
-            (!defined('SYNC_PRODUCTS_WITH_VARIANTS') || (int)SYNC_PRODUCTS_WITH_VARIANTS === Boolean::NO)) {
+        if ($this->moloniProductHasVariants()) {
             throw new WebhookException(__('Synchronization of products with variants is disabled', 'moloni-on'));
         }
     }

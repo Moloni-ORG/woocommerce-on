@@ -203,7 +203,6 @@ class OrderFees
         } else {
             throw new DocumentError(__('Measure unit not set!','moloni-on'));
         }
-
     }
 
     /**

@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Services\MoloniProduct\Abstracts;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\ProductTypeAT;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
@@ -13,7 +14,6 @@ use WC_Tax;
 use WC_Product;
 use WC_Product_Variation;
 use MoloniOn\Tools;
-use MoloniOn\API\Companies;
 use MoloniOn\API\Products;
 use MoloniOn\Enums\Boolean;
 use MoloniOn\Enums\ProductType;
@@ -284,12 +284,9 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             $productTaxes = $this->wcProduct->get_tax_class();
             $taxRates = WC_Tax::get_base_tax_rates($productTaxes);
 
-            // Get company setting to associate country code
-            $query = Companies::queryCompany();
-
             $fiscalZone = [
-                'code' => $query['data']['company']['data']['fiscalZone']['fiscalZone'],
-                'countryId' => $query['data']['company']['data']['country']['countryId']
+                'code' => Context::company()->get('fiscalZone')['fiscalZone'],
+                'countryId' => Context::company()->get('country')['countryId'],
             ];
 
             foreach ($taxRates as $order => $taxRate) {

@@ -55,7 +55,7 @@ class OrderView
         if (in_array('wc-' . $order->get_status(), $this->allowedStatus)) {
             $documentId = MoloniOrder::getLastCreatedDocument($order);
 
-            Start::login(true);
+            (new Start())->isFullyAuthed();
 
             if ($documentId > 0) {
                 esc_html_e('The document has already been generated in Moloni' , 'moloni-on');

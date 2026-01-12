@@ -2,6 +2,7 @@
 
 namespace MoloniOn\Traits;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\Boolean;
 
 trait SyncFieldsSettingsTrait
@@ -18,7 +19,15 @@ trait SyncFieldsSettingsTrait
 
     protected function productShouldSyncStock(): bool
     {
-        return defined('SYNC_FIELDS_STOCK') && (int)SYNC_FIELDS_STOCK === Boolean::YES;
+        if (!defined('SYNC_FIELDS_STOCK')) {
+            return false;
+        }
+
+        if ((int)SYNC_FIELDS_STOCK !== Boolean::YES) {
+            return false;
+        }
+
+        return Context::company()->canSyncStock();
     }
 
     protected function productShouldSyncVisibility(): bool

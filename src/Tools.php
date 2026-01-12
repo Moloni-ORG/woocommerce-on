@@ -199,7 +199,7 @@ class Tools
     {
         $default = [
             'countryId' => Enums\Countries::SPAIN,
-            'languageId' => Languages::ES,
+            'languageId' => Languages::PT,
             'code' => strtoupper($countryIso)
         ];
 
@@ -220,7 +220,7 @@ class Tools
                         'sort' => 'ASC'
                     ]
                 ],
-                'defaultLanguageId' => Languages::EN
+                'defaultLanguageId' => Languages::PT
             ],
         ];
 

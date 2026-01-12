@@ -55,8 +55,6 @@ class WebHooks
      */
     public static function deleteHooks()
     {
-        Settings::defineValues();
-
         $ids = [];
 
         $variables = [

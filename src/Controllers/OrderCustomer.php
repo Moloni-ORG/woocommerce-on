@@ -291,15 +291,15 @@ class OrderCustomer
      */
     public static function getCustomerNextNumber()
     {
-        $neddle = defined('CLIENT_PREFIX') ? CLIENT_PREFIX : '';
-        $neddle .= '%';
+        $needle = defined('CLIENT_PREFIX') ? CLIENT_PREFIX : '';
+        $needle .= '%';
 
         $variables = [
             'options' => [
                 'filter' => [
                     'field' => 'number',
                     'comparison' => 'like',
-                    'value' => $neddle
+                    'value' => $needle
                 ]
             ]
         ];
