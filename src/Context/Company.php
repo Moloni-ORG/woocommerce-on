@@ -17,12 +17,12 @@ final class Company
 
     public function __construct(array $company)
     {
-        foreach ($this->company['limits'] ?? [] as $key => $value) {
+        foreach ($company['limits'] ?? [] as $key => $value) {
             if (in_array($value['moduleId'], $this->targetPermissions)) {
                 continue;
             }
 
-            unset($this->company['limits'][$key]);
+            unset($company['limits'][$key]);
         }
 
         $this->company = $company;
