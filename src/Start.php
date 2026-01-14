@@ -19,6 +19,8 @@ class Start
 {
     public function handleRequest(): bool
     {
+        $this->loadSettings();
+
         global $wpdb;
 
         $developerId = trim(sanitize_text_field($_POST['developer_id'] ?? ''));
@@ -72,7 +74,6 @@ class Start
 
         Context::$MOLONI_ON_COMPANY_ID = (int)$tokensRow['company_id'];
 
-        $this->loadSettings();
         $this->loadCompany();
 
         return true;
@@ -80,6 +81,8 @@ class Start
 
     public function isFullyAuthed(): bool
     {
+        $this->loadSettings();
+
         if (!Auth::refreshTokens()) {
             return false;
         }
@@ -95,7 +98,6 @@ class Start
 
         Context::$MOLONI_ON_COMPANY_ID = (int)$tokensRow['company_id'];
 
-        $this->loadSettings();
         $this->loadCompany();
 
         return true;
