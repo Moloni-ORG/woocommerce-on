@@ -135,7 +135,7 @@ class Ajax
 
     public function molonion_tools_mass_import_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -183,7 +183,7 @@ class Ajax
 
     public function molonion_tools_mass_export_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -253,7 +253,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::MOLONI_PRODUCT_SAVE, $mlProductId);
@@ -280,14 +280,15 @@ class Ajax
                 }
             }
 
-            $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
+            $warehouseId = Context::settings()->getInt('hook_stock_sync_warehouse', 1);
 
-            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:create:wcproduct', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -297,7 +298,7 @@ class Ajax
 
     public function molonion_tools_update_wc_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -320,7 +321,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             $wcProduct = wc_get_product($wcProductId);
@@ -336,14 +337,15 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $warehouseId = defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1;
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
+            $warehouseId = Context::settings()->getInt('hook_stock_sync_warehouse', 1);
 
-            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\MoloniProduct\Page\CheckProduct($mlProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:update:wcstock', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -388,18 +390,23 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            if (Context::company()->canSyncStock()) {
+                $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse', 0);
 
-            if (empty($warehouseId)) {
-                $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
+                if (empty($warehouseId)) {
+                    $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
+                }
+            } else {
+                $warehouseId = 0;
             }
 
-            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:create:moloniproduct', $wcProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -409,7 +416,7 @@ class Ajax
 
     public function molonion_tools_update_moloni_stock()
     {
-        if (!$this->isAuthed('edit_products')) {
+        if (!$this->isAuthed('edit_products') || !Context::company()->canSyncStock()) {
             $this->sendErrorJson();
 
             return;
@@ -429,6 +436,9 @@ class Ajax
         ];
 
         try {
+            if (!Context::company()->canSyncStock()) {
+                throw new GenericException(__('Stocks module not active', 'moloni-on'));
+            }
 
             $wcProduct = wc_get_product($wcProductId);
 
@@ -439,7 +449,7 @@ class Ajax
             $mlProduct = Products::queryProduct(['productId' => $mlProductId])['data']['product']['data'] ?? [];
 
             if (empty($mlProduct)) {
-                throw new GenericException(__('Product not found in Moloni account', 'moloni-on'));
+                throw new GenericException(__('Product not found in Moloni ON account', 'moloni-on'));
             }
 
             SyncLogs::addTimeout(SyncLogsType::WC_PRODUCT_STOCK, $wcProductId);
@@ -449,18 +459,19 @@ class Ajax
             $service->run();
             $service->saveLog();
 
-            $company = Companies::queryCompany()['data']['company']['data'] ?? [];
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse', 0);
 
             if (empty($warehouseId)) {
                 $warehouseId = MoloniWarehouse::getDefaultWarehouseId();
             }
 
-            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId, $company);
+            $checkService = new \MoloniOn\Services\WcProduct\Page\CheckProduct($wcProduct, $warehouseId);
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
         } catch (MoloniException $e) {
+            $this->writeErrorLog($e, 'ajax:tools:update:molonistock', $mlProductId);
+
             $response['valid'] = 0;
             $response['message'] = $e->getMessage();
         }
@@ -482,7 +493,7 @@ class Ajax
             return false;
         }
 
-        return Start::login(true);
+        return (new Start())->isFullyAuthed();
     }
 
     /**
@@ -524,5 +535,17 @@ class Ajax
     {
         wp_send_json_error( 'Insufficient permissions.');
         wp_die();
+    }
+
+    private function writeErrorLog(MoloniException $e, string $tag, int $productId)
+    {
+        Context::logger()->error($e->getMessage(), [
+            'tag' => $tag,
+            'message' => $e->getMessage(),
+            'extra' => [
+                'productId' => $productId,
+                'data' => $e->getData(),
+            ]
+        ]);
     }
 }

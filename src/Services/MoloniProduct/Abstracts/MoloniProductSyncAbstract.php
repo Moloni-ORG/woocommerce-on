@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Services\MoloniProduct\Abstracts;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\ProductTypeAT;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
@@ -13,7 +14,6 @@ use WC_Tax;
 use WC_Product;
 use WC_Product_Variation;
 use MoloniOn\Tools;
-use MoloniOn\API\Companies;
 use MoloniOn\API\Products;
 use MoloniOn\Enums\Boolean;
 use MoloniOn\Enums\ProductType;
@@ -228,7 +228,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         $this->props['hasStock'] = $hasStock;
 
         if ($hasStock) {
-            $warehouseId = defined('MOLONI_STOCK_SYNC_WAREHOUSE') ? (int)MOLONI_STOCK_SYNC_WAREHOUSE : 0;
+            $warehouseId = Context::settings()->getInt('moloni_stock_sync_warehouse');
 
             if (empty($warehouseId)) {
                 try {
@@ -270,7 +270,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
     protected function setMeasureUnit()
     {
-        $this->props['measurementUnitId'] = defined('MEASURE_UNIT') ? (int)MEASURE_UNIT : 0;
+        $this->props['measurementUnitId'] = Context::settings()->getInt('measure_unit');
     }
 
     protected function setTaxes()
@@ -284,12 +284,9 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             $productTaxes = $this->wcProduct->get_tax_class();
             $taxRates = WC_Tax::get_base_tax_rates($productTaxes);
 
-            // Get company setting to associate country code
-            $query = Companies::queryCompany();
-
             $fiscalZone = [
-                'code' => $query['data']['company']['data']['fiscalZone']['fiscalZone'],
-                'countryId' => $query['data']['company']['data']['country']['countryId']
+                'code' => Context::company()->get('fiscalZone')['fiscalZone'],
+                'countryId' => Context::company()->get('country')['countryId'],
             ];
 
             foreach ($taxRates as $order => $taxRate) {
@@ -308,7 +305,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         }
 
         if (empty($this->props['taxes'])) {
-            $this->props['exemptionReason'] = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
+            $this->props['exemptionReason'] = Context::settings()->getString('exemption_reason');
         }
     }
 

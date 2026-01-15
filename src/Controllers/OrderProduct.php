@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Controllers;
 
+use MoloniOn\Context;
 use WC_Tax;
 use WC_Order;
 use WC_Order_Item_Product;
@@ -345,9 +346,9 @@ class OrderProduct
         }
 
         if ($this->isCountryIntraCommunity()) {
-            $this->exemption_reason = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason');
         } else {
-            $this->exemption_reason = defined('EXEMPTION_REASON_EXTRA_COMMUNITY') ? EXEMPTION_REASON_EXTRA_COMMUNITY : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason_extra_community');
         }
 
         return $this;
@@ -392,9 +393,7 @@ class OrderProduct
      */
     private function setWarehouse(): void
     {
-        if (defined('MOLONI_PRODUCT_WAREHOUSE') && (int)MOLONI_PRODUCT_WAREHOUSE > 0) {
-            $this->warehouse_id = (int)MOLONI_PRODUCT_WAREHOUSE;
-        }
+        $this->warehouse_id = Context::settings()->getInt('moloni_product_warehouse');
     }
 
     //          Auxiliary          //

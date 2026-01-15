@@ -76,7 +76,7 @@ class OrderList
             $newColumns[$name] = $info;
 
             if ('order_status' === $name) {
-                $newColumns['moloni_document'] = __('Moloni document', 'moloni-on');
+                $newColumns['moloni_document'] = __('Moloni ON document', 'moloni-on');
             }
         }
 
@@ -123,7 +123,7 @@ class OrderList
     {
         if (self::$columnVisible === null) {
             try {
-                self::$columnVisible = Start::login(true) && defined('MOLONI_SHOW_DOWNLOAD_COLUMN') && (int)MOLONI_SHOW_DOWNLOAD_COLUMN === 1;
+                self::$columnVisible = (new Start())->isFullyAuthed() && Context::settings()->getInt('moloni_show_download_column') === 1;
             } catch (Exception $e) {
                 self::$columnVisible = false;
             }

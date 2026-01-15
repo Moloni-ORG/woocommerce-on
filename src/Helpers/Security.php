@@ -4,6 +4,39 @@ namespace MoloniOn\Helpers;
 
 class Security
 {
+    public static function sanitizer(array $schema, $input, array $output): array
+    {
+        foreach ($schema as $key => $type) {
+            $value = $input[$key] ?? null;
+
+            switch ($type) {
+                case 'bool':
+                    $output[$key] = empty($value) ? 0 : 1;
+                    break;
+
+                case 'int':
+                    $output[$key] = absint($value);
+                    break;
+
+                case 'email':
+                    $output[$key] = sanitize_email($value);
+                    break;
+
+                case 'status':
+                    $allowed = ['completed', 'pending', 'on-hold', 'processing'];
+                    $value = sanitize_text_field($value);
+                    $output[$key] = in_array($value, $allowed, true) ? $value : 'completed';
+                    break;
+                case 'date':
+                case 'text':
+                default:
+                    $output[$key] = sanitize_text_field($value);
+            }
+        }
+
+        return $output;
+    }
+
     public static function wp_kses_post_with_inputs($content): string
     {
         $allowed_html = wp_kses_allowed_html('post');

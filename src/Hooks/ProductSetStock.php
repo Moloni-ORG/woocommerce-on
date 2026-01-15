@@ -44,7 +44,7 @@ class ProductSetStock
 
     public function woocommerceProductSetStock(WC_Product $wcProduct)
     {
-        if (!Start::login(true) || !$this->shouldRunHook()) {
+        if (!(new Start())->isFullyAuthed() || !$this->shouldRunHook()) {
             return;
         }
 
@@ -86,7 +86,7 @@ class ProductSetStock
 
     public function woocommerceVariationSetStock(WC_Product $wcVariation)
     {
-        if (!Start::login(true) || !$this->shouldRunHook()) {
+        if (!(new Start())->isFullyAuthed() || !$this->shouldRunHook()) {
             return;
         }
 
@@ -206,7 +206,11 @@ class ProductSetStock
 
     private function shouldRunHook(): bool
     {
-        return defined('MOLONI_STOCK_SYNC') && (int)MOLONI_STOCK_SYNC === Boolean::YES;
+        if (Context::settings()->getInt('moloni_stock_sync') !== Boolean::YES) {
+            return false;
+        }
+
+        return Context::company()->canSyncStock();
     }
 
     /**

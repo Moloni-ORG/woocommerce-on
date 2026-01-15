@@ -3,7 +3,7 @@
 define('MOLONI_ON_DIR', __DIR__);
 define('PLUGIN_VERSION', ltrim(getenv('PLUGIN_VERSION') ?: 'v0.0.01', 'v'));
 
-require_once __DIR__ . '/src/Configurations.php';
+require_once __DIR__ . '/src/Context/Configurations.php';
 require_once __DIR__ . '/src/Exceptions/Core/MoloniException.php';
 
 const INCLUDE_DIRS = [

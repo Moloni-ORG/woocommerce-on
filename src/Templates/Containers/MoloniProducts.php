@@ -16,6 +16,8 @@ $filters = [
     'filter_reference' => sanitize_text_field($_REQUEST['filter_reference'] ?? ''),
 ];
 
+$canSyncStock = Context::company()->canSyncStock();
+
 $service = new FetchAndCheckProducts();
 $service->setPage($page);
 $service->setFilters($filters);
@@ -35,12 +37,12 @@ $backAction = Context::getAdminUrl('tab=tools');
 ?>
 
 <h3>
-    <?php esc_html_e('Moloni product list', 'moloni-on') ?>
+    <?php esc_html_e('Moloni ON product list', 'moloni-on') ?>
 </h3>
 
 <h4>
-    <?php esc_html_e('This list will present all Moloni products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
-    <?php esc_html_e('All actions on this page will be in the Moloni -> WooCommerce direction.', 'moloni-on') ?>
+    <?php esc_html_e('This list will present all Moloni ON products from the current company and indicate errors/alerts that may exist.', 'moloni-on') ?>
+    <?php esc_html_e('All actions on this page will be in the Moloni ON -> WooCommerce direction.', 'moloni-on') ?>
 </h4>
 
 <div class="notice notice-success m-0">
@@ -53,40 +55,44 @@ $backAction = Context::getAdminUrl('tab=tools');
             <?php esc_html_e('Import all products', 'moloni-on') ?>
         </button>
 
-        <button id="importStocksButton" class="button button-large">
-            <?php esc_html_e('Import all stock', 'moloni-on') ?>
-        </button>
+        <?php if ($canSyncStock) : ?>
+            <button id="importStocksButton" class="button button-large">
+                <?php esc_html_e('Import all stock', 'moloni-on') ?>
+            </button>
+        <?php endif; ?>
     </p>
 </div>
 
-<div class="notice notice-warning m-0 mt-4">
-    <p>
-        <?php esc_html_e('Moloni stock values based on:', 'moloni-on') ?>
-    </p>
-    <p>
-        <?php
-        $warehouseId = $service->getWarehouseId();
+<?php if ($canSyncStock) : ?>
+    <div class="notice notice-warning m-0 mt-4">
+        <p>
+            <?php esc_html_e('Moloni ON stock values based on:', 'moloni-on') ?>
+        </p>
+        <p>
+            <?php
+            $warehouseId = $service->getWarehouseId();
 
-        if ($warehouseId === 1) {
-            echo '- <b>' . esc_attr__('Accumulated stock from all warehouses.', 'moloni-on') . '</b>';
-        } else {
-            try {
-                $warehouse = Warehouses::queryWarehouse([
-                    'warehouseId' => $service->getWarehouseId()
-                ])['data']['warehouse']['data'];
-            } catch (APIExeption $e) {
-                $e->showError();
-                return;
+            if ($warehouseId === 1) {
+                echo '- <b>' . esc_attr__('Accumulated stock from all warehouses.', 'moloni-on') . '</b>';
+            } else {
+                try {
+                    $warehouse = Warehouses::queryWarehouse([
+                            'warehouseId' => $service->getWarehouseId()
+                    ])['data']['warehouse']['data'];
+                } catch (APIExeption $e) {
+                    $e->showError();
+                    return;
+                }
+
+                echo '- ' . esc_attr__('Warehouse', 'moloni-on');
+                echo '<b>';
+                echo ': ' . esc_html($warehouse['name']) . ' (' . esc_html($warehouse['number']) . ')';
+                echo '</b>';
             }
-
-            echo '- ' . esc_attr__('Warehouse', 'moloni-on');
-            echo '<b>';
-            echo ': ' . esc_html($warehouse['name']) . ' (' . esc_html($warehouse['number']) . ')';
-            echo '</b>';
-        }
-        ?>
-    </p>
-</div>
+            ?>
+        </p>
+    </div>
+<?php endif; ?>
 
 <form method='POST' action='<?php echo esc_url($currentAction) ?>' class="list_form">
     <?php wp_nonce_field("molonion-form-nonce"); ?>
@@ -181,7 +187,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <?php else : ?>
             <tr class="text-center">
                 <td colspan="100%">
-                    <?php esc_html_e('No Moloni products were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No Moloni ON products were found!', 'moloni-on') ?>
                 </td>
             </tr>
         <?php endif; ?>

@@ -18,15 +18,13 @@ class CheckProduct
 
     private $product;
     private $warehouseId;
-    private $company;
 
     private $rows = [];
 
-    public function __construct(array $product, int $warehouseId, array $company)
+    public function __construct(array $product, int $warehouseId)
     {
         $this->product = $product;
         $this->warehouseId = $warehouseId;
-        $this->company = $company;
     }
 
     public function run()
@@ -97,6 +95,10 @@ class CheckProduct
             return;
         }
 
+        if (!Context::company()->canSyncStock()) {
+            return;
+        }
+
         if (!empty($mlProduct['hasStock']) !== $wcProduct->managing_stock()) {
             $row['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -110,7 +112,7 @@ class CheckProduct
             if ($wcStock !== $moloniStock) {
                 $row['tool_show_update_stock_button'] = true;
 
-                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                 $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                 $row['tool_alert_message'][] = $message;
@@ -190,6 +192,10 @@ class CheckProduct
             $childRow['wc_product_parent_id'] = $wcVariation->get_parent_id();
             $childRow['wc_product_object'] = $wcVariation;
 
+            if (!Context::company()->canSyncStock()) {
+                continue;
+            }
+
             if (!empty($mlVariant['hasStock']) !== $wcVariation->managing_stock()) {
                 $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -203,7 +209,7 @@ class CheckProduct
                 if ($wcStock !== $moloniStock) {
                     $childRow['tool_show_update_stock_button'] = true;
 
-                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                    $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                     $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                     $childRow['tool_alert_message'][] = $message;
@@ -235,7 +241,7 @@ class CheckProduct
     private function createMoloniLink(array &$row)
     {
         $row['moloni_product_link'] = Context::configs()->get('ac_url');
-        $row['moloni_product_link'] .= $this->company['slug'];
+        $row['moloni_product_link'] .= Context::company()->get('slug');
         $row['moloni_product_link'] .= '/productCategories/products/all/';
         $row['moloni_product_link'] .= $row['moloni_product_array']['productId'];
     }

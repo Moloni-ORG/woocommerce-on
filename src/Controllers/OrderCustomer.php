@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Controllers;
 
+use MoloniOn\Context;
 use WC_Order;
 use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\API\Customers;
@@ -60,8 +61,8 @@ class OrderCustomer
                 'email' => $this->email,
                 'phone' => $this->order->get_billing_phone(),
                 'contactName' => $this->contactName,
-                'maturityDateId' => defined('MATURITY_DATE') && (int) MATURITY_DATE > 0 ? (int) MATURITY_DATE : null,
-                'paymentMethodId' => defined('PAYMENT_METHOD') && (int) PAYMENT_METHOD > 0? (int) PAYMENT_METHOD : null
+                'maturityDateId' => Context::settings()->getInt('maturity_date') ?: null,
+                'paymentMethodId' => Context::settings()->getInt('payment_method') ?: null,
             ]
         ];
 
@@ -128,9 +129,10 @@ class OrderCustomer
     public function getVatNumber(): ?string
     {
         $vat = null;
+        $vatField = Context::settings()->getString('vat_field');
 
-        if (defined('VAT_FIELD')) {
-            $metaVat = trim($this->order->get_meta(VAT_FIELD));
+        if (!empty($vatField)) {
+            $metaVat = trim($this->order->get_meta($vatField));
 
             if (!empty($metaVat)) {
                 $vat = $metaVat;
@@ -162,7 +164,7 @@ class OrderCustomer
         }
 
         if (!$isValid) {
-            if (defined('VAT_VALIDATE') && (int)VAT_VALIDATE === Boolean::YES) {
+            if (Context::settings()->getInt('vat_validate') === Boolean::YES) {
                 return null;
             }
 
@@ -274,12 +276,7 @@ class OrderCustomer
         }
 
         $this->countryId = $countryId;
-
-        if (defined('CUSTOMER_LANGUAGE') && !empty(CUSTOMER_LANGUAGE)) {
-            $this->languageId = (int)CUSTOMER_LANGUAGE;
-        } else {
-            $this->languageId = $languageId;
-        }
+        $this->languageId = Context::settings()->getInt('customer_language') ?: $languageId;
     }
 
     //          Statics          //
@@ -291,15 +288,15 @@ class OrderCustomer
      */
     public static function getCustomerNextNumber()
     {
-        $neddle = defined('CLIENT_PREFIX') ? CLIENT_PREFIX : '';
-        $neddle .= '%';
+        $needle = Context::settings()->getString('client_prefix');
+        $needle .= '%';
 
         $variables = [
             'options' => [
                 'filter' => [
                     'field' => 'number',
                     'comparison' => 'like',
-                    'value' => $neddle
+                    'value' => $needle
                 ]
             ]
         ];
@@ -315,7 +312,7 @@ class OrderCustomer
         } catch (APIExeption $e) {}
 
         if (empty($nextNumber)) {
-            $nextNumber = defined('CLIENT_PREFIX') ? CLIENT_PREFIX : '';
+            $nextNumber = Context::settings()->getString('client_prefix');
             $nextNumber .= '1';
         }
 

@@ -157,15 +157,9 @@ class OrderPaid
      */
     private function canCreateCompleteDocument(): bool
     {
-        if (!Start::login(true) || !defined("INVOICE_AUTO") || (int)INVOICE_AUTO === Boolean::NO) {
-            return false;
-        }
-
-        if (!defined('INVOICE_AUTO_STATUS')) {
-            return true;
-        }
-
-        return INVOICE_AUTO_STATUS === AutomaticDocumentsStatus::COMPLETED;
+        return (new Start())->isFullyAuthed()
+            && Context::settings()->getInt('invoice_auto') === Boolean::YES
+            && Context::settings()->getString('invoice_auto_status') === AutomaticDocumentsStatus::COMPLETED;
     }
 
     /**
@@ -173,24 +167,26 @@ class OrderPaid
      */
     private function canCreateProcessingDocument(): bool
     {
-        return Start::login(true)
-            && defined("INVOICE_AUTO")
-            && (int)INVOICE_AUTO === Boolean::YES
-            && defined('INVOICE_AUTO_STATUS')
-            && INVOICE_AUTO_STATUS === AutomaticDocumentsStatus::PROCESSING;
+        return (new Start())->isFullyAuthed()
+            && Context::settings()->getInt('invoice_auto') === Boolean::YES
+            && Context::settings()->getString('invoice_auto_status') === AutomaticDocumentsStatus::PROCESSING;
     }
 
     private function sendWarningEmail(string $orderName): void
     {
-        if (defined('ALERT_EMAIL') && !empty(ALERT_EMAIL)) {
-            new DocumentWarning(ALERT_EMAIL, $orderName);
+        $alertEmail = Context::settings()->getString('alert_email');
+
+        if (!empty($alertEmail)) {
+            new DocumentWarning($alertEmail, $orderName);
         }
     }
 
     private function sendErrorEmail(string $orderName): void
     {
-        if (defined('ALERT_EMAIL') && !empty(ALERT_EMAIL)) {
-            new DocumentFailed(ALERT_EMAIL, $orderName);
+        $alertEmail = Context::settings()->getString('alert_email');
+
+        if (!empty($alertEmail)) {
+            new DocumentFailed($alertEmail, $orderName);
         }
     }
 

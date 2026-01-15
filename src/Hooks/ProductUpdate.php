@@ -67,12 +67,12 @@ class ProductUpdate
         }
 
         /** Login is valid */
-        if (!Start::login(true)) {
+        if (!(new Start())->isFullyAuthed()) {
             return;
         }
 
-        /** No sincronization is active */
-        if (!$this->shouldSyncProduct() && !$this->shouldSyncStock()) {
+        /** No synchronization is active */
+        if (!$this->shouldSyncProduct()) {
             return;
         }
 
@@ -123,7 +123,7 @@ class ProductUpdate
         } catch (MoloniException $e) {
             Notice::addmessagecustom(htmlentities($e->geterror()));
 
-            $message = __('Error synchronizing products to Moloni.', 'moloni-on');
+            $message = __('Error synchronizing products to Moloni ON.', 'moloni-on');
             $message .= ' </br>';
             $message .= $e->getMessage();
 
@@ -368,12 +368,16 @@ class ProductUpdate
 
     private function shouldSyncProduct(): bool
     {
-        return defined('MOLONI_PRODUCT_SYNC') && (int)MOLONI_PRODUCT_SYNC === Boolean::YES;
+        return Context::settings()->getInt('moloni_product_sync') === Boolean::YES;
     }
 
     private function shouldSyncStock(): bool
     {
-        return defined('MOLONI_STOCK_SYNC') && (int)MOLONI_STOCK_SYNC === Boolean::YES;
+        if (Context::settings()->getInt('moloni_stock_sync') !== Boolean::YES) {
+            return false;
+        }
+
+        return Context::company()->canSyncStock();
     }
 
     //          Validations          //

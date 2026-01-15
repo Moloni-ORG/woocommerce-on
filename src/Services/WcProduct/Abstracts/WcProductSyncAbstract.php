@@ -2,6 +2,7 @@
 
 namespace MoloniOn\Services\WcProduct\Abstracts;
 
+use MoloniOn\Context;
 use WC_Tax;
 use WP_Term;
 use stdClass;
@@ -150,7 +151,7 @@ abstract class WcProductSyncAbstract implements WcSyncInterface
         if ($hasStock) {
             $stock = MoloniProduct::parseMoloniStock(
                 $this->moloniProduct,
-                defined('HOOK_STOCK_SYNC_WAREHOUSE') ? (int)HOOK_STOCK_SYNC_WAREHOUSE : 1
+                Context::settings()->getInt('hook_stock_sync_warehouse', 1)
             );
 
             $this->wcProduct->set_stock_quantity($stock);

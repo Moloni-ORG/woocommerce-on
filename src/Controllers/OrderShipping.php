@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Controllers;
 
+use MoloniOn\Context;
 use WC_Order;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Services\MoloniProduct\Helpers\GetOrCreateCategory;
@@ -239,11 +240,13 @@ class OrderShipping
      */
     private function setUnitId(): void
     {
-        if (defined('MEASURE_UNIT')) {
-            $this->unit_id = (int)MEASURE_UNIT;
-        } else {
+        $unit = Context::settings()->getInt('measure_unit');
+
+        if (empty($unit)) {
             throw new DocumentError(__('Measure unit not set!','moloni-on'));
         }
+
+        $this->unit_id = $unit;
     }
 
     /**
@@ -285,9 +288,9 @@ class OrderShipping
         }
 
         if ($this->isCountryIntraCommunity()) {
-            $this->exemption_reason = defined('EXEMPTION_REASON_SHIPPING') ? EXEMPTION_REASON_SHIPPING : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason_shipping');
         } else {
-            $this->exemption_reason = defined('EXEMPTION_REASON_SHIPPING_EXTRA_COMMUNITY') ? EXEMPTION_REASON_SHIPPING_EXTRA_COMMUNITY : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason_shipping_extra_community');
         }
 
         return $this;

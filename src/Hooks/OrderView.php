@@ -55,10 +55,10 @@ class OrderView
         if (in_array('wc-' . $order->get_status(), $this->allowedStatus)) {
             $documentId = MoloniOrder::getLastCreatedDocument($order);
 
-            Start::login(true);
+            (new Start())->isFullyAuthed();
 
             if ($documentId > 0) {
-                esc_html_e('The document has already been generated in Moloni' , 'moloni-on');
+                esc_html_e('The document has already been generated in Moloni ON' , 'moloni-on');
                 echo '<br>';
 
                 $this->seeDocument($documentId);
@@ -84,7 +84,7 @@ class OrderView
 
     private function getDocumentTypeSelect()
     {
-        $documentType = defined('DOCUMENT_TYPE') ? DOCUMENT_TYPE : '';
+        $documentType = Context::settings()->getString('document_type');
 
         ?>
         <select id="moloni_document_type" style="float:right">

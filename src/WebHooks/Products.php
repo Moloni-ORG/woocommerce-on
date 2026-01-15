@@ -67,7 +67,7 @@ class Products
 
         try {
             /** Model has to be 'Product', needs to be logged in and received hash has to match logged in company id hash */
-            if ($parameters['model'] !== 'Product' || !Start::login(true) || !$this->checkHash($parameters['hash'])) {
+            if ($parameters['model'] !== 'Product' || !(new Start())->isFullyAuthed() || !$this->checkHash($parameters['hash'])) {
                 return;
             }
 
@@ -368,12 +368,12 @@ class Products
 
     private function shouldSyncProduct(): bool
     {
-        return defined('HOOK_PRODUCT_SYNC') && (int)HOOK_PRODUCT_SYNC === Boolean::YES;
+        return Context::settings()->getInt('hook_product_sync') === Boolean::YES;
     }
 
     private function shouldSyncStock(): bool
     {
-        return defined('HOOK_STOCK_SYNC') && (int)HOOK_STOCK_SYNC === Boolean::YES;
+        return Context::settings()->getInt('hook_stock_sync') === Boolean::YES;
     }
 
     private function moloniProductHasVariants(): bool
@@ -390,7 +390,7 @@ class Products
     {
         /** Product not found */
         if (empty($this->moloniProduct)) {
-            throw new WebhookException(__('Moloni product not found', 'moloni-on'));
+            throw new WebhookException(__('Moloni ON product not found', 'moloni-on'));
         }
 
         /** We only want to update the main product */
@@ -403,9 +403,7 @@ class Products
             throw new WebhookException(__('Product reference blacklisted', 'moloni-on'));
         }
 
-        /** Do not sync product with varianst if settings is not set */
-        if ($this->moloniProductHasVariants() &&
-            (!defined('SYNC_PRODUCTS_WITH_VARIANTS') || (int)SYNC_PRODUCTS_WITH_VARIANTS === Boolean::NO)) {
+        if ($this->moloniProductHasVariants()) {
             throw new WebhookException(__('Synchronization of products with variants is disabled', 'moloni-on'));
         }
     }

@@ -19,15 +19,13 @@ class CheckProduct
 
     private $product;
     private $warehouseId;
-    private $company;
 
     private $rows = [];
 
-    public function __construct(WC_Product $product, int $warehouseId, array $company)
+    public function __construct(WC_Product $product, int $warehouseId)
     {
         $this->product = $product;
         $this->warehouseId = $warehouseId;
-        $this->company = $company;
     }
 
     public function run()
@@ -108,14 +106,14 @@ class CheckProduct
         try {
             $mlProduct = $this->findMoloniProduct($product);
         } catch (APIExeption $e) {
-            $parentRow['tool_alert_message'][] = __('Error fetching Moloni product', 'moloni-on');
+            $parentRow['tool_alert_message'][] = __('Error fetching Moloni ON product', 'moloni-on');
 
             return;
         }
 
         if (empty($mlProduct)) {
             $parentRow['tool_show_create_button'] = true;
-            $parentRow['tool_alert_message'][] = __('Product not found in Moloni account', 'moloni-on');
+            $parentRow['tool_alert_message'][] = __('Product not found in Moloni ON account', 'moloni-on');
 
             return;
         }
@@ -177,6 +175,10 @@ class CheckProduct
             $childRow['moloni_product_id'] = $moloniVariant['productId'];
             $childRow['moloni_product_array'] = $moloniVariant;
 
+            if (!Context::company()->canSyncStock()) {
+                continue;
+            }
+
             if (!empty($moloniVariant['hasStock']) !== $wcVariation->managing_stock()) {
                 $childRow['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
 
@@ -190,7 +192,7 @@ class CheckProduct
                 if ($wcStock !== $moloniStock) {
                     $childRow['tool_show_update_stock_button'] = true;
 
-                    $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                    $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                     $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                     $childRow['tool_alert_message'][] = $message;
@@ -222,14 +224,14 @@ class CheckProduct
         try {
             $mlProduct = $this->findMoloniProduct($product);
         } catch (APIExeption $e) {
-            $row['tool_alert_message'][] = __('Error fetching Moloni product', 'moloni-on');
+            $row['tool_alert_message'][] = __('Error fetching Moloni ON product', 'moloni-on');
 
             return;
         }
 
         if (empty($mlProduct)) {
             $row['tool_show_create_button'] = true;
-            $row['tool_alert_message'][] = __('Product not found in Moloni account', 'moloni-on');
+            $row['tool_alert_message'][] = __('Product not found in Moloni ON account', 'moloni-on');
 
             return;
         }
@@ -238,6 +240,10 @@ class CheckProduct
         $row['moloni_product_array'] = $mlProduct;
 
         $this->createMoloniLink($row);
+
+        if (!Context::company()->canSyncStock()) {
+            return;
+        }
 
         if (!empty($mlProduct['hasStock']) !== $product->managing_stock()) {
             $row['tool_alert_message'][] = __('Different stock control status', 'moloni-on');
@@ -252,7 +258,7 @@ class CheckProduct
             if ($wcStock !== $moloniStock) {
                 $row['tool_show_update_stock_button'] = true;
 
-                $message = __('Stock does not match in WooCommerce and Moloni', 'moloni-on');
+                $message = __('Stock does not match in WooCommerce and Moloni ON', 'moloni-on');
                 $message .= " (Moloni: $moloniStock | WooCommerce: $wcStock)";
 
                 $row['tool_alert_message'][] = $message;
@@ -283,7 +289,7 @@ class CheckProduct
     private function createMoloniLink(array &$row)
     {
         $row['moloni_product_link'] = Context::configs()->get('ac_url');
-        $row['moloni_product_link'] .= $this->company['slug'];
+        $row['moloni_product_link'] .= Context::company()->get('slug');
         $row['moloni_product_link'] .= '/productCategories/products/all/';
         $row['moloni_product_link'] .= $row['moloni_product_array']['productId'];
     }

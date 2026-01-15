@@ -11,7 +11,7 @@ class Install
     {
         if (!function_exists('curl_version')) {
             deactivate_plugins(plugin_basename(__FILE__));
-            wp_die(esc_html__('cURL library is required for using Moloni Plugin.', 'moloni-on'));
+            wp_die(esc_html__('cURL library is required for using Moloni ON Plugin.', 'moloni-on'));
         }
 
         if (!class_exists('WooCommerce')) {

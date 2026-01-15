@@ -38,6 +38,10 @@ query company($companyId: Int!,$options: CompanyOptionsSingle){
                 currencyId
                 iso4217
             }
+            limits {
+                moduleId
+                active
+            }
             subscription {
                 subscriptionId
                 plan

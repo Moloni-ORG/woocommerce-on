@@ -11,22 +11,24 @@ if (!defined('ABSPATH')) {
 <table class="wc_status_table wc_status_table--tools widefat">
     <tbody class="tools">
 
-    <tr>
-        <th class="p-8">
-            <strong class="name">
-                <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
-            </strong>
-            <p class='description'>
-                <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
-            </p>
-        </th>
-        <td class="run-tool p-8 text-right">
-            <a class="button button-large"
-               href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=reinstallWebhooks")) ?>'>
-                <?php esc_html_e('Reinstall Moloni Webhooks', 'moloni-on') ?>
-            </a>
-        </td>
-    </tr>
+    <?php if (Context::company()->hasWebhooks()) : ?>
+        <tr>
+            <th class="p-8">
+                <strong class="name">
+                    <?php esc_html_e('Reinstall Moloni ON Webhooks', 'moloni-on') ?>
+                </strong>
+                <p class='description'>
+                    <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
+                </p>
+            </th>
+            <td class="run-tool p-8 text-right">
+                <a class="button button-large"
+                   href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=reinstallWebhooks")) ?>'>
+                    <?php esc_html_e('Reinstall Moloni ON Webhooks', 'moloni-on') ?>
+                </a>
+            </td>
+        </tr>
+    <?php endif; ?>
 
     <tr>
         <th class="p-8">
@@ -41,7 +43,7 @@ if (!defined('ABSPATH')) {
             <a href='<?php echo esc_url(Context::getAdminUrl('tab=moloniProductsList')) ?>'
                class="button button-large"
             >
-                <?php esc_html_e('View Moloni products', 'moloni-on') ?>
+                <?php esc_html_e('View Moloni ON products', 'moloni-on') ?>
             </a>
         </td>
     </tr>
@@ -49,7 +51,7 @@ if (!defined('ABSPATH')) {
     <tr>
         <th class="p-8">
             <strong class="name">
-                <?php esc_html_e('List WooCommerce Products', 'moloni-on') ?>
+                <?php esc_html_e('List WooCommerce products', 'moloni-on') ?>
             </strong>
             <p class='description'>
                 <?php esc_html_e('List all products in WooCommerce store and export data to your Moloni company', 'moloni-on') ?>
@@ -59,7 +61,7 @@ if (!defined('ABSPATH')) {
             <a href='<?php echo esc_url(Context::getAdminUrl("tab=wcProductsList")) ?>'
                class="button button-large"
             >
-                <?php esc_html_e('View WooCommerce Products', 'moloni-on') ?>
+                <?php esc_html_e('View WooCommerce products', 'moloni-on') ?>
             </a>
         </td>
     </tr>

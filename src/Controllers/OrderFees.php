@@ -3,6 +3,7 @@
 
 namespace MoloniOn\Controllers;
 
+use MoloniOn\Context;
 use WC_Order_Item_Fee;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Services\MoloniProduct\Helpers\GetOrCreateCategory;
@@ -198,12 +199,13 @@ class OrderFees
      */
     private function setUnitId(): void
     {
-        if (defined('MEASURE_UNIT')) {
-            $this->unit_id = MEASURE_UNIT;
-        } else {
+        $unit = Context::settings()->getInt('measure_unit');
+
+        if (empty($unit)) {
             throw new DocumentError(__('Measure unit not set!','moloni-on'));
         }
 
+        $this->unit_id = $unit;
     }
 
     /**
@@ -244,9 +246,9 @@ class OrderFees
         }
 
         if ($this->isCountryIntraCommunity()) {
-            $this->exemption_reason = defined('EXEMPTION_REASON') ? EXEMPTION_REASON : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason');
         } else {
-            $this->exemption_reason = defined('EXEMPTION_REASON_EXTRA_COMMUNITY') ? EXEMPTION_REASON_EXTRA_COMMUNITY : '';
+            $this->exemption_reason = Context::settings()->getString('exemption_reason_extra_community');
         }
 
         return $this;

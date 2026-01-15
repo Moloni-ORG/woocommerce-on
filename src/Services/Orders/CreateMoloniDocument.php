@@ -42,8 +42,8 @@ class CreateMoloniDocument
         $this->order = new WC_Order((int)$orderId);
         $this->documentType = isset($_GET['document_type']) ? sanitize_text_field($_GET['document_type']) : null;
 
-        if (empty($this->documentType) && defined('DOCUMENT_TYPE')) {
-            $this->documentType = DOCUMENT_TYPE;
+        if (empty($this->documentType)) {
+            $this->documentType = Context::settings()->get('document_type');
         }
     }
 
@@ -57,17 +57,7 @@ class CreateMoloniDocument
     {
         $this->checkForWarnings();
 
-        try {
-            $company = (Companies::queryCompany())['data']['company']['data'] ?? [];
-        } catch (APIExeption $e) {
-            throw new DocumentError(
-                __('Error fetching company', 'moloni-on'),
-                [
-                    'message' => $e->getMessage(),
-                    'data' => $e->getData(),
-                ]
-            );
-        }
+        $company = Context::company()->getAll();
 
         if ($this->shouldCreateBillOfLading()) {
             $billOfLading = new Documents($this->order, $company);
@@ -125,7 +115,7 @@ class CreateMoloniDocument
 
     private function shouldCreateBillOfLading(): bool
     {
-        if (!defined('DOCUMENT_STATUS') || (int)DOCUMENT_STATUS === DocumentStatus::DRAFT) {
+        if (Context::settings()->getInt('document_status', DocumentStatus::DRAFT) === DocumentStatus::DRAFT) {
             return false;
         }
 
@@ -137,11 +127,7 @@ class CreateMoloniDocument
             return false;
         }
 
-        if (defined('CREATE_BILL_OF_LADING')) {
-            return (bool)CREATE_BILL_OF_LADING;
-        }
-
-        return false;
+        return Context::settings()->getInt('create_bill_of_lading') === Boolean::YES;
     }
 
     private function isReferencedInDatabase(): bool

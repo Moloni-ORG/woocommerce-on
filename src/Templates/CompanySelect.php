@@ -1,9 +1,38 @@
 <?php
+
+use MoloniOn\API\Companies;
+use MoloniOn\Context\Company;
+use MoloniOn\Exceptions\APIExeption;
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
-$hasValidCompany = false;
+$companies = [];
+
+try {
+    $query = Companies::queryCompanies();
+
+    foreach ($query['data']['companies']['data'] as $companyObject) {
+        $companyObject = new Company($companyObject);
+
+        if (!$companyObject->getCompanyId()) {
+            continue;
+        }
+
+        if (!$companyObject->get('isConfirmed')) {
+            continue;
+        }
+
+        if (!$companyObject->hasApiClient()) {
+            continue;
+        }
+
+        $companies[] = $companyObject->getAll();
+    }
+} catch (APIExeption $e) {
+    $e->showError();
+}
 ?>
 
 <section id="moloni" class="moloni">

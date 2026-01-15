@@ -2,47 +2,52 @@
 
 namespace MoloniOn\Traits;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\Boolean;
 
 trait SyncFieldsSettingsTrait
 {
     protected function productShouldSyncEAN(): bool
     {
-        return defined('SYNC_FIELDS_EAN') && (int)SYNC_FIELDS_EAN === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_ean') === Boolean::YES;
     }
 
     protected function productShouldSyncCategories(): bool
     {
-        return defined('SYNC_FIELDS_CATEGORIES') && (int)SYNC_FIELDS_CATEGORIES === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_categories') === Boolean::YES;
     }
 
     protected function productShouldSyncStock(): bool
     {
-        return defined('SYNC_FIELDS_STOCK') && (int)SYNC_FIELDS_STOCK === Boolean::YES;
+        if (!Context::settings()->getInt('sync_fields_stock')) {
+            return false;
+        }
+
+        return Context::company()->canSyncStock();
     }
 
     protected function productShouldSyncVisibility(): bool
     {
-        return defined('SYNC_FIELDS_VISIBILITY') && (int)SYNC_FIELDS_VISIBILITY === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_visibility') === Boolean::YES;
     }
 
     protected function productShouldSyncImage(): bool
     {
-        return defined('SYNC_FIELDS_IMAGE') && (int)SYNC_FIELDS_IMAGE === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_image') === Boolean::YES;
     }
 
     protected function productShouldSyncPrice(): bool
     {
-        return defined('SYNC_FIELDS_PRICE') && (int)SYNC_FIELDS_PRICE === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_price') === Boolean::YES;
     }
 
     protected function productShouldSyncDescription(): bool
     {
-        return defined('SYNC_FIELDS_DESCRIPTION') && (int)SYNC_FIELDS_DESCRIPTION === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_description') === Boolean::YES;
     }
 
     protected function productShouldSyncName(): bool
     {
-        return defined('SYNC_FIELDS_NAME') && (int)SYNC_FIELDS_NAME === Boolean::YES;
+        return Context::settings()->getInt('sync_fields_name') === Boolean::YES;
     }
 }
