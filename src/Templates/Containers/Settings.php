@@ -3,7 +3,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use MoloniOn\API\Companies;
 use MoloniOn\API\Countries;
 use MoloniOn\API\DocumentSets;
 use MoloniOn\API\MaturityDates;
@@ -426,36 +425,34 @@ try {
         <table class="form-table mb-4">
             <tbody>
 
-            <?php if ($warehouses) : ?>
-                <tr>
-                    <th>
-                        <label for="moloni_product_warehouse">
-                            <?php esc_html_e('Warehouse', 'moloni-on') ?>
-                        </label>
-                    </th>
-                    <td>
-                        <select id="moloni_product_warehouse" name='opt[moloni_product_warehouse]' class='inputOut'>
-                            <option value='0'>
-                                <?php esc_html_e('Default warehouse', 'moloni-on') ?>
-                            </option>
+            <tr>
+                <th>
+                    <label for="moloni_product_warehouse">
+                        <?php esc_html_e('Warehouse', 'moloni-on') ?>
+                    </label>
+                </th>
+                <td>
+                    <select id="moloni_product_warehouse" name='opt[moloni_product_warehouse]' class='inputOut' <?= $warehouses ? '' : 'disabled="true"'; ?>>
+                        <option value='0'>
+                            <?php esc_html_e('Default warehouse', 'moloni-on') ?>
+                        </option>
 
-                            <?php $moloniProductWarehouse = Context::settings()->getInt('moloni_product_warehouse'); ?>
+                        <?php $moloniProductWarehouse = Context::settings()->getInt('moloni_product_warehouse'); ?>
 
-                            <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
-                                <?php foreach ($warehouses as $warehouse) : ?>
-                                    <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
-                                        <?php echo esc_html($warehouse['name']) ?>
-                                        (<?php echo esc_html($warehouse['number']) ?>)
-                                    </option>
-                                <?php endforeach; ?>
-                            </optgroup>
-                        </select>
-                        <p class='description'>
-                            <?php esc_html_e('Warehouse used in documents', 'moloni-on') ?>
-                        </p>
-                    </td>
-                </tr>
-            <?php endif; ?>
+                        <optgroup label="<?php esc_html_e('Warehouses', 'moloni-on') ?>">
+                            <?php foreach ($warehouses as $warehouse) : ?>
+                                <option value='<?php echo esc_attr($warehouse['warehouseId']) ?>' <?php echo($moloniProductWarehouse === $warehouse['warehouseId'] ? 'selected' : '') ?>>
+                                    <?php echo esc_html($warehouse['name']) ?>
+                                    (<?php echo esc_html($warehouse['number']) ?>)
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    </select>
+                    <p class='description'>
+                        <?php esc_html_e('Warehouse used in documents', 'moloni-on') ?>
+                    </p>
+                </td>
+            </tr>
 
             <tr>
                 <th>

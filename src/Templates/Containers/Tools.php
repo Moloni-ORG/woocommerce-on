@@ -5,16 +5,13 @@ use MoloniOn\Context;
 if (!defined('ABSPATH')) {
     exit;
 }
-
-$hasWebhooks = Context::company()->hasWebhooks();
-
 ?>
 
 <br>
 <table class="wc_status_table wc_status_table--tools widefat">
     <tbody class="tools">
 
-    <?php if ($hasWebhooks) : ?>
+    <?php if (Context::company()->hasWebhooks()) : ?>
         <tr>
             <th class="p-8">
                 <strong class="name">
