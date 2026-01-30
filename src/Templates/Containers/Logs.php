@@ -30,7 +30,7 @@ $logsContext = [];
             <thead>
             <tr>
                 <th><a><?php esc_html_e('Date', 'moloni-on') ?></a></th>
-                <th><a><?php esc_html_e('Level', 'moloni-on') ?></a></th>
+                <th><a><?php esc_html_e('Type', 'moloni-on') ?></a></th>
                 <th><a><?php esc_html_e('Message', 'moloni-on') ?></a></th>
                 <th><a><?php esc_html_e('Context', 'moloni-on') ?></a></th>
             </tr>
@@ -110,7 +110,7 @@ $logsContext = [];
             <?php else : ?>
                 <tr>
                     <td colspan="4">
-                        <?php esc_html_e('No records found!', 'moloni-on') ?>
+                        <?php esc_html_e('No results found.', 'moloni-on') ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -118,7 +118,7 @@ $logsContext = [];
             <tfoot>
             <tr>
                 <th><a><?php esc_html_e('Date', 'moloni-on') ?></a></th>
-                <th><a><?php esc_html_e('Level', 'moloni-on') ?></a></th>
+                <th><a><?php esc_html_e('Type', 'moloni-on') ?></a></th>
                 <th><a><?php esc_html_e('Message', 'moloni-on') ?></a></th>
                 <th><a><?php esc_html_e('Context', 'moloni-on') ?></a></th>
             </tr>

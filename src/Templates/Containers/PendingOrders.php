@@ -23,10 +23,10 @@ $paginator = PendingOrders::getPagination();
             <label for="bulk-action-selector-top" class="screen-reader-text"></label><select
                     name="action" id="bulk-action-selector-top">
                 <option value="-1"><?php esc_html_e('Bulk actions', 'moloni-on') ?></option>
-                <option value="bulkGenInvoice"><?php esc_html_e('Generate documents', 'moloni-on') ?></option>
-                <option value="bulkDiscardOrder"><?php esc_html_e('Discard documents', 'moloni-on') ?></option>
+                <option value="bulkGenInvoice"><?php esc_html_e('Create documents', 'moloni-on') ?></option>
+                <option value="bulkDiscardOrder"><?php esc_html_e('Discard orders', 'moloni-on') ?></option>
             </select>
-            <input type="submit" id="doAction" class="button action" value="<?php esc_html_e('Run', 'moloni-on') ?>">
+            <input type="submit" id="doAction" class="button action" value="<?php esc_html_e('Apply', 'moloni-on') ?>">
         </div>
 
         <div class="tablenav-pages">
@@ -141,7 +141,7 @@ $paginator = PendingOrders::getPagination();
 
                             <a class="wp-core-ui button-secondary" style="width: 80px; text-align: center"
                                href="<?php echo esc_url(Context::getAdminUrl("action=remInvoice&id={$order->get_id()}")) ?>">
-                                <?php esc_html_e('Discard', 'moloni-on') ?>
+                                <?php esc_html_e('Delete', 'moloni-on') ?>
                             </a>
                         </form>
                     </td>

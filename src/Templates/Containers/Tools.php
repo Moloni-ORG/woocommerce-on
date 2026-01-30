@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
                     <?php esc_html_e('Reinstall Moloni ON Webhooks', 'moloni-on') ?>
                 </strong>
                 <p class='description'>
-                    <?php esc_html_e('Remove this store Webhooks and install them again', 'moloni-on') ?>
+                    <?php esc_html_e('Remove this store Webhooks and install them again.', 'moloni-on') ?>
                 </p>
             </th>
             <td class="run-tool p-8 text-right">
@@ -33,10 +33,10 @@ if (!defined('ABSPATH')) {
     <tr>
         <th class="p-8">
             <strong class="name">
-                <?php esc_html_e('List Moloni products', 'moloni-on') ?>
+                <?php esc_html_e('List Moloni ON products', 'moloni-on') ?>
             </strong>
             <p class='description'>
-                <?php esc_html_e('List all products in Moloni company and import data into your WooCommerce store', 'moloni-on') ?>
+                <?php esc_html_e('List all products in Moloni ON company and import data into your WooCommerce store.', 'moloni-on') ?>
             </p>
         </th>
         <td class="run-tool p-8 text-right">
@@ -54,7 +54,7 @@ if (!defined('ABSPATH')) {
                 <?php esc_html_e('List WooCommerce products', 'moloni-on') ?>
             </strong>
             <p class='description'>
-                <?php esc_html_e('List all products in WooCommerce store and export data to your Moloni company', 'moloni-on') ?>
+                <?php esc_html_e('List all products in WooCommerce store and export data to your Moloni ON company.', 'moloni-on') ?>
             </p>
         </th>
         <td class="run-tool p-8 text-right">
@@ -69,16 +69,16 @@ if (!defined('ABSPATH')) {
     <tr>
         <th class="p-8">
             <strong class="name">
-                <?php esc_html_e('Logout', 'moloni-on') ?>
+                <?php esc_html_e('Sign out', 'moloni-on') ?>
             </strong>
             <p class='description'>
-                <?php esc_html_e('We will keep the data regarding the documents already issued', 'moloni-on') ?>
+                <?php esc_html_e('Log out of your Moloni ON account. Data relating to issued documents will be saved.', 'moloni-on') ?>
             </p>
         </th>
         <td class="run-tool p-8 text-right">
             <a class="button button-large button-primary"
                href='<?php echo esc_url(Context::getAdminUrl("tab=tools&action=logout")) ?>'>
-                <?php esc_html_e('Logout', 'moloni-on') ?>
+                <?php esc_html_e('Sign out', 'moloni-on') ?>
             </a>
         </td>
     </tr>

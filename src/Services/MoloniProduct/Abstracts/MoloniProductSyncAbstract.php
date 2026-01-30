@@ -409,7 +409,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             throw new ServiceException(
                 sprintf(
                     // Translators: %1$s is the action. %2$s is the product SKU.
-                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
+                    __('Error %1$s product in Moloni ON (%2$s)', 'moloni-on'),
                     __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
@@ -426,7 +426,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             throw new ServiceException(
                 sprintf(
                     // Translators: %1$s is the action. %2$s is the product SKU.
-                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
+                    __('Error %1$s product in Moloni ON (%2$s)', 'moloni-on'),
                     __('creating', 'moloni-on'),
                     $this->props['reference'] ?? '---'
                 ),
@@ -459,7 +459,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             throw new ServiceException(
                 sprintf(
                     // Translators: %1$s is the action. %2$s is the product SKU.
-                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
+                    __('Error %1$s product in Moloni ON (%2$s)', 'moloni-on'),
                     __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),
@@ -476,7 +476,7 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             throw new ServiceException(
                 sprintf(
                     // Translators: %1$s is the action. %2$s is the product SKU.
-                    __('Error %1$s product in Moloni (%2$s)', 'moloni-on'),
+                    __('Error %1$s product in Moloni ON (%2$s)', 'moloni-on'),
                     __('updating', 'moloni-on'),
                     $this->wcProduct->get_sku() ?? '---'
                 ),

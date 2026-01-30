@@ -182,7 +182,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <?php else : ?>
             <tr class="text-center">
                 <td colspan="100%">
-                    <?php esc_html_e('No WooCommerce products were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No results found.', 'moloni-on') ?>
                 </td>
             </tr>
         <?php endif; ?>

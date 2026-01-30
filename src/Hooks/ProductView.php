@@ -75,7 +75,7 @@ class ProductView
                     return null;
                 }
             } else {
-                esc_html_e("Moloni login invalid", 'moloni-on');
+                esc_html_e("Moloni ON login invalid", 'moloni-on');
             }
         } catch (Exception $exception) {}
     }
