@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Moloni ES\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:52+0000\n"
-"PO-Revision-Date: 2026-01-30 12:45+0000\n"
+"PO-Revision-Date: 2026-01-30 12:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: Português\n"
 "Language: pt_PT\n"
@@ -799,7 +799,7 @@ msgid ""
 msgstr ""
 "Para que o Campo Personalizado apareça, precisas de ter pelo menos uma "
 "encomenda com o ID do contribuinte preenchido. O campo deve ter um nome como "
-"<i>_billing_vat</i>."
+"'_billing_vat'."
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderView.php:73
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderView.php:131
