@@ -150,7 +150,7 @@ class CreateMoloniDocument
             }
 
             // Translators: %1$s is the order name.
-            $errorMsg = sprintf(__('The order %1$s document was previously generated!', 'moloni-on'), $this->order->get_order_number());
+            $errorMsg = sprintf(__('The order %1$s document was previously generated.', 'moloni-on'), $this->order->get_order_number());
             $errorMsg .= " <a href='" . esc_url($forceUrl) . "'>" . __('Generate again', 'moloni-on') . '</a>';
 
             throw new DocumentError($errorMsg);

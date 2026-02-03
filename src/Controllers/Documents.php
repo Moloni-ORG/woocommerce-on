@@ -890,7 +890,7 @@ class Documents
                 $result = Tools::getCurrencyExchangeRate($this->company['currency']['iso4217'], $this->order->get_currency());
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error fetching exchange rate.', 'moloni-on'),
+                    __('Error fetching exchange rate', 'moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()

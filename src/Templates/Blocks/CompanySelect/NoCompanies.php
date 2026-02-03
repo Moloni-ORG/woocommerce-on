@@ -12,15 +12,15 @@ if (!defined('ABSPATH')) {
     <img src="<?php echo esc_url(MOLONI_ON_IMAGES_URL) ?>no_companies.svg" width='150px' alt="Moloni">
 
     <div class="companies-invalid__title">
-        <?php esc_html_e('You do not have any valid company to use the plugin', 'moloni-on') ?>
+        <?php esc_html_e('Your account does not have access to any company', 'moloni-on') ?>
     </div>
 
     <div class="companies-invalid__message">
-        <?php esc_html_e('Please confirm that your account has access to an active company with a plan that allows you to access the plugins.', 'moloni-on') ?>
+        <?php esc_html_e("Please ensure your account's company has the API Client add-on active.", 'moloni-on') ?>
     </div>
 
     <div class="companies-invalid__help">
-        <?php esc_html_e('Learn more about our plans at: ', 'moloni-on') ?>
+        <?php esc_html_e('Learn more at:', 'moloni-on') ?>
         <a href="<?php echo esc_url(Context::configs()->get('plans_page')) ?>" target="_blank">
             <?php echo esc_html(Context::configs()->get('plans_page')) ?>
         </a>

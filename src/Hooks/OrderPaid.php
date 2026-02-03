@@ -199,7 +199,7 @@ class OrderPaid
             $viewUrl .= __('View document', 'moloni-on');
             $viewUrl .= '</a>';
 
-            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni-on') . $viewUrl, 'updated');
+            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created.', 'moloni-on') . $viewUrl, 'updated');
         }
     }
 }

@@ -102,7 +102,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-exports" disabled>
-            <?php esc_html_e('Run exports', 'moloni-on') ?>
+            <?php esc_html_e('Start exports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">
@@ -219,7 +219,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-exports" disabled>
-            <?php esc_html_e('Run exports', 'moloni-on') ?>
+            <?php esc_html_e('Start exports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">

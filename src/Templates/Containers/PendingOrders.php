@@ -150,7 +150,7 @@ $paginator = PendingOrders::getPagination();
         <?php else : ?>
             <tr>
                 <td colspan="8">
-                    <?php esc_html_e('No orders to be generated were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No orders to be generated were found.', 'moloni-on') ?>
                 </td>
             </tr>
 

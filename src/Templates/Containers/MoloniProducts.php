@@ -107,7 +107,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-imports" disabled>
-            <?php esc_html_e('Run imports', 'moloni-on') ?>
+            <?php esc_html_e('Start imports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">
@@ -224,7 +224,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-imports" disabled>
-            <?php esc_html_e('Run imports', 'moloni-on') ?>
+            <?php esc_html_e('Start imports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">

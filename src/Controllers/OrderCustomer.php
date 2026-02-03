@@ -354,7 +354,7 @@ class OrderCustomer
             $searchResult = Customers::queryCustomers($variables);
         } catch (APIExeption $e) {
             throw new DocumentError(
-                __('Error fetching customers.', 'moloni-on'),
+                __('Error fetching customers', 'moloni-on'),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
