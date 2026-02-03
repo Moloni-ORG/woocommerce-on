@@ -758,7 +758,7 @@ try {
                     >
 
                     <p class='description'>
-                        <?php esc_html_e('Receive alerts for when an error occurs (document creation/authentication lost).', 'moloni-on') ?>
+                        <?php esc_html_e('Receive alerts for when an error occurs (document creation/authentication lost)', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
