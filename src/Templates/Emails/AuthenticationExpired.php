@@ -81,7 +81,7 @@ if (!defined('ABSPATH')) {
                                     <br>
 
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <?php esc_html_e('If you have any questions or concerns, please contact our customer support.', 'moloni-on') ?>
+                                        <?php esc_html_e('If you have any questions, please contact our Customer support.', 'moloni-on') ?>
                                     </p>
                                 </td>
                             </tr>

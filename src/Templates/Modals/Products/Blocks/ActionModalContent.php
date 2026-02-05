@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
     <img src="<?php echo esc_url(includes_url() . 'js/thickbox/loadingAnimation.gif'); ?>"/>
 
     <p>
-        <?php esc_html_e('Please wait, tool in progress', 'moloni-on') ?>
+        <?php esc_html_e('Please wait, tool in progress.', 'moloni-on') ?>
     </p>
 <?php else: ?>
     <p>

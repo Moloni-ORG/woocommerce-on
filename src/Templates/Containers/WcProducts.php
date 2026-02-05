@@ -102,7 +102,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-exports" disabled>
-            <?php esc_html_e('Run exports', 'moloni-on') ?>
+            <?php esc_html_e('Start exports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">
@@ -182,7 +182,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         <?php else : ?>
             <tr class="text-center">
                 <td colspan="100%">
-                    <?php esc_html_e('No WooCommerce products were found!', 'moloni-on') ?>
+                    <?php esc_html_e('No results found.', 'moloni-on') ?>
                 </td>
             </tr>
         <?php endif; ?>
@@ -219,7 +219,7 @@ $backAction = Context::getAdminUrl('tab=tools');
         </a>
 
         <button type="button" class="button button-large button-primary button-start-exports" disabled>
-            <?php esc_html_e('Run exports', 'moloni-on') ?>
+            <?php esc_html_e('Start exports', 'moloni-on') ?>
         </button>
 
         <div class="tablenav-pages">

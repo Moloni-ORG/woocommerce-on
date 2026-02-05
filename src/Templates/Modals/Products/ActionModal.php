@@ -23,13 +23,13 @@ if (!defined('ABSPATH')) {
         <img src="<?php echo esc_url( includes_url() . 'js/thickbox/loadingAnimation.gif' ); ?>" />
 
         <p>
-            <?php esc_html_e('Please wait until the process finishes!', 'moloni-on') ?>
+            <?php esc_html_e('Please wait until the process finishes.', 'moloni-on') ?>
         </p>
     </div>
 
     <div id="action-modal-error" style="display: none;">
         <p>
-            <?php esc_html_e('Something went wrong!', 'moloni-on') ?>
+            <?php esc_html_e('Something went wrong.', 'moloni-on') ?>
         </p>
         <p>
             <?php esc_html_e('Please check logs for more information.', 'moloni-on') ?>

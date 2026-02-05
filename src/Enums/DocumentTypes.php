@@ -61,7 +61,7 @@ class DocumentTypes
             self::PRO_FORMA_INVOICE => __('Pro Forma Invoice', 'moloni-on'),
             self::SIMPLIFIED_INVOICE => __('Simplified invoice', 'moloni-on'),
             self::ESTIMATE => __('Budget', 'moloni-on'),
-            self::BILLS_OF_LADING => __('Bills of lading', 'moloni-on')
+            self::BILLS_OF_LADING => __('Bill of lading', 'moloni-on')
         ];
     }
 

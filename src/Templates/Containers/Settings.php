@@ -353,7 +353,7 @@ try {
                     <?php include MOLONI_ON_TEMPLATE_DIR . 'Blocks/Settings/ExemptionOption.php'; ?>
 
                     <p class='description'>
-                        <?php esc_html_e('Will be used if shipping does not have tax', 'moloni-on') ?>
+                        <?php esc_html_e('Used when shipping has no associated fee', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
@@ -408,7 +408,7 @@ try {
                     <?php include MOLONI_ON_TEMPLATE_DIR . 'Blocks/Settings/ExemptionOption.php'; ?>
 
                     <p class='description'>
-                        <?php esc_html_e('Will be used if shipping does not have tax', 'moloni-on') ?>
+                        <?php esc_html_e('Used when shipping has no associated fee', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>
@@ -721,7 +721,7 @@ try {
             <tr>
                 <th>
                     <label for="order_created_at_max">
-                        <?php esc_html_e('Show orders from the following date', 'moloni-on') ?>
+                        <?php esc_html_e('Show orders from', 'moloni-on') ?>
                     </label>
                 </th>
                 <td>
@@ -758,7 +758,7 @@ try {
                     >
 
                     <p class='description'>
-                        <?php esc_html_e('Receive alerts for when an error occurs (document creation/authentication lost).', 'moloni-on') ?>
+                        <?php esc_html_e('Receive alerts for when an error occurs (document creation/authentication lost)', 'moloni-on') ?>
                     </p>
                 </td>
             </tr>

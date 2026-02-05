@@ -202,7 +202,7 @@ class OrderFees
         $unit = Context::settings()->getInt('measure_unit');
 
         if (empty($unit)) {
-            throw new DocumentError(__('Measure unit not set!','moloni-on'));
+            throw new DocumentError(__('Measure unit not set.','moloni-on'));
         }
 
         $this->unit_id = $unit;

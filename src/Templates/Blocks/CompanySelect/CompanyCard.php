@@ -44,6 +44,6 @@ $company = $company ?? [];
 
     <button class="ml-button ml-button--primary w-full"
             onclick="window.location.href = '<?php echo esc_url(Context::getAdminUrl("companyId={$company["companyId"]}")) ?>'">
-        <?php esc_html_e('Choose company', 'moloni-on') ?>
+        <?php esc_html_e('Select', 'moloni-on') ?>
     </button>
 </div>

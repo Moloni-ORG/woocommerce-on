@@ -32,7 +32,7 @@ try {
         </h2>
 
         <div class="subtitle">
-            (<?php esc_html_e('This actions happen when an action occours in your WooCommerce store.', 'moloni-on') ?>)
+            (<?php esc_html_e('This actions happen when an action occours in your WooCommerce store', 'moloni-on') ?>)
         </div>
 
         <table class="form-table">
@@ -148,7 +148,7 @@ try {
         </h2>
 
         <div class="subtitle">
-            (<?php esc_html_e('This actions happen when an action occours in your Moloni ON account.', 'moloni-on') ?>)
+            (<?php esc_html_e('This actions happen when an action occours in your Moloni ON account', 'moloni-on') ?>)
         </div>
 
         <table class="form-table">

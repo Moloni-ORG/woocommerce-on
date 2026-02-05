@@ -1,4 +1,4 @@
-=== Moloni On ===
+=== Moloni ON ===
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders

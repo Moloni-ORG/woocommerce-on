@@ -205,7 +205,7 @@ class Plugin
             $viewUrl .= __('View document', 'moloni-on');
             $viewUrl .= '</a>';
 
-            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created!', 'moloni-on') . $viewUrl, 'updated');
+            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created.', 'moloni-on') . $viewUrl, 'updated');
         }
     }
 
@@ -270,7 +270,7 @@ class Plugin
             $service->saveLog();
 
             // Translators: %1$s is the order ID.
-            $message = sprintf(__('Order %1$s has been marked as generated!', 'moloni-on'), $orderId);
+            $message = sprintf(__('Order %1$s has been marked as generated.', 'moloni-on'), $orderId);
 
             add_settings_error(
                 'molonion',
