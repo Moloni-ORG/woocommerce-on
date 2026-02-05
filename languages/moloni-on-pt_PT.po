@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Moloni ES\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-16 16:52+0000\n"
-"PO-Revision-Date: 2026-02-03 16:12+0000\n"
+"PO-Revision-Date: 2026-02-05 09:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: Português\n"
 "Language: pt_PT\n"
@@ -223,6 +223,10 @@ msgstr "Clica aqui para mais informações"
 msgid "Click here for more instructions"
 msgstr "Clica aqui para mais instruções"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:15
+msgid "Click to see"
+msgstr "Clica para ver"
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:45
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:168
 msgid "Client"
@@ -233,6 +237,7 @@ msgstr "Cliente"
 msgid "Client secret"
 msgstr "Client secret"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:25
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ActionModal.php:41
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ExportProductsModal.php:24
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ExportStocksModal.php:27
@@ -257,6 +262,10 @@ msgstr "Slug da empresa"
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:69
 msgid "Complete"
 msgstr "Completo"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:16
+msgid "Completed"
+msgstr "Concluído"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Logs.php:35
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Logs.php:123
@@ -293,6 +302,10 @@ msgstr "Criar documentos quando a encomenda é"
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:430
 msgid "creating"
 msgstr "criando"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:19
+msgid "Creating document"
+msgstr "A criar documento"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/LogLevel.php:32
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/LogLevel.php:52
@@ -401,6 +414,10 @@ msgstr "Diferentes estados do controlo de stocks"
 msgid "Discard orders"
 msgstr "Arquivar encomendas"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:20
+msgid "Discarding order"
+msgstr "A arquivar encomenda"
+
 #. %1$s is the order ID.
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:283
 #, php-format
@@ -496,12 +513,20 @@ msgstr "Modelo de e-mail de aviso de documento."
 msgid "Document was created."
 msgstr "O documento foi criado."
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:21
+msgid "Documents created:"
+msgstr "Documentos criados:"
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:75
 msgid ""
 "Documents will be created automatically once they are in the selected state"
 msgstr ""
 "Os documentos serão criados automaticamente assim que estiverem no estado "
 "selecionado"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:22
+msgid "Documents with errors:"
+msgstr "Documentos com erros:"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:108
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Logs/LogsContextModal.php:15
@@ -674,6 +699,10 @@ msgstr "Erro ao obter produto"
 msgid "Error getting shipping"
 msgstr "Erro ao obter envio"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:14
+msgid "Error in the process"
+msgstr "Erro no processo"
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderFees.php:174
 msgid "Error inserting order fees"
 msgstr "Erro ao inserir taxas"
@@ -710,6 +739,7 @@ msgstr "Erro ao atualizar clientes."
 msgid "European Union countries"
 msgstr "Países da União Europeia"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:26
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:541
 msgid "Example"
 msgstr "Exemplo"
@@ -1109,6 +1139,10 @@ msgstr "Nenhum documento associado"
 msgid "No default warehouse found"
 msgstr "Nenhum armazém predefinido encontrado"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:18
+msgid "No orders selected to process"
+msgstr "Nenhuma encomenda selecionada para processar"
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:153
 #| msgid "No orders to be generated were found!"
 msgid "No orders to be generated were found."
@@ -1195,6 +1229,14 @@ msgstr "Encomendas"
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/PendingOrders/BulkActionModal.php:17
 msgid "orders"
 msgstr "encomendas"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:23
+msgid "Orders discarded:"
+msgstr "Encomendas arquivadas:"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:24
+msgid "Orders with errors:"
+msgstr "Encomendas com erros:"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Blocks/WcProducts/ProductRow.php:45
 msgid "Others"
@@ -1290,6 +1332,10 @@ msgstr "Processo concluído"
 msgid "Processing"
 msgstr "A processar"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:12
+msgid "Processing product"
+msgstr "A processar produtos"
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:143
 msgid "Product already exists"
 msgstr "O produto já existe"
@@ -1301,6 +1347,10 @@ msgstr "Atributo do produto não encontrado"
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:73
 msgid "Product blocked"
 msgstr "Produto bloqueado"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:9
+msgid "product creation processes."
+msgstr "processo de criação de produto."
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductUpdate.php:404
 msgid "Product does not have reference"
@@ -1368,6 +1418,10 @@ msgstr "Referência do produto bloqueada"
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/WcProduct/Page/CheckProduct.php:127
 msgid "Product types do not match"
 msgstr "Os tipos de produto não correspondem"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:10
+msgid "product update processes."
+msgstr "processo de atualização de produto."
 
 #. %1$s is the product reference.
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Create/CreateVariantProduct.php:67
@@ -1649,6 +1703,10 @@ msgstr "Iniciar exportação"
 msgid "Start imports"
 msgstr "Iniciar importação"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:17
+msgid "Starting process..."
+msgstr "A começar processo..."
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:48
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:171
 msgid "Status"
@@ -1680,6 +1738,10 @@ msgstr "O stock já está atualizado no Moloni ON (%1$s)"
 msgid "Stock is already updated in WooCommerce (%1$s)"
 msgstr "O stock já está atualizado no WooCommerce (%1$s)"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:11
+msgid "stock update processes."
+msgstr "processo de atualização de stock."
+
 #. %1$s is the old Moloni stock, %2$s is the new WooCommerce stock, %3$s is the product SKU.
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Stock/SyncProductStock.php:53
 #, php-format
@@ -1701,6 +1763,10 @@ msgstr "Stock: "
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/Ajax.php:440
 msgid "Stocks module not active"
 msgstr "Módulo de stocks não está ativo"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:13
+msgid "Successfully processed"
+msgstr "Processado com sucesso"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:81
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:159
