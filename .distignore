@@ -1,10 +1,12 @@
 /.wordpress-org
-/.dev
 /.git
 /.github
+/.dev
 /docs
-.env
 .distignore
 .gitignore
 .graphqlrc.yaml
+builder.php
+dev.md
 docker-compose.yml
+readme.md
