@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.02
+Stable tag: 4.0.03
 Tested up to: 6.9
 WC tested up to: 10.3.6
 Requires PHP: 7.2
@@ -58,5 +58,8 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.03 =
+* Fix price decimal length issue.
+
 = 4.0.00 =
 * Public release of the plugin.
