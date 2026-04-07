@@ -197,7 +197,7 @@ class MoloniVariant
 
     private function setPrice()
     {
-        $this->props['price'] = (float)wc_get_price_excluding_tax($this->wcProduct);
+        $this->props['price'] = round((float)wc_get_price_excluding_tax($this->wcProduct), 5);
     }
 
     private function setSummary()
