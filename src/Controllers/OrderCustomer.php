@@ -75,7 +75,7 @@ class OrderCustomer
 
         $customerExists = $this->searchForCustomer();
 
-        if (empty($customerExists)){
+        if (empty($customerExists)) {
             $variables['number'] = self::getCustomerNextNumber();
 
             try {
@@ -98,7 +98,7 @@ class OrderCustomer
                 $result = Customers::mutationCustomerUpdate(['data' => $variables]);
             } catch (APIExeption $e) {
                 throw new DocumentError(
-                    __('Error updating customer.','moloni-on'),
+                    __('Error updating customer.', 'moloni-on'),
                     [
                         'message' => $e->getMessage(),
                         'data' => $e->getData()
@@ -311,7 +311,8 @@ class OrderCustomer
             if (isset($query['data']['customerNextNumber']['data'])) {
                 $nextNumber = $query['data']['customerNextNumber']['data'];
             }
-        } catch (APIExeption $e) {}
+        } catch (APIExeption $e) {
+        }
 
         if (empty($nextNumber)) {
             $nextNumber = Context::settings()->getString('client_prefix');
@@ -344,11 +345,6 @@ class OrderCustomer
 
         if (empty($this->vat)) {
             $variables['options']['filter'][] = [
-                'field' => 'vat',
-                'comparison' => 'eq',
-                'value' => ''
-            ];
-            $variables['options']['filter'][] = [
                 'field' => 'email',
                 'comparison' => 'eq',
                 'value' => $this->email
@@ -373,8 +369,12 @@ class OrderCustomer
             );
         }
 
-        if (isset($searchResult['data']['customers']['data'][0]['customerId'])) {
-            return $searchResult['data']['customers']['data'][0];
+        foreach ($searchResult['data']['customers']['data'] as $customer) {
+            if (!empty($customer['vat'])) {
+                continue;
+            }
+
+            return $customer;
         }
 
         return false;
