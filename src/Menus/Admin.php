@@ -32,6 +32,10 @@ class Admin
             return;
         }
 
+        if (!apply_filters('moloni_on_admin_menu_permission', true)) {
+            return;
+        }
+
         $pageName = Context::configs()->get('name_translated');
         $menuSlug = Context::getPageName();
         $logoUrl = Context::getImagesPath() . 'small_logo.png';

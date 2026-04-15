@@ -51,33 +51,35 @@ class OrderCustomer
         $this->vat = $this->getVatNumber();
 
         $variables = [
-            'data' => [
-                'name' => $this->getCustomerName(),
-                'address' => $this->getCustomerBillingAddress(),
-                'zipCode' => $this->getCustomerZip(),
-                'city' => $this->getCustomerBillingCity(),
-                'countryId' => $this->countryId,
-                'languageId' => $this->languageId,
-                'email' => $this->email,
-                'phone' => $this->order->get_billing_phone(),
-                'contactName' => $this->contactName,
-                'maturityDateId' => Context::settings()->getInt('maturity_date') ?: null,
-                'paymentMethodId' => Context::settings()->getInt('payment_method') ?: null,
-            ]
+            'name' => $this->getCustomerName(),
+            'address' => $this->getCustomerBillingAddress(),
+            'zipCode' => $this->getCustomerZip(),
+            'city' => $this->getCustomerBillingCity(),
+            'countryId' => $this->countryId,
+            'languageId' => $this->languageId,
+            'vat' => $this->vat,
+            'email' => $this->email,
+            'phone' => $this->order->get_billing_phone(),
+            'contactName' => $this->contactName,
+            'maturityDateId' => Context::settings()->getInt('maturity_date') ?: null,
+            'paymentMethodId' => Context::settings()->getInt('payment_method') ?: null,
         ];
+
+        $variables = apply_filters('moloni_on_before_search_customer', $variables);
+
+        if (!empty($variables['customerId'])) {
+            $this->customer_id = (int)$variables['customerId'];
+
+            return $this->customer_id;
+        }
 
         $customerExists = $this->searchForCustomer();
 
-        if (empty($variables['data']['email'])) {
-            unset($variables['data']['email']);
-        }
-
         if (empty($customerExists)){
-            $variables['data']['vat'] = $this->vat;
-            $variables['data']['number'] = self::getCustomerNextNumber();
+            $variables['number'] = self::getCustomerNextNumber();
 
             try {
-                $result = Customers::mutationCustomerCreate($variables);
+                $result = Customers::mutationCustomerCreate(['data' => $variables]);
             } catch (APIExeption $e) {
                 throw new DocumentError(
                     __('Error creating customer.', 'moloni-on'),
@@ -90,10 +92,10 @@ class OrderCustomer
 
             $keyString = 'customerCreate';
         } else {
-            $variables['data']['customerId'] = (int)$customerExists['customerId'];
+            $variables['customerId'] = (int)$customerExists['customerId'];
 
             try {
-                $result = Customers::mutationCustomerUpdate($variables);
+                $result = Customers::mutationCustomerUpdate(['data' => $variables]);
             } catch (APIExeption $e) {
                 throw new DocumentError(
                     __('Error updating customer.','moloni-on'),
@@ -332,22 +334,31 @@ class OrderCustomer
     {
         $variables = [
             'options' => [
-                'filter' => [
-                    'field' => '',
-                    'comparison' => 'eq',
-                    'value' => ''
-                ]
+                'filter' => []
             ]
         ];
 
-        if (!empty($this->vat)) {
-            $variables['options']['filter']['field'] = 'vat';
-            $variables['options']['filter']['value'] = $this->vat;
-        } else if (!empty($this->email)) {
-            $variables['options']['filter']['field'] = 'email';
-            $variables['options']['filter']['value'] = $this->email;
-        } else {
+        if (empty($this->vat) && empty($this->email)) {
             return false;
+        }
+
+        if (empty($this->vat)) {
+            $variables['options']['filter'][] = [
+                'field' => 'vat',
+                'comparison' => 'eq',
+                'value' => ''
+            ];
+            $variables['options']['filter'][] = [
+                'field' => 'email',
+                'comparison' => 'eq',
+                'value' => $this->email
+            ];
+        } else {
+            $variables['options']['filter'][] = [
+                'field' => 'vat',
+                'comparison' => 'eq',
+                'value' => $this->vat
+            ];
         }
 
         try {

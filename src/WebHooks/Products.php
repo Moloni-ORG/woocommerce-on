@@ -26,7 +26,6 @@ use MoloniOn\Services\WcProduct\Update\UpdateParentProduct;
 use MoloniOn\Services\WcProduct\Update\UpdateSimpleProduct;
 use MoloniOn\Start;
 use MoloniOn\Traits\SettingsTrait;
-use WP_REST_Request;
 
 class Products
 {
