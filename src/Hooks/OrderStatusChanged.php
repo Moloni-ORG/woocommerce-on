@@ -3,7 +3,6 @@
 namespace MoloniOn\Hooks;
 
 use Exception;
-use MoloniOn\Enums\AutomaticDocumentsStatus;
 use MoloniOn\Enums\Boolean;
 use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\Exceptions\DocumentWarning;
