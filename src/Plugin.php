@@ -12,6 +12,7 @@ use MoloniOn\Helpers\WebHooks;
 use MoloniOn\Hooks\Ajax;
 use MoloniOn\Hooks\OrderList;
 use MoloniOn\Hooks\OrderPaid;
+use MoloniOn\Hooks\OrderStatusChanged;
 use MoloniOn\Hooks\OrderView;
 use MoloniOn\Hooks\ProductDelete;
 use MoloniOn\Hooks\ProductUpdate;
@@ -79,7 +80,7 @@ class Plugin
         new ProductDelete($this);
         new ProductView($this);
         new OrderView($this);
-        new OrderPaid($this);
+        new OrderStatusChanged($this);
         new OrderList($this);
         new UpgradeProcess($this);
         new WoocommerceInitialize($this);

@@ -8,7 +8,8 @@ use MoloniOn\API\Warehouses;
 use MoloniOn\Context;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Enums\Boolean;
-use MoloniOn\Enums\AutomaticDocumentsStatus;
+
+$wcOrdersStatus = wc_get_order_statuses();
 
 try {
     $canSyncStock = Context::company()->canSyncStock();
@@ -65,12 +66,21 @@ try {
                     <select id="invoice_auto_status" name='opt[invoice_auto_status]' class='inputOut'>
                         <?php $invoiceAutoStatus = Context::settings()->getString('invoice_auto_status'); ?>
 
-                        <option value='completed' <?php echo ($invoiceAutoStatus === AutomaticDocumentsStatus::COMPLETED ? 'selected' : '') ?>>
-                            <?php esc_html_e('Complete', 'moloni-on') ?>
-                        </option>
-                        <option value='processing' <?php echo ($invoiceAutoStatus === AutomaticDocumentsStatus::PROCESSING ? 'selected' : '') ?>>
-                            <?php esc_html_e('Processing', 'moloni-on') ?>
-                        </option>
+                        <?php foreach ($wcOrdersStatus as $id => $name) : ?>
+                            <?php
+                            $needle = 'wc-';
+
+                            if(substr($id, 0, strlen($needle)) === $needle) {
+                                $parsedId = substr($id, strlen($needle));
+                            } else {
+                                $parsedId = $id;
+                            }
+                            ?>
+
+                            <option value='<?= esc_html($parsedId) ?>' <?= $invoiceAutoStatus === $parsedId ? 'selected' : '' ?>>
+                                <?= esc_html($name) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                     <p class='description'><?php esc_html_e('Documents will be created automatically once they are in the selected state', 'moloni-on') ?></p>
                 </td>
