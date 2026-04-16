@@ -94,6 +94,10 @@ class OrderCustomer
         } else {
             $variables['customerId'] = (int)$customerExists['customerId'];
 
+            if (empty($customerExists['vat']) && !$customerExists['deletable']) {
+                unset($variables['name']);
+            }
+
             try {
                 $result = Customers::mutationCustomerUpdate(['data' => $variables]);
             } catch (APIExeption $e) {

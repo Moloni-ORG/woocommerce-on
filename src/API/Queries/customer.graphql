@@ -12,6 +12,7 @@ query customer($companyId: Int!,$customerId: Int!,$options: CustomerOptionsSingl
                 documentSetId
                 name
             }
+            deletable
             vat
         }
         errors
