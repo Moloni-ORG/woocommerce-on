@@ -40,7 +40,7 @@ class CreateMoloniDocument
     public function __construct($orderId)
     {
         $this->order = new WC_Order((int)$orderId);
-        $this->documentType = isset($_GET['document_type']) ? sanitize_text_field($_GET['document_type']) : null;
+        $this->documentType = isset($_REQUEST['document_type']) ? sanitize_text_field($_REQUEST['document_type']) : null;
 
         if (empty($this->documentType)) {
             $this->documentType = Context::settings()->get('document_type');
