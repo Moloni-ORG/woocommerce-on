@@ -403,6 +403,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             'data' => $this->props
         ];
 
+        $data = apply_filters('moloni_on_before_moloni_product_insert', $data);
+
         try {
             $mutation = Products::mutationProductCreate($data);
         } catch (APIExeption $e) {
@@ -452,6 +454,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         $data = [
             'data' => $this->props
         ];
+
+        $data = apply_filters('moloni_on_before_moloni_product_update', $data);
 
         try {
             $mutation = Products::mutationProductUpdate($data);

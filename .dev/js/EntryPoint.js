@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
         Moloni.Login.init();
     }
 
-    if (jQuery('#molonion-automations-page-anchor').length) {
+    if (jQuery('#molonion-automation-page-anchor').length) {
         Moloni.Automations.init();
     }
 

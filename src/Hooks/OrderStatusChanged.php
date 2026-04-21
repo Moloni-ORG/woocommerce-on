@@ -1,0 +1,142 @@
+<?php
+
+namespace MoloniOn\Hooks;
+
+use Exception;
+use MoloniOn\Enums\Boolean;
+use MoloniOn\Exceptions\DocumentError;
+use MoloniOn\Exceptions\DocumentWarning;
+use MoloniOn\Notice;
+use MoloniOn\Plugin;
+use MoloniOn\Services\Mails\DocumentFailed;
+use MoloniOn\Services\Orders\CreateMoloniDocument;
+use MoloniOn\Start;
+use MoloniOn\Context;
+
+class OrderStatusChanged
+{
+
+    public $parent;
+
+    /**
+     *
+     * @param Plugin $parent
+     */
+    public function __construct(Plugin $parent)
+    {
+        $this->parent = $parent;
+
+        add_action('woocommerce_order_status_changed', [$this, 'orderStatusChanged'], 10, 3);
+    }
+
+    public function orderStatusChanged($orderId, $previousStatus, $nextStatus)
+    {
+        if (!(new Start())->isFullyAuthed()) {
+            return;
+        }
+
+        if (Context::settings()->getInt('invoice_auto') !== Boolean::YES) {
+            return;
+        }
+
+        $targetStatus = Context::settings()->getString('invoice_auto_status');
+
+        if (empty($targetStatus)) {
+            return;
+        }
+
+        $validStatus = [$targetStatus];
+        $validStatus = apply_filters('moloni_on_before_order_status_changed', $validStatus, $orderId, $previousStatus, $nextStatus);
+
+        /** Check if next status was the chosen one */
+        if (!in_array($nextStatus, $validStatus, true)) {
+            return;
+        }
+
+        $service = new CreateMoloniDocument($orderId);
+        $orderName = $service->getOrderNumber() ?? '';
+
+        // Translators: %1$s is the status, %2$s is the order name.
+        $message = __('Automatically generating order document in status \'%1$s\' (%2$s)', 'moloni-on');
+
+        Context::logger()->info(sprintf($message, $nextStatus, $orderName), [
+            'tag' => 'automatic:document:create:complete:start',
+        ]);
+
+        try {
+            $service->run();
+
+            $this->throwMessages($service);
+        } catch (DocumentWarning $e) {
+            $this->sendWarningEmail($orderName);
+
+            // Translators: %1$s is the order name.
+            $message = sprintf(__('There was an warning when generating the document (%1$s)', 'moloni-on'), $orderName);
+            $message .= ' </br>';
+            $message .= $e->getMessage();
+
+            Notice::addmessagecustom(htmlentities($e->getError()));
+
+            Context::logger()->alert($message, [
+                    'tag' => 'automatic:document:create:complete:warning',
+                    'message' => $e->getMessage(),
+                    'data' => $e->getData()
+                ]
+            );
+        } catch (DocumentError $e) {
+            $this->sendErrorEmail($orderName);
+
+            // Translators: %1$s is the order name.
+            $message = sprintf(__('There was an error when generating the document (%1$s)', 'moloni-on'), $orderName);
+            $message .= ' </br>';
+            $message .= wp_strip_all_tags($e->getMessage());
+
+            Notice::addmessagecustom(htmlentities($e->getError()));
+
+            Context::logger()->error($message, [
+                    'tag' => 'automatic:document:create:complete:error',
+                    'message' => $e->getMessage(),
+                    'data' => $e->getData()
+                ]
+            );
+        } catch (Exception $ex) {
+            Context::logger()->critical(__("Fatal error", 'moloni-on'), [
+                'tag' => 'automatic:document:create:complete:fatalerror',
+                'message' => $ex->getMessage()
+            ]);
+        }
+    }
+
+    //          Privates          //
+
+    private function sendWarningEmail(string $orderName): void
+    {
+        $alertEmail = Context::settings()->getString('alert_email');
+
+        if (!empty($alertEmail)) {
+            new DocumentWarning($alertEmail, $orderName);
+        }
+    }
+
+    private function sendErrorEmail(string $orderName): void
+    {
+        $alertEmail = Context::settings()->getString('alert_email');
+
+        if (!empty($alertEmail)) {
+            new DocumentFailed($alertEmail, $orderName);
+        }
+    }
+
+    private function throwMessages(CreateMoloniDocument $service): void
+    {
+        if ($service->getDocumentId() > 0 && is_admin()) {
+            $adminUrl = Context::getAdminUrl("action=getInvoice&id={$service->getDocumentId()}");
+
+            $viewUrl = ' <a href="' . esc_url($adminUrl) . '" target="_BLANK">';
+            $viewUrl .= __('View document', 'moloni-on');
+            $viewUrl .= '</a>';
+
+            add_settings_error('molonion', 'moloni-document-created-success', __('Document was created.', 'moloni-on') . $viewUrl, 'updated');
+        }
+    }
+}

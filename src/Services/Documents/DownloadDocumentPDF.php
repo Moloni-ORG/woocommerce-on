@@ -60,6 +60,8 @@ class DownloadDocumentPDF
             new CreateDocumentPDF($this->documentId, $invoice['documentType']['apiCode']);
         }
 
+        sleep(2);
+
         $mutation = [];
         $keyString = '';
 

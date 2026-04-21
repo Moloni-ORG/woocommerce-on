@@ -8,6 +8,7 @@ query customers($companyId: Int!,$options: CustomerOptions)
             name
             number
             discount
+            deletable
             documentSet
             {
                 documentSetId
