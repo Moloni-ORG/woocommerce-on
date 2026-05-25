@@ -26,8 +26,8 @@ All technical and commercial support is provided **free of charge** by the Molon
 - **WordPress**: 5.0 or higher
 - **WooCommerce**: required
 - **PHP**: 7.2 or higher
-- **Tested up to WordPress**: 6.9
-- **Tested up to WooCommerce**: 10.3.6
+- **Tested up to WordPress**: 7.0
+- **Tested up to WooCommerce**: 10.7.0
 - **License**: GPLv2 or later
 
 ---

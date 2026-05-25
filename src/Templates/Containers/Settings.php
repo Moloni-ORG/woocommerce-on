@@ -707,6 +707,28 @@ try {
                     </p>
                 </td>
             </tr>
+
+            <!-- Detalhes da encomenda -->
+            <tr>
+                <th>
+                    <label for="moloni_show_download_my_account_order_view"><?= __('WooCommerce order details', 'moloni-on') ?></label>
+                </th>
+                <td>
+                    <select id="moloni_show_download_my_account_order_view" name='opt[moloni_show_download_my_account_order_view]' class='inputOut'>
+                        <?php $myAccountOrderViewShowDownload = Context::settings()->getInt('moloni_show_download_my_account_order_view'); ?>
+
+                        <option value='0' <?= ($myAccountOrderViewShowDownload === Boolean::NO ? 'selected' : '') ?>>
+                            <?= __('No', 'moloni-on') ?>
+                        </option>
+                        <option value='1' <?= ($myAccountOrderViewShowDownload === Boolean::YES ? 'selected' : '') ?>>
+                            <?= __('Yes', 'moloni-on') ?>
+                        </option>
+                    </select>
+                    <p class='description'>
+                        <?= __("Add a section to the customer's order view page where they can download the generated PDF document", 'moloni-on') ?>
+                    </p>
+                </td>
+            </tr>
             </tbody>
         </table>
 

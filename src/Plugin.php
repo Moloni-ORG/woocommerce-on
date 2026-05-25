@@ -10,6 +10,7 @@ use MoloniOn\Exceptions\DocumentWarning;
 use MoloniOn\Helpers\Security;
 use MoloniOn\Helpers\WebHooks;
 use MoloniOn\Hooks\Ajax;
+use MoloniOn\Hooks\OrderDetails;
 use MoloniOn\Hooks\OrderList;
 use MoloniOn\Hooks\OrderPaid;
 use MoloniOn\Hooks\OrderStatusChanged;
@@ -48,6 +49,14 @@ class Plugin
         $this->actions();
     }
 
+    /**
+     * Starts this class
+     */
+    public static function init()
+    {
+        return new (__CLASS__);
+    }
+
     //            Privates            //
 
     /**
@@ -82,6 +91,7 @@ class Plugin
         new OrderView($this);
         new OrderStatusChanged($this);
         new OrderList($this);
+        new OrderDetails();
         new UpgradeProcess($this);
         new WoocommerceInitialize($this);
     }

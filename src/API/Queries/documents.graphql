@@ -1,0 +1,29 @@
+query documents($companyId: Int!, $options: DocumentOptions)
+{
+    documents(companyId: $companyId,options: $options)
+    {
+        data
+        {
+            documentId
+            status
+            pdfExport
+            documentType
+            {
+                documentTypeId
+                apiCode
+                apiCodePlural
+            }
+            company
+            {
+                companyId
+                slug
+            }
+        }
+        errors
+        {
+            field
+            msg
+        }
+    }
+}
+
