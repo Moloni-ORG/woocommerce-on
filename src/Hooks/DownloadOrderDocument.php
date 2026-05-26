@@ -1,7 +1,10 @@
 <?php
 
-namespace MoloniOn\Services\Documents;
+declare(strict_types=1);
 
+namespace MoloniOn\Hooks;
+
+use Exception;
 use MoloniOn\API\Documents;
 use MoloniOn\API\Documents\BillsOfLading;
 use MoloniOn\API\Documents\Estimate;
@@ -14,33 +17,102 @@ use MoloniOn\API\Documents\SimplifiedInvoice;
 use MoloniOn\Context;
 use MoloniOn\Enums\DocumentTypes;
 use MoloniOn\Exceptions\APIExeption;
+use MoloniOn\Exceptions\GenericException;
+use MoloniOn\Helpers\MoloniOrder;
+use MoloniOn\Helpers\Security;
+use MoloniOn\Services\Documents\CreateDocumentPDF;
+use MoloniOn\Start;
+use WC_Order;
 
-class DownloadDocumentPDF
+class DownloadOrderDocument
 {
+    private $orderId;
+
     private $documentId;
 
-    /**
-     * Construct
-     *
-     * @param $documentId
-     */
-    public function __construct($documentId)
+    public function __construct()
     {
-        $this->documentId = $documentId;
+        add_action('admin_post_molonion_download_order_document', [$this, 'downloadOrderDocument']);
+    }
+
+    public function downloadOrderDocument(): void
+    {
+        $this->orderId = absint($_GET['order_id'] ?? 0);
+        $this->documentId = absint($_GET['document_id'] ?? 0);
 
         try {
-            $this->run();
-        } catch (APIExeption $e) {
-            $this->showError(__('Unexpected error', 'moloni-on'));
+            $this
+                ->verify()
+                ->download();
+        } catch (Exception $e) {
+            wp_die(esc_html($e->getMessage()));
         }
+
+        wp_die('Done');
     }
 
     /**
-     * Service runner
+     * Verify request validity and permissions
      *
-     * @throws APIExeption
+     * @throws GenericException
      */
-    private function run(): void
+    private function verify(): DownloadOrderDocument
+    {
+        if (!is_user_logged_in()) {
+            throw new GenericException('You must be logged in to download this document.');
+        }
+
+        if (!(new Start())->isFullyAuthed()) {
+            throw new GenericException('Unexpected error.');
+        }
+
+        if ($this->orderId <= 0 || $this->documentId <= 0) {
+            throw new GenericException('Invalid document data.');
+        }
+
+        Security::verify_request_or_die();
+
+        $order = wc_get_order($this->orderId);
+
+        if (!$order instanceof WC_Order) {
+            throw new GenericException('Order not found.');
+        }
+
+        // Allow admins/shop managers or the order owner.
+        $currentUserId = get_current_user_id();
+        $isAllowed = current_user_can('manage_woocommerce') || (int)$order->get_user_id() === (int)$currentUserId;
+
+        if (!$isAllowed) {
+            throw new GenericException('You do not have permission to download this document.');
+        }
+
+        $orderDocumentIds = [];
+        $lastCreatedDocument = MoloniOrder::getLastCreatedDocument($order);
+
+        if (!empty($lastCreatedDocument)) {
+            $orderDocumentIds[] = (int)$lastCreatedDocument;
+        }
+
+        $allCreatedCreditNotes = MoloniOrder::getAllCreatedCreditNotes($order);
+
+        if (!empty($allCreatedCreditNotes)) {
+            $orderDocumentIds = array_merge($orderDocumentIds, $allCreatedCreditNotes);
+        }
+
+        if (!in_array($this->documentId, $orderDocumentIds, true)) {
+            throw new GenericException('Document does not belong to this order.');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Download the actual document
+     * @return void
+     *
+     * @throws GenericException|APIExeption
+     */
+    private function download()
     {
         $variables = [
             'documentId' => $this->documentId
@@ -49,18 +121,15 @@ class DownloadDocumentPDF
         $invoice = Documents::queryDocument($variables);
 
         if (isset($invoice['errors']) || !isset($invoice['data']['document']['data']['documentId'])) {
-            $this->showError(__('Document not found', 'moloni-on'));
-
-            return;
+            throw new GenericException(__('Document not found', 'moloni-on'));
         }
 
         $invoice = $invoice['data']['document']['data'];
 
         if (empty($invoice['pdfExport']) || $invoice['pdfExport'] === 'null') {
             new CreateDocumentPDF($this->documentId, $invoice['documentType']['apiCode']);
+            sleep(2);
         }
-
-        sleep(2);
 
         $mutation = [];
         $keyString = '';
@@ -103,18 +172,11 @@ class DownloadDocumentPDF
         $result = $mutation['data'][$keyString]['data'] ?? [];
 
         if (empty($result)) {
-            $this->showError(__('Error getting document', 'moloni-on'));
-
-            return;
+            throw new GenericException(__('Error getting document', 'moloni-on'));
         }
 
         $url = Context::configs()->get('media_api_url') . $result['path'] . '?jwt=' . $result['token'];
 
         header("Location: $url");
-    }
-
-    private function showError($message): void
-    {
-        wp_die(esc_html($message));
     }
 }

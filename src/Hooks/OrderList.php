@@ -2,6 +2,7 @@
 
 namespace MoloniOn\Hooks;
 
+use MoloniOn\Helpers\Security;
 use WC_Order;
 use Exception;
 use MoloniOn\Start;
@@ -103,9 +104,7 @@ class OrderList
             $documentId = MoloniOrder::getLastCreatedDocument($order);
 
             if ($documentId > 0) {
-                $redirectUrl = Context::getAdminUrl("action=downloadDocument&id=$documentId");
-
-                $html = '<a class="button" target="_blank" href="' . esc_url($redirectUrl) . '">' . __('Download', 'moloni-on') . '</a>';
+                $html = '<a class="button" target="_blank" href="' . esc_url($this->getDownloadUrl($documentId, $order->get_id())) . '">' . __('Download', 'moloni-on') . '</a>';
             } else {
                 $html = '<div>' . __('No associated document', 'moloni-on') . '</div>';
             }
@@ -130,5 +129,24 @@ class OrderList
         }
 
         return self::$columnVisible;
+    }
+
+    /**
+     * Gives the download button action
+     *
+     * @param int $orderId
+     * @param int $documentId
+     *
+     * @return string
+     */
+    private function getDownloadUrl(int $documentId, int $orderId): string
+    {
+        $url = add_query_arg([
+            'action' => 'molonion_download_order_document',
+            'order_id' => $orderId,
+            'document_id' => $documentId,
+        ], admin_url('admin-post.php'));
+
+        return Security::get_nonce_url($url);
     }
 }

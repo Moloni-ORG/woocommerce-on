@@ -2,6 +2,7 @@
 
 namespace MoloniOn\Hooks;
 
+use MoloniOn\Helpers\Security;
 use WC_Order;
 use MoloniOn\API\Documents;
 use MoloniOn\Enums\DocumentStatus;
@@ -90,8 +91,9 @@ class OrderDetails
             }
 
             $this->documents[] = [
+                'orderId' => $this->order->get_id(),
+                'documentId' => $documentData['documentId'],
                 'label' => $documentTypeName,
-                'href' => "", // todo: create action for this
                 'data' => $documentData
             ];
         }
@@ -132,8 +134,8 @@ class OrderDetails
             <ul>
                 <?php foreach ($this->documents as $document) : ?>
                     <li>
-                        <a href="<?= $document['href'] ?>" target="_blank">
-                            <?= $document['label'] ?>
+                        <a href="<?= esc_url($this->getDownloadUrl($document)) ?>" target="_blank" rel="noopener noreferrer">
+                            <?= esc_html($document['label']) ?>
                         </a>
                     </li>
                 <?php endforeach; ?>
@@ -142,5 +144,19 @@ class OrderDetails
         <?php
 
         $this->htmlToRender = ob_get_clean();
+    }
+
+    private function getDownloadUrl(array $document): string
+    {
+        $orderId = (int)$document['orderId'];
+        $documentId = (int)$document['documentId'];
+
+        $url = add_query_arg([
+            'action' => 'molonion_download_order_document',
+            'order_id' => $orderId,
+            'document_id' => $documentId,
+        ], admin_url('admin-post.php'));
+
+        return Security::get_nonce_url($url);
     }
 }
