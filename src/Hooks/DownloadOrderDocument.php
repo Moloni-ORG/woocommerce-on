@@ -45,10 +45,8 @@ class DownloadOrderDocument
                 ->verify()
                 ->download();
         } catch (Exception $e) {
-            wp_die(esc_html($e->getMessage()));
+            wp_die('<script>window.close();</script>');
         }
-
-        wp_die('Done');
     }
 
     /**
@@ -177,6 +175,7 @@ class DownloadOrderDocument
 
         $url = Context::configs()->get('media_api_url') . $result['path'] . '?jwt=' . $result['token'];
 
-        header("Location: $url");
+        wp_redirect($url);
+        exit;
     }
 }
