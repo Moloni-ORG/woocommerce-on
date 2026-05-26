@@ -119,7 +119,7 @@ class DownloadOrderDocument
         $invoice = Documents::queryDocument($variables);
 
         if (isset($invoice['errors']) || !isset($invoice['data']['document']['data']['documentId'])) {
-            throw new GenericException(__('Document not found', 'moloni-on'));
+            throw new GenericException('Document not found');
         }
 
         $invoice = $invoice['data']['document']['data'];
@@ -170,12 +170,33 @@ class DownloadOrderDocument
         $result = $mutation['data'][$keyString]['data'] ?? [];
 
         if (empty($result)) {
-            throw new GenericException(__('Error getting document', 'moloni-on'));
+            throw new GenericException('Error getting document');
         }
 
         $url = Context::configs()->get('media_api_url') . $result['path'] . '?jwt=' . $result['token'];
 
-        wp_redirect($url);
+        // Fetch PDF and force download via Content-Disposition header
+        $response = wp_remote_get($url, ['timeout' => 30]);
+
+        if (is_wp_error($response)) {
+            throw new GenericException('Error downloading document');
+        }
+
+        $pdfContent = wp_remote_retrieve_body($response);
+
+        if (empty($pdfContent)) {
+            throw new GenericException('Empty document received');
+        }
+
+        $filename = 'document-' . $this->documentId . '.pdf';
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Length: ' . strlen($pdfContent));
+        header('Cache-Control: private, no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+
+        echo $pdfContent;
         exit;
     }
 }
