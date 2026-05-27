@@ -46,7 +46,7 @@ class OrderDetails
 
         $this->getHtmlToRender();
 
-        apply_filters('moloni_es_before_order_details_render', $this);
+        apply_filters('moloni_on_before_order_details_render', $this);
 
         if (!empty($this->htmlToRender)) {
             echo $this->htmlToRender;
@@ -109,7 +109,7 @@ class OrderDetails
                     'filter' => [
                         'field' => 'documentId',
                         'comparison' => 'in',
-                        'value' => "[${documentIdsString}]"
+                        'value' => "[$documentIdsString]"
                     ]
                 ]
             ];
@@ -129,7 +129,7 @@ class OrderDetails
         ?>
         <section id="invoice_document">
             <h2>
-                <?= __('Billing document', 'moloni_es') ?>
+                <?= __('Billing document', 'moloni-on') ?>
             </h2>
             <ul>
                 <?php foreach ($this->documents as $document) : ?>

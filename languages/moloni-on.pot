@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Moloni ES\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 09:56+0000\n"
+"POT-Creation-Date: 2026-05-27 07:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -162,6 +162,10 @@ msgstr ""
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/DocumentTypes.php:64
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/DocumentTypes.php:86
 msgid "Bill of lading"
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderDetails.php:132
+msgid "Billing document"
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/DocumentTypes.php:63
