@@ -53,7 +53,7 @@ class Plugin
      */
     public static function init()
     {
-        return new (__CLASS__);
+        return new self();
     }
 
     //            Privates            //
