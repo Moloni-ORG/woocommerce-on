@@ -4,9 +4,9 @@
  *   Plugin URI: https://github.com/Moloni-ORG/woocommerce-on
  *   Requires Plugins: woocommerce
  *   Description:  Simple invoicing integration with Moloni ON.
- *   Version:      4.0.04
- *   Tested up to: 6.9
- *   WC tested up to: 10.3.6
+ *   Version:      4.0.05
+ *   Tested up to: 7.0
+ *   WC tested up to: 10.7.0
  *
  *   Author:       Moloni
  *   Author URI:   https://moloni.pt
@@ -61,13 +61,7 @@ register_deactivation_hook(__FILE__, [Remove::class, 'run']);
 
 add_action('wp_initialize_site', [Install::class, 'initializeSite'], 200);
 add_action('wp_uninitialize_site', [Remove::class, 'uninitializeSite']);
-add_action('plugins_loaded', Start::class);
+add_action('plugins_loaded', [Plugin::class, 'init']);
 
 add_action('admin_enqueue_scripts', [Enqueue::class, 'adminCommon']);
 add_action('admin_print_footer_scripts-toplevel_page_molonion', [Enqueue::class, 'adminCore']);
-
-function Start(): Plugin
-{
-    //start the plugin
-    return new Plugin();
-}

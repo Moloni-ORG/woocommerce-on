@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Moloni ES\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-05 09:46+0000\n"
+"POT-Creation-Date: 2026-05-27 07:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -35,7 +35,7 @@ msgid ""
 "match."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:204
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:214
 msgid "Accumulated stock"
 msgstr ""
 
@@ -45,6 +45,12 @@ msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Products/ActionModal.php:9
 msgid "Action in progress"
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:728
+msgid ""
+"Add a section to the customer's order view page where they can download the "
+"generated PDF document"
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:706
@@ -57,7 +63,7 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:715
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:737
 msgid "Advanced"
 msgstr ""
 
@@ -66,7 +72,7 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:749
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:771
 msgid "Alert e-mail"
 msgstr ""
 
@@ -116,25 +122,24 @@ msgstr ""
 msgid "Automatic"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:147
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:157
 msgid "Automatic actions from Moloni ON"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:31
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:32
 msgid "Automatic actions from WooCommerce"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:113
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:123
 msgid "Automatic stock synchronization"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:56
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:57
 msgid "Automatically create document when an order is paid"
 msgstr ""
 
 #. %1$s is the status, %2$s is the order name.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:41
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:100
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:60
 #, php-format
 msgid "Automatically generating order document in status '%1$s' (%2$s)"
 msgstr ""
@@ -159,6 +164,10 @@ msgstr ""
 msgid "Bill of lading"
 msgstr ""
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderDetails.php:132
+msgid "Billing document"
+msgstr ""
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/DocumentTypes.php:63
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Enums/DocumentTypes.php:84
 msgid "Budget"
@@ -168,12 +177,12 @@ msgstr ""
 msgid "Bulk actions"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:266
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:276
 msgid "Categories"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:343
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:373
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:337
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:367
 msgid "Changes saved."
 msgstr ""
 
@@ -239,11 +248,6 @@ msgstr ""
 msgid "Company slug"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:42
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:69
-msgid "Complete"
-msgstr ""
-
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Mixed/Dummy.php:16
 msgid "Completed"
 msgstr ""
@@ -266,7 +270,7 @@ msgstr ""
 msgid "Create bill of lading"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:43
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:44
 msgid "Create document automatically"
 msgstr ""
 
@@ -274,12 +278,12 @@ msgstr ""
 msgid "Create documents"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:62
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:63
 msgid "Create documents when the order is"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:413
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:430
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:415
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:432
 msgid "creating"
 msgstr ""
 
@@ -306,7 +310,7 @@ msgid ""
 "doesn't appear, make sure you have at least one order with this field in use."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:171
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:177
 msgid "Customer has invalid VAT."
 msgstr ""
 
@@ -335,7 +339,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:740
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:762
 msgid "Date used to limit the search for pending orders"
 msgstr ""
 
@@ -343,7 +347,7 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:124
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:134
 msgid "Default company warehouse"
 msgstr ""
 
@@ -371,7 +375,7 @@ msgstr ""
 msgid "Delete records older than 1 week"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:253
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:263
 msgid "Description"
 msgstr ""
 
@@ -395,7 +399,7 @@ msgid "Discarding order"
 msgstr ""
 
 #. %1$s is the order ID.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:283
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:277
 #, php-format
 msgid "Do you confirm that you want to mark the order %1$s as paid?"
 msgstr ""
@@ -445,11 +449,7 @@ msgstr ""
 msgid "Document marked as generated."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Documents/DownloadDocumentPDF.php:52
-msgid "Document not found"
-msgstr ""
-
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:225
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:233
 msgid "Document not found."
 msgstr ""
 
@@ -477,8 +477,8 @@ msgstr ""
 msgid "Document Warning Email Template."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:208
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:202
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:216
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:139
 msgid "Document was created."
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 msgid "Documents created:"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:75
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:85
 msgid ""
 "Documents will be created automatically once they are in the selected state"
 msgstr ""
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Documents with errors:"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:108
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:107
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/Logs/LogsContextModal.php:15
 msgid "Download"
 msgstr ""
@@ -504,7 +504,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:270
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:280
 msgid "EAN"
 msgstr ""
 
@@ -522,10 +522,10 @@ msgid "Error"
 msgstr ""
 
 #. %1$s is the action. %2$s is the product SKU.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:412
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:429
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:462
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:479
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:414
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:431
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:466
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:483
 #, php-format
 msgid "Error %1$s product in Moloni ON (%2$s)"
 msgstr ""
@@ -549,7 +549,7 @@ msgstr ""
 msgid "Error creating category %1$s"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:83
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:85
 msgid "Error creating customer."
 msgstr ""
 
@@ -580,7 +580,7 @@ msgstr ""
 msgid "Error fetching categories"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:270
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:276
 msgid "Error fetching countries"
 msgstr ""
 
@@ -588,7 +588,7 @@ msgstr ""
 msgid "Error fetching country"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:357
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:368
 msgid "Error fetching customers"
 msgstr ""
 
@@ -642,10 +642,6 @@ msgstr ""
 msgid "Error fetching warehouses"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Documents/DownloadDocumentPDF.php:104
-msgid "Error getting document"
-msgstr ""
-
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/WcProduct/Page/CheckProduct.php:137
 msgid "Error getting or updating property group"
 msgstr ""
@@ -679,7 +675,7 @@ msgstr ""
 msgid "Error synchronizing products to Moloni ON."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:93
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:92
 msgid "Error synchronizing products to WooCommerce."
 msgstr ""
 
@@ -688,7 +684,7 @@ msgstr ""
 msgid "Error synchronizing stock."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:99
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:105
 msgid "Error updating customer."
 msgstr ""
 
@@ -758,12 +754,11 @@ msgid "Failed to update existing property group \"%1$s\""
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/Ajax.php:103
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:85
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:145
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:103
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductSetStock.php:77
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductSetStock.php:138
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductUpdate.php:143
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:112
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:111
 msgid "Fatal error"
 msgstr ""
 
@@ -772,7 +767,7 @@ msgstr ""
 msgid "Fee"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:239
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:249
 msgid "Fields to sync"
 msgstr ""
 
@@ -835,7 +830,7 @@ msgstr ""
 msgid "If you have any questions, please contact our Customer support."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:274
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:284
 msgid "Image"
 msgstr ""
 
@@ -873,7 +868,7 @@ msgstr ""
 msgid "Informative"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:468
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:463
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -949,7 +944,7 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:251
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:245
 msgid "Logs cleanup is complete."
 msgstr ""
 
@@ -979,7 +974,7 @@ msgstr ""
 msgid "Moloni ON"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:79
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:80
 msgid "Moloni ON document"
 msgstr ""
 
@@ -1003,7 +998,7 @@ msgstr ""
 msgid "Moloni ON product list"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:393
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:392
 msgid "Moloni ON product not found"
 msgstr ""
 
@@ -1012,11 +1007,11 @@ msgstr ""
 msgid "Moloni ON stock values based on:"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:310
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:304
 msgid "Moloni ON Webhooks reinstalled successfully."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:245
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:255
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/MoloniProducts.php:122
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/MoloniProducts.php:199
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/WcProducts.php:117
@@ -1028,20 +1023,21 @@ msgstr ""
 msgid "National and intra-community sales"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:50
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:88
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:107
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:166
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:185
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:51
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:98
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:117
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:176
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:195
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:137
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:190
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:291
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:618
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:699
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:721
 msgid "No"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:110
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderList.php:109
 msgid "No associated document"
 msgstr ""
 
@@ -1096,7 +1092,7 @@ msgstr ""
 msgid "Open in WooCommerce"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:277
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:287
 msgid "Optional field that will sync when synchronizing products"
 msgstr ""
 
@@ -1108,7 +1104,7 @@ msgid "Order"
 msgstr ""
 
 #. %1$s is the order ID.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:273
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:267
 #, php-format
 msgid "Order %1$s has been marked as generated."
 msgstr ""
@@ -1201,7 +1197,7 @@ msgstr ""
 msgid "Prefix used when creating customer's"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:249
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:259
 msgid "Price"
 msgstr ""
 
@@ -1222,8 +1218,6 @@ msgstr ""
 msgid "Process concluded"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:101
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:72
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Modals/PendingOrders/BulkActionModal.php:9
 msgid "Processing"
 msgstr ""
@@ -1232,7 +1226,7 @@ msgstr ""
 msgid "Processing product"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:143
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:142
 msgid "Product already exists"
 msgstr ""
 
@@ -1253,7 +1247,7 @@ msgid "Product does not have reference"
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductSetStock.php:232
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:290
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:289
 msgid "Product does not manage stock"
 msgstr ""
 
@@ -1266,14 +1260,14 @@ msgstr ""
 msgid "Product is not published"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:398
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:397
 msgid "Product is variant, will be skipped"
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductSetStock.php:224
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductUpdate.php:394
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:191
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:253
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:190
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:252
 msgid "Product not found"
 msgstr ""
 
@@ -1297,7 +1291,7 @@ msgstr ""
 msgid "Product not found in WooCommerce store"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:403
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:402
 msgid "Product reference blacklisted"
 msgstr ""
 
@@ -1305,8 +1299,8 @@ msgstr ""
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductSetStock.php:244
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductUpdate.php:183
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/ProductUpdate.php:240
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:196
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:266
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:195
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:265
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:93
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:156
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/WcProduct/Page/CheckProduct.php:127
@@ -1386,7 +1380,7 @@ msgstr ""
 msgid "Receipt"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:761
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:783
 msgid ""
 "Receive alerts for when an error occurs (document creation/authentication "
 "lost)"
@@ -1429,8 +1423,8 @@ msgstr ""
 msgid "Reseting tokens after %1$s tries"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:286
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:773
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:296
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:795
 msgid "Save changes"
 msgstr ""
 
@@ -1482,7 +1476,7 @@ msgstr ""
 msgid "Shipping info"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:724
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:746
 msgid "Show orders from"
 msgstr ""
 
@@ -1536,7 +1530,7 @@ msgstr ""
 msgid "Simplified invoice"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:313
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:307
 msgid "Something went wrong reinstalling Moloni ON Webhooks."
 msgstr ""
 
@@ -1582,7 +1576,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:262
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:272
 msgid "Stock"
 msgstr ""
 
@@ -1633,26 +1627,26 @@ msgstr ""
 msgid "Successfully processed"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:81
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:159
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:91
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:169
 msgid "Sync products"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:100
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:178
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:110
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:188
 msgid "Sync stocks automatically"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:119
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:199
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:129
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:209
 msgid "Sync stocks warehouse"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:227
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:237
 msgid "Synchronization extras"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:407
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/WebHooks/Products.php:406
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Page/CheckProduct.php:135
 msgid "Synchronization of products with variants is disabled"
 msgstr ""
@@ -1685,33 +1679,31 @@ msgstr ""
 msgid "The order must be paid for in order to be generated."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:113
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/OrderCustomer.php:119
 msgid "There was an error saving the customer."
 msgstr ""
 
 #. %1$s is the order name.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:189
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:197
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/Ajax.php:90
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:72
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:132
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:90
 #, php-format
 msgid "There was an error when generating the document (%1$s)"
 msgstr ""
 
 #. %1$s is the order name.
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:175
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:183
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/Ajax.php:76
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:56
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:116
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:74
 #, php-format
 msgid "There was an warning when generating the document (%1$s)"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:151
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:161
 msgid "This actions happen when an action occours in your Moloni ON account"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:35
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:36
 msgid "This actions happen when an action occours in your WooCommerce store"
 msgstr ""
 
@@ -1736,7 +1728,7 @@ msgid ""
 "finishes."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:231
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:241
 msgid "This settings will be applied to all automatic actions."
 msgstr ""
 
@@ -1753,13 +1745,13 @@ msgid ""
 "WooCommerce stocks with the ones on your Moloni ON account."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:219
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:229
 msgid ""
 "This warehouse will be used when a product is inserted or updated in Moloni "
 "ON"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:138
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:148
 msgid ""
 "This warehouse will be used when a product is inserted or updated in "
 "WooCommerce"
@@ -1793,16 +1785,12 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Documents/DownloadDocumentPDF.php:34
-msgid "Unexpected error"
-msgstr ""
-
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/PendingOrders.php:74
 msgid "Unknown"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:463
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:480
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:467
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/MoloniProduct/Abstracts/MoloniProductSyncAbstract.php:484
 msgid "updating"
 msgstr ""
 
@@ -1858,8 +1846,8 @@ msgstr ""
 msgid "Vat number"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:205
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderPaid.php:199
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:213
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Hooks/OrderStatusChanged.php:136
 msgid "View document"
 msgstr ""
 
@@ -1871,7 +1859,7 @@ msgstr ""
 msgid "View WooCommerce products"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:257
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:267
 msgid "Visibility"
 msgstr ""
 
@@ -1885,8 +1873,8 @@ msgstr ""
 msgid "Warehouse used in documents"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:129
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:209
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:139
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:219
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:442
 msgid "Warehouses"
 msgstr ""
@@ -1899,19 +1887,19 @@ msgstr ""
 msgid "We are processing your request."
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:192
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:202
 msgid ""
 "When a stock movement is created in Moloni ON, the movement will be "
 "recreated in WooCommerce (if product exists)"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:172
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:182
 msgid ""
 "When saving a product in Moloni ON, the plugin will automatically create the "
 "product in WooCommerce or update if it already exists"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:94
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:104
 msgid ""
 "When saving a product in WooCommerce, the plugin will automatically create "
 "the product in Moloni ON or update if it already exists (only if product has "
@@ -1927,6 +1915,10 @@ msgstr ""
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:336
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:391
 msgid "Will be used if items do not have tax"
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:714
+msgid "WooCommerce order details"
 msgstr ""
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:691
@@ -1946,20 +1938,21 @@ msgstr ""
 msgid "WooCommerce variation without reference"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:53
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:91
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:110
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:169
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:188
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:54
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:101
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:120
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:179
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Automation.php:198
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:140
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:193
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:294
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:621
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:702
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Containers/Settings.php:724
 msgid "Yes"
 msgstr ""
 
-#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:288
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Plugin.php:282
 msgid "Yes, i confirm"
 msgstr ""
 

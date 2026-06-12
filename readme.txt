@@ -2,9 +2,9 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.04
-Tested up to: 6.9
-WC tested up to: 10.3.6
+Stable tag: 4.0.05
+Tested up to: 7.0
+WC tested up to: 10.7.0
 Requires PHP: 7.2
 Requires at least: 5.0
 License: GPLv2 or later
@@ -58,6 +58,10 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.05 =
+* Tested compatibility with WooCommerce 10.7.0 and WordPress 7.0.
+* New filter added to allow changing the document type when issuing documents from the order page.
+
 = 4.0.04 =
 * New filter added.
 * Fix in customer search.

@@ -6,7 +6,7 @@ class DocumentTypes
 {
     public const INVOICE = 'invoice';
     public const RECEIPT = 'receipt';
-    public const INVOICE_RECEIPT = 'invoiceReceipts';
+    public const INVOICE_RECEIPT = 'invoiceReceipt';
     public const SIMPLIFIED_INVOICE = 'simplifiedInvoice';
     public const BILLS_OF_LADING = 'billsOfLading';
     public const PURCHASE_ORDER = 'purchaseOrder';

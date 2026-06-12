@@ -18,7 +18,7 @@ class Curl
      *
      * @var string
      */
-    private static $userAgent = 'WordpressPlugin/3.0';
+    private static $userAgent = 'WordpressPlugin/4.0';
 
     /**
      * Makes a simple API post request

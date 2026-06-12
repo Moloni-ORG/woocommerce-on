@@ -374,7 +374,7 @@ class OrderCustomer
         }
 
         foreach ($searchResult['data']['customers']['data'] as $customer) {
-            if (!empty($customer['vat'])) {
+            if (empty($this->vat) && !empty($customer['vat'])) {
                 continue;
             }
 

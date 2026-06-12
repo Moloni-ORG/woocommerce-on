@@ -9,7 +9,7 @@ use MoloniOn\Exceptions\APIExeption;
 class Documents extends EndpointAbstract
 {
     /**
-     * Gets documents info by id
+     * Gets document info by id
      *
      * @param array|null $variables
      *
@@ -22,5 +22,21 @@ class Documents extends EndpointAbstract
         $query = self::loadQuery('document');
 
         return Curl::simple('document', $query, $variables);
+    }
+
+    /**
+     * Gets documents info
+     *
+     * @param array|null $variables
+     *
+     * @return mixed
+     *
+     * @throws APIExeption
+     */
+    public static function queryDocuments(?array $variables = [])
+    {
+        $query = self::loadQuery('documents');
+
+        return Curl::simple('documents', $query, $variables);
     }
 }

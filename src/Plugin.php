@@ -10,8 +10,9 @@ use MoloniOn\Exceptions\DocumentWarning;
 use MoloniOn\Helpers\Security;
 use MoloniOn\Helpers\WebHooks;
 use MoloniOn\Hooks\Ajax;
+use MoloniOn\Hooks\DownloadOrderDocument;
+use MoloniOn\Hooks\OrderDetails;
 use MoloniOn\Hooks\OrderList;
-use MoloniOn\Hooks\OrderPaid;
 use MoloniOn\Hooks\OrderStatusChanged;
 use MoloniOn\Hooks\OrderView;
 use MoloniOn\Hooks\ProductDelete;
@@ -23,7 +24,6 @@ use MoloniOn\Menus\Admin;
 use MoloniOn\Models\Auth;
 use MoloniOn\Models\Logs;
 use MoloniOn\Models\Settings;
-use MoloniOn\Services\Documents\DownloadDocumentPDF;
 use MoloniOn\Services\Documents\OpenDocument;
 use MoloniOn\Services\Orders\CreateMoloniDocument;
 use MoloniOn\Services\Orders\DiscardOrder;
@@ -46,6 +46,14 @@ class Plugin
     {
         $this->onStart();
         $this->actions();
+    }
+
+    /**
+     * Starts this class
+     */
+    public static function init()
+    {
+        return new self();
     }
 
     //            Privates            //
@@ -82,6 +90,8 @@ class Plugin
         new OrderView($this);
         new OrderStatusChanged($this);
         new OrderList($this);
+        new OrderDetails();
+        new DownloadOrderDocument();
         new UpgradeProcess($this);
         new WoocommerceInitialize($this);
     }
@@ -141,9 +151,6 @@ class Plugin
 
                 case 'getInvoice':
                     $this->openDocument();
-                    break;
-                case 'downloadDocument':
-                    $this->downloadDocument();
                     break;
             }
         } catch (MoloniException $error) {
@@ -224,20 +231,6 @@ class Plugin
         }
 
         add_settings_error('molonion', 'moloni-document-not-found', __('Document not found.', 'moloni-on'));
-    }
-
-    /**
-     * Download Moloni document
-     *
-     * @return void
-     */
-    private function downloadDocument(): void
-    {
-        $documentId = (int)(sanitize_text_field($_REQUEST['id']));
-
-        if ($documentId > 0) {
-            new DownloadDocumentPDF($documentId);
-        }
     }
 
     /**
@@ -416,6 +409,7 @@ class Plugin
             'email_send' => 'int',
             'vat_validate' => 'int',
             'moloni_show_download_column' => 'int',
+            'moloni_show_download_my_account_order_view' => 'int',
 
             // === Email ===
             'alert_email' => 'email',
