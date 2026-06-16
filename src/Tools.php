@@ -94,8 +94,8 @@ class Tools
      */
     public static function createTaxFromRateAndCode($taxRate, ?array $fiscalZone = []): array
     {
-        $countryId = $fiscalZone['countryId'] ?? Enums\Countries::SPAIN;
-        $countryCode = $fiscalZone['code'] ?? 'es';
+        $countryId = $fiscalZone['countryId'] ?? Enums\Countries::PORTUGAL;
+        $countryCode = $fiscalZone['code'] ?? 'pt';
 
         $taxCreateVariables = [
             'data' => [
@@ -121,7 +121,7 @@ class Tools
             $taxCreateVariables['data']['fiscalZoneFinanceTypeMode'] = 'NOR';
         }
 
-        return Taxes::mutationTaxCreate($taxCreateVariables);
+        return Taxes::mutationTaxCreate($taxCreateVariables)['data']['taxCreate']['data'] ?? [];
     }
 
     /**
@@ -137,7 +137,7 @@ class Tools
      */
     public static function getTaxFromRate($taxRate, ?array $fiscalZone = [])
     {
-        $countryCode = $fiscalZone['code'] ?? 'es';
+        $countryCode = $fiscalZone['code'] ?? 'pt';
         $countryCode = strtolower((string)$countryCode);
 
         $moloniTax = [];
@@ -198,7 +198,7 @@ class Tools
     public static function getMoloniCountryByCode(?string $countryIso = ''): array
     {
         $default = [
-            'countryId' => Enums\Countries::SPAIN,
+            'countryId' => Enums\Countries::PORTUGAL,
             'languageId' => Languages::PT,
             'code' => strtoupper($countryIso)
         ];

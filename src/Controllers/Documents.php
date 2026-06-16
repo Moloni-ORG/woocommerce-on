@@ -717,8 +717,8 @@ class Documents
         $fiscalZone = [];
         $addressCode = '';
         $defaultValues = [
-            'code' => $this->company['fiscalZone']['fiscalZone'] ?? 'ES',
-            'countryId' => $this->company['country']['countryId'] ?? Countries::SPAIN
+            'code' => $this->company['fiscalZone']['fiscalZone'] ?? 'PT',
+            'countryId' => $this->company['country']['countryId'] ?? Countries::PORTUGAL
         ];
 
         switch (get_option('woocommerce_tax_based_on')) {
