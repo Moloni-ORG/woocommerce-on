@@ -8,7 +8,6 @@ use MoloniOn\Context\Logger;
 use MoloniOn\Context\Settings;
 use MoloniOn\Helpers\External;
 use MoloniOn\Helpers\Security;
-use Psr\Log\LoggerInterface;
 
 class Context
 {
@@ -26,7 +25,7 @@ class Context
     /**
      * Logger instance
      *
-     * @var LoggerInterface|null
+     * @var Logger|null
      */
     private static $LOGGER;
 
@@ -71,7 +70,7 @@ class Context
 
     // Dependencies //
 
-    public static function logger(): ?LoggerInterface
+    public static function logger(): ?Logger
     {
         return self::$LOGGER;
     }
