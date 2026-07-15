@@ -290,6 +290,10 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             ];
 
             foreach ($taxRates as $order => $taxRate) {
+                if ((float)$taxRate['rate'] <= 0) {
+                    continue;
+                }
+
                 $moloniTax = Tools::getTaxFromRate((float)$taxRate['rate'], $fiscalZone);
 
                 $tax = [];
