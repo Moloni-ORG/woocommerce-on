@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.07
+Stable tag: 4.0.08
 Tested up to: 7.0
 WC tested up to: 10.7.0
 Requires PHP: 7.2
@@ -58,6 +58,9 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.08=
+* Fix 0% tax issue.
+
 = 4.0.07=
 * Remove PSR/log dependency.
 
