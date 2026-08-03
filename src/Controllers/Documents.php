@@ -465,7 +465,7 @@ class Documents
     private function mapPropsToValues(): array
     {
         $variables = [
-            'fiscalZone' => $this->fiscalZone['code'],
+            'fiscalZone' => $this->company['fiscalZone']['fiscalZone'] ?? 'PT',
             'customerId' => $this->customerId,
             'documentSetId' => $this->documentSetId,
             'ourReference' => $this->ourReference,
@@ -706,7 +706,9 @@ class Documents
     }
 
     /**
-     * Set fiscal zone
+     * Set fiscal zone used for line tax lookups (based on the WooCommerce
+     * "tax based on" setting). The document itself is always sent with the
+     * company's fiscal zone.
      *
      * @return $this
      *
