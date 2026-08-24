@@ -11,12 +11,10 @@ use MoloniOn\Services\MoloniProduct\Helpers\Abstracts\VariantHelperAbstract;
 
 class CreateEntirePropertyGroup extends VariantHelperAbstract
 {
-    private $moloniPropertyGroups;
     private $productAttributes;
 
-    public function __construct(array $moloniPropertyGroups, array $productAttributes)
+    public function __construct(array $productAttributes)
     {
-        $this->moloniPropertyGroups = $moloniPropertyGroups;
         $this->productAttributes = $productAttributes;
     }
 

@@ -32,6 +32,10 @@ class FindOrCreatePropertyGroup extends VariantHelperAbstract
     /**
      * Handler
      *
+     * Single shared group model: every product-with-variants uses ONE property
+     * group named "WooCommerce", found (by name) or created. Its properties/values
+     * grow as new variant options appear, through the granular mutations.
+     *
      * @throws HelperException
      */
     public function handle(): array
@@ -40,80 +44,18 @@ class FindOrCreatePropertyGroup extends VariantHelperAbstract
             return [];
         }
 
-        try {
-            $moloniPropertyGroups = PropertyGroups::queryPropertyGroups();
-        } catch (APIExeption $e) {
-            throw new HelperException(__('Error fetching property groups', 'moloni-on'));
+        $wooGroup = $this->findGroupByName(self::VARIANTS_GROUP_NAME);
+
+        /** No "WooCommerce" group yet, create it from scratch */
+        if (empty($wooGroup)) {
+            return (new CreateEntirePropertyGroup($this->productAttributes))->handle();
         }
 
         /**
-         * Always prefer a single "WooCommerce" group when one exists, regardless
-         * of how many properties overlap. Reuse it and add any missing
-         * property / value through the granular mutations.
+         * Reuse the "WooCommerce" group, adding any missing property / value
+         * through the granular mutations (only the diff is sent, never the whole group).
          */
-        $wooKey = $this->findInName($moloniPropertyGroups, self::VARIANTS_GROUP_NAME);
-
-        if ($wooKey !== false) {
-            $wooGroup = $moloniPropertyGroups[$wooKey];
-            $wooGroup['properties'] = $wooGroup['properties'] ?? [];
-
-            $updatedGroup = $this->ensurePropertiesExist($wooGroup, $this->productAttributes);
-
-            return (new PrepareVariantPropertiesReturn($updatedGroup, $this->productAttributes))->handle();
-        }
-
-        $matches = [];
-
-        /** Try to find the best property group */
-        foreach ($moloniPropertyGroups as $moloniPropertyGroup) {
-            if (empty($moloniPropertyGroup['propertyGroupId']) || empty($moloniPropertyGroup['properties'])) {
-                continue;
-            }
-
-            $propertyGroupPropertiesMatchCount = 0;
-
-            foreach ($this->productAttributes as $attributes) {
-                foreach ($attributes as $attributeName => $options) {
-                    foreach ($moloniPropertyGroup['properties'] as $property) {
-                        if (strtolower($attributeName) === strtolower($property['name'])) {
-                            $propertyGroupPropertiesMatchCount++;
-                        }
-                    }
-                }
-            }
-
-            $matches[] = [
-                'propertyGroupId' => $moloniPropertyGroup['propertyGroupId'],
-                'count' => $propertyGroupPropertiesMatchCount,
-            ];
-        }
-
-        unset($attributeName, $options, $moloniPropertyGroup);
-
-        // Sort by best match descending
-        $this->orderMatches($matches);
-
-        /**
-         * No matches, or the best match is 0
-         * We need to fully create it
-         */
-        if (empty($matches) || $matches[0]['count'] === 0) {
-            return (new CreateEntirePropertyGroup($moloniPropertyGroups, $this->productAttributes))->handle();
-        }
-
-        /**
-         * A match was found
-         * If it was partial, we need to do a propertyGroup update to add the missing stuff
-         * If it was 100% match, we can just return
-         */
-        $bestPropertyGroupId = (int)$matches[0]['propertyGroupId'];
-        $bestPropertyGroup = $this->findInPropertyGroup($moloniPropertyGroups, $bestPropertyGroupId);
-
-        /**
-         * Create any missing property / value through the granular mutations
-         * (only the diff is sent, never the whole group)
-         */
-        $updatedGroup = $this->ensurePropertiesExist($bestPropertyGroup, $this->productAttributes);
+        $updatedGroup = $this->ensurePropertiesExist($wooGroup, $this->productAttributes);
 
         return (new PrepareVariantPropertiesReturn($updatedGroup, $this->productAttributes))->handle();
     }
@@ -121,16 +63,39 @@ class FindOrCreatePropertyGroup extends VariantHelperAbstract
     //          Privates          //
 
     /**
-     * Orders matches in descending order
+     * Fetches the property group with the given name.
      *
-     * @param array $matches
+     * Uses the server-side name search to avoid pulling every group, then confirms
+     * the exact name in code (the API search is a partial LIKE match).
      *
-     * @return void
+     * @return array Empty array when no group with that exact name exists
+     *
+     * @throws HelperException
      */
-    private function orderMatches(array &$matches): void
+    private function findGroupByName(string $name): array
     {
-        $countColumn = array_column($matches, 'count');
+        try {
+            $moloniPropertyGroups = PropertyGroups::queryPropertyGroups([
+                'options' => [
+                    'search' => [
+                        'field' => 'name',
+                        'value' => $name,
+                    ],
+                ],
+            ]);
+        } catch (APIExeption $e) {
+            throw new HelperException(__('Error fetching property groups', 'moloni-on'));
+        }
 
-        array_multisort($countColumn, SORT_DESC, $matches);
+        $key = $this->findInName($moloniPropertyGroups, $name);
+
+        if ($key === false) {
+            return [];
+        }
+
+        $group = $moloniPropertyGroups[$key];
+        $group['properties'] = $group['properties'] ?? [];
+
+        return $group;
     }
 }

@@ -181,17 +181,6 @@ abstract class VariantHelperAbstract
         return false;
     }
 
-    protected function findInPropertyGroup(array $array, int $needle)
-    {
-        foreach ($array as $value) {
-            if ((int)$value['propertyGroupId'] === $needle) {
-                return $value;
-            }
-        }
-
-        return false;
-    }
-
     protected function cleanReferenceString(string $string, int $truncate = 30): string
     {
         return substr($this->cleanCodeString($string), 0, $truncate);
