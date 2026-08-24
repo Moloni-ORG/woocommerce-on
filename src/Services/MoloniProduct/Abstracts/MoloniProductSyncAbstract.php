@@ -8,6 +8,7 @@ use MoloniOn\Enums\ProductTypeAT;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Helpers\MoloniWarehouse;
+use MoloniOn\Models\ProductAssociations;
 use MoloniOn\Services\MoloniProduct\Helpers\GetOrCreateCategory;
 use MoloniOn\Services\MoloniProduct\Helpers\UpdateProductImages;
 use WC_Tax;
@@ -342,17 +343,16 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
     }
 
     /**
-     * Set variants
+     * Build the variant services (props are prepared here, but each variant is
+     * only persisted later in saveVariants(), once the parent product exists).
      *
      * @throws ServiceException
      */
     protected function setVariants()
     {
-        $newVariants = [];
-
         foreach ($this->propertyGroup['variations'] as $wcVariationId => $targetPropertyGroup) {
             /** Get variation from cached objects array */
-            $wcVariation = $this->variationProductsCache[$wcVariationId];
+            $wcVariation = $this->variationProductsCache[$wcVariationId] ?? null;
 
             if (empty($wcVariation)) {
                 continue;
@@ -366,34 +366,8 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
             $service->findVariant();
             $service->run();
 
-            $newVariants[] = $service->getProps();
-
             $this->variantServices[] = $service;
         }
-
-        if (!empty($this->moloniProduct['variants'])) {
-            foreach ($this->moloniProduct['variants'] as $existingVariant) {
-                foreach ($newVariants as $newVariant) {
-                    if (!isset($newVariant['productId'])) {
-                        continue;
-                    }
-
-                    if ($existingVariant['productId'] === $newVariant['productId']) {
-                        continue 2;
-                    }
-                }
-
-                /** If we cannot delete variant, set it as invisible */
-                if ($existingVariant['deletable'] === false) {
-                    $newVariants[] = [
-                        'productId' => $existingVariant['productId'],
-                        'visible' => Boolean::NO,
-                    ];
-                }
-            }
-        }
-
-        $this->props['variants'] = $newVariants;
     }
 
     //            Requests            //
@@ -445,7 +419,11 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
         $this->moloniProduct = $product;
 
-        $this->afterSave();
+        /** Persist the parent mapping before touching variants, so a failure
+         *  mid-variant leaves a recoverable association instead of an orphan */
+        $this->associateParent();
+
+        $this->saveVariants();
     }
 
     /**
@@ -497,7 +475,11 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
         $this->moloniProduct = $product;
 
-        $this->afterSave();
+        /** Persist the parent mapping before touching variants, so a failure
+         *  mid-variant leaves a recoverable association instead of an orphan */
+        $this->associateParent();
+
+        $this->saveVariants();
     }
 
     protected function uploadImage()
@@ -550,14 +532,131 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
     //            Auxiliary            //
 
-    protected function afterSave()
+    /**
+     * Persist the parent product ↔ WooCommerce association.
+     *
+     * Called right after the parent is saved and before any variant work, so an
+     * error while saving variants still leaves a recoverable mapping (avoiding
+     * an orphaned Moloni parent that a retry would duplicate or reject on the
+     * unique-reference constraint).
+     */
+    protected function associateParent()
     {
-        if (!empty($this->variantServices)) {
-            foreach ($this->variantServices as $variantService) {
-                $variantService->setMoloniParentProduct($this->moloniProduct);
-                $variantService->findVariant();
+        ProductAssociations::deleteByWcId($this->wcProduct->get_id());
+        ProductAssociations::deleteByMoloniId((int)$this->moloniProduct['productId']);
+
+        ProductAssociations::add(
+            $this->wcProduct->get_id(),
+            0,
+            $this->moloniProduct['productId'],
+            0
+        );
+    }
+
+    /**
+     * Persist every variant through the granular mutations, then reconcile
+     * variants that were removed in WooCommerce.
+     *
+     * Runs after the parent product has been saved, so productVariantCreate
+     * has a parent to attach new variants to.
+     *
+     * @throws ServiceException
+     */
+    protected function saveVariants()
+    {
+        /** Variants that are still present (created or updated) in this sync */
+        $keptVariants = [];
+
+        foreach ($this->variantServices as $variantService) {
+            $variantService->setMoloniParentProduct($this->moloniProduct);
+            $variantService->save();
+
+            $variant = $variantService->getMoloniVariant();
+
+            if (!empty($variant)) {
+                $keptVariants[] = $variant;
             }
         }
+
+        $hiddenVariants = $this->reconcileRemovedVariants($keptVariants);
+
+        /**
+         * Keep the parent product's variant list coherent for the steps that
+         * still run after this (e.g. image upload): the create/update response
+         * doesn't include the variants we just persisted granularly, and the
+         * image upload still ships the full variant list.
+         */
+        $this->moloniProduct['variants'] = array_merge($keptVariants, $hiddenVariants);
+    }
+
+    /**
+     * Deletes (or hides, when not deletable) Moloni variants that no longer
+     * exist in WooCommerce. With the granular flow omitted variants are no
+     * longer removed automatically, so we handle it explicitly here.
+     *
+     * Returns the variants that were hidden (kept in Moloni), so the caller can
+     * keep them in the product's variant list.
+     *
+     * @param array $keptVariants Variants created/updated in this sync
+     *
+     * @return array
+     *
+     * @throws ServiceException
+     */
+    protected function reconcileRemovedVariants(array $keptVariants): array
+    {
+        if (empty($this->moloniProduct['variants'])) {
+            return [];
+        }
+
+        $keptProductIds = array_map(static function ($variant) {
+            return (int)($variant['productId'] ?? 0);
+        }, $keptVariants);
+
+        $hiddenVariants = [];
+        $toDelete = [];
+
+        foreach ($this->moloniProduct['variants'] as $existingVariant) {
+            if (in_array((int)$existingVariant['productId'], $keptProductIds, true)) {
+                continue;
+            }
+
+            /** This variant no longer exists in WooCommerce */
+            if ($existingVariant['deletable'] === false) {
+                /** Can't be deleted (has documents/movements), hide it instead */
+                try {
+                    Products::mutationProductUpdate([
+                        'data' => [
+                            'productId' => (int)$existingVariant['productId'],
+                            'visible' => Boolean::NO,
+                        ],
+                    ]);
+                } catch (APIExeption $e) {
+                    throw new ServiceException(
+                        __('Error hiding removed variant in Moloni ON', 'moloni-on'),
+                        ['message' => $e->getMessage(), 'data' => $e->getData()]
+                    );
+                }
+
+                $existingVariant['visible'] = Boolean::NO;
+                $hiddenVariants[] = $existingVariant;
+            } else {
+                $toDelete[] = (int)$existingVariant['productId'];
+            }
+        }
+
+        if (!empty($toDelete)) {
+            try {
+                Products::mutationProductDelete(['productId' => $toDelete]);
+            } catch (APIExeption $e) {
+                throw new ServiceException(
+                    __('Error deleting removed variants in Moloni ON', 'moloni-on'),
+                    ['message' => $e->getMessage(), 'data' => $e->getData()]
+                );
+            }
+        }
+
+        return $hiddenVariants;
     }
 
     /**

@@ -4,7 +4,6 @@
 namespace MoloniOn\Services\MoloniProduct\Helpers\Variants;
 
 use MoloniOn\API\PropertyGroups;
-use MoloniOn\Enums\Boolean;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Services\MoloniProduct\Helpers\Abstracts\VariantHelperAbstract;
@@ -45,6 +44,22 @@ class FindOrCreatePropertyGroup extends VariantHelperAbstract
             $moloniPropertyGroups = PropertyGroups::queryPropertyGroups();
         } catch (APIExeption $e) {
             throw new HelperException(__('Error fetching property groups', 'moloni-on'));
+        }
+
+        /**
+         * Always prefer a single "WooCommerce" group when one exists, regardless
+         * of how many properties overlap. Reuse it and add any missing
+         * property / value through the granular mutations.
+         */
+        $wooKey = $this->findInName($moloniPropertyGroups, self::VARIANTS_GROUP_NAME);
+
+        if ($wooKey !== false) {
+            $wooGroup = $moloniPropertyGroups[$wooKey];
+            $wooGroup['properties'] = $wooGroup['properties'] ?? [];
+
+            $updatedGroup = $this->ensurePropertiesExist($wooGroup, $this->productAttributes);
+
+            return (new PrepareVariantPropertiesReturn($updatedGroup, $this->productAttributes))->handle();
         }
 
         $matches = [];
@@ -94,103 +109,13 @@ class FindOrCreatePropertyGroup extends VariantHelperAbstract
         $bestPropertyGroupId = (int)$matches[0]['propertyGroupId'];
         $bestPropertyGroup = $this->findInPropertyGroup($moloniPropertyGroups, $bestPropertyGroupId);
 
-        $propertyGroupForUpdate = [
-            'propertyGroupId' => $bestPropertyGroup['propertyGroupId'],
-            'properties' => $bestPropertyGroup['properties'],
-        ];
+        /**
+         * Create any missing property / value through the granular mutations
+         * (only the diff is sent, never the whole group)
+         */
+        $updatedGroup = $this->ensurePropertiesExist($bestPropertyGroup, $this->productAttributes);
 
-        /** Delete unwanted props */
-        foreach ($propertyGroupForUpdate['properties'] as $idx => $group) {
-            unset($propertyGroupForUpdate['properties'][$idx]['deletable']);
-
-            foreach ($group['values'] as $idx2 => $property) {
-                unset($propertyGroupForUpdate['properties'][$idx]['values'][$idx2]['deletable']);
-            }
-        }
-
-        $updateNeeded = false;
-
-        foreach ($this->productAttributes as $attributes) {
-            foreach ($attributes as $attributeName => $options) {
-                foreach ($options as $option) {
-                    $propExistsKey = $this->findInName($propertyGroupForUpdate['properties'], $attributeName);
-
-                    /** Property name exists */
-                    if ($propExistsKey !== false) {
-                        $propExists = $propertyGroupForUpdate['properties'][$propExistsKey];
-
-                        $valueExistsKey = $this->findInCode($propExists['values'], $option);
-
-                        /** Property value doesn't, add value */
-                        if ($valueExistsKey === false) {
-                            $updateNeeded = true;
-
-                            $nextOrdering = $this->getNextPropertyOrder($propExists['values']);
-
-                            $propertyGroupForUpdate['properties'][$propExistsKey]['values'][] = [
-                                'code' => $this->cleanReferenceString($option),
-                                'value' => $option,
-                                'ordering' => $nextOrdering,
-                                'visible' => Boolean::YES,
-                            ];
-                        }
-                    } else {
-                        /**
-                         * Property name doesn't exist
-                         * Need to create property and the value
-                         */
-
-                        $updateNeeded = true;
-
-                        $nextOrdering = $this->getNextPropertyOrder($propertyGroupForUpdate['properties']);
-
-                        $propertyGroupForUpdate['properties'][] = [
-                            'ordering' => $nextOrdering,
-                            'name' => $attributeName,
-                            'visible' => Boolean::YES,
-                            'values' => [
-                                [
-                                    'code' => $this->cleanReferenceString($option),
-                                    'value' => $option,
-                                    'visible' => Boolean::YES,
-                                    'ordering' => 1,
-                                ]
-                            ]
-                        ];
-                    }
-                }
-            }
-        }
-
-        unset($attributeName, $options, $option);
-
-        /** There was stuff missing, we need to update the property group */
-        if ($updateNeeded) {
-            try {
-                $mutation = PropertyGroups::mutationPropertyGroupUpdate(['data' => $propertyGroupForUpdate]);
-            } catch (APIExeption $e) {
-                throw new HelperException(
-                    // Translators: %1$s is the property group name.
-                    sprintf(__('Failed to update existing property group "%1$s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
-                    ['message' => $e->getMessage(), 'data' => $e->getData()]
-                );
-            }
-
-            $updatedGroup = $mutation['data']['propertyGroupUpdate']['data'] ?? [];
-
-            if (empty($updatedGroup)) {
-                throw new HelperException(
-                    // Translators: %1$s is the property group name.
-                    sprintf(__('Failed to update existing property group "%1$s"', 'moloni-on'), $bestPropertyGroup['name'] ?? ''),
-                    ['mutation' => $mutation, 'props' => $propertyGroupForUpdate]
-                );
-            }
-
-            return (new PrepareVariantPropertiesReturn($updatedGroup, $this->productAttributes))->handle();
-        }
-
-        /** This was a 100% match, we can return right away */
-        return (new PrepareVariantPropertiesReturn($bestPropertyGroup, $this->productAttributes))->handle();
+        return (new PrepareVariantPropertiesReturn($updatedGroup, $this->productAttributes))->handle();
     }
 
     //          Privates          //

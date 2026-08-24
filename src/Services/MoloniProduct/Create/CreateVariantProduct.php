@@ -5,7 +5,6 @@ namespace MoloniOn\Services\MoloniProduct\Create;
 
 use MoloniOn\Context;
 use MoloniOn\Exceptions\ServiceException;
-use MoloniOn\Models\ProductAssociations;
 use MoloniOn\Services\MoloniProduct\Abstracts\MoloniProductSyncAbstract;
 use WC_Product;
 
@@ -93,13 +92,7 @@ class CreateVariantProduct extends MoloniProductSyncAbstract
 
     protected function createAssociation()
     {
-        ProductAssociations::add(
-            $this->wcProduct->get_id(),
-            0,
-            $this->moloniProduct['productId'],
-            0
-        );
-
+        /** Parent association is persisted earlier in associateParent() */
         foreach ($this->variantServices as $variantService) {
             $variantService->createAssociation();
         }

@@ -95,17 +95,9 @@ class UpdateVariantProduct extends MoloniProductSyncAbstract
 
     protected function createAssociation()
     {
-        ProductAssociations::deleteByWcId($this->wcProduct->get_id());
+        /** Parent association is persisted earlier in associateParent() */
         ProductAssociations::deleteByWcParentId($this->wcProduct->get_id());
-        ProductAssociations::deleteByMoloniId($this->moloniProduct['productId']);
         ProductAssociations::deleteByMoloniParentId($this->moloniProduct['productId']);
-
-        ProductAssociations::add(
-            $this->wcProduct->get_id(),
-            0,
-            $this->moloniProduct['productId'],
-            0
-        );
 
         foreach ($this->variantServices as $variantService) {
             $variantService->createAssociation();
