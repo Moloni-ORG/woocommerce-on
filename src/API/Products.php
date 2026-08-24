@@ -41,38 +41,6 @@ class Products extends EndpointAbstract
     }
 
     /**
-     * Create a single variant on an existing parent product
-     *
-     * @param array|null $variables
-     *
-     * @return array returns some data of the created variant
-     *
-     * @throws APIExeption
-     */
-    public static function mutationProductVariantCreate(?array $variables = []): ?array
-    {
-        $query = self::loadMutation('productVariantCreate');
-
-        return Curl::simple('productVariantCreate', $query, $variables);
-    }
-
-    /**
-     * Delete one or more products (or variants)
-     *
-     * @param array|null $variables
-     *
-     * @return array
-     *
-     * @throws APIExeption
-     */
-    public static function mutationProductDelete(?array $variables = []): ?array
-    {
-        $query = self::loadMutation('productDelete');
-
-        return Curl::simple('productDelete', $query, $variables);
-    }
-
-    /**
      * Gets the information of a product
      *
      * @param array|null $variables

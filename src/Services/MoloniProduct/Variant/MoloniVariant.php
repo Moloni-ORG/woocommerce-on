@@ -3,10 +3,8 @@
 
 namespace MoloniOn\Services\MoloniProduct\Variant;
 
-use MoloniOn\API\Products;
 use MoloniOn\Context;
 use MoloniOn\Enums\Boolean;
-use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Exceptions\ServiceException;
 use MoloniOn\Helpers\MoloniWarehouse;
@@ -133,58 +131,6 @@ class MoloniVariant
         }
     }
 
-    /**
-     * Persists the variant through the granular mutations:
-     * productVariantCreate for a new variant, productUpdate for an existing one.
-     *
-     * Must run after the parent product has been saved.
-     *
-     * @throws ServiceException
-     */
-    public function save()
-    {
-        if ($this->variantExists()) {
-            try {
-                $mutation = Products::mutationProductUpdate(['data' => $this->props]);
-            } catch (APIExeption $e) {
-                throw new ServiceException(
-                    // Translators: %1$s is the variant name.
-                    sprintf(__('Error updating variant in Moloni ON (%1$s)', 'moloni-on'), $this->wcProduct->get_name()),
-                    ['message' => $e->getMessage(), 'data' => $e->getData()]
-                );
-            }
-
-            $variant = $mutation['data']['productUpdate']['data'] ?? [];
-        } else {
-            $parentProductId = (int)($this->moloniParentProduct['productId'] ?? 0);
-
-            try {
-                $mutation = Products::mutationProductVariantCreate([
-                    'productId' => $parentProductId,
-                    'data' => $this->props,
-                ]);
-            } catch (APIExeption $e) {
-                throw new ServiceException(
-                    // Translators: %1$s is the variant name.
-                    sprintf(__('Error creating variant in Moloni ON (%1$s)', 'moloni-on'), $this->wcProduct->get_name()),
-                    ['message' => $e->getMessage(), 'data' => $e->getData()]
-                );
-            }
-
-            $variant = $mutation['data']['productVariantCreate']['data'] ?? [];
-        }
-
-        if (empty($variant)) {
-            throw new ServiceException(
-                // Translators: %1$s is the variant name.
-                sprintf(__('Error saving variant in Moloni ON (%1$s)', 'moloni-on'), $this->wcProduct->get_name()),
-                ['mutation' => $mutation, 'props' => $this->props]
-            );
-        }
-
-        $this->moloniVariant = $variant;
-    }
-
     //            Privates            //
 
     public function createAssociation()
@@ -290,6 +236,11 @@ class MoloniVariant
     }
 
     //            Gets            //
+
+    public function getProps(): array
+    {
+        return $this->props;
+    }
 
     public function getImage(): string
     {
