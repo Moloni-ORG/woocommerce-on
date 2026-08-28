@@ -1,4 +1,4 @@
-query creditNoteGetPDFToken($documentId: Int!)
+query wordpressCreditNoteGetPDFToken($documentId: Int!)
 {
     creditNoteGetPDFToken(documentId: $documentId)
     {

@@ -1,4 +1,4 @@
-query invoiceReceiptGetPDFToken($documentId: Int!) {
+query wordpressInvoiceReceiptGetPDFToken($documentId: Int!) {
   invoiceReceiptGetPDFToken(documentId: $documentId) {
     data {
       token

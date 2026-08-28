@@ -1,4 +1,4 @@
-query customerNextNumber($companyId: Int!, $options: GetNextCustomerNumberOptions)
+query wordpressCustomerNextNumber($companyId: Int!, $options: GetNextCustomerNumberOptions)
 {
     customerNextNumber(companyId: $companyId, options: $options)
     {

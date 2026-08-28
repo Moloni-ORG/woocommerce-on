@@ -1,4 +1,4 @@
-query country($countryId: Int!)
+query wordpressCountry($countryId: Int!)
 {
     country(countryId: $countryId)
     {

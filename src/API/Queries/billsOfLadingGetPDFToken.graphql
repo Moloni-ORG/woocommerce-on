@@ -1,4 +1,4 @@
-query billsOfLadingGetPDFToken($documentId: Int!)
+query wordpressBillsOfLadingGetPDFToken($documentId: Int!)
 {
     billsOfLadingGetPDFToken(documentId: $documentId)
     {

@@ -1,4 +1,4 @@
-query receipts($companyId: Int!,$options: ReceiptOptions)
+query wordpressReceipts($companyId: Int!,$options: ReceiptOptions)
 {
     receipts(companyId: $companyId,options: $options)
     {

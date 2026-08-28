@@ -1,4 +1,4 @@
-query languages($options: LanguageOptions)
+query wordpressLanguages($options: LanguageOptions)
 {
     languages(options: $options)
     {

@@ -1,4 +1,4 @@
-mutation stockMovementManualExitCreate($companyId: Int!,$data: StockMovementManualInsert!)
+mutation wordpressStockMovementManualExitCreate($companyId: Int!,$data: StockMovementManualInsert!)
 {
     stockMovementManualExitCreate(companyId: $companyId,data: $data)
     {

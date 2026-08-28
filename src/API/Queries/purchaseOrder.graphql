@@ -1,4 +1,4 @@
-query purchaseOrder($companyId: Int!,$documentId: Int!,$options: PurchaseOrderOptionsSingle)
+query wordpressPurchaseOrder($companyId: Int!,$documentId: Int!,$options: PurchaseOrderOptionsSingle)
 {
     purchaseOrder(companyId: $companyId,documentId: $documentId,options: $options)
     {

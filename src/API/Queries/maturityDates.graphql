@@ -1,4 +1,4 @@
-query maturityDates($companyId: Int!,$options: MaturityDateOptions){
+query wordpressMaturityDates($companyId: Int!,$options: MaturityDateOptions){
     maturityDates(companyId: $companyId, options: $options) {
         errors{
             field

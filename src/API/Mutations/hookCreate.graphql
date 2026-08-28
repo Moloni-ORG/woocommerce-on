@@ -1,4 +1,4 @@
-mutation hookCreate($companyId: Int!,$data: HookInsert!)
+mutation wordpressHookCreate($companyId: Int!,$data: HookInsert!)
 {
     hookCreate(companyId: $companyId,data: $data)
     {

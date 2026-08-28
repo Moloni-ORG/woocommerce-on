@@ -1,4 +1,4 @@
-query geographicZones($companyId: Int!,$options: GeographicZoneOptions)
+query wordpressGeographicZones($companyId: Int!,$options: GeographicZoneOptions)
 {
     geographicZones(companyId: $companyId,options: $options)
     {

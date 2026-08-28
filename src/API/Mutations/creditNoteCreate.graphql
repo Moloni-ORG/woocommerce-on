@@ -1,4 +1,4 @@
-mutation creditNoteCreate($companyId: Int!,$data: CreditNoteInsert!,$options:CreditNoteMutateOptions)
+mutation wordpressCreditNoteCreate($companyId: Int!,$data: CreditNoteInsert!,$options:CreditNoteMutateOptions)
 {
     creditNoteCreate(companyId: $companyId,data: $data,options: $options)
     {

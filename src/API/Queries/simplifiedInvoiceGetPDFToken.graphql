@@ -1,4 +1,4 @@
-query simplifiedInvoiceGetPDFToken($documentId: Int!)
+query wordpressSimplifiedInvoiceGetPDFToken($documentId: Int!)
 {
     simplifiedInvoiceGetPDFToken(documentId: $documentId)
     {

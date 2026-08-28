@@ -1,4 +1,4 @@
-mutation propertyGroupUpdate($companyId: Int!,$data: PropertyGroupUpdate!)
+mutation wordpressPropertyGroupUpdate($companyId: Int!,$data: PropertyGroupUpdate!)
 {
     propertyGroupUpdate(companyId: $companyId,data: $data)
     {

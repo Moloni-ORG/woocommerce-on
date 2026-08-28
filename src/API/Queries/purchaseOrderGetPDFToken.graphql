@@ -1,4 +1,4 @@
-query purchaseOrderGetPDFToken($documentId: Int!)
+query wordpressPurchaseOrderGetPDFToken($documentId: Int!)
 {
     purchaseOrderGetPDFToken(documentId: $documentId)
     {

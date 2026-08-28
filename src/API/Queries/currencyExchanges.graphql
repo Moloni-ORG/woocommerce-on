@@ -1,4 +1,4 @@
-query currencyExchanges($options: CurrencyExchangeOptions)
+query wordpressCurrencyExchanges($options: CurrencyExchangeOptions)
 {
     currencyExchanges(options: $options)
     {
