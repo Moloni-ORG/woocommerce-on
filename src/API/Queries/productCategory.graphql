@@ -1,4 +1,4 @@
-query productCategory($companyId: Int!,$productCategoryId: Int!)
+query wordpressProductCategory($companyId: Int!,$productCategoryId: Int!)
 {
     productCategory(companyId: $companyId,productCategoryId: $productCategoryId)
     {

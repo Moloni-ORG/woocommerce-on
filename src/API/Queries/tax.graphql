@@ -1,4 +1,4 @@
-query tax($companyId: Int!,$taxId: Int!)
+query wordpressTax($companyId: Int!,$taxId: Int!)
 {
     tax(companyId: $companyId,taxId: $taxId)
     {

@@ -1,4 +1,4 @@
-mutation purchaseOrderUpdate($companyId: Int!,$data: PurchaseOrderUpdate!)
+mutation wordpressPurchaseOrderUpdate($companyId: Int!,$data: PurchaseOrderUpdate!)
 {
     purchaseOrderUpdate(companyId: $companyId,data: $data)
     {

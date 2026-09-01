@@ -1,4 +1,4 @@
-query document($companyId: Int!,$documentId: Int!,$options: DocumentOptionsSingle)
+query wordpressDocument($companyId: Int!,$documentId: Int!,$options: DocumentOptionsSingle)
 {
     document(companyId: $companyId,documentId: $documentId,options: $options)
     {

@@ -1,4 +1,4 @@
-mutation propertyGroupCreate($companyId: Int!,$data: PropertyGroupInsert!)
+mutation wordpressPropertyGroupCreate($companyId: Int!,$data: PropertyGroupInsert!)
 {
     propertyGroupCreate(companyId: $companyId,data: $data)
     {

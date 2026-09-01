@@ -1,4 +1,4 @@
-mutation proFormaInvoiceGetPDF($companyId: Int!,$documentId: Int!)
+mutation wordpressProFormaInvoiceGetPDF($companyId: Int!,$documentId: Int!)
 {
     proFormaInvoiceGetPDF(companyId: $companyId,documentId: $documentId)
 }

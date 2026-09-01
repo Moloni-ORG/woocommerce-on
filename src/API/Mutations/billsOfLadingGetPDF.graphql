@@ -1,4 +1,4 @@
-mutation billsOfLadingGetPDF($companyId: Int!,$documentId: Int!)
+mutation wordpressBillsOfLadingGetPDF($companyId: Int!,$documentId: Int!)
 {
     billsOfLadingGetPDF(companyId: $companyId,documentId: $documentId)
 }

@@ -1,4 +1,4 @@
-query customers($companyId: Int!,$options: CustomerOptions)
+query wordpressCustomers($companyId: Int!,$options: CustomerOptions)
 {
     customers(companyId: $companyId,options: $options)
     {

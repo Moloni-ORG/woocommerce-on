@@ -1,4 +1,4 @@
-query documents($companyId: Int!, $options: DocumentOptions)
+query wordpressDocuments($companyId: Int!, $options: DocumentOptions)
 {
     documents(companyId: $companyId,options: $options)
     {

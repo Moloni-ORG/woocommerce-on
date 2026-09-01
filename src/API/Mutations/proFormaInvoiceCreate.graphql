@@ -1,4 +1,4 @@
-mutation proFormaInvoiceCreate($companyId: Int!,$data: ProFormaInvoiceInsert!,$options: ProFormaInvoiceMutateOptions)
+mutation wordpressProFormaInvoiceCreate($companyId: Int!,$data: ProFormaInvoiceInsert!,$options: ProFormaInvoiceMutateOptions)
 {
     proFormaInvoiceCreate(companyId: $companyId,data: $data,options: $options)
     {

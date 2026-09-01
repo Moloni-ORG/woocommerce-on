@@ -1,4 +1,4 @@
-mutation hookDelete($companyId: Int!,$hookId: [String!]!)
+mutation wordpressHookDelete($companyId: Int!,$hookId: [String!]!)
 {
     hookDelete(companyId: $companyId,hookId: $hookId)
     {

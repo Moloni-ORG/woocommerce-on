@@ -1,4 +1,4 @@
-query product($companyId: Int!,$productId: Int!)
+query wordpressProduct($companyId: Int!,$productId: Int!)
 {
     product(companyId: $companyId,productId: $productId)
     {

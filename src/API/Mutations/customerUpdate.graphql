@@ -1,4 +1,4 @@
-mutation customerUpdate($companyId: Int!,$data: CustomerUpdate!)
+mutation wordpressCustomerUpdate($companyId: Int!,$data: CustomerUpdate!)
 {
     customerUpdate(companyId: $companyId,data: $data)
     {

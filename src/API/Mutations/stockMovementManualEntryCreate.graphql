@@ -1,4 +1,4 @@
-mutation stockMovementManualEntryCreate($companyId: Int!,$data: StockMovementManualInsert!)
+mutation wordpressStockMovementManualEntryCreate($companyId: Int!,$data: StockMovementManualInsert!)
 {
     stockMovementManualEntryCreate(companyId: $companyId,data: $data)
     {

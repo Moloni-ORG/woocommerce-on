@@ -1,4 +1,4 @@
-query warehouse($companyId: Int!,$warehouseId: Int!)
+query wordpressWarehouse($companyId: Int!,$warehouseId: Int!)
 {
     warehouse(companyId: $companyId,warehouseId: $warehouseId)
     {

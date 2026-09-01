@@ -1,4 +1,4 @@
-mutation simplifiedInvoiceGetPDF($companyId: Int!,$documentId: Int!)
+mutation wordpressSimplifiedInvoiceGetPDF($companyId: Int!,$documentId: Int!)
 {
     simplifiedInvoiceGetPDF(companyId: $companyId,documentId: $documentId)
 }
