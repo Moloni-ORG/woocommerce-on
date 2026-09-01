@@ -41,22 +41,6 @@ class PropertyGroups extends EndpointAbstract
     }
 
     /**
-     * Update a property group
-     *
-     * @param array $variables
-     *
-     * @return array|bool
-     *
-     * @throws APIExeption
-     */
-    public static function mutationPropertyGroupUpdate(array $variables = [])
-    {
-        $query = self::loadMutation('propertyGroupUpdate');
-
-        return Curl::simple('propertyGroupUpdate', $query, $variables);
-    }
-
-    /**
      * Create a property group
      *
      * @param array $variables
@@ -70,5 +54,37 @@ class PropertyGroups extends EndpointAbstract
         $query = self::loadMutation('propertyGroupCreate');
 
         return Curl::simple('propertyGroupCreate', $query, $variables);
+    }
+
+    /**
+     * Create a single property (with its values) in an existing group
+     *
+     * @param array $variables
+     *
+     * @return array|bool
+     *
+     * @throws APIExeption
+     */
+    public static function mutationPropertyCreate(array $variables = [])
+    {
+        $query = self::loadMutation('propertyCreate');
+
+        return Curl::simple('propertyCreate', $query, $variables);
+    }
+
+    /**
+     * Create a single property value in an existing property
+     *
+     * @param array $variables
+     *
+     * @return array|bool
+     *
+     * @throws APIExeption
+     */
+    public static function mutationPropertyValueCreate(array $variables = [])
+    {
+        $query = self::loadMutation('propertyValueCreate');
+
+        return Curl::simple('propertyValueCreate', $query, $variables);
     }
 }

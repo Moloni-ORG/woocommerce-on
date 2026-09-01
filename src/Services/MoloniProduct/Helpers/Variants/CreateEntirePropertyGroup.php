@@ -11,17 +11,18 @@ use MoloniOn\Services\MoloniProduct\Helpers\Abstracts\VariantHelperAbstract;
 
 class CreateEntirePropertyGroup extends VariantHelperAbstract
 {
-    private $moloniPropertyGroups;
     private $productAttributes;
 
-    public function __construct(array $moloniPropertyGroups, array $productAttributes)
+    public function __construct(array $productAttributes)
     {
-        $this->moloniPropertyGroups = $moloniPropertyGroups;
         $this->productAttributes = $productAttributes;
     }
 
     /**
      * Handler
+     *
+     * Reuse of an existing "WooCommerce" group is handled upstream in
+     * FindOrCreatePropertyGroup; here we always create it from scratch.
      *
      * @throws HelperException
      */
@@ -60,18 +61,9 @@ class CreateEntirePropertyGroup extends VariantHelperAbstract
             }
         }
 
-        /** Loop like crazy trying to find a free group name */
-        for ($idx = 1; $idx <= 1000; $idx++) {
-            $newGroupName = "WooCommerce-" . str_pad($idx, 3, '0', STR_PAD_LEFT);
-
-            if ($this->findInName($this->moloniPropertyGroups, $newGroupName) === false) {
-                break;
-            }
-        }
-
         $creationVariables = [
             'data' => [
-                'name' => $newGroupName,
+                'name' => self::VARIANTS_GROUP_NAME,
                 'properties' => $propsForInsert,
                 'visible' => Boolean::YES,
             ]
@@ -82,7 +74,7 @@ class CreateEntirePropertyGroup extends VariantHelperAbstract
         } catch (APIExeption $e) {
             throw new HelperException(
                 // Translators: %1$s is the property group name.
-                sprintf(__('Error creating %1$s attribute group', 'moloni-on'), $newGroupName),
+                sprintf(__('Error creating %1$s attribute group', 'moloni-on'), self::VARIANTS_GROUP_NAME),
                 [
                     'message' => $e->getMessage(),
                     'data' => $e->getData()
@@ -95,7 +87,7 @@ class CreateEntirePropertyGroup extends VariantHelperAbstract
         if (empty($mutationData)) {
             throw new HelperException(
                 // Translators: %1$s is the property group name.
-                sprintf(__('Error creating %1$s attribute group', 'moloni-on'), $newGroupName),
+                sprintf(__('Error creating %1$s attribute group', 'moloni-on'), self::VARIANTS_GROUP_NAME),
                 ['mutation' => $mutation]
             );
         }
