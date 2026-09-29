@@ -2,18 +2,25 @@
 
 namespace MoloniOn\Helpers;
 
+use MoloniOn\Context;
 use MoloniOn\Enums\DeletionBlocker;
 
 class MoloniProduct
 {
     /**
-     * A product (or variant) whose deletionBlockers include PRODUCT_HAS_DOCUMENT already has
-     * non-draft documents in Moloni ON, which rejects the whole update if its name is sent.
-     * `deletable` must not be used for this: it is deprecated and is also false when the
-     * product only has stock movements, which would still allow a rename.
+     * Moloni ON only rejects a name change on a product (or variant) that already has
+     * non-draft documents when the company is Portuguese.
+     * For every other country the name can always be updated, regardless of deletionBlockers.
+     *
+     * `deletable` must not be used for the documents check: it is deprecated and is also
+     * false when the product only has stock movements, which would still allow a rename.
      */
     public static function canUpdateName(array $moloniProduct): bool
     {
+        if (!Context::company()->isPT()) {
+            return true;
+        }
+
         return !in_array(DeletionBlocker::PRODUCT_HAS_DOCUMENT, $moloniProduct['deletionBlockers'] ?? [], true);
     }
 

@@ -32,6 +32,7 @@ query wordpressCompany($companyId: Int!,$options: CompanyOptionsSingle){
             country
             {
                 countryId
+                iso3166_1
             }
             currency
             {
