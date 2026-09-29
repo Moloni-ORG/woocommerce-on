@@ -19,6 +19,7 @@ query wordpressProduct($companyId: Int!,$productId: Int!)
             stock
             img
             deletable
+            deletionBlockers
             identifications
             {
                 type
@@ -94,6 +95,7 @@ query wordpressProduct($companyId: Int!,$productId: Int!)
                 hasStock
                 stock
                 deletable
+                deletionBlockers
                 parent
                 {
                     productId

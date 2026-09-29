@@ -2,8 +2,21 @@
 
 namespace MoloniOn\Helpers;
 
+use MoloniOn\Enums\DeletionBlocker;
+
 class MoloniProduct
 {
+    /**
+     * A product (or variant) whose deletionBlockers include PRODUCT_HAS_DOCUMENT already has
+     * non-draft documents in Moloni ON, which rejects the whole update if its name is sent.
+     * `deletable` must not be used for this: it is deprecated and is also false when the
+     * product only has stock movements, which would still allow a rename.
+     */
+    public static function canUpdateName(array $moloniProduct): bool
+    {
+        return !in_array(DeletionBlocker::PRODUCT_HAS_DOCUMENT, $moloniProduct['deletionBlockers'] ?? [], true);
+    }
+
     public static function parseMoloniStock(array $moloniProduct, int $warehouseId): float
     {
         $stock = 0.0;

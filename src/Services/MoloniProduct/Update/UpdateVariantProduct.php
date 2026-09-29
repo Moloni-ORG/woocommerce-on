@@ -4,6 +4,7 @@ namespace MoloniOn\Services\MoloniProduct\Update;
 
 use MoloniOn\Context;
 use MoloniOn\Exceptions\ServiceException;
+use MoloniOn\Helpers\MoloniProduct;
 use MoloniOn\Models\ProductAssociations;
 use MoloniOn\Services\MoloniProduct\Abstracts\MoloniProductSyncAbstract;
 use WC_Product;
@@ -29,7 +30,7 @@ class UpdateVariantProduct extends MoloniProductSyncAbstract
 
         $this->setProductId();
 
-        if ($this->productShouldSyncName()) {
+        if ($this->productShouldSyncName() && MoloniProduct::canUpdateName($this->moloniProduct)) {
             $this->setName();
         }
 
