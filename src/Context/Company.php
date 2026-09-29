@@ -50,6 +50,16 @@ final class Company
         return (int)$this->company['country']['countryId'];
     }
 
+    /**
+     * Whether the company is Portuguese (country ISO code "pt", case-insensitive). Some
+     * fiscal rules (e.g. blocking a product name change once it has documents) only apply
+     * to Portuguese companies.
+     */
+    public function isPT(): bool
+    {
+        return strtolower($this->company['country']['iso3166_1'] ?? '') === 'pt';
+    }
+
     // Permissions //
 
     public function hasPlugin(): bool

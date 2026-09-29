@@ -18,7 +18,6 @@ mutation wordpressProductCreate($companyId: Int!,$data: ProductInsert!)
             hasStock
             stock
             img
-            deletable
             identifications
             {
                 type
@@ -93,7 +92,6 @@ mutation wordpressProductCreate($companyId: Int!,$data: ProductInsert!)
                 priceWithTaxes
                 hasStock
                 stock
-                deletable
                 parent
                 {
                     productId

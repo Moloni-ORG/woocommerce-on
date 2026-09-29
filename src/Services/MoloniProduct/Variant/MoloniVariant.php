@@ -7,6 +7,7 @@ use MoloniOn\Context;
 use MoloniOn\Enums\Boolean;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Exceptions\ServiceException;
+use MoloniOn\Helpers\MoloniProduct;
 use MoloniOn\Helpers\MoloniWarehouse;
 use MoloniOn\Models\ProductAssociations;
 use MoloniOn\Services\MoloniProduct\Helpers\Variants\FindVariant;
@@ -104,7 +105,7 @@ class MoloniVariant
         if ($this->variantExists()) {
             $this->setProductId();
 
-            if ($this->productShouldSyncName()) {
+            if ($this->productShouldSyncName() && MoloniProduct::canUpdateName($this->moloniVariant)) {
                 $this->setName();
             }
 

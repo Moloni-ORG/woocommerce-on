@@ -2,8 +2,24 @@
 
 namespace MoloniOn\Helpers;
 
+use MoloniOn\Context;
+
 class MoloniProduct
 {
+    /**
+     * Moloni ON only rejects a name change on a product (or variant) that already has
+     * non-draft documents when the company is Portuguese. A non-deletable product is
+     * treated as having documents (it may also just have stock movements).
+     */
+    public static function canUpdateName(array $moloniProduct): bool
+    {
+        if (!Context::company()->isPT()) {
+            return true;
+        }
+
+        return ($moloniProduct['deletable'] ?? true) !== false;
+    }
+
     public static function parseMoloniStock(array $moloniProduct, int $warehouseId): float
     {
         $stock = 0.0;
