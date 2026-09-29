@@ -14,7 +14,7 @@ class UpdateVariantProduct extends MoloniProductSyncAbstract
     public function __construct(WC_Product $wcProduct, array $moloniProduct)
     {
         $this->wcProduct = $wcProduct;
-        $this->moloniProduct = $moloniProduct;
+        $this->moloniProduct = MoloniProduct::withDeletionBlockers($moloniProduct);
     }
 
     //            Publics            //
