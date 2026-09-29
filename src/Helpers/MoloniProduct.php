@@ -2,39 +2,14 @@
 
 namespace MoloniOn\Helpers;
 
-use MoloniOn\API\Products;
 use MoloniOn\Context;
-use MoloniOn\Enums\DeletionBlocker;
-use MoloniOn\Exceptions\APIExeption;
 
 class MoloniProduct
 {
     /**
-     * Product lists (and searches by reference) don't select deletionBlockers, as it is costly
-     * to resolve. Before an update, re-read such a product by id so canUpdateName() can rely on it.
-     */
-    public static function withDeletionBlockers(array $moloniProduct): array
-    {
-        if (array_key_exists('deletionBlockers', $moloniProduct) || empty($moloniProduct['productId'])) {
-            return $moloniProduct;
-        }
-
-        try {
-            $query = Products::queryProduct(['productId' => (int)$moloniProduct['productId']]);
-        } catch (APIExeption $e) {
-            return $moloniProduct;
-        }
-
-        return $query['data']['product']['data'] ?? $moloniProduct;
-    }
-
-    /**
      * Moloni ON only rejects a name change on a product (or variant) that already has
-     * non-draft documents when the company is Portuguese.
-     * For every other country the name can always be updated, regardless of deletionBlockers.
-     *
-     * `deletable` must not be used for the documents check: it is deprecated and is also
-     * false when the product only has stock movements, which would still allow a rename.
+     * non-draft documents when the company is Portuguese. A non-deletable product is
+     * treated as having documents (it may also just have stock movements).
      */
     public static function canUpdateName(array $moloniProduct): bool
     {
@@ -42,7 +17,7 @@ class MoloniProduct
             return true;
         }
 
-        return !in_array(DeletionBlocker::PRODUCT_HAS_DOCUMENT, $moloniProduct['deletionBlockers'] ?? [], true);
+        return ($moloniProduct['deletable'] ?? true) !== false;
     }
 
     public static function parseMoloniStock(array $moloniProduct, int $warehouseId): float
