@@ -42,6 +42,8 @@ query wordpressCompany($companyId: Int!,$options: CompanyOptionsSingle){
             limits {
                 moduleId
                 active
+                resource
+                remaining
             }
             subscription {
                 subscriptionId

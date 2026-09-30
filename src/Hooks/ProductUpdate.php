@@ -11,6 +11,7 @@ use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\Core\MoloniException;
 use MoloniOn\Exceptions\HelperException;
 use MoloniOn\Exceptions\HookException;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 use MoloniOn\Exceptions\ServiceException;
 use MoloniOn\Models\ProductAssociations;
 use MoloniOn\Models\SyncLogs;
@@ -120,6 +121,18 @@ class ProductUpdate
                     $this->updateSimple($wcProduct, $moloniProduct);
                 }
             }
+        } catch (ProductsLimitReachedException $e) {
+            // A full plan is an account state, not a sync failure
+            Notice::addmessagecustom(htmlentities($e->geterror()));
+
+            Context::logger()->warning($e->getMessage(), [
+                'tag' => 'automatic:product:save:limit',
+                'message' => $e->getMessage(),
+                'extra' => [
+                    'wcProductId' => $wcProductId,
+                    'data' => $e->getData(),
+                ]
+            ]);
         } catch (MoloniException $e) {
             Notice::addmessagecustom(htmlentities($e->geterror()));
 

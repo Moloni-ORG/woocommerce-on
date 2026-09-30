@@ -10,6 +10,7 @@ use MoloniOn\Services\MoloniProduct\Helpers\GetOrCreateCategory;
 use MoloniOn\API\Products;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\DocumentError;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 use MoloniOn\Tools;
 
 class OrderShipping
@@ -184,6 +185,10 @@ class OrderShipping
             return;
         }
 
+        if (Context::company() && !Context::company()->canCreateProducts()) {
+            throw new DocumentError(ProductsLimitReachedException::buildMessage($this->name));
+        }
+
         // Let's create the shipping product
         $this
             ->setCategory()
@@ -192,6 +197,13 @@ class OrderShipping
         try {
             $mutation = (Products::mutationProductCreate($this->mapPropsToValues(true)))['data']['productCreate']['data'] ?? [];
         } catch (APIExeption $e) {
+            if (ProductsLimitReachedException::isApiError($e->getData())) {
+                throw new DocumentError(ProductsLimitReachedException::buildMessage($this->name), [
+                    'message' => $e->getMessage(),
+                    'data' => $e->getData(),
+                ]);
+            }
+
             throw new DocumentError(
                 __('Error inserting shipping','moloni-on'),
                 [

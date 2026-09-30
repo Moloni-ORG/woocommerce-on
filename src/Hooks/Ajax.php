@@ -12,6 +12,7 @@ use MoloniOn\Exceptions\Core\MoloniException;
 use MoloniOn\Exceptions\DocumentError;
 use MoloniOn\Exceptions\DocumentWarning;
 use MoloniOn\Exceptions\GenericException;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 use MoloniOn\Helpers\MoloniWarehouse;
 use MoloniOn\Helpers\Security;
 use MoloniOn\Models\SyncLogs;
@@ -404,6 +405,19 @@ class Ajax
             $checkService->run();
 
             $response['product_row'] = $checkService->getRowsHtml();
+        } catch (ProductsLimitReachedException $e) {
+            // A full plan is an account state, not a sync failure
+            Context::logger()->warning($e->getMessage(), [
+                'tag' => 'ajax:tools:create:moloniproduct:limit',
+                'message' => $e->getMessage(),
+                'extra' => [
+                    'productId' => $wcProductId,
+                    'data' => $e->getData(),
+                ]
+            ]);
+
+            $response['valid'] = 0;
+            $response['message'] = $e->getMessage();
         } catch (MoloniException $e) {
             $this->writeErrorLog($e, 'ajax:tools:create:moloniproduct', $wcProductId);
 
