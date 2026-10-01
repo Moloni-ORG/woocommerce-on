@@ -2,6 +2,8 @@
 
 namespace MoloniOn\Exceptions;
 
+use MoloniOn\Context;
+
 /**
  * A product could not be created in Moloni ON because the company's plan product limit
  * has been reached.
@@ -51,5 +53,38 @@ class ProductsLimitReachedException extends ServiceException
         }
 
         return false;
+    }
+
+    /**
+     * Up-front check used by document builders that create a product on the fly (shipping,
+     * fees, etc): throws a DocumentError if the company's plan has no room left for it.
+     *
+     * @throws DocumentError
+     */
+    public static function assertCanCreate(string $productLabel): void
+    {
+        if (Context::company() && !Context::company()->canCreateProducts()) {
+            throw new DocumentError(self::buildMessage($productLabel));
+        }
+    }
+
+    /**
+     * Map a failed productCreate into a DocumentError: the plan's product limit message if
+     * that's why it failed, otherwise the caller's own fallback message. Both carry the
+     * API exception data.
+     */
+    public static function wrap(APIExeption $e, string $productLabel, string $fallbackMessage): DocumentError
+    {
+        if (self::isApiError($e->getData())) {
+            return new DocumentError(self::buildMessage($productLabel), [
+                'message' => $e->getMessage(),
+                'data' => $e->getData(),
+            ]);
+        }
+
+        return new DocumentError($fallbackMessage, [
+            'message' => $e->getMessage(),
+            'data' => $e->getData(),
+        ]);
     }
 }

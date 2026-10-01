@@ -150,9 +150,7 @@ class OrderFees
             return;
         }
 
-        if (Context::company() && !Context::company()->canCreateProducts()) {
-            throw new DocumentError(ProductsLimitReachedException::buildMessage($this->name));
-        }
+        ProductsLimitReachedException::assertCanCreate($this->name);
 
         // Let's create the shipping product
         $this
@@ -162,20 +160,7 @@ class OrderFees
         try {
             $insert = (Products::mutationProductCreate($this->mapPropsToValues(true)))['data']['productCreate']['data'] ?? [];
         } catch (APIExeption $e) {
-            if (ProductsLimitReachedException::isApiError($e->getData())) {
-                throw new DocumentError(ProductsLimitReachedException::buildMessage($this->name), [
-                    'message' => $e->getMessage(),
-                    'data' => $e->getData(),
-                ]);
-            }
-
-            throw new DocumentError(
-                __('Error creating order fee', 'moloni-on'),
-                [
-                    'message' => $e->getMessage(),
-                    'data' => $e->getData()
-                ]
-            );
+            throw ProductsLimitReachedException::wrap($e, $this->name, __('Error creating order fee', 'moloni-on'));
         }
 
         if (isset($insert['productId'])) {
