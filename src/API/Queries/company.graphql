@@ -43,6 +43,7 @@ query wordpressCompany($companyId: Int!,$options: CompanyOptionsSingle){
                 moduleId
                 active
                 resource
+                limit
                 remaining
             }
             subscription {

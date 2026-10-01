@@ -7,8 +7,9 @@ final class Company
     private $company;
 
     /**
-     * The plan's product count limit (the limits entry with this resource). Moloni ON refuses
-     * a product create once its "remaining" reaches 0.
+     * The plan's product count limit (the limits entry with this resource). A "limit" of 0
+     * means the plan has no cap on this resource (unlimited); only a positive "limit" with
+     * "remaining" at 0 means the plan is full.
      */
     private const PRODUCTS_RESOURCE = 'products';
 
@@ -110,8 +111,9 @@ final class Company
     // Limits //
 
     /**
-     * Whether the plan still has room for another product. No products entry (unexpected)
-     * means don't block, and let Moloni ON decide.
+     * Whether the plan still has room for another product. A plan with no cap on this
+     * resource reports "limit" 0 (unlimited, never blocks). No products entry (unexpected)
+     * also means don't block, and let Moloni ON decide.
      */
     public function canCreateProducts(): bool
     {
@@ -120,7 +122,10 @@ final class Company
                 continue;
             }
 
-            return (int)($limit['remaining'] ?? 0) > 0;
+            $cap = (int)($limit['limit'] ?? 0);
+            $remaining = (int)($limit['remaining'] ?? 0);
+
+            return !($cap > 0 && $remaining <= 0);
         }
 
         return true;
