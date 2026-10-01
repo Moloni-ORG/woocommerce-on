@@ -103,12 +103,19 @@ class ProductUpdate
                             continue;
                         }
 
-                        $moloniProduct = $this->fetchMoloniProduct($wcVariation);
+                        try {
+                            $moloniProduct = $this->fetchMoloniProduct($wcVariation);
 
-                        if (empty($moloniProduct)) {
-                            $this->createSimple($wcVariation);
-                        } else {
-                            $this->updateSimple($wcVariation, $moloniProduct);
+                            if (empty($moloniProduct)) {
+                                $this->createSimple($wcVariation);
+                            } else {
+                                $this->updateSimple($wcVariation, $moloniProduct);
+                            }
+                        } catch (ProductsLimitReachedException $e) {
+                            // A full plan only blocks this new variation; keep updating the rest
+                            $this->logLimitReached($e, $wcProductId);
+
+                            continue;
                         }
                     }
                 }
@@ -123,16 +130,7 @@ class ProductUpdate
             }
         } catch (ProductsLimitReachedException $e) {
             // A full plan is an account state, not a sync failure
-            Notice::addmessagecustom(htmlentities($e->geterror()));
-
-            Context::logger()->warning($e->getMessage(), [
-                'tag' => 'automatic:product:save:limit',
-                'message' => $e->getMessage(),
-                'extra' => [
-                    'wcProductId' => $wcProductId,
-                    'data' => $e->getData(),
-                ]
-            ]);
+            $this->logLimitReached($e, $wcProductId);
         } catch (MoloniException $e) {
             Notice::addmessagecustom(htmlentities($e->geterror()));
 
@@ -391,6 +389,24 @@ class ProductUpdate
         }
 
         return Context::company()->canSyncStock();
+    }
+
+    /**
+     * Notify + log a product/variation that could not be synced because the plan's
+     * product limit was reached
+     */
+    private function logLimitReached(ProductsLimitReachedException $e, $wcProductId): void
+    {
+        Notice::addmessagecustom(htmlentities($e->geterror()));
+
+        Context::logger()->warning($e->getMessage(), [
+            'tag' => 'automatic:product:save:limit',
+            'message' => $e->getMessage(),
+            'extra' => [
+                'wcProductId' => $wcProductId,
+                'data' => $e->getData(),
+            ]
+        ]);
     }
 
     //          Validations          //
