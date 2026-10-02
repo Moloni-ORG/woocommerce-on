@@ -2174,3 +2174,15 @@ msgstr ""
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Blocks/CompanySelect/NoCompanies.php:15
 msgid "Your account does not have access to any company"
 msgstr "A tua conta não tem acesso a nenhuma empresa."
+
+#. %1$s is the product reference or name.
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Exceptions/ProductsLimitReachedException.php
+#, php-format
+msgid "Could not create \"%1$s\" in Moloni ON: the plan's product limit has been reached."
+msgstr "Não foi possível criar \"%1$s\" no Moloni ON: foi atingido o limite de produtos do plano."
+
+#. %1$s is the part number.
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Services/Exports/ExportProducts.php
+#, php-format
+msgid "Products export. Part %1$s: some products were not created because the plan's product limit has been reached."
+msgstr "Exportação de produtos. Parte %1$s: alguns produtos não foram criados porque foi atingido o limite de produtos do plano."

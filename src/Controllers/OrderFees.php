@@ -11,6 +11,7 @@ use MoloniOn\Tools;
 use MoloniOn\API\Products;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\DocumentError;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 
 class OrderFees
 {
@@ -149,6 +150,8 @@ class OrderFees
             return;
         }
 
+        ProductsLimitReachedException::assertCanCreate($this->name);
+
         // Let's create the shipping product
         $this
             ->setCategory()
@@ -157,13 +160,7 @@ class OrderFees
         try {
             $insert = (Products::mutationProductCreate($this->mapPropsToValues(true)))['data']['productCreate']['data'] ?? [];
         } catch (APIExeption $e) {
-            throw new DocumentError(
-                __('Error creating order fee', 'moloni-on'),
-                [
-                    'message' => $e->getMessage(),
-                    'data' => $e->getData()
-                ]
-            );
+            throw ProductsLimitReachedException::wrap($e, $this->name, __('Error creating order fee', 'moloni-on'));
         }
 
         if (isset($insert['productId'])) {

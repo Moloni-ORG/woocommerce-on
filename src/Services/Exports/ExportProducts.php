@@ -7,6 +7,7 @@ use MoloniOn\Context;
 use MoloniOn\Enums\SyncLogsType;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\Core\MoloniException;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 use MoloniOn\Exceptions\ServiceException;
 use MoloniOn\Models\SyncLogs;
 use MoloniOn\Services\MoloniProduct\Create\CreateSimpleProduct;
@@ -15,6 +16,13 @@ use WC_Product;
 
 class ExportProducts extends ExportService
 {
+    /**
+     * Products not created because the plan's product limit has been reached (logged as a warning)
+     *
+     * @var array
+     */
+    private $limitProducts = [];
+
     public function run()
     {
         /**
@@ -50,6 +58,13 @@ class ExportProducts extends ExportService
                 } else {
                     $this->createProductSimple($wcProduct);
                 }
+            } catch (ProductsLimitReachedException $e) {
+                // A full plan is an account state, not an export failure. Each product is
+                // still tried on its own.
+                $this->limitProducts[] = [$wcProduct->get_id() => [
+                    'message' => $e->getMessage(),
+                    'data' => $e->getData(),
+                ]];
             } catch (MoloniException $e) {
                 $this->errorProducts[] = [$wcProduct->get_id() => [
                     'message' => $e->getMessage(),
@@ -72,6 +87,15 @@ class ExportProducts extends ExportService
                 ]
             ]
         );
+
+        if (!empty($this->limitProducts)) {
+            // Translators: %1$s is the part number.
+            Context::logger()->warning(sprintf(__('Products export. Part %1$s: some products were not created because the plan\'s product limit has been reached.', 'moloni-on'), $this->page), [
+                    'tag' => 'tool:export:product:limit',
+                    'products' => $this->limitProducts,
+                ]
+            );
+        }
     }
 
     //              Privates              //
