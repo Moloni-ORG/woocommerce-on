@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.11
+Stable tag: 4.0.12
 Tested up to: 7.0
 WC tested up to: 10.7.0
 Requires PHP: 7.2
@@ -58,6 +58,9 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.12=
+* Skip product creation when the Moloni ON plan's product limit is reached, instead of failing the sync.
+
 = 4.0.11=
 * Fix product sync failing for products that already have documents associated.
 
