@@ -7,6 +7,7 @@ use MoloniOn\Context;
 use MoloniOn\Enums\ProductTypeAT;
 use MoloniOn\Exceptions\APIExeption;
 use MoloniOn\Exceptions\HelperException;
+use MoloniOn\Exceptions\ProductsLimitReachedException;
 use MoloniOn\Helpers\MoloniWarehouse;
 use MoloniOn\Services\MoloniProduct\Helpers\GetOrCreateCategory;
 use MoloniOn\Services\MoloniProduct\Helpers\UpdateProductImages;
@@ -400,9 +401,18 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
 
     /**
      * @throws ServiceException
+     * @throws ProductsLimitReachedException
      */
     protected function insert()
     {
+        $productLabel = $this->props['reference'] ?? '---';
+
+        // The plan's product limit is exposed in the company limits, so refuse up front
+        // instead of letting Moloni ON reject the create
+        if (Context::company() && !Context::company()->canCreateProducts()) {
+            throw new ProductsLimitReachedException($productLabel);
+        }
+
         $data = [
             'data' => $this->props
         ];
@@ -412,6 +422,15 @@ abstract class MoloniProductSyncAbstract implements MoloniProductServiceInterfac
         try {
             $mutation = Products::mutationProductCreate($data);
         } catch (APIExeption $e) {
+            // The limit can still be hit here (the company is read once per request, or
+            // another client created products meanwhile)
+            if (ProductsLimitReachedException::isApiError($e->getData())) {
+                throw new ProductsLimitReachedException($productLabel, [
+                    'message' => $e->getMessage(),
+                    'data' => $e->getData()
+                ]);
+            }
+
             throw new ServiceException(
                 sprintf(
                     // Translators: %1$s is the action. %2$s is the product SKU.

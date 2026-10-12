@@ -18,6 +18,8 @@ query wordpressCompanies($options: CompanyOptions) {
             limits {
                 moduleId
                 active
+                resource
+                remaining
             }
         }
         errors {

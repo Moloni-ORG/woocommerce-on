@@ -38,8 +38,8 @@ PHP deps and frontend assets build in **two different places**, then the plugin 
 1. **PHP deps** (project root): `composer install`
 2. **Frontend deps** (inside `.dev/`): `cd .dev && npm install`
 3. **Build assets** (inside `.dev/`): `npm run build-prod` — gulp compiles CSS/JS. **Required after every JS/CSS change** or the admin page renders broken. (`.nvmrc` = 20 is for *this* toolchain, not the PHP runtime.)
-4. **Run the store** (`docker-compose.yml`): a Bitnami WordPress (`localhost:8080/wp-admin`, `admin` / `123456789`) + MariaDB stack. The compose file mounts the plugin into `wp-content/plugins/moloni-on` — **point that volume directly at this checkout** (adjust the `- ./moloni-dev:...` path to the checkout) so edits are live. `dev.md` has the full walkthrough.
-5. In WP admin, activate **Moloni ON**, open the plugin page, and log in to Moloni to authorize (no committed credentials).
+4. **Run the store** (`docker-compose.yml`, from the project root): official `wordpress` + MariaDB images (`localhost:8080/wp-admin`, `admin` / `123456789`). The compose file mounts this checkout into `wp-content/plugins/moloni-on`, so edits are live. On first run a one-shot `setup` (wp-cli) service installs WordPress + WooCommerce and activates the plugin; `docker compose down -v` resets the store. `dev.md` has the full walkthrough.
+5. In WP admin (the plugin is already active), open the **Moloni ON** page and log in to Moloni to authorize (no committed credentials).
 
 ## Commands
 
