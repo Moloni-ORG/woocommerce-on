@@ -363,7 +363,7 @@ class OrderShipping
             ];
 
             // Fixed name: Moloni locks a product's name once it has documents
-            $variables['data']['name'] = 'Portes';
+            $variables['data']['name'] = __('Shipping', 'moloni-on');
             $variables['data']['reference'] = $this->reference;
             $variables['data']['type'] = (int) $this->type;
             $variables['data']['hasStock'] = (bool) $this->has_stock;
