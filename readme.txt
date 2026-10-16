@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.12
+Stable tag: 4.0.13
 Tested up to: 7.0
 WC tested up to: 10.7.0
 Requires PHP: 7.2
@@ -58,6 +58,8 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.13=
+* Create the shipping product with a fixed name, so it no longer keeps the first order's shipping method name forever.
 = 4.0.12=
 * Skip product creation when the Moloni ON plan's product limit is reached, instead of failing the sync.
 
@@ -85,6 +87,8 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
 * Fix in customer search.
 
 == Changelog ==
+= 4.0.13=
+* Create the shipping product with a fixed name, so it no longer keeps the first order's shipping method name forever.
 = 4.0.03 =
 * Fix price decimal length issue.
 
