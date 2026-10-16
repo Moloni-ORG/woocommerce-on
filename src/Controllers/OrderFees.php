@@ -313,6 +313,8 @@ class OrderFees
                 'data' => $variables
             ];
 
+            // Fixed name: Moloni locks a product's name once it has documents
+            $variables['data']['name'] = __('Fee', 'moloni-on');
             $variables['data']['reference'] = $this->reference;
             $variables['data']['type'] = (int) $this->type;
             $variables['data']['hasStock'] = (bool) $this->has_stock;
