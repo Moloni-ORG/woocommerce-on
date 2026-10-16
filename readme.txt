@@ -59,7 +59,7 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
 
 == Changelog ==
 = 4.0.13=
-* Create the shipping product with a fixed name, so it no longer keeps the first order's shipping method name forever.
+* Create the shipping and fee products with a fixed name, so they no longer keep the first order's shipping method or fee name forever.
 
 = 4.0.12=
 * Skip product creation when the Moloni ON plan's product limit is reached, instead of failing the sync.
