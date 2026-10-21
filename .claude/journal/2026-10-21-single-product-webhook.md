@@ -1,0 +1,9 @@
+# One Product hook instead of three per-operation hooks
+
+**Symptom:** the inbound product sync registered up to three separate Moloni hooks for the `Product` model (`stockChanged`, `create`, `update`). The receiver (`src/WebHooks/Products.php::products()`) always fetched the Moloni product before checking the operation, and the `switch` only had cases for those three operations.
+
+**Cause / change:** a hook registered with no `operation` fires for every operation of its model, and the delivered payload still carries the real operation (`{companyId, model, operation, productId}`). So one hook can replace the three. `WebHooks::createHook()` now takes an optional `$operation` (default `null`) and omits the `operation` key from the mutation variables when not given — `Plugin::reinstallWebhooks()` and `Plugin::saveAutomations()` now install a single `createHook('Product')` when either `hook_stock_sync` or `hook_product_sync` is on. `WebHooks::deleteHooks()` already searches hooks by URL prefix (`/wp-json/`), so it still cleans up any pre-existing per-operation hooks on resave.
+
+**Rule:** because one hook now receives every Product operation (including `delete`, which this plugin doesn't handle), the receiver must check the operation **before** fetching the Moloni product — fetching a deleted product throws and used to log an error. `products()` now returns early (replies OK, no fetch, no log) for any operation outside `create`/`update`/`stockChanged`.
+
+**Not verified end to end** — no automated test/lint gate in this plugin (see `AGENTS.md › Verification`); this needs exercising in the local Docker WordPress: save automations with stock/product sync on, confirm exactly one `Product` hook exists (reinstall webhooks), then trigger a Moloni-side product delete and confirm no error is logged and no fetch occurs.

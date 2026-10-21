@@ -70,12 +70,21 @@ class Products
                 return;
             }
 
+            $operation = $parameters['operation'] ?? '';
+
+            /** One hook now receives every Product operation; we only handle these, skip the rest (e.g. delete) */
+            if (!in_array($operation, ['create', 'update', 'stockChanged'], true)) {
+                $this->reply();
+
+                return;
+            }
+
             $productId = (int)sanitize_text_field($parameters['productId']);
 
             $this->fetchMoloniProduct($productId);
 
             //switch between operations
-            switch ($parameters['operation']) {
+            switch ($operation) {
                 case 'create':
                     $this->onCreate();
                     break;
