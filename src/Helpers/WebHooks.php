@@ -62,8 +62,9 @@ class WebHooks
     {
         $ids = [];
 
+        /** Filter by this site's URL — without it the query returns (and we'd delete) every hook of the company */
         $variables = [
-            'data' => [
+            'options' => [
                 'search' => [
                     'field' => 'url',
                     'value' => get_site_url() . '/wp-json/'

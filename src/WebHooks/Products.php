@@ -70,29 +70,22 @@ class Products
                 return;
             }
 
-            $operation = $parameters['operation'] ?? '';
-
-            /** One hook now receives every Product operation; we only handle these, skip the rest (e.g. delete) */
-            if (!in_array($operation, ['create', 'update', 'stockChanged'], true)) {
-                $this->reply();
-
-                return;
-            }
-
             $productId = (int)sanitize_text_field($parameters['productId']);
 
-            $this->fetchMoloniProduct($productId);
-
-            //switch between operations
-            switch ($operation) {
+            /**
+             * One hook receives every Product operation. Each handler checks its own setting
+             * before fetching the Moloni product, so a disabled sync costs no API call.
+             * Other operations (e.g. delete) are acknowledged and ignored.
+             */
+            switch ($parameters['operation'] ?? '') {
                 case 'create':
-                    $this->onCreate();
+                    $this->onCreate($productId);
                     break;
                 case 'update':
-                    $this->onUpdate();
+                    $this->onUpdate($productId);
                     break;
                 case 'stockChanged':
-                    $this->onStockUpdate();
+                    $this->onStockUpdate($productId);
                     break;
             }
 
@@ -135,13 +128,17 @@ class Products
     /**
      * Create action
      *
+     * @param int $productId Moloni product id
+     *
      * @throws WebhookException
      */
-    private function onCreate()
+    private function onCreate(int $productId)
     {
         if (!$this->shouldSyncProduct()) {
             return;
         }
+
+        $this->fetchMoloniProduct($productId);
 
         $this->validateMoloniProduct();
 
@@ -183,13 +180,17 @@ class Products
     /**
      * On Moloni product update action
      *
+     * @param int $productId Moloni product id
+     *
      * @throws HelperException|WebhookException
      */
-    private function onUpdate()
+    private function onUpdate(int $productId)
     {
         if (!$this->shouldSyncProduct()) {
             return;
         }
+
+        $this->fetchMoloniProduct($productId);
 
         $this->validateMoloniProduct();
 
@@ -245,13 +246,17 @@ class Products
     /**
      * On Moloni stock update
      *
+     * @param int $productId Moloni product id
+     *
      * @throws HelperException|WebhookException
      */
-    private function onStockUpdate()
+    private function onStockUpdate(int $productId)
     {
         if (!$this->shouldSyncStock()) {
             return;
         }
+
+        $this->fetchMoloniProduct($productId);
 
         $this->validateMoloniProduct();
 
