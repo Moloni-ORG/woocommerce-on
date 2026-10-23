@@ -13,6 +13,15 @@ query wordpressHooks($companyId: Int!,$options: HookOptions)
             field
             msg
         }
+        options
+        {
+            pagination
+            {
+                page
+                qty
+                count
+            }
+        }
     }
 }
 

@@ -22,12 +22,14 @@ class WebHooks
     /**
      * Create hook in moloni
      *
+     * Omit $operation (or pass null) to receive every operation of the model in one hook.
+     *
      * @param string $model
-     * @param string $operation
+     * @param string|null $operation
      *
      * @throws APIExeption
      */
-    public static function createHook(string $model, string $operation)
+    public static function createHook(string $model, ?string $operation = null)
     {
         if (!isset(self::$routes[$model])) {
             return;
@@ -42,8 +44,11 @@ class WebHooks
         $variables['data'] = [
             'model' => $model,
             'url' => $url,
-            'operation' => $operation
         ];
+
+        if ($operation !== null) {
+            $variables['data']['operation'] = $operation;
+        }
 
         Hooks::mutationHookCreate($variables);
     }
@@ -57,8 +62,9 @@ class WebHooks
     {
         $ids = [];
 
+        /** Filter by this site's URL — without it the query returns (and we'd delete) every hook of the company */
         $variables = [
-            'data' => [
+            'options' => [
                 'search' => [
                     'field' => 'url',
                     'value' => get_site_url() . '/wp-json/'

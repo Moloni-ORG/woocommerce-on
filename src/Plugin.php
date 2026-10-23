@@ -292,13 +292,11 @@ class Plugin
         try {
             WebHooks::deleteHooks();
 
-            if (Context::settings()->getInt('hook_stock_sync') === Boolean::YES) {
-                WebHooks::createHook('Product', 'stockChanged');
-            }
-
-            if (Context::settings()->getInt('hook_product_sync') === Boolean::YES) {
-                WebHooks::createHook('Product', 'create');
-                WebHooks::createHook('Product', 'update');
+            if (
+                Context::settings()->getInt('hook_stock_sync') === Boolean::YES ||
+                Context::settings()->getInt('hook_product_sync') === Boolean::YES
+            ) {
+                WebHooks::createHook('Product');
             }
 
             $msg = __('Moloni ON Webhooks reinstalled successfully.', 'moloni-on');
@@ -353,13 +351,11 @@ class Plugin
         try {
             WebHooks::deleteHooks();
 
-            if (isset($options['hook_stock_sync']) && (int)$options['hook_stock_sync'] === Boolean::YES) {
-                WebHooks::createHook('Product', 'stockChanged');
-            }
+            $hookStockSync = isset($options['hook_stock_sync']) && (int)$options['hook_stock_sync'] === Boolean::YES;
+            $hookProductSync = isset($options['hook_product_sync']) && (int)$options['hook_product_sync'] === Boolean::YES;
 
-            if (isset($options['hook_product_sync']) && (int)$options['hook_product_sync'] === Boolean::YES) {
-                WebHooks::createHook('Product', 'create');
-                WebHooks::createHook('Product', 'update');
+            if ($hookStockSync || $hookProductSync) {
+                WebHooks::createHook('Product');
             }
         } catch (APIExeption $e) {
         }
