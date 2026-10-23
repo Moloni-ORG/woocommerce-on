@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.13
+Stable tag: 4.0.14
 Tested up to: 7.0
 WC tested up to: 10.7.0
 Requires PHP: 7.2
@@ -58,6 +58,9 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.14=
+* Install a single Moloni ON Product webhook instead of one per operation, so the plugin uses fewer webhooks from the plan's quota. Existing shops switch to it the next time they save the automation settings or reinstall the webhooks.
+
 = 4.0.13=
 * Create the shipping and fee products with a fixed name, so they no longer keep the first order's shipping method or fee name forever.
 
