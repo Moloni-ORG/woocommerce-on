@@ -233,6 +233,12 @@ class Documents
                     $mutation = BillsOfLading::mutationBillsOfLadingCreate($props);
                     $keyString = 'billsOfLadingCreate';
                     break;
+                default:
+                    throw new DocumentError(
+                        // Translators: %1$s is the document type.
+                        sprintf(__('Unknown document type: %1$s', 'moloni-on'), $this->documentType),
+                        ['document_type' => $this->documentType]
+                    );
             }
         } catch (APIExeption $e) {
             throw new DocumentError(
@@ -689,7 +695,7 @@ class Documents
     {
         switch (true) {
             case !empty($documentType):
-                $this->documentType = $documentType;
+                $this->documentType = DocumentTypes::normalize($documentType);
 
                 break;
             default:
