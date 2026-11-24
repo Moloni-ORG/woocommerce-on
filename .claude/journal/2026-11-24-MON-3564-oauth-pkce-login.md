@@ -11,6 +11,11 @@ public client's `redirect_uri` must match the registered one byte-for-byte.
   (`Start::getRedirectUri()`), used identically at register, authorize and grant.
 - A row with an empty `client_secret` is a public client; a row with a secret is a merchant from
   the old Developer ID / Client secret login and keeps the old grant/refresh request unchanged.
+- The client id lives only in the auth table. Every connect calls `/auth/register` again: the
+  server returns the existing client for an identical (client_name, redirect_uris) pair, but only
+  scans the 50 newest clients with that name. So the name carries the store host
+  (`Moloni ON WooCommerce (<host>)`); a name shared by every store would stop matching and pile up
+  clients.
 - `?code=` / `?error=` are only handled while the row has no `refresh_token`. Without that guard, a
   stray link shows a connected store the login form, and clicking Connect truncates the old row.
 - `.mo` is rebuilt with Python `babel.messages.mofile` (`read_mo` → edit → `write_mo`); `msgfmt`

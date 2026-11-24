@@ -165,7 +165,7 @@ class Start
     private function startConnect(): bool
     {
         $redirectUri = $this->getRedirectUri();
-        $clientId = $this->getOauthClientId($redirectUri);
+        $clientId = $this->registerOauthClient($redirectUri);
 
         if (empty($clientId)) {
             return false;
@@ -193,19 +193,12 @@ class Start
     }
 
     /**
-     * Resolves the public client id to use: the stored one, if its registered redirect URI still
-     * matches, otherwise registers a new one. Shows the login form (with error) and returns an empty
-     * string when registration fails.
+     * Registers the public client for this store. The server returns the same client for the same
+     * name and redirect URI, so nothing is kept outside the auth table. Shows the login form (with
+     * error) and returns an empty string when registration fails.
      */
-    private function getOauthClientId(string $redirectUri): string
+    private function registerOauthClient(string $redirectUri): string
     {
-        $storedClientId = Context::settings()->getString('oauth_client_id');
-
-        // The redirect URI is stored as a hash: it may not fit the settings column
-        if (!empty($storedClientId) && Context::settings()->getString('oauth_redirect_hash') === md5($redirectUri)) {
-            return $storedClientId;
-        }
-
         try {
             $registered = Curl::register($redirectUri);
         } catch (APIExeption $e) {
@@ -213,12 +206,7 @@ class Start
             return '';
         }
 
-        $clientId = $registered['client_id'] ?? '';
-
-        Settings::setOption('oauth_client_id', $clientId);
-        Settings::setOption('oauth_redirect_hash', md5($redirectUri));
-
-        return $clientId;
+        return $registered['client_id'] ?? '';
     }
 
     /**

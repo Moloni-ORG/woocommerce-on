@@ -155,7 +155,9 @@ class Curl
         $url = Context::configs()->get('api_url') . '/auth/register';
 
         $body = [
-            'client_name' => 'Moloni ON for WooCommerce',
+            // The store's host makes the name unique, so the server's dedup finds this store's client
+            // again, and the consent screen shows which store is connecting
+            'client_name' => 'Moloni ON WooCommerce (' . wp_parse_url($redirectUri, PHP_URL_HOST) . ')',
             'redirect_uris' => [$redirectUri],
         ];
 
