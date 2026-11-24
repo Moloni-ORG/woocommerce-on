@@ -199,10 +199,11 @@ class Start
      */
     private function getOauthClientId(string $redirectUri): string
     {
-        $stored = get_option('molonion_oauth_client');
+        $storedClientId = Context::settings()->getString('oauth_client_id');
 
-        if (is_array($stored) && !empty($stored['client_id']) && ($stored['redirect_uri'] ?? '') === $redirectUri) {
-            return $stored['client_id'];
+        // The redirect URI is stored as a hash: it may not fit the settings column
+        if (!empty($storedClientId) && Context::settings()->getString('oauth_redirect_hash') === md5($redirectUri)) {
+            return $storedClientId;
         }
 
         try {
@@ -214,7 +215,8 @@ class Start
 
         $clientId = $registered['client_id'] ?? '';
 
-        update_option('molonion_oauth_client', ['client_id' => $clientId, 'redirect_uri' => $redirectUri]);
+        Settings::setOption('oauth_client_id', $clientId);
+        Settings::setOption('oauth_redirect_hash', md5($redirectUri));
 
         return $clientId;
     }
