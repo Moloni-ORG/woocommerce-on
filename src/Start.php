@@ -216,7 +216,10 @@ class Start
      */
     private function getRedirectUri(): string
     {
-        return admin_url('admin.php?page=' . Context::getPageName());
+        // A TLS-terminating proxy can hide HTTPS from PHP, so an https site always registers an https URI
+        $scheme = wp_parse_url(home_url(), PHP_URL_SCHEME) === 'https' ? 'https' : 'admin';
+
+        return admin_url('admin.php?page=' . Context::getPageName(), $scheme);
     }
 
     private static function getOauthTransientKey(): string

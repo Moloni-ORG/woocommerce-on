@@ -2192,6 +2192,10 @@ msgid "Connect to Moloni ON"
 msgstr "Ligar ao Moloni ON"
 
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Curl.php
+msgid "Too many connection attempts. Please try again later."
+msgstr "Demasiadas tentativas de ligação. Tenta novamente mais tarde."
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Curl.php
 msgid "Your store must use HTTPS to connect to Moloni ON."
 msgstr "A tua loja tem de usar HTTPS para se ligar ao Moloni ON."
 

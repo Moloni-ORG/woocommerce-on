@@ -190,6 +190,11 @@ class Curl
             'received' => $parsed
         ];
 
+        if (($parsed['error'] ?? '') === 'too_many_requests') {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new APIExeption(__('Too many connection attempts. Please try again later.', 'moloni-on'), $log);
+        }
+
         if (($parsed['error'] ?? '') === 'invalid_redirect_uri') {
             // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
             throw new APIExeption(__('Your store must use HTTPS to connect to Moloni ON.', 'moloni-on'), $log);
