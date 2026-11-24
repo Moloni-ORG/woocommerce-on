@@ -23,15 +23,16 @@ class Start
 
         global $wpdb;
 
-        if (!empty($_POST['molonion_connect'])) {
+        $tokensRow = Auth::getTokensRow();
+
+        // A stale Connect form (old tab, second admin) must not wipe a store that is already connected
+        if (!empty($_POST['molonion_connect']) && empty($tokensRow['refresh_token'])) {
             if ($this->startConnect()) {
                 wp_die();
             }
 
             return false;
         }
-
-        $tokensRow = Auth::getTokensRow();
         $code = trim(sanitize_text_field($_GET['code'] ?? ''));
         $oauthError = trim(sanitize_text_field($_GET['error'] ?? ''));
         // Only a store waiting for tokens handles a callback, so a stray link can't sign out a connected one
