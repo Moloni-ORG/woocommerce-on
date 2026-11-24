@@ -78,7 +78,8 @@ class Auth
 
         $tokensRow = self::getTokensRow() ?? [];
 
-        if (empty($tokensRow)) {
+        // No refresh token yet: a connect is still in progress, don't wipe it or send "expired" alerts
+        if (empty($tokensRow) || empty($tokensRow['refresh_token'])) {
             return false;
         }
 

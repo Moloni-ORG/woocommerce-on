@@ -142,24 +142,97 @@ class Curl
     }
 
     /**
-     * Do a login request to the API
+     * Registers a public OAuth client (dynamic client registration) for the given redirect URI
      *
-     * @param $code
-     * @param $clientId
-     * @param $clientSecret
+     * @param string $redirectUri
      *
      * @return mixed
      *
      * @throws APIExeption
      */
-    public static function login($code, $clientId, $clientSecret)
+    public static function register(string $redirectUri)
+    {
+        $url = Context::configs()->get('api_url') . '/auth/register';
+
+        $body = [
+            'client_name' => 'Moloni ON for WooCommerce',
+            'redirect_uris' => [$redirectUri],
+        ];
+
+        $response = wp_remote_post(
+            $url,
+            [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode($body),
+                'timeout' => 45,
+                'user-agent' => self::$userAgent
+            ]
+        );
+
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+        if (is_wp_error($response)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new APIExeption($response->get_error_message(), ['code' => $response->get_error_code(), 'data' => $response->get_error_data(), 'message' => $response->get_error_message(),]);
+        }
+
+        $raw = wp_remote_retrieve_body($response);
+        $parsed = json_decode($raw, true);
+
+        if (!empty($parsed['client_id'])) {
+            return $parsed;
+        }
+
+        $log = [
+            'url' => $url,
+            'sent' => $body,
+            'received' => $parsed
+        ];
+
+        if (($parsed['error'] ?? '') === 'invalid_redirect_uri') {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+            throw new APIExeption(__('Your store must use HTTPS to connect to Moloni ON.', 'moloni-on'), $log);
+        }
+
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+        throw new APIExeption(__('Oops, an error was encountered...', 'moloni-on'), $log);
+    }
+
+    /**
+     * Do a login request to the API
+     *
+     * @param $code
+     * @param $clientId
+     * @param $clientSecret
+     * @param string $codeVerifier PKCE verifier, only used for public clients (empty $clientSecret)
+     * @param string $redirectUri Must match the one used to obtain $code, only needed alongside $codeVerifier
+     *
+     * @return mixed
+     *
+     * @throws APIExeption
+     */
+    public static function login($code, $clientId, $clientSecret, string $codeVerifier = '', string $redirectUri = '')
     {
         $url = Context::configs()->get('api_url') . '/auth/grant';
 
-        $postFields = 'grantType=' . 'authorization_code';
-        $postFields .= '&apiClientId=' . $clientId;
-        $postFields .= '&clientSecret=' . $clientSecret;
-        $postFields .= '&code=' . $code;
+        $fields = [
+            'grantType' => 'authorization_code',
+            'apiClientId' => $clientId,
+            'code' => $code,
+        ];
+
+        if (!empty($clientSecret)) {
+            $fields['clientSecret'] = $clientSecret;
+        }
+
+        $postFields = http_build_query($fields);
+
+        if (!empty($codeVerifier)) {
+            $postFields .= '&code_verifier=' . rawurlencode($codeVerifier);
+        }
+
+        if (!empty($redirectUri)) {
+            $postFields .= '&redirect_uri=' . rawurlencode($redirectUri);
+        }
 
         $response = wp_remote_post(
             $url,
@@ -203,10 +276,17 @@ class Curl
     {
         $url = Context::configs()->get('api_url') . '/auth/grant';
 
-        $postFields = 'grantType=' . 'refresh_token';
-        $postFields .= '&apiClientId=' . $clientId;
-        $postFields .= '&clientSecret=' . $clientSecret;
-        $postFields .= '&refreshToken=' . $refreshToken;
+        $fields = [
+            'grantType' => 'refresh_token',
+            'apiClientId' => $clientId,
+            'refreshToken' => $refreshToken,
+        ];
+
+        if (!empty($clientSecret)) {
+            $fields['clientSecret'] = $clientSecret;
+        }
+
+        $postFields = http_build_query($fields);
 
         $response = wp_remote_post(
             $url,

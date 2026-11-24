@@ -2186,3 +2186,15 @@ msgstr "Não foi possível criar \"%1$s\" no Moloni ON: foi atingido o limite de
 #, php-format
 msgid "Products export. Part %1$s: some products were not created because the plan's product limit has been reached."
 msgstr "Exportação de produtos. Parte %1$s: alguns produtos não foram criados porque foi atingido o limite de produtos do plano."
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/LoginForm.php
+msgid "Connect to Moloni ON"
+msgstr "Ligar ao Moloni ON"
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Curl.php
+msgid "Your store must use HTTPS to connect to Moloni ON."
+msgstr "A tua loja tem de usar HTTPS para se ligar ao Moloni ON."
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Start.php
+msgid "We couldn't connect your store to Moloni ON. Please try again."
+msgstr "Não foi possível ligar a tua loja ao Moloni ON. Tenta novamente."
