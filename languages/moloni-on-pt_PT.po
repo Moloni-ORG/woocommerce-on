@@ -2202,3 +2202,9 @@ msgstr "A tua loja tem de usar HTTPS para se ligar ao Moloni ON."
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Start.php
 msgid "We couldn't connect your store to Moloni ON. Please try again."
 msgstr "Não foi possível ligar a tua loja ao Moloni ON. Tenta novamente."
+
+#. %1$s is the document type.
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php
+#, php-format
+msgid "Unknown document type: %1$s"
+msgstr "Tipo de documento desconhecido: %1$s"

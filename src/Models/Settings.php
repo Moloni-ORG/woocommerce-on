@@ -4,6 +4,7 @@ namespace MoloniOn\Models;
 
 use MoloniOn\Context;
 use MoloniOn\Curl;
+use MoloniOn\Enums\DocumentTypes;
 use MoloniOn\Services\Mails\AuthenticationExpired;
 
 class Settings
@@ -58,6 +59,10 @@ class Settings
 
         foreach ($results as $result) {
             $settings[$result['config']] = $result['selected'];
+        }
+
+        if (isset($settings['document_type'])) {
+            $settings['document_type'] = DocumentTypes::normalize($settings['document_type']);
         }
 
         Context::setSettings($settings);

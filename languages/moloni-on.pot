@@ -1993,3 +1993,9 @@ msgstr ""
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Start.php
 msgid "We couldn't connect your store to Moloni ON. Please try again."
 msgstr ""
+
+#. %1$s is the document type.
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php
+#, php-format
+msgid "Unknown document type: %1$s"
+msgstr ""

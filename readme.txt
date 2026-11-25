@@ -2,7 +2,7 @@
 Contributors: molonidevteam
 Requires Plugins: woocommerce
 Tags: invoicing, orders
-Stable tag: 4.0.14
+Stable tag: 4.0.15
 Tested up to: 7.0
 WC tested up to: 10.7.0
 Requires PHP: 7.2
@@ -58,6 +58,9 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
  Released plugin version 4.0.00.
 
 == Changelog ==
+= 4.0.15=
+* Fix automatic documents failing for shops whose Invoice-Receipt setting was saved by versions 3.0.23 to 4.0.04. When the document type is unknown, the log now names it instead of showing an unrelated request.
+
 = 4.0.14=
 * Install a single Moloni ON Product webhook instead of one per operation, so the plugin uses fewer webhooks from the plan's quota. Existing shops switch to it the next time they save the automation settings or reinstall the webhooks.
 
