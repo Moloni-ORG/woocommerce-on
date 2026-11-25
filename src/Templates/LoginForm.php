@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
     <div class="login login__wrapper">
         <form method='POST' action='<?php echo esc_url(Context::getAdminUrl()) ?>' class="login-form">
             <?php wp_nonce_field("molonion-form-nonce"); ?>
+            <input type="hidden" name="molonion_connect" value="1">
 
             <div class="login__card">
                 <div class="login__image">
@@ -37,31 +38,9 @@ if (!defined('ABSPATH')) {
                     <?php endif; ?>
                 </div>
 
-                <div class="login__inputs">
-                    <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
-                        <label for='developer_id'>
-                            <?php esc_html_e('Developer Id', 'moloni-on') ?>
-                        </label>
-                        <input id="developer_id" type='text' name='developer_id'>
-                    </div>
-
-                    <div class="ml-input-text <?php echo isset($error) && $error ? 'ml-input-text--with-error' : '' ?>">
-                        <label for='client_secret'>
-                            <?php esc_html_e('Client secret', 'moloni-on') ?>
-                        </label>
-                        <input id="client_secret" type='text' name='client_secret'>
-                    </div>
-                </div>
-
-                <div class="login__help">
-                    <a href="<?php echo esc_url(Context::configs()->get('landing_page')) ?>" target="_blank">
-                        <?php esc_html_e('Click here for more instructions', 'moloni-on') ?>
-                    </a>
-                </div>
-
                 <div class="login__button">
-                    <button class="ml-button ml-button--primary w-full" id="login_button" type="submit" disabled>
-                        <?php esc_html_e("Login", 'moloni-on') ?>
+                    <button class="ml-button ml-button--primary w-full" id="login_button" type="submit">
+                        <?php esc_html_e("Connect to Moloni ON", 'moloni-on') ?>
                     </button>
                 </div>
             </div>

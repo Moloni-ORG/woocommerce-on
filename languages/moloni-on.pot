@@ -1978,6 +1978,22 @@ msgstr ""
 msgid "Products export. Part %1$s: some products were not created because the plan's product limit has been reached."
 msgstr ""
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/LoginForm.php
+msgid "Connect to Moloni ON"
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Curl.php
+msgid "Too many connection attempts. Please try again later."
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Curl.php
+msgid "Your store must use HTTPS to connect to Moloni ON."
+msgstr ""
+
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Start.php
+msgid "We couldn't connect your store to Moloni ON. Please try again."
+msgstr ""
+
 #. %1$s is the document type.
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php
 #, php-format

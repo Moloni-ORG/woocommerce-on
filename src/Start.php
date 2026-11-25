@@ -23,26 +23,57 @@ class Start
 
         global $wpdb;
 
-        $developerId = trim(sanitize_text_field($_POST['developer_id'] ?? ''));
-        $clientSecret = trim(sanitize_text_field($_POST['client_secret'] ?? ''));
+        $tokensRow = Auth::getTokensRow();
 
-        if (!empty($developerId) && !empty($clientSecret)) {
-            $this->redirectToApi($developerId, $clientSecret);
-            wp_die();
+        // A stale Connect form (old tab, second admin) must not wipe a store that is already connected
+        if (!empty($_POST['molonion_connect']) && empty($tokensRow['refresh_token'])) {
+            if ($this->startConnect()) {
+                wp_die();
+            }
+
+            return false;
+        }
+        $code = trim(sanitize_text_field($_GET['code'] ?? ''));
+        $oauthError = trim(sanitize_text_field($_GET['error'] ?? ''));
+        // Only a store waiting for tokens handles a callback, so a stray link can't sign out a connected one
+        $awaitingCallback = !empty($tokensRow) && empty($tokensRow['refresh_token']);
+
+        if (!empty($oauthError) && $awaitingCallback) {
+            $this->loginForm(__("We couldn't connect your store to Moloni ON. Please try again.", 'moloni-on'));
+            return false;
         }
 
-        $tokensRow = Auth::getTokensRow();
-        $code = trim(sanitize_text_field($_GET['code'] ?? ''));
+        if (!empty($code) && $awaitingCallback) {
+            if (!empty($tokensRow['client_secret'])) {
+                try {
+                    $login = Curl::login($code, $tokensRow['client_id'], $tokensRow['client_secret']);
 
-        if (!empty($code)) {
-            try {
-                $login = Curl::login($code, $tokensRow['client_id'], $tokensRow['client_secret']);
-
-                if (isset($login['accessToken']) && isset($login['refreshToken'])) {
-                    Auth::setTokens($login['accessToken'], $login['refreshToken']);
+                    if (isset($login['accessToken']) && isset($login['refreshToken'])) {
+                        Auth::setTokens($login['accessToken'], $login['refreshToken']);
+                    }
+                } catch (APIExeption $e) {
+                    $e->showError();
                 }
-            } catch (APIExeption $e) {
-                $e->showError();
+            } else {
+                $state = trim(sanitize_text_field($_GET['state'] ?? ''));
+                $stored = get_transient(self::getOauthTransientKey());
+
+                if (!is_array($stored) || empty($stored['state']) || empty($state) || !hash_equals($stored['state'], $state)) {
+                    $this->loginForm(__("We couldn't connect your store to Moloni ON. Please try again.", 'moloni-on'));
+                    return false;
+                }
+
+                delete_transient(self::getOauthTransientKey());
+
+                try {
+                    $login = Curl::login($code, $tokensRow['client_id'], '', $stored['verifier'], $this->getRedirectUri());
+
+                    if (isset($login['accessToken']) && isset($login['refreshToken'])) {
+                        Auth::setTokens($login['accessToken'], $login['refreshToken']);
+                    }
+                } catch (APIExeption $e) {
+                    $e->showError();
+                }
             }
         }
 
@@ -107,8 +138,10 @@ class Start
 
     /**
      * Shows a login form
+     *
+     * @param string $error Optional error message, read by the LoginForm template
      */
-    private function loginForm()
+    private function loginForm(string $error = '')
     {
         include(MOLONI_ON_TEMPLATE_DIR . 'LoginForm.php');
     }
@@ -125,19 +158,78 @@ class Start
     //          Auth          //
 
     /**
-     * Redirects to API
+     * Starts an OAuth public-client connection: registers (or reuses) a public client,
+     * then redirects to the Moloni ON authorization screen with PKCE.
      *
-     * @return void
+     * @return bool True when the browser was redirected to Moloni ON, false when a login form (with error) was shown instead
      */
-    private function redirectToApi(string $developerId, string $clientSecret)
+    private function startConnect(): bool
     {
-        Auth::setClient($developerId, $clientSecret);
+        $redirectUri = $this->getRedirectUri();
+        $clientId = $this->registerOauthClient($redirectUri);
 
-        $url = Context::configs()->get('api_url');
-        $url .= '/auth/authorize?apiClientId=' . $developerId;
-        $url .= '&redirectUri=' . urlencode(Context::getAdminUrl());
+        if (empty($clientId)) {
+            return false;
+        }
+
+        $verifier = self::base64UrlEncode(random_bytes(32));
+        $challenge = self::base64UrlEncode(hash('sha256', $verifier, true));
+        $state = self::base64UrlEncode(random_bytes(16));
+
+        set_transient(self::getOauthTransientKey(), ['state' => $state, 'verifier' => $verifier], 10 * MINUTE_IN_SECONDS);
+
+        Auth::setClient($clientId, '');
+
+        $url = Context::configs()->get('api_url') . '/auth/authorize';
+        $url .= '?response_type=code';
+        $url .= '&client_id=' . rawurlencode($clientId);
+        $url .= '&redirect_uri=' . rawurlencode($redirectUri);
+        $url .= '&code_challenge=' . rawurlencode($challenge);
+        $url .= '&code_challenge_method=S256';
+        $url .= '&state=' . rawurlencode($state);
 
         wp_redirect($url);
+
+        return true;
+    }
+
+    /**
+     * Registers the public client for this store. The server returns the same client for the same
+     * name and redirect URI, so nothing is kept outside the auth table. Shows the login form (with
+     * error) and returns an empty string when registration fails.
+     */
+    private function registerOauthClient(string $redirectUri): string
+    {
+        try {
+            $registered = Curl::register($redirectUri);
+        } catch (APIExeption $e) {
+            $this->loginForm($e->getMessage());
+            return '';
+        }
+
+        return $registered['client_id'] ?? '';
+    }
+
+    /**
+     * Stable redirect_uri for the OAuth flow: must match the one registered byte-for-byte,
+     * so (unlike Context::getAdminUrl()) it carries no rotating nonce.
+     */
+    private function getRedirectUri(): string
+    {
+        // A TLS-terminating proxy can hide HTTPS from PHP, so an https site always registers an https URI
+        $scheme = wp_parse_url(home_url(), PHP_URL_SCHEME) === 'https' ? 'https' : 'admin';
+
+        return admin_url('admin.php?page=' . Context::getPageName(), $scheme);
+    }
+
+    private static function getOauthTransientKey(): string
+    {
+        return 'molonion_oauth_' . get_current_user_id();
+    }
+
+    private static function base64UrlEncode(string $data): string
+    {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
     private function loadSettings()

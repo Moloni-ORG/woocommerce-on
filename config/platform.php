@@ -14,7 +14,6 @@ return [
     'api_url' => 'https://api.molonion.pt/v1',
     'media_api_url' => 'https://mediaapi.moloni.org',
 
-    'landing_page' => 'https://woocommerce.molonion.pt/',
     'plans_page' => 'https://www.molonion.pt/pricing',
     'help_page' => 'https://www.molonion.pt/help',
     'home_page' => 'https://www.molonion.pt/',
