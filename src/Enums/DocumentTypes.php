@@ -13,6 +13,12 @@ class DocumentTypes
     public const ESTIMATE = 'estimate';
     public const PRO_FORMA_INVOICE = 'proFormaInvoice';
 
+    // Values stored by older plugin versions (renamed without migration).
+    // 'invoiceAndReceipt' (<= v3.0.22) is NOT here: it issued Invoice + Receipt, a different flow.
+    public const LEGACY_ALIASES = [
+        'invoiceReceipts' => self::INVOICE_RECEIPT, // v3.0.23 - v4.0.04
+    ];
+
     public const TYPES_WITH_PAYMENTS = [
         self::RECEIPT,
         self::INVOICE_RECEIPT,
@@ -112,5 +118,17 @@ class DocumentTypes
     public static function canRelateToBillOfLading(?string $documentType = ''): bool
     {
         return in_array($documentType, self::TYPES_RELATES_TO_BILL_OF_LADING, true);
+    }
+
+    /**
+     * Map a legacy stored value to its current one, if any
+     *
+     * @param string|null $documentType
+     *
+     * @return string|null
+     */
+    public static function normalize(?string $documentType): ?string
+    {
+        return self::LEGACY_ALIASES[$documentType] ?? $documentType;
     }
 }

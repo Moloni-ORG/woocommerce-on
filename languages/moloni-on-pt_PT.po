@@ -2186,3 +2186,9 @@ msgstr "Não foi possível criar \"%1$s\" no Moloni ON: foi atingido o limite de
 #, php-format
 msgid "Products export. Part %1$s: some products were not created because the plan's product limit has been reached."
 msgstr "Exportação de produtos. Parte %1$s: alguns produtos não foram criados porque foi atingido o limite de produtos do plano."
+
+#. %1$s is the document type.
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php
+#, php-format
+msgid "Unknown document type: %1$s"
+msgstr "Tipo de documento desconhecido: %1$s"
