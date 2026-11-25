@@ -59,6 +59,7 @@ This plugin can be installed via FTP or using the WordPress plugin installer.
 
 == Changelog ==
 = 4.0.15=
+* Connect the store to Moloni ON by logging in, without creating an API client or copying keys. Stores already connected stay connected. New connections require HTTPS.
 * Fix automatic documents failing for shops whose Invoice-Receipt setting was saved by versions 3.0.23 to 4.0.04. When the document type is unknown, the log now names it instead of showing an unrelated request.
 
 = 4.0.14=
