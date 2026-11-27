@@ -132,6 +132,33 @@ class OrderProduct
         return $this->qty;
     }
 
+    /**
+     * Same rule used when creating the Moloni product (virtual/downloadable => service)
+     * shortcut: reads the WooCommerce product, not the Moloni product type; upgrade if a product matched by reference can have a different type
+     */
+    public function isService(): bool
+    {
+        $wcProduct = $this->orderProduct->get_product();
+
+        return $wcProduct && ($wcProduct->is_virtual() || $wcProduct->is_downloadable());
+    }
+
+    /**
+     * Line total with taxes and minus refunds, as WooCommerce counts it in the order total
+     */
+    public function getOrderTotal(): float
+    {
+        $itemId = $this->orderProduct->get_id();
+        $total = (float)$this->orderProduct->get_total() + (float)$this->orderProduct->get_total_tax();
+        $total -= (float)$this->wc_order->get_total_refunded_for_item($itemId);
+
+        foreach (array_keys($this->orderProduct->get_taxes()['total'] ?? []) as $taxId) {
+            $total -= (float)$this->wc_order->get_tax_refunded_for_item($itemId, $taxId);
+        }
+
+        return $total;
+    }
+
     //          Sets          //
 
     private function setName(?string $name = ''): OrderProduct

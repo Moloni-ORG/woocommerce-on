@@ -115,6 +115,12 @@ class Documents
     private $products = [];
     private $payments = [];
 
+    /** @var int[] Indexes of $products that are services (never transported) */
+    private $serviceLines = [];
+
+    /** @var float Order value of the goods lines (what a bill of lading without services is worth) */
+    private $goodsTotal = 0.0;
+
     private $documentType = '';
     private $documentTypeName = '';
     private $documentStatus = 0;
@@ -193,6 +199,10 @@ class Documents
 
         if ($this->stopProcess) {
             throw new DocumentError(__('Document creation stopped', 'moloni-on'));
+        }
+
+        if ($this->documentType === DocumentTypes::BILLS_OF_LADING && empty($this->getGoodsLines())) {
+            throw new DocumentError(__('The order has no goods to transport, only services.', 'moloni-on'));
         }
 
         $keyString = '';
@@ -294,6 +304,11 @@ class Documents
         $orderTotal = ((float)$this->order->get_total() - (float)$this->order->get_total_refunded());
         $documentTotal = $this->getDocumentExchageTotal();
 
+        /** Services were left out of the bill of lading, so it can only match the goods value */
+        if ($this->documentType === DocumentTypes::BILLS_OF_LADING && !empty($this->serviceLines)) {
+            $orderTotal = $this->goodsTotal;
+        }
+
         if (abs($orderTotal - $documentTotal) > 0.01) {
             $note = __('Document inserted as a draft in Moloni ON', 'moloni-on');
             $note .= " (" . $this->documentTypeName . ")";
@@ -317,6 +332,11 @@ class Documents
                 'status' => DocumentStatus::CLOSED
             ]
         ];
+
+        /** The API validates the transport fields against the update payload, not the stored draft */
+        if ($this->documentType === DocumentTypes::BILLS_OF_LADING) {
+            $variables['data'] += $this->getDeliveryValues();
+        }
 
         try {
             switch ($this->documentType) {
@@ -484,24 +504,18 @@ class Documents
 
         if (!empty($this->products) && $this->shouldAddProducts()) {
             $variables['products'] = $this->products;
+
+            /** Services are not transported, keep only goods in bills of lading */
+            if ($this->documentType === DocumentTypes::BILLS_OF_LADING) {
+                $variables['products'] = $this->getGoodsLines();
+            }
         }
 
         if (!empty($this->payments) && $this->shouldAddPayment()) {
             $variables['payments'] = $this->payments;
         }
 
-        if (!empty($this->deliveryMethodId) && $this->shouldAddShippingInformation()) {
-            $variables['deliveryMethodId'] = $this->deliveryMethodId;
-            $variables['deliveryLoadDate'] = $this->deliveryLoadDate;
-            $variables['deliveryLoadAddress'] = $this->deliveryLoadAddress;
-            $variables['deliveryLoadCity'] = $this->deliveryLoadCity;
-            $variables['deliveryLoadZipCode'] = $this->deliveryLoadZipCode;
-            $variables['deliveryLoadCountryId'] = (int)$this->deliveryLoadCountryId;
-            $variables['deliveryUnloadAddress'] = $this->deliveryUnloadAddress;
-            $variables['deliveryUnloadCity'] = $this->deliveryUnloadCity;
-            $variables['deliveryUnloadZipCode'] = $this->deliveryUnloadZipCode;
-            $variables['deliveryUnloadCountryId'] = (int)$this->deliveryUnloadCountryId;
-        }
+        $variables += $this->getDeliveryValues();
 
         if (!empty($this->currencyExchangeId)) {
             $variables['currencyExchangeId'] = $this->currencyExchangeId;
@@ -523,30 +537,25 @@ class Documents
                 /** Associate products from both documents */
                 if (!empty($related['products']) && !empty($variables['products'])) {
                     /**
-                     * If multiple documents are associated, the need a global product counter
-                     * Starts in -1 because the first thing we do is to increment its value
+                     * The related document lines are an ordered subset of ours (e.g. a bill of lading without the services),
+                     * so walk our lines forward until the ids match (beware if tring to do custom stuff)
                      */
-                    $currentProductIndex = -1;
+                    $currentProductIndex = 0;
+                    $productsCount = count($variables['products']);
 
-                    /**
-                     * Associate products from both documents
-                     * We assume that the order of the documents is the same (beware if tring to do custom stuff)
-                     */
                     foreach ($related['products'] as $associatedProduct) {
-                        $currentProductIndex++;
-
-                        /** To avoid errors, check lenght */
-                        if (!isset($variables['products'][$currentProductIndex])) {
-                            continue;
+                        while ($currentProductIndex < $productsCount
+                            && (int)$variables['products'][$currentProductIndex]['productId'] !== (int)$associatedProduct['productId']) {
+                            $currentProductIndex++;
                         }
 
-                        /** Ids have to match */
-                        if ((int)$variables['products'][$currentProductIndex]['productId'] !== (int)$associatedProduct['productId']) {
-                            continue;
+                        if ($currentProductIndex >= $productsCount) {
+                            break;
                         }
 
                         $variables['products'][$currentProductIndex]['relatedDocumentId'] = (int)$related['documentId'];
                         $variables['products'][$currentProductIndex]['relatedDocumentProductId'] = (int)$associatedProduct['documentProductId'];
+                        $currentProductIndex++;
                     }
                 }
             }
@@ -606,6 +615,41 @@ class Documents
     public function getDocumentProducts(): array
     {
         return $this->document['products'] ?? [];
+    }
+
+    /**
+     * Get document delivery values, if the document carries shipping information
+     *
+     * @return array
+     */
+    private function getDeliveryValues(): array
+    {
+        if (empty($this->deliveryMethodId) || !$this->shouldAddShippingInformation()) {
+            return [];
+        }
+
+        return [
+            'deliveryMethodId' => $this->deliveryMethodId,
+            'deliveryLoadDate' => $this->deliveryLoadDate,
+            'deliveryLoadAddress' => $this->deliveryLoadAddress,
+            'deliveryLoadCity' => $this->deliveryLoadCity,
+            'deliveryLoadZipCode' => $this->deliveryLoadZipCode,
+            'deliveryLoadCountryId' => (int)$this->deliveryLoadCountryId,
+            'deliveryUnloadAddress' => $this->deliveryUnloadAddress,
+            'deliveryUnloadCity' => $this->deliveryUnloadCity,
+            'deliveryUnloadZipCode' => $this->deliveryUnloadZipCode,
+            'deliveryUnloadCountryId' => (int)$this->deliveryUnloadCountryId,
+        ];
+    }
+
+    /**
+     * Get the lines that are goods (not services)
+     *
+     * @return array
+     */
+    public function getGoodsLines(): array
+    {
+        return array_values(array_diff_key($this->products, array_flip($this->serviceLines)));
     }
 
     //          SETS          //
@@ -833,6 +877,12 @@ class Documents
             $newOrderProduct->create();
 
             if ($newOrderProduct->getQty() > 0) {
+                if ($newOrderProduct->isService()) {
+                    $this->serviceLines[] = count($this->products);
+                } else {
+                    $this->goodsTotal += $newOrderProduct->getOrderTotal();
+                }
+
                 $this->products[] = $newOrderProduct->mapPropsToValues();
             }
         }
@@ -854,6 +904,7 @@ class Documents
             $newOrderShipping->create();
 
             if ($newOrderShipping->getPrice() > 0) {
+                $this->serviceLines[] = count($this->products);
                 $this->products[] = $newOrderShipping->mapPropsToValues();
             }
         }
@@ -876,6 +927,7 @@ class Documents
 
             if ($feePrice > 0) {
                 $newOrderFee = new OrderFees($item, count($this->products), $this->fiscalZone);
+                $this->serviceLines[] = count($this->products);
                 $this->products[] = $newOrderFee->create()->mapPropsToValues();
             }
         }

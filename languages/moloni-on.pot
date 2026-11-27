@@ -432,6 +432,10 @@ msgstr ""
 msgid "Document creation stopped"
 msgstr ""
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php:205
+msgid "The order has no goods to transport, only services."
+msgstr ""
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Emails/DocumentFailed.php:13
 msgid "Document Error Email Template."
 msgstr ""

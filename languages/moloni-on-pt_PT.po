@@ -460,6 +460,10 @@ msgstr "Documento - Isenções"
 msgid "Document creation stopped"
 msgstr "A criação do documento foi interrompida"
 
+#: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Controllers/Documents.php:205
+msgid "The order has no goods to transport, only services."
+msgstr "A encomenda não tem bens para transportar, apenas serviços."
+
 #: /bitnami/wordpress/wp-content/plugins/moloni-on/src/Templates/Emails/DocumentFailed.php:13
 msgid "Document Error Email Template."
 msgstr "Modelo de e-mail de erro de documento."
