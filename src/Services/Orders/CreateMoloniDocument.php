@@ -59,32 +59,25 @@ class CreateMoloniDocument
 
         $company = Context::company()->getAll();
 
-        if ($this->shouldCreateBillOfLading()) {
-            $billOfLading = new Documents($this->order, $company);
+        $builder = new Documents($this->order, $company);
+
+        /** A bill of lading only carries goods, skip it when the order only has services */
+        if ($this->shouldCreateBillOfLading() && !empty($builder->getGoodsLines())) {
+            $billOfLading = clone $builder;
             $billOfLading
                 ->setDocumentType(DocumentTypes::BILLS_OF_LADING)
                 ->setDocumentStatus(DocumentStatus::CLOSED)
                 ->setSendEmail(Boolean::NO)
                 ->setShippingInformation(Boolean::YES)
                 ->createDocument();
-        }
 
-        if (isset($billOfLading)) {
-            $builder = clone $billOfLading;
-
-            $builder
-                ->setDocumentStatus()
-                ->setSendEmail()
-                ->setShippingInformation()
-                ->addRelatedDocument(
-                    $billOfLading->getDocumentId(),
-                    $billOfLading->getDocumentTotal(),
-                    $billOfLading->getDocumentProducts()
-                );
+            $builder->addRelatedDocument(
+                $billOfLading->getDocumentId(),
+                $billOfLading->getDocumentTotal(),
+                $billOfLading->getDocumentProducts()
+            );
 
             unset($billOfLading);
-        } else {
-            $builder = new Documents($this->order, $company);
         }
 
         $this->documentId = $builder
